@@ -1,6 +1,6 @@
 # Epitran
 
-A library and tool for transcribing orthographic text as IPA (International Phonetic Alphabet).
+A library and tool for transliterating orthographic text as IPA (International Phonetic Alphabet).
 
 ## Usage
 
@@ -27,5 +27,23 @@ The `Epitran` class has only one "public" method (to the extent that such a conc
 
 **transliterate**(text):
 Convert `text` (in orthography of the language specified in the constructor) to IPA, which is returned.
+
+```
+>>> epi.transliterate(u'Düğün')
+u'd\xfc\u011f\xfcn'
+>>> print(epi.transliterate(u'Düğün'))
+düğün
+```
+
+## Currently Supported Languages
+
+| Code     | Language   |
+|----------|------------|
+| hau-Latn | Hausa      |
+| ind-Latn | Indonesian |
+| jav-Latn | Javanese   |
+| tur-Latn | Turkish    |
+| yor-Latn | Yoruba     |
+
 
 ## Possible Pipelines
