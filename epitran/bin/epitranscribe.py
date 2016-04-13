@@ -6,6 +6,7 @@ import unicodedata
 import epitran
 import argparse
 
+
 def main(code):
     epi = epitran.Epitran(code)
     for line in sys.stdin:
@@ -14,6 +15,7 @@ def main(code):
         line = epi.transliterate(line)
         line = line.encode('utf-8')
         sys.stdout.write(line)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
