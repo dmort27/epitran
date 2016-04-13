@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import sys
 import unicodedata
 import pkg_resources
+import os.path
 from collections import defaultdict
 import unicodecsv as csv
 import regex as re
@@ -10,16 +12,16 @@ import regex as re
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
     def __init__(self, code):
-        self.g2p = self.load_g2p_map(code)
-        self.regexp = self.construct_regex()
+        self.g2p = self._load_g2p_map(code)
+        self.regexp = self._construct_regex()
 
-    def load_g2p_map(self, code):
+    def _load_g2p_map(self, code):
         """Load the code table for the specified language.
 
         code -- ISO 639-3 code for the language to be loaded
         """
         g2p = defaultdict(list)
-        path = 'data/' + code + '.csv'
+        path = os.path.join('data', code + '.csv')
         path = pkg_resources.resource_filename(__name__, path)
         try:
             with open(path, 'rb') as f:
@@ -34,7 +36,7 @@ class Epitran(object):
             print(u'Add an appropriately-named mapping to the data folder.')
         return g2p
 
-    def construct_regex(self):
+    def _construct_regex(self):
         """Build a regular expression that will greadily match segments from
            the mapping table.
         """
