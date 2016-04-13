@@ -28,4 +28,4 @@ The `Epitran` class has only one "public" method (to the extent that such a conc
 **transliterate**(text):
 Convert `text` (in orthography of the language specified in the constructor) to IPA, which is returned.
 
-## Piplines
+## Possible Piplines
