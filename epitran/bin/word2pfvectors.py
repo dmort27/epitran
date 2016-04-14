@@ -7,11 +7,18 @@ import fileinput
 import panphon
 
 
+def vec2bin(vec):
+    return ''.join(map(lambda x: '1' if x == '+' else '0', vec))
+
+
 def token2vectors(ft, token):
     if ft.filter_string(token) == token:
-        for vector in ft.word_to_vector_list(token):
-            pass
-        return ''
+        vectors = []
+        for seg in ft.segs(token):
+            id_num = ft.seg_seq[seg]
+            vec = vec2bin(ft.segment_to_vector(seg))
+            vectors.append('{}:{}'.format(id_num, vec))
+        return ','.join(vectors)
     else:
         return ''
 
