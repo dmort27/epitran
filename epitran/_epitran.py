@@ -54,5 +54,5 @@ class Epitran(object):
             else:
                 print('Cannot match "{}"!'.format(m.group(0)), file=sys.stderr)
                 return m.group(0)
-        text = text.lower()
+        text = unicodedata.normalize('NFD', text.lower())
         return self.regexp.sub(trans, text)
