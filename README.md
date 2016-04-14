@@ -64,7 +64,7 @@ $ detectcaps.py < data.txt | epitranscribe.py 'tur-Latn' | word2pfvectors.py
 0       13:001000001001001000000,115:110100001000000011010,102:010100001000000100000,99:011100001001100000000,115:110100001000000011010,82:011000101001001000000
 0       7:001000001000000100000,116:110100001000000000010,106:011101001001100000000,117:110100001000000100010,99:011100001001100000000
 ```
-These scripts may be more useful in understanding the use of **Epitran**, in conjunction with **PanPhon**, than in an actual production pipeline.
+These scripts may be more useful in understanding the use of **Epitran**, in conjunction with [**PanPhon**](https://pypi.python.org/pypi/panphon/0.2), than in an actual production pipeline.
 
 ### JSON
 
