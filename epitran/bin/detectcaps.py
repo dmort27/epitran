@@ -10,11 +10,13 @@ def main():
     for line in fileinput.input():
         line = line.decode('utf-8')
         token = line.strip()
-        if len(token) > 0 and unicodedata.category(token[0]) == 'Lu':
-            is_upper = 1
+        if len(token) > 1 and unicodedata.category(token[1]) == 'Lu':
+            is_cap = 0
+        elif len(token) > 0 and unicodedata.category(token[0]) == 'Lu':
+            is_cap = 1
         else:
-            is_upper = 0
-        line = u'{}\t{}'.format(is_upper, token)
+            is_cap = 0
+        line = u'{}\t{}'.format(is_cap, token)
         line = line.encode('utf-8')
         print(line)
 
