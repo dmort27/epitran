@@ -37,13 +37,15 @@ düğün
 
 ## Currently Supported Languages
 
-| Code     | Language   |
-|----------|------------|
-| hau-Latn | Hausa      |
-| ind-Latn | Indonesian |
-| jav-Latn | Javanese   |
-| tur-Latn | Turkish    |
-| yor-Latn | Yoruba     |
+| Code     | Language         |
+|----------|------------------|
+| hau-Latn | Hausa            |
+| ind-Latn | Indonesian       |
+| jav-Latn | Javanese         |
+| tur-Latn | Turkish          |
+| yor-Latn | Yoruba           |
+| uzb-Cyrl | Uzbek (Cyrillic) |
+| uzb-Latn | Uzbek (Latin)    |
 
 
 ## Possible Pipelines
