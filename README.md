@@ -10,7 +10,7 @@ The principle script for transliterating orthographic text as IPA is `epitranscr
 $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn"
 dyɰyn oluɾ bajɾam ɟeliɾ
 $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
-```
+
 
 Additionally, the small Python module ```epitran``` can be used to easily write more sophisticated Python programs for deploying the **Epitran** mapping tables. This is documented below.
 
