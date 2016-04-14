@@ -5,11 +5,12 @@ import sys
 import unicodedata
 import epitran
 import argparse
+import fileinput
 
 
 def main(code):
     epi = epitran.Epitran(code)
-    for line in sys.stdin:
+    for line in fileinput.input():
         line = line.decode('utf-8')
         line = unicodedata.normalize('NFD', line.lower())
         line = epi.transliterate(line)
