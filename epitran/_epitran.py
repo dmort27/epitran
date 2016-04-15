@@ -17,6 +17,7 @@ class Epitran(object):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
         self.ft = panphon.FeatureTable()
+        self.num_panphon_fts = len(self.ft.names)
 
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
@@ -75,26 +76,45 @@ class Epitran(object):
                 text = text[1:]
         return pairs
 
-    def case_trans_tuples(self, text):
+    def case_cat_graph_phon_tuples(self, text):
         def detect_case(span):
             cat_0, case_0 = tuple(unicodedata.category(span[0]))
             return 1 if case_0 == 'u' else 0
-        word = self.robust_trans_pairs(text)
-        return [(detect_case(graph), graph, phon) for (graph, phon) in word]
 
-    def vector_trans_tuples(self, text):
+        def detect_cat(span):
+            cat_0, case_0 = tuple(unicodedata.category(span[0]))
+            return cat_0
+
+        word = self.robust_trans_pairs(text)
+        return [(detect_case(graph), detect_cat(graph), graph, phon) for (graph, phon) in word]
+
+    def plus_vector_tuples(self, text):
+        def recode_ft(ft):
+            if ft == '+':
+                return 1
+            elif ft == '0':
+                return 0
+            elif ft == '-':
+                return -1
+
         def vec2bin(vec):
-            return ''.join(map(lambda x: '1' if x == '+' else '0', vec))
+            return map(recode_ft, vec)
 
         def to_vector(seg):
-            return (self.ft.seg_seq[seg],
-                    vec2bin(self.ft.segment_to_vector(seg)))
+            return self.ft.seg_seq[seg], vec2bin(self.ft.segment_to_vector(seg))
 
         def to_vectors(phon):
-            if self.ft.filter_string(phon) != phon:
-                return []
+            if phon == '':
+                return [(-1, [0] * self.num_panphon_fts)]
             else:
                 return [to_vector(seg) for seg in self.ft.segs(phon)]
 
-        word = self.case_trans_tuples(text)
-        return [(case, graph, phon, to_vectors(phon)) for (case, graph, phon) in word]
+        word = self.case_cat_graph_phon_tuples(text)
+        return [(case, cat, graph, phon, to_vectors(phon)) for (case, cat, graph, phon) in word]
+
+    def word_to_pfvector(self, word):
+        segs = []
+        for case, cat, graph, phon, vectors in self.plus_vector_tuples(word):
+            for id_, vector in vectors:
+                segs.append((cat, case, phon, id_, vector))
+        return segs
