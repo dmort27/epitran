@@ -44,7 +44,7 @@ class Epitran(object):
            the mapping table.
         """
         graphemes = sorted(self.g2p.keys(), key=len, reverse=True)
-        print(graphemes)
+        #  print(graphemes)
         return re.compile(ur'({})'.format(ur'|'.join(graphemes)), re.I)
 
     def transliterate(self, text):
@@ -64,7 +64,7 @@ class Epitran(object):
     def robust_trans_pairs(self, text):
         pairs = []
         while text:
-            print(text)
+            # print(text)
             match = self.regexp.match(text)
             if match:
                 span = match.group(0)
