@@ -23,10 +23,10 @@ The functionality in the `epitran` module is encapsulated in the very simple `Ep
 >>> epi = epitran.Epitran('tur-Latn')
 ```
 
-The `Epitran` class has only one "public" method (to the extent that such a concept exists in Python): the `transliterate` method:
+The `Epitran` class has only a few "public" method (to the extent that such a concept exists in Python). The most important are ``transliterate`` and ``word_to_pfvector``:
 
 **transliterate**(text):
-Convert `text` (in orthography of the language specified in the constructor) to IPA, which is returned.
+Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned.
 
 ```
 >>> epi.transliterate(u'Düğün')
@@ -34,6 +34,19 @@ u'd\xfc\u011f\xfcn'
 >>> print(epi.transliterate(u'Düğün'))
 düğün
 ```
+
+**word_to_pfvector**(word):
+Takes a `word` (a Unicode string) in a supported orthography as input and returns a list of tuples with each tuple corresponding to an IPA segment of the word. The tuples have the following structure:
+```
+(
+    character_category :: String,
+    is_upper :: Integer,
+    phonetic_form :: Unicode String,
+    id_in_unicode_ipa_space :: Integer,
+    phonological_feature_vector :: List<Integer>
+)
+```
+This structure is likely to change in subsequent versions of the library.
 
 ## Currently Supported Languages
 
