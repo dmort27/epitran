@@ -46,7 +46,7 @@ Takes a `word` (a Unicode string) in a supported orthography as input and return
     phonological_feature_vector :: List<Integer>
 )
 ```
-The codes for `character_category` are from the initial characters of the two character sequences listed in the "General Category" codes found in [Chapter 4 of the Unicode Standard](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153). For example, "L" corresponds to letters and "P" corresponds to production marks. This structure is likely to change in subsequent versions of the library. Here is an example of an interaction with it:
+The codes for `character_category` are from the initial characters of the two character sequences listed in the "General Category" codes found in [Chapter 4 of the Unicode Standard](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153). For example, "L" corresponds to letters and "P" corresponds to production marks. The above data structure is likely to change in subsequent versions of the library. Here is an example of an interaction with it:
 
 ```
 >>> import epitran
