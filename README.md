@@ -18,10 +18,10 @@ Additionally, the small Python module ```epitran``` can be used to easily write 
 
 The functionality in the `epitran` module is encapsulated in the very simple `Epitran` class. Its constructor takes one argument, `code`, the ISO 639-3 code of the language to be transliterated plus a hyphen plus a four letter code for the script (e.g. 'Latn' for Latin script, 'Cyrl' for Cyrillic script, and 'Arab' for a Person-Arabic script).
 
-
+```
 >>> import epitran
 >>> epi = epitran.Epitran('tur-Latn')
-
+```
 
 The `Epitran` class has only a few "public" method (to the extent that such a concept exists in Python). The most important are ``transliterate`` and ``word_to_pfvector``:
 
