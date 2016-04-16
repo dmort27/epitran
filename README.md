@@ -10,7 +10,7 @@ The principle script for transliterating orthographic text as IPA is `epitranscr
 $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn"
 dyɰyn oluɾ bajɾam ɟeliɾ
 $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
-
+```
 
 Additionally, the small Python module ```epitran``` can be used to easily write more sophisticated Python programs for deploying the **Epitran** mapping tables. This is documented below.
 
@@ -18,22 +18,22 @@ Additionally, the small Python module ```epitran``` can be used to easily write 
 
 The functionality in the `epitran` module is encapsulated in the very simple `Epitran` class. Its constructor takes one argument, `code`, the ISO 639-3 code of the language to be transliterated plus a hyphen plus a four letter code for the script (e.g. 'Latn' for Latin script, 'Cyrl' for Cyrillic script, and 'Arab' for a Person-Arabic script).
 
-```
+
 >>> import epitran
 >>> epi = epitran.Epitran('tur-Latn')
-```
+
 
 The `Epitran` class has only a few "public" method (to the extent that such a concept exists in Python). The most important are ``transliterate`` and ``word_to_pfvector``:
 
 **transliterate**(text):
 Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned.
 
-```
+
 >>> epi.transliterate(u'Düğün')
 u'd\xfc\u011f\xfcn'
 >>> print(epi.transliterate(u'Düğün'))
 düğün
-```
+
 
 **word_to_pfvector**(word):
 Takes a `word` (a Unicode string) in a supported orthography as input and returns a list of tuples with each tuple corresponding to an IPA segment of the word. The tuples have the following structure:
