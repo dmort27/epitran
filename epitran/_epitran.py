@@ -63,6 +63,7 @@ class Epitran(object):
         return self.regexp.sub(trans, text)
 
     def robust_trans_pairs(self, text):
+        """Given noisy orthographic text returns <orth, ipa> pairs."""
         pairs = []
         while text:
             # print(text)
@@ -77,6 +78,13 @@ class Epitran(object):
         return pairs
 
     def case_cat_graph_phon_tuples(self, text):
+        """Given noisy orthographic text, returns richer tuple than
+           self.robust_trans_pairs.
+
+        text -- Unicode string representing a word in the orthography specified
+                when the class is instantiated.
+        return -- A <lettercase, category, orth_text, phonetic_form> tuple.
+        """
         def detect_case(span):
             cat_0, case_0 = tuple(unicodedata.category(span[0]))
             return 1 if case_0 == 'u' else 0
@@ -89,6 +97,7 @@ class Epitran(object):
         return [(detect_case(graph), detect_cat(graph), graph, phon) for (graph, phon) in word]
 
     def plus_vector_tuples(self, text):
+        """Given noisy orthographic text, returns richer tuple than previous."""
         def recode_ft(ft):
             if ft == '+':
                 return 1
