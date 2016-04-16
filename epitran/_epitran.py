@@ -113,6 +113,16 @@ class Epitran(object):
         return [(case, cat, graph, phon, to_vectors(phon)) for (case, cat, graph, phon) in word]
 
     def word_to_pfvector(self, word):
+        """Given an orthographic word, returns a phonological feature vector.
+
+        word -- Unicode string representing a word in the orthography specified
+                when the class is instantiated.
+        return -- a list of tuples (each representing an IPA segment) consisting
+                  of <category, lettercase, phonetic_form, ipa_id, vector> where
+                  vector is a list of {-1, 0, 1} where -1 represents "-", 0
+                  represents "0", and 1 represents "+". Non-letter characters
+                  are represented as a sequence of 0s.
+        """
         segs = []
         for case, cat, graph, phon, vectors in self.plus_vector_tuples(word):
             for id_, vector in vectors:
