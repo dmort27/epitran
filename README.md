@@ -28,12 +28,12 @@ The `Epitran` class has only a few "public" method (to the extent that such a co
 **transliterate**(text):
 Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned.
 
-
+```
 >>> epi.transliterate(u'Düğün')
 u'd\xfc\u011f\xfcn'
 >>> print(epi.transliterate(u'Düğün'))
 düğün
-
+```
 
 **word_to_pfvector**(word):
 Takes a `word` (a Unicode string) in a supported orthography as input and returns a list of tuples with each tuple corresponding to an IPA segment of the word. The tuples have the following structure:
@@ -46,7 +46,14 @@ Takes a `word` (a Unicode string) in a supported orthography as input and return
     phonological_feature_vector :: List<Integer>
 )
 ```
-This structure is likely to change in subsequent versions of the library.
+The codes for `character_category` are from the initial characters of the two character sequences listed in the "General Category" codes found in [Chapter 4 of the Unicode Standard](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153). For example, "L" corresponds to letters and "P" corresponds to production marks. This structure is likely to change in subsequent versions of the library. Here is an example of an interaction with it:
+
+```
+>>> import epitran
+>>> epi = epitran.Epitran('tur-Latn')
+>>> epi.word_to_pfvector(u'Düğün')
+[('L', 1, u'd', 15, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), ('L', 0, '', -1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), ('L', 0, '', -1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), ('L', 0, '', -1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), ('L', 0, u'n', 83, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]
+```
 
 ## Currently Supported Languages
 
