@@ -6,6 +6,7 @@ import panphon
 import codecs
 from collections import Counter
 
+
 def add_file(epi, ft, fn):
     space = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
