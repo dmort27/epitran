@@ -137,3 +137,6 @@ class Epitran(object):
             for id_, vector in vectors:
                 segs.append((cat, case, phon, id_, vector))
         return segs
+
+    def ipa_segs(self, ipa):
+        return self.ft.segs(ipa)
