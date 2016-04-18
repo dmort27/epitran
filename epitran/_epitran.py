@@ -43,7 +43,7 @@ class Epitran(object):
 
     def _load_punc_norm_map(self):
         """Load the map table for normalizing 'down' punctuation."""
-        path = pkg_resources.resource_filename(__name__, 'puncnorm.csv')
+        path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
         with open(path, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             reader.next()
@@ -95,7 +95,7 @@ class Epitran(object):
         return -- A <lettercase, category, orth_text, phonetic_form> tuple.
         """
         def detect_case(span):
-            cat_0, case_0 = tuple(unicodedata.category(span[0]))
+            cat_0, case_0 = t_load_norm_punc_mapuple(unicodedata.category(span[0]))
             return 1 if case_0 == 'u' else 0
 
         def detect_cat(span):
