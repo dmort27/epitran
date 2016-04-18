@@ -13,9 +13,10 @@ import panphon
 
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
-    def __init__(self, code):
+    def __init__(self, code, normpunc=False):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
+        self.puncnorm = self._load_punc_norm_map()
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
 
@@ -39,6 +40,14 @@ class Epitran(object):
             print(u'Unknown language.')
             print(u'Add an appropriately-named mapping to the data folder.')
         return g2p
+
+    def _load_punc_norm_map(self):
+        """Load the map table for normalizing 'down' punctuation."""
+        path = pkg_resources.resource_filename(__name__, 'puncnorm.csv')
+        with open(path, 'rb') as f:
+            reader = csv.reader(f, encoding='utf-8')
+            reader.next()
+            return {punc: norm for (punc, norm) in reader}
 
     def _construct_regex(self):
         """Build a regular expression that will greadily match segments from
