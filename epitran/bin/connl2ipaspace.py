@@ -2,26 +2,29 @@
 
 import argparse
 import epitran
+import panphon
 import codecs
 from collections import Counter
 
-
-def add_file(epi, fn):
+def add_file(epi, ft, fn):
     space = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
             fields = line.split(u'\t')
             if len(fields) == 2:
                 orth, tag = fields
-                try:
-                    ipa = epi.transliterate(orth)
-                    segs = epi.ipa_segs(ipa)
-                    for s in segs:
-                        space[s] += 1
-                except KeyError:
-                    ipa = orth
-                    for c in ipa:
-                        space[c] += 1
+                trans = epi.transliterate(orth)
+                while trans:
+                    pref = ft.longest_one_seg_prefix(trans)
+                    if pref != '':
+                        space[pref] += 1
+                        trans = trans[len(pref):]
+                    else:
+                        if trans[0] in epi.puncnorm:
+                            space[epi.puncnorm[trans[0]]] += 1
+                        else:
+                            space[trans[0]] += 1
+                        trans = trans[1:]
     return space
 
 
@@ -34,9 +37,10 @@ def print_space(space):
 
 def main(code, infiles):
     epi = epitran.Epitran(code)
+    ft = panphon.FeatureTable()
     space = Counter()
     for fn in infiles:
-        space.update(add_file(epi, fn))
+        space.update(add_file(epi, ft, fn))
     print_space(space)
 
 
