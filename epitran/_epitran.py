@@ -17,6 +17,7 @@ class Epitran(object):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
         self.puncnorm = self._load_punc_norm_map()
+        self.puncnorm_vals = self.puncnorm.values()
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
 
