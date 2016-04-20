@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(name='epitran',
       version='0.0',
-      description='Tools for transcribing languages written with Latin script to IPA, complementary to Unitran.',
+      description='Tools for transcribing languages into IPA.',
       url='http://www.davidmortensen.org/epitran',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
