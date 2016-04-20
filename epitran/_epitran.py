@@ -13,7 +13,7 @@ import panphon
 
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
-    def __init__(self, code, normpunc=False):
+    def __init__(self, code):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
         self.puncnorm = self._load_punc_norm_map()
