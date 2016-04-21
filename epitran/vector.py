@@ -1,6 +1,4 @@
-from __future__ import print_command
-
-from _epitran import *
+from _epitran import Epitran
 import os.path
 import pkg_resources
 import unicodecsv as csv
@@ -19,13 +17,22 @@ class VectorWithIPASpace(object):
             return {seg: num for (num, seg) in reader}
 
     def word_to_pfvecter(self, word):
-        segs = self.epi.word_to_pfvector(word)
+        """Returns feature vectors, etc. for segments and punctuation in a word.
+
+        word -- Unicode string representing a word in the orthography specified
+                when the class is instantiated.
+        return -- a list of tuples, each representing an IPA segment or a
+                  punctuation character. Tuples consist of <category, lettercase,
+                  orthographic_form, phonetic_form, feature_vector>.
+        """
+        segs = self.epi.plus_vector_tuples(word)
         new_segs = []
-        for category, lettercase, phonetic_form, ipa_id, vector in segs:
-            ipa_id = self.space[phonetic_form]
-            new_segs.append((category,
-                            letteracase,
-                            phonetic_form,
-                            ipa_id,
-                            vector))
+        for case, cat, orth, phon, vec in segs:
+            if phon:
+                id_ = self.space[phon]
+            else:
+                if orth in self.epi.puncnorm:
+                    orth = self.epi.puncnorm[orth]
+                id_ = self.space[orth]
+            new_segs.append((cat, case, orth, phon, id_, vec))
         return new_segs
