@@ -6,6 +6,7 @@ import argparse
 import codecs
 import epitran.vector
 
+
 def main(code, space, infile):
     vec = epitran.vector.VectorWithIPASpace(code, space)
     with codecs.open(infile, 'r', 'utf-8') as f:
@@ -19,6 +20,7 @@ def main(code, space, infile):
                 print("Orthographic: {}".format(orth))
                 print("Phonetic: {}".format(phon))
                 print("Vector: {}".format(vec))
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
