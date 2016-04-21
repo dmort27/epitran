@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 import argparse
-import epitran
-import panphon
 import codecs
 from collections import Counter
+
+import epitran
+import panphon
+import unicodecsv as csv
 
 
 def normpunc(epi, s):
@@ -45,10 +47,6 @@ def add_file_gen(epi, ft, fn):
     return space
 
 
-def add_record_op(epi, ft, fn):
-    pass
-
-
 def add_file_op(epi, ft, fn):
     space = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
@@ -71,30 +69,29 @@ def add_file_op(epi, ft, fn):
     return space
 
 
-def print_space(space):
-    print(u'"Index","Segment"'.encode('utf-8'))
-    pairs = enumerate(sorted(space.keys()))
-    for i, char in pairs:
-        char = char.replace('"', r'\"')
-        record = u'"{}","{}"'.format(i, char)
-        record = record.encode('utf-8')
-        print(record)
+def print_space(output, space):
+    pairs = enumerate(sorted(filter(lambda x: x, space.keys())))
+    with open(output, 'wb') as f:
+        writer = csv.writer(f, encoding='utf-8')
+        for i, char in pairs:
+            writer.writerow((i, char))
 
 
-def main(code, op, infiles):
+def main(code, op, infiles, output):
     epi = epitran.Epitran(code)
     ft = panphon.FeatureTable()
     space = Counter()
     for fn in infiles:
         add_file = add_file_op if op else add_file_gen
         space.update(add_file(epi, ft, fn))
-    print_space(space)
+    print_space(output, space)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--op', action='store_true', help='Script uses punctuation as (parts of) letters.')
     parser.add_argument('-c', '--code', help='Script code for CONNL files.')
+    parser.add_argument('-o', '--output', help='Output file.')
     parser.add_argument('infiles', nargs='+', help='CONLL files serving as basis for segment space.')
     args = parser.parse_args()
-    main(args.code, args.op, args.infiles)
+    main(args.code, args.op, args.infiles, args.output)
