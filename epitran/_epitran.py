@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import os.path
 import sys
 import unicodedata
-import pkg_resources
-import os.path
 from collections import defaultdict
-import unicodecsv as csv
-import regex as re
+
+import pkg_resources
+
 import panphon
+import regex as re
+import unicodecsv as csv
 
 
 class Epitran(object):
@@ -96,7 +98,7 @@ class Epitran(object):
         return -- A <lettercase, category, orth_text, phonetic_form> tuple.
         """
         def detect_case(span):
-            cat_0, case_0 = t_load_norm_punc_mapuple(unicodedata.category(span[0]))
+            cat_0, case_0 = tuple(unicodedata.category(span[0]))
             return 1 if case_0 == 'u' else 0
 
         def detect_cat(span):
