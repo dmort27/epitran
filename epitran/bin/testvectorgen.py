@@ -15,7 +15,7 @@ def main(code, space, infile):
             if len(fields) > 1:
                 word = fields[0]
                 print(u"WORD: {}".format(word))
-                segs = vec.word_to_pfvecter(word)
+                segs = vec.word_to_segs(word)
                 print(segs)
                 for record in segs:
                     cat, case, orth, phon, id_, vector = record
