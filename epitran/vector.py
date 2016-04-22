@@ -17,7 +17,7 @@ class VectorWithIPASpace(object):
             reader = csv.reader(f, encoding='utf-8')
             return {seg: num for (num, seg) in reader}
 
-    def word_to_pfvecter(self, word):
+    def word_to_segs(self, word):
         """Returns feature vectors, etc. for segments and punctuation in a word.
 
         word -- Unicode string representing a word in the orthography specified
