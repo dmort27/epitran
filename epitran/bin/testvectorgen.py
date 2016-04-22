@@ -14,12 +14,16 @@ def main(code, space, infile):
             fields = line.split('\t')
             if len(fields) > 1:
                 word = fields[0]
-                cat, case, orth, phon, vec = vec.word_to_pfvecter(word)
-                print("Category: {}".format(cat))
-                print("Case: {}".format(case))
-                print("Orthographic: {}".format(orth))
-                print("Phonetic: {}".format(phon))
-                print("Vector: {}".format(vec))
+                print(u"WORD: {}".format(word))
+                segs = vec.word_to_pfvecter(word)
+                print(segs)
+                for record in segs:
+                    cat, case, orth, phon, id_, vector = record
+                    print(u"Category: {}".format(cat))
+                    print(u"Case: {}".format(case))
+                    print(u"Orthographic: {}".format(orth))
+                    print(u"Phonetic: {}".format(phon))
+                    print(u"Vector: {}".format(vector))
 
 
 if __name__ == '__main__':
