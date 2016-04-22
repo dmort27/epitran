@@ -57,18 +57,39 @@ The codes for `character_category` are from the initial characters of the two ch
 
 ## Using the ```epitran.vector``` Module
 
-The ```epitran.vector``` module is also very simple. It contains one class, ```VectorWithIPASpace```, including one method of interest, ```word_to_segs```:
+The ```epitran.vector``` module is also very simple. It contains one class, ```VectorsWithIPASpace```, including one method of interest, ```word_to_segs```. The constructor for ```VectorsWithIPASpace``` takes two arguments:
+- ```code```: the language-script code for the language to be processed.
+- ```space```: the code for the punctuation/symbol/IPA space in which the characters/segments from the data are expected to reside. The available spaces are listed [below](#language-support).
 
 ```
 >>> import epitran.vector
->>> >>> vwis = epitran.vector.VectorWithIPASpace('uzb-Latn', 'uzb-with_attached_suffixes-space')
+>>> >>> vwis = epitran.vector.VectorsWithIPASpace('uzb-Latn', 'uzb-with_attached_suffixes-space')
 >>> vwis.word_to_segs(u'bugan')
 [('L', 0, u'b', u'b', 13, [-1, -1, 1, -1, -1, -1, -1, 0, 1, -1, -1, 1, -1, 0, 1, -1, -1, -1, -1, 0, -1]), ('L', 0, u'u', u'u', 119, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1]), ('L', 0, u'g', u'\u0261', 3, [-1, -1, 1, -1, -1, -1,
 -1, 0, 1, -1, -1, -1, -1, 0, -1, 1, -1, 1, -1, 0, -1]), ('L', 0, u'a', u'a', 115, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), ('L', 0, u'n', u'n', 83, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1
 ])]
 ```
+The returned data structure is a list of tuples, each with the following structure:
 
-## Language Support
+```
+(
+    character_category :: String,
+    is_upper :: Integer,
+    orthographic_form :: Unicode String,
+    phonetic_form :: Unicode String,
+    in_ipa_punc_space :: Integer,
+    phonological_feature_vector :: List<Integer>
+)
+```
+
+A few notes are in order regarding this data structure:
+- ```character_category``` is defined as part of the Unicode standard ([Chapter 4](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153)). It consists of a single, uppercase letter from the set {'L', 'M', 'N', 'P', 'S', 'Z', 'C'}.. The most frequent of these are 'L' (letter), 'N' (number), 'P' (punctuation), and 'Z' (separator [including separating white space]).
+- ```is_upper``` consists only of integers from the set {0, 1}, with 0 indicating lowercase and 1 indicating uppercase.
+- The integer in ```in_ipa_punc_space``` is an index to a list of known characters/segments such that, barring degenerate cases, each character or segment is assignmed a unique and globally consistant number. In cases where a character is encountered which is not in the known space, this field has the value -1.
+- The length of the list ```phonological_feature_vector``` should be constant for any instantiation of the class (it is based on the number of features defined in panphon) but is--in principles--variable. The integers in this list are drawn from the set {-1, 0, 1}, with -1 corresponding to '-', 0 corresponding to '0', and 1 corresponding to '+'. For characters with no IPA equivalent, all values in the list are 0.
+
+
+## <a name='language-support'></a>Language Support
 
 ### Transliteration Languages
 
