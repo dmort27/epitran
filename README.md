@@ -55,7 +55,22 @@ The codes for `character_category` are from the initial characters of the two ch
 [('L', 1, u'd', 15, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), ('L', 0, '', -1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), ('L', 0, '', -1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), ('L', 0, '', -1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), ('L', 0, u'n', 83, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]
 ```
 
-## Currently Supported Languages
+## Using the ```epitran.vector``` Module
+
+The ```epitran.vector``` module is also very simple. It contains one class, ```VectorWithIPASpace```, including one method of interest, ```word_to_segs```:
+
+```
+>>> import epitran.vector
+>>> >>> vwis = epitran.vector.VectorWithIPASpace('uzb-Latn', 'uzb-with_attached_suffixes-space')
+>>> vwis.word_to_segs(u'bugan')
+[('L', 0, u'b', u'b', 13, [-1, -1, 1, -1, -1, -1, -1, 0, 1, -1, -1, 1, -1, 0, 1, -1, -1, -1, -1, 0, -1]), ('L', 0, u'u', u'u', 119, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1]), ('L', 0, u'g', u'\u0261', 3, [-1, -1, 1, -1, -1, -1,
+-1, 0, 1, -1, -1, -1, -1, 0, -1, 1, -1, 1, -1, 0, -1]), ('L', 0, u'a', u'a', 115, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), ('L', 0, u'n', u'n', 83, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1
+])]
+```
+
+## Language Support
+
+### Transliteration Languages
 
 | Code     | Language         |
 |----------|------------------|
@@ -67,27 +82,10 @@ The codes for `character_category` are from the initial characters of the two ch
 | uzb-Cyrl | Uzbek (Cyrillic) |
 | uzb-Latn | Uzbek (Latin)    |
 
+### Language "Spaces"
 
-## Possible Pipelines
-
-### Text
-
-**Epitran** is distributed with a few auxiliary scripts in addition `epitranscribe.py`:
-
-- `detectcaps.py`:  Reads a list of word-length tokens (one per line from STDIN) and outputs (to STDOUT) a tab-delimited file in which the first column indicates capitalization (1 for capitalization, 0 for all-caps or initial lower case). The second column consists of the original word.
-- `word2pfvectors.py`: Reads a stream formatted like the output of `detectcaps.py` and writes its output to STDOUT. The first column is left untouched. The second column is replaced by a sequence of comma-delimited pairs, each of which consists of an integer (acting as a unique identifier for the corresponding IPA segment), a colon, and a sequence of 1s and 0s which represents the phonological feature values of the corresponding IPA segment.
-
-These scripts are meant to be piped together in the following fashion:
-```
-$ detectcaps.py < data.txt | epitranscribe.py 'tur-Latn' | word2pfvectors.py
-1       15:001000001001100000000,120:110100001000001100110,87:010100001000000100010,120:110100001000001100110,83:011000101001100000000
-0       15:001000001001100000000,120:110100001000001100110,87:010100001000000100010,120:110100001000001100110,83:011000101001100000000
-0       118:110100001000000001110,106:011101001001100000000,119:110100001000001101110,99:011100001001100000000
-0       13:001000001001001000000,115:110100001000000011010,102:010100001000000100000,99:011100001001100000000,115:110100001000000011010,82:011000101001001000000
-0       7:001000001000000100000,116:110100001000000000010,106:011101001001100000000,117:110100001000000100010,99:011100001001100000000
-```
-These scripts may be more useful in understanding the use of **Epitran**, in conjunction with [**PanPhon**](https://pypi.python.org/pypi/panphon/0.2), than in an actual production pipeline.
-
-### JSON
-
-A more practical pipeline (using a JSON dialect as a data format) is currently under development. Feedback on the data format is appreciated.
+| Code                                | Language | Note                                 |
+|-------------------------------------|----------|--------------------------------------|
+| tur-with_attached_suffixes-space    | Turkish  | Based on data with suffixes attached |
+| tur-without_attached_suffixes-space | Turkish  | Based on data with suffixes removed  |
+| uzb-with_attached_suffixes-space    | Uzbek    | Based on data with suffixes attached |
