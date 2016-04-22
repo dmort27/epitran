@@ -2,6 +2,7 @@ from _epitran import Epitran
 import os.path
 import pkg_resources
 import unicodecsv as csv
+import unicodedata
 
 
 class VectorWithIPASpace(object):
@@ -25,14 +26,19 @@ class VectorWithIPASpace(object):
                   punctuation character. Tuples consist of <category, lettercase,
                   orthographic_form, phonetic_form, feature_vector>.
         """
+        word = unicodedata.normalize('NFD', word)
         segs = self.epi.plus_vector_tuples(word)
         new_segs = []
-        for case, cat, orth, phon, vec in segs:
+        for case, cat, orth, phon, id_vec_list in segs:
             if phon:
                 id_ = self.space[phon]
             else:
                 if orth in self.epi.puncnorm:
                     orth = self.epi.puncnorm[orth]
-                id_ = self.space[orth]
-            new_segs.append((cat, case, orth, phon, id_, vec))
+                if orth in self.space:
+                    id_ = self.space[orth]
+                else:
+                    id_ = -1
+            for id_, vector in id_vec_list:
+                new_segs.append((cat, case, orth, phon, id_, vector))
         return new_segs
