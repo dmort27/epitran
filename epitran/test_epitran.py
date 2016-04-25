@@ -15,3 +15,11 @@ class TestTurkish(unittest.TestCase):
                  (u'otoparkın', u'otopaɾkɯn')]
         for orth, ipa in pairs:
             self.assertEqual(self.epi.transliterate(orth), ipa)
+
+
+    def test_transliterate_norm_punc(self):
+        pairs = [(u'Haziran\'da', u'haziɾan\'da'),
+                 (u'Hazeran’da', u'hazeɾan\'da'),
+                 (u'otoparkın', u'otopaɾkɯn')]
+        for orth, ipa in pairs:
+            self.assertEqual(self.epi.transliterate(orth, normpunc=True), ipa)
