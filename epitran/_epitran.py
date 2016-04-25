@@ -48,7 +48,7 @@ class Epitran(object):
         """Load the map table for normalizing 'down' punctuation."""
         path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
         with open(path, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+            reader = csv.reader(f, encoding='utf-8', delimiter=',', quotechar='"')
             reader.next()
             return {punc: norm for (punc, norm) in reader}
 
@@ -60,7 +60,16 @@ class Epitran(object):
         #  print(graphemes)
         return re.compile(ur'({})'.format(ur'|'.join(graphemes)), re.I)
 
-    def transliterate(self, text):
+    def normalize_punc(self, text):
+        new_text = []
+        for c in text:
+            if c in self.puncnorm:
+                new_text.append(self.puncnorm[c])
+            else:
+                new_text.append(c)
+        return ''.join(new_text)
+
+    def transliterate(self, text, normpunc=False):
         """Transliterate text from orthography to Unicode IPA.
 
         text -- The text to be transliterated
@@ -72,7 +81,9 @@ class Epitran(object):
                 print('Cannot match "{}"!'.format(m.group(0)), file=sys.stderr)
                 return m.group(0)
         text = unicodedata.normalize('NFD', text.lower())
-        return self.regexp.sub(trans, text)
+        text = self.regexp.sub(trans, text)
+        text = self.normalize_punc(text)
+        return text
 
     def robust_trans_pairs(self, text):
         """Given noisy orthographic text returns <orth, ipa> pairs."""
