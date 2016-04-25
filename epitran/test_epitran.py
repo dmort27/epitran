@@ -11,7 +11,7 @@ class TestTurkish(unittest.TestCase):
 
     def test_transliterate(self):
         pairs = [(u'Haziran\'da', u'haziɾan\'da'),
-                 (u'Hazeran’da', u'hazeɾan\'da'),
+                 (u'Hazeran’da', u'hazeɾan’da'),
                  (u'otoparkın', u'otopaɾkɯn')]
         for orth, ipa in pairs:
             self.assertEqual(self.epi.transliterate(orth), ipa)
