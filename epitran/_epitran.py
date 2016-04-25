@@ -82,7 +82,7 @@ class Epitran(object):
                 return m.group(0)
         text = unicodedata.normalize('NFD', text.lower())
         text = self.regexp.sub(trans, text)
-        text = self.normalize_punc(text)
+        text = self.normalize_punc(text) if normpunc else text
         return text
 
     def robust_trans_pairs(self, text):
