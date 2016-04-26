@@ -92,10 +92,14 @@ class Epitran(object):
             # print(text)
             match = self.regexp.match(text)
             if match:
+                # With span of letters corresponding to IPA segment, find IPA
+                # equivalent and add to pairs.
                 span = match.group(0)
                 pairs.append((span, self.transliterate(span)))
                 text = text[len(span):]
             else:
+                # With first character in text, append to pairs (paired with
+                # empty IPA equivalent).
                 pairs.append((text[0], ''))
                 text = text[1:]
         return pairs
