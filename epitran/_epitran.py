@@ -67,7 +67,7 @@ class Epitran(object):
                 new_text.append(self.puncnorm[c])
             else:
                 new_text.append(c)
-        return ''.join(new_text)
+        return u''.join(new_text)
 
     def transliterate(self, text, normpunc=False):
         """Transliterate text from orthography to Unicode IPA.
@@ -80,9 +80,16 @@ class Epitran(object):
             else:
                 print('Cannot match "{}"!'.format(m.group(0)), file=sys.stderr)
                 return m.group(0)
+
+        def normp(c):
+            if c in self.puncnorm:
+                return unicode(self.normalize_punc(c))
+            else:
+                return uncode(c)
+
         text = unicodedata.normalize('NFD', text.lower())
         text = self.regexp.sub(trans, text)
-        text = self.normalize_punc(text) if normpunc else text
+        text = ''.join([normp(c) for c in text])
         return text
 
     def robust_trans_pairs(self, text):
@@ -100,7 +107,7 @@ class Epitran(object):
             else:
                 # With first character in text, append to pairs (paired with
                 # empty IPA equivalent).
-                pairs.append((text[0], ''))
+                pairs.append((text[0], u''))
                 text = text[1:]
         return pairs
 
@@ -140,7 +147,7 @@ class Epitran(object):
             return self.ft.seg_seq[seg], vec2bin(self.ft.segment_to_vector(seg))
 
         def to_vectors(phon):
-            if phon == '':
+            if phon == u'':
                 return [(-1, [0] * self.num_panphon_fts)]
             else:
                 return [to_vector(seg) for seg in self.ft.segs(phon)]

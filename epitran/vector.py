@@ -39,6 +39,6 @@ class VectorsWithIPASpace(object):
                     id_ = self.space[orth]
                 else:
                     id_ = -1
-            for id_, vector in id_vec_list:
+            for _, vector in id_vec_list:
                 new_segs.append((cat, case, orth, phon, id_, vector))
         return new_segs
