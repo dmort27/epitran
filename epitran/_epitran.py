@@ -85,7 +85,7 @@ class Epitran(object):
             if c in self.puncnorm:
                 return unicode(self.normalize_punc(c))
             else:
-                return uncode(c)
+                return unicode(c)
 
         text = unicodedata.normalize('NFD', text.lower())
         text = self.regexp.sub(trans, text)
