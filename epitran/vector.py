@@ -27,9 +27,10 @@ class VectorsWithIPASpace(object):
                   orthographic_form, phonetic_form, feature_vector>.
         """
         word = unicodedata.normalize('NFD', word)
-        segs = self.epi.plus_vector_tuples(word)
+        # segs = self.epi.plus_vector_tuples(word)
+        segs = self.epi.word_to_tuples(word)
         new_segs = []
-        for case, cat, orth, phon, id_vec_list in segs:
+        for cat, case, orth, phon, id_vec_list in segs:
             if phon:
                 id_ = self.space[phon]
             else:
