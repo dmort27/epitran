@@ -95,6 +95,7 @@ class Epitran(object):
     def robust_trans_pairs(self, text):
         """Given noisy orthographic text returns <orth, ipa> pairs."""
         pairs = []
+        text = unicodedata.normalize('NFD', text)
         while text:
             # print(text)
             match = self.regexp.match(text)
@@ -107,31 +108,18 @@ class Epitran(object):
             else:
                 # With first character in text, append to pairs (paired with
                 # empty IPA equivalent).
-                pairs.append((text[0], u''))
+                c = text[0]
+                c = self.normalize_punc(c)
+                pairs.append((c, u''))
                 text = text[1:]
         return pairs
 
-    def case_cat_graph_phon_tuples(self, text):
-        """Given noisy orthographic text, returns richer tuple than
-           self.robust_trans_pairs.
+    def word_to_tuples(self, word):
+        def cat_and_cap(c):
+            cat, case = tuple(unicodedata.category(c))
+            case = 1 if case == 'u' else 0
+            return cat, case
 
-        text -- Unicode string representing a word in the orthography specified
-                when the class is instantiated.
-        return -- A <lettercase, category, orth_text, phonetic_form> tuple.
-        """
-        def detect_case(span):
-            cat_0, case_0 = tuple(unicodedata.category(span[0]))
-            return 1 if case_0 == 'u' else 0
-
-        def detect_cat(span):
-            cat_0, case_0 = tuple(unicodedata.category(span[0]))
-            return cat_0
-
-        word = self.robust_trans_pairs(text)
-        return [(detect_case(graph), detect_cat(graph), graph, phon) for (graph, phon) in word]
-
-    def plus_vector_tuples(self, text):
-        """Given noisy orthographic text, returns richer tuple than previous."""
         def recode_ft(ft):
             if ft == '+':
                 return 1
@@ -152,25 +140,26 @@ class Epitran(object):
             else:
                 return [to_vector(seg) for seg in self.ft.segs(phon)]
 
-        word = self.case_cat_graph_phon_tuples(text)
-        return [(case, cat, graph, phon, to_vectors(phon)) for (case, cat, graph, phon) in word]
-
-    def word_to_pfvector(self, word):
-        """Given an orthographic word, returns a phonological feature vector.
-
-        word -- Unicode string representing a word in the orthography specified
-                when the class is instantiated.
-        return -- a list of tuples (each representing an IPA segment) consisting
-                  of <category, lettercase, phonetic_form, ipa_id, vector> where
-                  vector is a list of {-1, 0, 1} where -1 represents "-", 0
-                  represents "0", and 1 represents "+". Non-letter characters
-                  are represented as a sequence of 0s.
-        """
-        segs = []
-        for case, cat, graph, phon, vectors in self.plus_vector_tuples(word):
-            for id_, vector in vectors:
-                segs.append((cat, case, phon, id_, vector))
-        return segs
+        tuples = []
+        word = unicodedata.normalize('NFD', word)
+        while word:
+            match = self.regexp.match(word)
+            if match:
+                span = match.group(1)
+                cat, case = cat_and_cap(span[0])
+                phon = self.g2p[span.lower()][0]
+                vecs = to_vectors(phon)
+                tuples.append((u'L', case, span, phon, vecs))
+                word = word[len(span):]
+            else:
+                span = word[0]
+                span = self.normalize_punc(span)
+                cat, case = cat_and_cap(span)
+                phon = u''
+                vecs = to_vectors(phon)
+                tuples.append((cat, case, span, phon, vecs))
+                word = word[1:]
+        return tuples
 
     def ipa_segs(self, ipa):
         return self.ft.segs(ipa)
