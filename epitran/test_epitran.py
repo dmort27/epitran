@@ -47,3 +47,4 @@ class TestTurkish(unittest.TestCase):
         self.assertEqual(self.epi.word_to_pfvector(u'’')[0][:2], (u'P', 0))
         self.assertEqual(self.epi.word_to_pfvector(u'‘')[0][:2], (u'P', 0))
         self.assertEqual(self.epi.word_to_pfvector(u'Hazeran’da')[7][:2], (u'P', 0))
+        self.assertEqual(self.epi.word_to_pfvector(u'Hazeran’da')[0][:2], (u'L', 1))
