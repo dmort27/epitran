@@ -118,7 +118,7 @@ class Epitran(object):
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))
             case = 1 if case == 'u' else 0
-            return cat, case
+            return unicode(cat), case
 
         def recode_ft(ft):
             if ft == '+':
