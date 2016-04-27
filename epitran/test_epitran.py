@@ -33,18 +33,8 @@ class TestTurkish(unittest.TestCase):
         self.assertEqual(self.epi.transliterate(u'‘', normpunc=True), u'\'')
 
     def test_robust_trans_pairs(self):
-        self.assertEqual(self.epi.robust_trans_pairs(u'’'), [(u'’', u'')])
+        self.assertEqual(self.epi.robust_trans_pairs(u'’'), [(u"'", u'')])
         self.assertEqual(self.epi.robust_trans_pairs(u'du’da'), [(u'd', u'd'), (u'u', u'u'), (u'’', u''), (u'd', u'd'), (u'a', u'a')])
 
-    def test_case_cat_graph_phon_tuples_cat(self):
-        self.assertEqual(self.epi.case_cat_graph_phon_tuples(u'\'')[0][1], u'P')
-        self.assertEqual(self.epi.case_cat_graph_phon_tuples(u'’')[0][1], u'P')
-        self.assertEqual(self.epi.case_cat_graph_phon_tuples(u'‘')[0][1], u'P')
-        self.assertEqual(self.epi.case_cat_graph_phon_tuples(u' ')[0][1], u'Z')
-        self.assertEqual(self.epi.case_cat_graph_phon_tuples(u'Buluk')[0][1], u'L')
-
-    def test_word_to_pfvector(self):
-        self.assertEqual(self.epi.word_to_pfvector(u'’')[0][:2], (u'P', 0))
-        self.assertEqual(self.epi.word_to_pfvector(u'‘')[0][:2], (u'P', 0))
-        self.assertEqual(self.epi.word_to_pfvector(u'Hazeran’da')[7][:2], (u'P', 0))
-        self.assertEqual(self.epi.word_to_pfvector(u'Hazeran’da')[0][:2], (u'L', 1))
+    def test_word_to_tuples(self):
+        self.assertEqual(self.epi.word_to_tuples(u'Hazeran’da')[0][:2], (u'L', 1))
