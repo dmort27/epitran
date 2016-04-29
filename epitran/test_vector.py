@@ -28,12 +28,12 @@ class TestTurkish(unittest.TestCase):
     def testPuncLike(self):
         punc_words = [u"ʼ"]
         for word in punc_words:
-            segs = self.vwis.word_to_segs(word)
+            segs = self.vwis.word_to_segs(word, normpunc=True)
             self.assertEqual(segs[0][0], u'P')
 
     def testHaziranda(self):
         word = u'Haziranʼda'
-        segs = self.vwis.word_to_segs(word)
+        segs = self.vwis.word_to_segs(word, normpunc=True)
         marks = [s[:4] for s in segs]
         correct = [(u'L', 1, u'H', u'h'),
                    (u'L', 0, u'a', u'a'),
@@ -50,7 +50,7 @@ class TestTurkish(unittest.TestCase):
 
     def testHazirandaPrime(self):
         word = u'Haziranʼda'
-        segs = self.vwis.word_to_segs(word)
+        segs = self.vwis.word_to_segs(word, normpunc=True)
         marks = [s[:4] for s in segs]
         correct = [(u'L', 1, u'H', u'h'),
                    (u'L', 0, u'a', u'a'),
@@ -83,14 +83,14 @@ class TestUzbek(unittest.TestCase):
         print(test)
         self.assertEqual(map_slice(test, 0, 4), target)
 
-    def testOzini(self):
+    def test_ozini(self):
         pass
-        target = [(u'L', 0, u'oʻ', u'o'),
+        target = [(u'L', 0, u'o\'', u'o'),
                   (u'L', 0, u'z', u'z'),
                   (u'L', 0, u'i', u'i'),
                   (u'L', 0, u'n', u'n'),
                   (u'L', 0, u'i', u'i'),
                   ]
-        test = self.vwis.word_to_segs(u'oʻzini')
+        test = self.vwis.word_to_segs(u'oʻzini', normpunc=True)
         print(test)
         self.assertEqual(map_slice(test, 0, 4), target)
