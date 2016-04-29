@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='epitran',
-      version='0.0',
+      version='0.1',
       description='Tools for transcribing languages into IPA.',
       url='http://www.davidmortensen.org/epitran',
       author='David R. Mortensen',
