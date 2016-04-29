@@ -9,6 +9,7 @@ import _epitran
 def map_slice(xs, start, end):
     return [x[start:end] for x in xs]
 
+
 class TestNormalizePunc(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'tur-Latn')
@@ -87,13 +88,25 @@ class TestUzbek(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'uzb-Latn')
 
-    def test_word_to_tuples(self):
+    def test_ozini1(self):
+        # MODIFIER LETTER TURNED COMMA
         target = [(u'L', 0, u'oʻ', u'o'),
                   (u'L', 0, u'z', u'z'),
                   (u'L', 0, u'i', u'i'),
                   (u'L', 0, u'n', u'n'),
-                  (u'L', 0, u'i', u'i')]
+                  (u'L', 0, u'i', u'i')
+                  ]
         test = self.epi.word_to_tuples(u'oʻzini')
+        self.assertEqual(map_slice(test, 0, 4), target)
+
+    def test_ozini2(self):
+        target = [(u'L', 0, u"o'", u'o'),
+                  (u'L', 0, u'z', u'z'),
+                  (u'L', 0, u'i', u'i'),
+                  (u'L', 0, u'n', u'n'),
+                  (u'L', 0, u'i', u'i'),
+                  ]
+        test = self.epi.word_to_tuples(u"o'zini", normpunc=True)
         self.assertEqual(map_slice(test, 0, 4), target)
 
     def test_word_to_tuples2(self):
