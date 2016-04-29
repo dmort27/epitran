@@ -40,9 +40,9 @@ The ``Epitran`` class has only a few "public" method (to the extent that
 such a concept exists in Python). The most important are
 ``transliterate`` and ``word_to_tuples``:
 
-**transliterate**\ (text): Convert ``text`` (in Unicode-encoded
-orthography of the language specified in the constructor) to IPA, which
-is returned.
+Epitran.\ **transliterate**\ (text): Convert ``text`` (in
+Unicode-encoded orthography of the language specified in the
+constructor) to IPA, which is returned.
 
 ::
 
@@ -51,10 +51,10 @@ is returned.
     >>> print(epi.transliterate(u'Düğün'))
     dyɰyn
 
-**word\_to\_tuples**\ (word, normpunc=False): Takes a ``word`` (a
-Unicode string) in a supported orthography as input and returns a list
-of tuples with each tuple corresponding to an IPA segment of the word.
-The tuples have the following structure:
+Epitran.\ **word\_to\_tuples**\ (word, normpunc=False): Takes a ``word``
+(a Unicode string) in a supported orthography as input and returns a
+list of tuples with each tuple corresponding to an IPA segment of the
+word. The tuples have the following structure:
 
 ::
 
@@ -96,14 +96,22 @@ Using the ``epitran.vector`` Module
 
 The ``epitran.vector`` module is also very simple. It contains one
 class, ``VectorsWithIPASpace``, including one method of interest,
-``word_to_segs``. The constructor for ``VectorsWithIPASpace`` takes two
-arguments: - ``code``: the language-script code for the language to be
-processed. - ``space``: the code for the punctuation/symbol/IPA space in
-which the characters/segments from the data are expected to reside. The
-available spaces are listed `below <#language-support>`__.
+``word_to_segs``:
 
-A typical interaction with the ``VectorsWithIPASpace`` object is
-illustrated here:
+The constructor for ``VectorsWithIPASpace`` takes two arguments: -
+``code``: the language-script code for the language to be processed. -
+``space``: the code for the punctuation/symbol/IPA space in which the
+characters/segments from the data are expected to reside. The available
+spaces are listed `below <#language-support>`__.
+
+It's principle method is ``word_to_segs``:
+
+VectorWithIPASpace.\ **word\_to\_segs**\ (word, normpunc=False) Word is
+a Unicode string. If the keyword argument *normpunc* is set to True,
+punctuation disovered in *word* is normalized to ASCII equivalents.
+
+A typical interaction with the ``VectorsWithIPASpace`` object via the
+``word_to_segs`` method is illustrated here:
 
 ::
 
@@ -156,39 +164,43 @@ Language Support
 Transliteration Languages
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-+------------+-------------------------+
-| Code       | Language                |
-+============+=========================+
-| hau-Latn   | Hausa                   |
-+------------+-------------------------+
-| ind-Latn   | Indonesian              |
-+------------+-------------------------+
-| jav-Latn   | Javanese                |
-+------------+-------------------------+
-| kaz-Cyrl   | Kazakh (Cyrillic)       |
-+------------+-------------------------+
-| kaz-Latn   | Kazakh (Latin)          |
-+------------+-------------------------+
-| kir-Arab   | Kyrgyz (Perso-Arabic)   |
-+------------+-------------------------+
-| kir-Cyrl   | Kyrgyz (Cyrillic)       |
-+------------+-------------------------+
-| kir-Latn   | Kyrgyz (Latin)          |
-+------------+-------------------------+
-| tuk-Cyrl   | Turkmen (Cyrillic)      |
-+------------+-------------------------+
-| tuk-Latn   | Turkmen (Latin)         |
-+------------+-------------------------+
-| tur-Latn   | Turkish (Latin)         |
-+------------+-------------------------+
-| yor-Latn   | Yoruba                  |
-+------------+-------------------------+
-| uig-Arab   | Uyghur (Perso-Arabic)   |
-+------------+-------------------------+
-| uzb-Cyrl   | Uzbek (Cyrillic)        |
-+------------+-------------------------+
-| uzb-Latn   | Uzbek (Latin)           |
-+------------+-------------------------+
++------------+--------------------------+
+| Code       | Language (Script)        |
++============+==========================+
+| aze-Cyrl   | Azerbaijani (Cyrillic)   |
++------------+--------------------------+
+| aze-Latn   | Azerbaijani (Latin)      |
++------------+--------------------------+
+| hau-Latn   | Hausa                    |
++------------+--------------------------+
+| ind-Latn   | Indonesian               |
++------------+--------------------------+
+| jav-Latn   | Javanese                 |
++------------+--------------------------+
+| kaz-Cyrl   | Kazakh (Cyrillic)        |
++------------+--------------------------+
+| kaz-Latn   | Kazakh (Latin)           |
++------------+--------------------------+
+| kir-Arab   | Kyrgyz (Perso-Arabic)    |
++------------+--------------------------+
+| kir-Cyrl   | Kyrgyz (Cyrillic)        |
++------------+--------------------------+
+| kir-Latn   | Kyrgyz (Latin)           |
++------------+--------------------------+
+| tuk-Cyrl   | Turkmen (Cyrillic)       |
++------------+--------------------------+
+| tuk-Latn   | Turkmen (Latin)          |
++------------+--------------------------+
+| tur-Latn   | Turkish (Latin)          |
++------------+--------------------------+
+| yor-Latn   | Yoruba                   |
++------------+--------------------------+
+| uig-Arab   | Uyghur (Perso-Arabic)    |
++------------+--------------------------+
+| uzb-Cyrl   | Uzbek (Cyrillic)         |
++------------+--------------------------+
+| uzb-Latn   | Uzbek (Latin)            |
++------------+--------------------------+
 
 Language "Spaces"
 ~~~~~~~~~~~~~~~~~
