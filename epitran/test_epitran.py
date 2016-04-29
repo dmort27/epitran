@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import unicodedata
 import unittest
+
 import _epitran
 
 
@@ -87,6 +89,12 @@ class TestTurkish(unittest.TestCase):
 class TestUzbek(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'uzb-Latn')
+
+    def test_e_diaresis1(self):
+        char = unicodedata.normalize('NFD', u'ë')
+        target = [(u'L', 0, char, u'ja')]
+        test = self.epi.word_to_tuples(u'ë')
+        self.assertEqual([x[:4] for x in test], target)
 
     def test_ozini1(self):
         # MODIFIER LETTER TURNED COMMA
