@@ -98,23 +98,25 @@ A few notes are in order regarding this data structure:
 
 ### Transliteration Languages
 
-| Code     | Language              |
-|----------|-----------------------|
-| hau-Latn | Hausa                 |
-| ind-Latn | Indonesian            |
-| jav-Latn | Javanese              |
-| kaz-Cyrl | Kazakh (Cyrillic)     |
-| kaz-Latn | Kazakh (Latin)        |
-| kir-Arab | Kyrgyz (Perso-Arabic) |
-| kir-Cyrl | Kyrgyz (Cyrillic)     |
-| kir-Latn | Kyrgyz (Latin)        |
-| tuk-Cyrl | Turkmen (Cyrillic)    |
-| tuk-Latn | Turkmen (Latin)       |
-| tur-Latn | Turkish (Latin)       |
-| yor-Latn | Yoruba                |
-| uig-Arab | Uyghur (Perso-Arabic) |
-| uzb-Cyrl | Uzbek (Cyrillic)      |
-| uzb-Latn | Uzbek (Latin)         |
+| Code     | Language (Script)      |
+|----------|------------------------|
+| aze-Cyrl | Azerbaijani (Cyrillic) |
+| aze-Latn | Azerbaijani (Latin)    |
+| hau-Latn | Hausa                  |
+| ind-Latn | Indonesian             |
+| jav-Latn | Javanese               |
+| kaz-Cyrl | Kazakh (Cyrillic)      |
+| kaz-Latn | Kazakh (Latin)         |
+| kir-Arab | Kyrgyz (Perso-Arabic)  |
+| kir-Cyrl | Kyrgyz (Cyrillic)      |
+| kir-Latn | Kyrgyz (Latin)         |
+| tuk-Cyrl | Turkmen (Cyrillic)     |
+| tuk-Latn | Turkmen (Latin)        |
+| tur-Latn | Turkish (Latin)        |
+| yor-Latn | Yoruba                 |
+| uig-Arab | Uyghur (Perso-Arabic)  |
+| uzb-Cyrl | Uzbek (Cyrillic)       |
+| uzb-Latn | Uzbek (Latin)          |
 
 ### Language "Spaces"
 
