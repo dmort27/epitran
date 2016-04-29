@@ -14,13 +14,13 @@ in and writes Unicode IPA to standard out.
 
 ::
 
-    $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn"
-    dyɰyn oluɾ bajɾam ɟeliɾ
+    $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn" dyɰyn oluɾ bajɾam ɟeliɾ
     $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
 
-Additionally, the small Python module ``epitran`` can be used to easily
-write more sophisticated Python programs for deploying the **Epitran**
-mapping tables. This is documented below.
+Additionally, the small Python modules ``epitran`` and
+``epitran.vector`` can be used to easily write more sophisticated Python
+programs for deploying the **Epitran** mapping tables. This is
+documented below.
 
 Using the ``epitran`` Module
 ----------------------------
@@ -38,7 +38,7 @@ plus a four letter code for the script (e.g. 'Latn' for Latin script,
 
 The ``Epitran`` class has only a few "public" method (to the extent that
 such a concept exists in Python). The most important are
-``transliterate`` and ``word_to_pfvector``:
+``transliterate`` and ``word_to_tuples``:
 
 **transliterate**\ (text): Convert ``text`` (in Unicode-encoded
 orthography of the language specified in the constructor) to IPA, which
@@ -72,7 +72,7 @@ in `Chapter 4 of the Unicode
 Standard <http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153>`__.
 For example, "L" corresponds to letters and "P" corresponds to
 production marks. The above data structure is likely to change in
-subsequent versions of the library. The structure of segments is as
+subsequent versions of the library. The structure of ``segments`` is as
 follows:
 
 ::

@@ -11,7 +11,7 @@ $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn" dyɰyn oluɾ b
 $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
 ```
 
-Additionally, the small Python module ```epitran``` can be used to easily write more sophisticated Python programs for deploying the **Epitran** mapping tables. This is documented below.
+Additionally, the small Python modules ```epitran``` and ```epitran.vector``` can be used to easily write more sophisticated Python programs for deploying the **Epitran** mapping tables. This is documented below.
 
 ## Using the `epitran` Module
 
@@ -22,7 +22,7 @@ The functionality in the `epitran` module is encapsulated in the very simple `Ep
 >>> epi = epitran.Epitran('tur-Latn')
 ```
 
-The `Epitran` class has only a few "public" method (to the extent that such a concept exists in Python). The most important are ``transliterate`` and ``word_to_pfvector``:
+The `Epitran` class has only a few "public" method (to the extent that such a concept exists in Python). The most important are ``transliterate`` and ``word_to_tuples``:
 
 **transliterate**(text):
 Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned.
@@ -45,7 +45,7 @@ Takes a `word` (a Unicode string) in a supported orthography as input and return
     segments :: List<Tuples>
 )
 ```
-The codes for `character_category` are from the initial characters of the two character sequences listed in the "General Category" codes found in [Chapter 4 of the Unicode Standard](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153). For example, "L" corresponds to letters and "P" corresponds to production marks. The above data structure is likely to change in subsequent versions of the library. The structure of segments is as follows:
+The codes for `character_category` are from the initial characters of the two character sequences listed in the "General Category" codes found in [Chapter 4 of the Unicode Standard](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153). For example, "L" corresponds to letters and "P" corresponds to production marks. The above data structure is likely to change in subsequent versions of the library. The structure of ```segments``` is as follows:
 ```
 (
     segment :: Unicode String,
