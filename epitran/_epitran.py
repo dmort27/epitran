@@ -136,6 +136,7 @@ class Epitran(object):
                 span = word[0]
                 span = self.normalize_punc(span) if normpunc else span
                 cat, case = cat_and_cap(span)
+                cat = 'P' if cat in self.puncnorm else cat
                 phon = u''
                 vecs = to_vectors(phon)
                 tuples.append((cat, case, span, phon, vecs))
