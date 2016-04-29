@@ -26,19 +26,25 @@ class VectorsWithIPASpace(object):
         return -- a list of tuples, each representing an IPA segment or a
                   punctuation character. Tuples consist of <category, lettercase,
                   orthographic_form, phonetic_form, feature_vector>.
+
+        Category consists of the standard Unicode classes (e.g. 'L' for letter
+        and 'P' for punctuation). Case is binary: 1 for uppercase and 0 for
+        lowercase.
         """
+
         segs = self.epi.word_to_tuples(word, normpunc)
         new_segs = []
         for cat, case, orth, phon, id_vec_list in segs:
-            if phon:
-                id_ = self.space[phon]
-            else:
-                if orth in self.epi.puncnorm:
-                    orth = self.epi.puncnorm[orth]
-                if orth in self.space:
+            if not phon:
+                if normpunc:
+                    if orth in self.epi.puncnorm:
+                        orth = self.epi.puncnorm[orth]
+            for s, vector in id_vec_list:
+                if s in self.space:
+                    id_ = self.space[s]
+                elif orth in self.space:
                     id_ = self.space[orth]
                 else:
                     id_ = -1
-            for _, vector in id_vec_list:
                 new_segs.append((cat, case, orth, phon, id_, vector))
         return new_segs
