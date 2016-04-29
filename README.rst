@@ -47,14 +47,14 @@ is returned.
 ::
 
     >>> epi.transliterate(u'Düğün')
-    u'd\xfc\u011f\xfcn'
+    u'dy\u0270yn'
     >>> print(epi.transliterate(u'Düğün'))
-    düğün
+    dyɰyn
 
-**word\_to\_tuples**\ (word): Takes a ``word`` (a Unicode string) in a
-supported orthography as input and returns a list of tuples with each
-tuple corresponding to an IPA segment of the word. The tuples have the
-following structure:
+**word\_to\_tuples**\ (word, normpunc=False): Takes a ``word`` (a
+Unicode string) in a supported orthography as input and returns a list
+of tuples with each tuple corresponding to an IPA segment of the word.
+The tuples have the following structure:
 
 ::
 
@@ -87,9 +87,9 @@ Here is an example of an interaction with ``word_to_tuples``:
 ::
 
     >>> import epitran
-    >>> epi = epitran.Epitran('uzb-Latn')
+    >>> epi = epitran.Epitran('tur-Latn')
     >>> epi.word_to_tuples(u'Düğün')
-    [(u'L', 1, u'D', u'd\u032a', [(u'd\u032a', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u', u'u', [(u'u', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1])]), (u'M', 0, u'\u0308', u'', [(-1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])]), (u'L', 0, u'g', u'\u0261', [(u'\u0261', [-1, -1, 1, -1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, 1, -1, 1, -1, 0, -1])]), (u'M', 0, u'\u0306', u'', [(-1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])]), (u'L', 0, u'u', u'u', [(u'u', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1])]), (u'M', 0, u'\u0308', u'', [(-1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
+    [(u'L', 1, u'D', u'd', [(u'd', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'g\u0306', u'\u0270', [(u'\u0270', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
 
 Using the ``epitran.vector`` Module
 -----------------------------------
