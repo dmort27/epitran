@@ -17,7 +17,7 @@ class VectorsWithIPASpace(object):
             reader = csv.reader(f, encoding='utf-8')
             return {seg: num for (num, seg) in reader}
 
-    def word_to_segs(self, word):
+    def word_to_segs(self, word, normpunc=False):
         """Returns feature vectors, etc. for segments and punctuation in a word.
 
         word -- Unicode string representing a word in the orthography specified
@@ -28,7 +28,7 @@ class VectorsWithIPASpace(object):
         """
         word = unicodedata.normalize('NFD', word)
         # segs = self.epi.plus_vector_tuples(word)
-        segs = self.epi.word_to_tuples(word)
+        segs = self.epi.word_to_tuples(word, normpunc)
         new_segs = []
         for cat, case, orth, phon, id_vec_list in segs:
             if phon:
