@@ -96,6 +96,20 @@ class Epitran(object):
         return text
 
     def word_to_tuples(self, word, normpunc=False):
+        """Given a word, returns a list of tuples corresponding to IPA segments.
+
+        word -- Unicode string.
+        normpunc -- If True, normalizes punctuation to ASCII inventory.
+        returns -- A list of <category, lettercase, orthographic_form,
+                   phonetic_form, fecture_vectors> test_word_to_tuples.
+
+        The "feature vectors" form a list consisting of <segment, vector> pairs.
+        For IPA segments, segment is a substring of phonetic_form such that the
+        concatenation of all segments in the list is equal to the phonetic_form.
+        The vectors are a sequence of integers drawn from the set {-1, 0, 1}
+        where -1 corresponds to '-', 0 corresponds to '0', and 1 corresponds to
+        '+'.
+        """
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))
             case = 1 if case == 'u' else 0
@@ -113,7 +127,7 @@ class Epitran(object):
             return map(recode_ft, vec)
 
         def to_vector(seg):
-            return self.ft.seg_seq[seg], vec2bin(self.ft.segment_to_vector(seg))
+            return seg, vec2bin(self.ft.segment_to_vector(seg))
 
         def to_vectors(phon):
             if phon == u'':
