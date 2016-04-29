@@ -5,6 +5,7 @@ from __future__ import print_function
 import unittest
 import vector
 
+
 def map_slice(xs, start, end):
     return [x[start:end] for x in xs]
 
@@ -64,6 +65,7 @@ class TestTurkish(unittest.TestCase):
         for m, c in zip(marks, correct):
             self.assertEqual(m, c)
 
+
 class TestUzbek(unittest.TestCase):
     def setUp(self):
         self.vwis = vector.VectorsWithIPASpace('tur-Latn',
@@ -78,5 +80,17 @@ class TestUzbek(unittest.TestCase):
     def test_apostrophe_punc(self):
         target = [(u'P', 0, u"'", u'')]
         test = self.vwis.word_to_segs(u"'")
+        print(test)
+        self.assertEqual(map_slice(test, 0, 4), target)
+
+    def testOzini(self):
+        pass
+        target = [(u'L', 0, u'oʻ', u'o'),
+                  (u'L', 0, u'z', u'z'),
+                  (u'L', 0, u'i', u'i'),
+                  (u'L', 0, u'n', u'n'),
+                  (u'L', 0, u'i', u'i'),
+                  ]
+        test = self.vwis.word_to_segs(u'oʻzini')
         print(test)
         self.assertEqual(map_slice(test, 0, 4), target)
