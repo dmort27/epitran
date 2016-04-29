@@ -18,9 +18,7 @@ class TestTurkish(unittest.TestCase):
     def testPunc(self):
         punc_words = [u'"', u"'", u'.', u',', u':', u';', u"‘", u"’", u"”", u"“", u"，"]
         for word in punc_words:
-            print(u'Punctuation mark:\t{}'.format(word))
             segs = self.vwis.word_to_segs(word)
-            print(segs)
             self.assertEqual(segs[0][0], u'P')
             self.assertEqual(segs[0][1], 0)
             self.assertIn(segs[0][3], u"\"';,.")
@@ -68,29 +66,61 @@ class TestTurkish(unittest.TestCase):
 
 class TestUzbek(unittest.TestCase):
     def setUp(self):
-        self.vwis = vector.VectorsWithIPASpace('tur-Latn',
-                                               'tur-with_attached_suffixes-space')
+        self.vwis = vector.VectorsWithIPASpace('uzb-Latn',
+                                               'uzb-with_attached_suffixes-space')
 
     def test_apostrophe_letter(self):
-        target = [(u'L', 0, u"'", u'')]
+        target = [(u'L', 0, u'ʼ', u'ʔ')]
         test = self.vwis.word_to_segs(u"ʼ")
-        print(test)
         self.assertEqual(map_slice(test, 0, 4), target)
 
     def test_apostrophe_punc(self):
         target = [(u'P', 0, u"'", u'')]
         test = self.vwis.word_to_segs(u"'")
-        print(test)
         self.assertEqual(map_slice(test, 0, 4), target)
 
-    def test_ozini(self):
-        pass
-        target = [(u'L', 0, u'o\'', u'o'),
+    def test_o_turned_comma(self):
+        target = [(u'L', 0, u"oʻ", u'o')]
+        test = self.vwis.word_to_segs(u"oʻ")
+        self.assertEqual(map_slice(test, 0, 4), target)
+
+    def test_o_turned_comma_full(self):
+        target = [(u'L', 0, u'o\u02bb', u'o', u'51', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1])]
+        test = self.vwis.word_to_segs(u"oʻ")
+        self.assertEqual(test, target)
+
+    def test_g_turned_comma_full(self):
+        target = [(u'L', 0, u'g\u02bb', u'\u0281', u'87', [-1, -1, 1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, -1, -1, 1, -1, 0, -1])]
+        test = self.vwis.word_to_segs(u"gʻ")
+        self.assertEqual(test, target)
+
+    def test_ozini1(self):
+        target = [(u'L', 0, u'oʻ', u'o'),
                   (u'L', 0, u'z', u'z'),
                   (u'L', 0, u'i', u'i'),
                   (u'L', 0, u'n', u'n'),
                   (u'L', 0, u'i', u'i'),
                   ]
-        test = self.vwis.word_to_segs(u'oʻzini', normpunc=True)
-        print(test)
+        test = self.vwis.word_to_segs(u'oʻzini')
+        self.assertEqual(map_slice(test, 0, 4), target)
+
+    def test_ozini2(self):
+        target = [(u'L', 0, u"o'", u'o'),
+                  (u'L', 0, u'z', u'z'),
+                  (u'L', 0, u'i', u'i'),
+                  (u'L', 0, u'n', u'n'),
+                  (u'L', 0, u'i', u'i'),
+                  ]
+        test = self.vwis.word_to_segs(u"o'zini")
+        self.assertEqual(map_slice(test, 0, 4), target)
+
+    def test_word_to_tuples2(self):
+        target = [(u'L', 1, u'B', u'b'),
+                  (u'L', 0, u'a', u'a'),
+                  (u'L', 0, u'l', u'l'),
+                  (u'L', 0, u'o', u'ɒ'),
+                  (u'L', 0, u'gʻ', u'ʁ'),
+                  (u'L', 0, u'a', u'a'),
+                  (u'L', 0, u't', u't̪')]
+        test = self.vwis.word_to_segs(u'Balogʻat')
         self.assertEqual(map_slice(test, 0, 4), target)
