@@ -82,39 +82,20 @@ class Epitran(object):
                 return m.group(0)
 
         def normp(c):
-            if c in self.puncnorm:
-                return unicode(self.normalize_punc(c))
+            if normpunc:
+                if c in self.puncnorm:
+                    return unicode(self.normalize_punc(c))
+                else:
+                    return unicode(c)
             else:
-                return unicode(c)
+                return c
 
         text = unicodedata.normalize('NFD', text.lower())
         text = self.regexp.sub(trans, text)
         text = ''.join([normp(c) for c in text])
         return text
 
-    def robust_trans_pairs(self, text):
-        """Given noisy orthographic text returns <orth, ipa> pairs."""
-        pairs = []
-        text = unicodedata.normalize('NFD', text)
-        while text:
-            # print(text)
-            match = self.regexp.match(text)
-            if match:
-                # With span of letters corresponding to IPA segment, find IPA
-                # equivalent and add to pairs.
-                span = match.group(0)
-                pairs.append((span, self.transliterate(span)))
-                text = text[len(span):]
-            else:
-                # With first character in text, append to pairs (paired with
-                # empty IPA equivalent).
-                c = text[0]
-                c = self.normalize_punc(c)
-                pairs.append((c, u''))
-                text = text[1:]
-        return pairs
-
-    def word_to_tuples(self, word):
+    def word_to_tuples(self, word, normpunc=False):
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))
             case = 1 if case == 'u' else 0
@@ -153,7 +134,7 @@ class Epitran(object):
                 word = word[len(span):]
             else:
                 span = word[0]
-                span = self.normalize_punc(span)
+                span = self.normalize_punc(span) if normpunc else span
                 cat, case = cat_and_cap(span)
                 phon = u''
                 vecs = to_vectors(phon)
