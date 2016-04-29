@@ -7,8 +7,7 @@ A library and tool for transliterating orthographic text as IPA (International P
 The principle script for transliterating orthographic text as IPA is `epitranscriber.py`. It takes one argument, the ISO 639-3 code for the language of the orthographic text, takes orthographic text at standard in and writes Unicode IPA to standard out.
 
 ```
-$ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn"
-dyɰyn oluɾ bajɾam ɟeliɾ
+$ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn" dyɰyn oluɾ bajɾam ɟeliɾ
 $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
 ```
 
