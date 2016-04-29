@@ -35,10 +35,9 @@ class VectorsWithIPASpace(object):
         segs = self.epi.word_to_tuples(word, normpunc)
         new_segs = []
         for cat, case, orth, phon, id_vec_list in segs:
-            if not phon:
-                if normpunc:
-                    if orth in self.epi.puncnorm:
-                        orth = self.epi.puncnorm[orth]
+            if not phon and normpunc:
+                if orth in self.epi.puncnorm:
+                    orth = self.epi.puncnorm[orth]
             for s, vector in id_vec_list:
                 if s in self.space:
                     id_ = self.space[s]
