@@ -3,8 +3,8 @@
 from __future__ import print_function
 
 import unicodedata
-import sys
 import fileinput
+
 
 def main():
     for line in fileinput.input():
