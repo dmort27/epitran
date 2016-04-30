@@ -15,7 +15,7 @@ class TestTurkish(unittest.TestCase):
         self.vwis = vector.VectorsWithIPASpace('tur-Latn',
                                                'tur-with_attached_suffixes-space')
 
-    def testPunc(self):
+    def test_punc(self):
         punc_words = [u'"', u"'", u'.', u',', u':', u';', u"‘", u"’", u"”", u"“", u"，"]
         for word in punc_words:
             segs = self.vwis.word_to_segs(word)
@@ -23,13 +23,13 @@ class TestTurkish(unittest.TestCase):
             self.assertEqual(segs[0][1], 0)
             self.assertIn(segs[0][3], u"\"';,.")
 
-    def testPuncLike(self):
+    def test_punc_like(self):
         punc_words = [u"ʼ"]
         for word in punc_words:
             segs = self.vwis.word_to_segs(word, normpunc=True)
             self.assertEqual(segs[0][0], u'P')
 
-    def testHaziranda(self):
+    def test_haziranda(self):
         word = u'Haziranʼda'
         segs = self.vwis.word_to_segs(word, normpunc=True)
         marks = [s[:4] for s in segs]
@@ -46,7 +46,7 @@ class TestTurkish(unittest.TestCase):
         for m, c in zip(marks, correct):
             self.assertEqual(m, c)
 
-    def testHazirandaPrime(self):
+    def test_haziranda_prime(self):
         word = u'Haziranʼda'
         segs = self.vwis.word_to_segs(word, normpunc=True)
         marks = [s[:4] for s in segs]
