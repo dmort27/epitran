@@ -6,9 +6,10 @@ import unicodedata
 import epitran
 import argparse
 
+
 def main(code):
     epi = epitran.Epitran(code)
-    for line in sys.stdin: #  pointless
+    for line in sys.stdin:  # pointless
         line = line.decode('utf-8')
         line = unicodedata.normalize('NFD', line.lower())
         line = epi.transliterate(line)
