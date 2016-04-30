@@ -28,8 +28,8 @@ def main(code, space, infile):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--code', help='Script code.')
-    parser.add_argument('-s', '--space', help='Space.')
-    parser.add_argument('-i', '--infile', help='Input file.')
+    parser.add_argument('-c', '--code', required=True, help='Script code.')
+    parser.add_argument('-s', '--space', required=True, help='Space.')
+    parser.add_argument('-i', '--infile', required=True, help='Input file.')
     args = parser.parse_args()
     main(args.code, args.space, args.infile)
