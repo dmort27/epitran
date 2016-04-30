@@ -63,6 +63,20 @@ class TestTurkish(unittest.TestCase):
         for m, c in zip(marks, correct):
             self.assertEqual(m, c)
 
+    def test_cat_haziranda(self):
+        word = u'Haziranʼda'  # 'Apostrophe' is modifier letter
+        segs = self.vwis.word_to_segs(word, normpunc=False)
+        cats = [s[0] for s in segs]
+        correct = [u'L', u'L', u'L', u'L', u'L', u'L', u'L', u'L', u'L', u'L']
+        self.assertEqual(cats, correct)
+
+    def test_cat_haziranda_normpunc(self):
+        word = u'Haziranʼda'  # 'Apostrophe' is modifier letter
+        segs = self.vwis.word_to_segs(word, normpunc=True)
+        cats = [s[0] for s in segs]
+        correct = [u'L', u'L', u'L', u'L', u'L', u'L', u'L', u'P', u'L', u'L']
+        self.assertEqual(cats, correct)
+
 
 class TestUzbek(unittest.TestCase):
     def setUp(self):
@@ -72,6 +86,11 @@ class TestUzbek(unittest.TestCase):
     def test_apostrophe_letter(self):
         target = [(u'L', 0, u'ʼ', u'ʔ')]
         test = self.vwis.word_to_segs(u"ʼ")
+        self.assertEqual(map_slice(test, 0, 4), target)
+
+    def test_apostrophe_letter_normpunc(self):
+        target = [(u'L', 0, u'ʼ', u'ʔ')]
+        test = self.vwis.word_to_segs(u"ʼ", normpunc=True)
         self.assertEqual(map_slice(test, 0, 4), target)
 
     def test_apostrophe_punc(self):
@@ -84,14 +103,29 @@ class TestUzbek(unittest.TestCase):
         test = self.vwis.word_to_segs(u"oʻ")
         self.assertEqual(map_slice(test, 0, 4), target)
 
+    def test_o_turned_comma_normpunc(self):
+        target = [(u'L', 0, u"oʻ", u'o')]
+        test = self.vwis.word_to_segs(u"oʻ", normpunc=True)
+        self.assertEqual(map_slice(test, 0, 4), target)
+
     def test_o_turned_comma_full(self):
         target = [(u'L', 0, u'o\u02bb', u'o', u'51', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1])]
         test = self.vwis.word_to_segs(u"oʻ")
         self.assertEqual(test, target)
 
+    def test_o_turned_comma_full_normpunc(self):
+        target = [(u'L', 0, u'o\u02bb', u'o', u'51', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1])]
+        test = self.vwis.word_to_segs(u"oʻ", normpunc=True)
+        self.assertEqual(test, target)
+
     def test_g_turned_comma_full(self):
         target = [(u'L', 0, u'g\u02bb', u'\u0281', u'87', [-1, -1, 1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, -1, -1, 1, -1, 0, -1])]
         test = self.vwis.word_to_segs(u"gʻ")
+        self.assertEqual(test, target)
+
+    def test_g_turned_comma_full_normpunc(self):
+        target = [(u'L', 0, u'g\u02bb', u'\u0281', u'87', [-1, -1, 1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, -1, -1, 1, -1, 0, -1])]
+        test = self.vwis.word_to_segs(u"gʻ", normpunc=True)
         self.assertEqual(test, target)
 
     def test_ozini1(self):
