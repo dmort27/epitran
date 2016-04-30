@@ -23,8 +23,6 @@ class PrePostProcessor(object):
                 next(reader)
                 for a, b, X, Y in reader:
                     rules.append(self._fields_to_function(a, b, X, Y))
-        else:
-            print('No {}processor found.'.format(fix), file=sys.stderr)
         return rules
 
     def _fields_to_function(self, a, b, X, Y):
