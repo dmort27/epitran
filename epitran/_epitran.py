@@ -7,10 +7,10 @@ import unicodedata
 from collections import defaultdict
 
 import pkg_resources
-
-import panphon
 import regex as re
 import unicodecsv as csv
+
+import panphon
 
 
 class Epitran(object):
