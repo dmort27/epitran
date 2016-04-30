@@ -1,1 +1,1 @@
-from _epitran import *
+from _epitran import Epitran
