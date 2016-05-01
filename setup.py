@@ -18,6 +18,6 @@ setup(name='epitran',
                'epitran/bin/testvectorgen.py'],
       packages=['epitran'],
       package_dir={'epitran': 'epitran'},
-      package_data={'epitran': ['data/*.csv', 'data/*.json']},
+      package_data={'epitran': ['data/*.csv', 'data/*.json', 'data/pre/*.csv', 'data/post/*.csv']},
       zip_safe=True
       )
