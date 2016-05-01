@@ -31,7 +31,7 @@ class PrePostProcessor(object):
         def rewrite(m):
             return '{}{}{}'.format(m.group('X'), b, m.group('Y'))
 
-        return lambda w: regexp.sub(rewrite, w)
+        return lambda w: regexp.sub(rewrite, w, re.I | re.U)
 
     def process(self, word):
         word = '#{}#'.format(word)
