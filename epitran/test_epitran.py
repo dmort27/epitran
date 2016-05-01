@@ -171,3 +171,8 @@ class TestSpanish(unittest.TestCase):
         correct = u'xeneɾal'
         attempt = assemble_ipa(self.epi.word_to_tuples(u'general'))
         self.assertEqual(attempt, correct)
+
+    def test_cuestion(self):
+        correct = u'kwestjon'
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'cuestión'))
+        self.assertEqual(attempt, correct)
