@@ -132,6 +132,7 @@ class TestUzbek(unittest.TestCase):
         test = self.epi.word_to_tuples(u'Balogʻat')
         self.assertEqual(map_slice(test, 0, 4), target)
 
+
 class TestDutch(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'nld-Latn')
@@ -154,4 +155,19 @@ class TestDutch(unittest.TestCase):
     def test_random(self):
         correct = u'ɛrtoːɣɛnbɔs'
         attempt = assemble_ipa(self.epi.word_to_tuples(u'ertogenbosch'))
+        self.assertEqual(attempt, correct)
+
+
+class TestSpanish(unittest.TestCase):
+    def setUp(self):
+        self.epi = _epitran.Epitran(u'spa-Latn')
+
+    def test_queso(self):
+        correct = u'keso'
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'queso'))
+        self.assertEqual(attempt, correct)
+
+    def test_general(self):
+        correct = u'xeneɾal'
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'general'))
         self.assertEqual(attempt, correct)
