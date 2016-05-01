@@ -6,3 +6,8 @@ sch,s,,#
 c,s,,[eiy]
 c,k,,#
 gh,ch,,#
+a,aa,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)[aeiou]
+e,ee,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)[aeiou]
+i,ii,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)[aeiou]
+o,oo,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)[aeiou]
+u,uu,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)[aeiou]
