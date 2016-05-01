@@ -12,6 +12,10 @@ def map_slice(xs, start, end):
     return [x[start:end] for x in xs]
 
 
+def assemble_ipa(xs):
+    return ''.join([x[3] for x in xs])
+
+
 class TestNormalizePunc(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'tur-Latn')
@@ -127,3 +131,27 @@ class TestUzbek(unittest.TestCase):
                   (u'L', 0, u't', u't̪')]
         test = self.epi.word_to_tuples(u'Balogʻat')
         self.assertEqual(map_slice(test, 0, 4), target)
+
+class TestDutch(unittest.TestCase):
+    def setUp(self):
+        self.epi = _epitran.Epitran(u'nld-Latn')
+
+    def test_bernhard(self):
+        correct = u'bɛrnɦɑrt'
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'Bernhard'))
+        self.assertEqual(attempt, correct)
+
+    def test_utrecht(self):
+        correct = u'ʏtrɛxt'
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'Utrecht'))
+        self.assertEqual(attempt, correct)
+
+    def test_lodewijk(self):
+        correct = u'loːdeːʋɛjk'
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'Lodewijk'))
+        self.assertEqual(attempt, correct)
+
+    def test_random(self):
+        correct = u'ɛrtoːɣɛnbɔs'
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'ertogenbosch'))
+        self.assertEqual(attempt, correct)
