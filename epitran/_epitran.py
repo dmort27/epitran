@@ -94,6 +94,7 @@ class Epitran(object):
                 return c
 
         text = unicodedata.normalize('NFD', text.lower())
+        text = self.preprocessor.process(text)
         text = self.regexp.sub(trans, text)
         text = ''.join([normp(c) for c in text])
         return text
