@@ -213,3 +213,13 @@ class TestSpanish(unittest.TestCase):
         correct = u'kwestjon'
         attempt = assemble_ipa(self.epi.word_to_tuples(u'cuestión'))
         self.assertEqual(attempt, correct)
+
+
+class TestFrench(unittest.TestCase):
+    def setUp(self):
+        self.epi = _epitran.Epitran(u'fra-Latn')
+
+    def test_suggerer(self):
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'suggérer'))
+        correct = u'sygʒɛre'
+        self.assertEqual(attempt, correct)
