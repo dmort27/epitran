@@ -1,5 +1,6 @@
 a,b,X,Y
 s,z,#,
+S,Z,#,
 b,p,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
 d,t,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
 g,k,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
