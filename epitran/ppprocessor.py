@@ -1,11 +1,14 @@
 from __future__ import print_function, unicode_literals
 
+import logging
 import os.path
+import unicodedata
 
 import pkg_resources
 import regex as re
 import unicodecsv as csv
 
+logging.basicConfig(level=logging.DEBUG)
 
 class PrePostProcessor(object):
     def __init__(self, code, fix):
@@ -20,7 +23,9 @@ class PrePostProcessor(object):
             with open(abs_fn, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
                 next(reader)
-                for a, b, X, Y in reader:
+                for record in reader:
+                    record = map(lambda x: unicodedata.normalize('NFD', x), record)
+                    a, b, X, Y = record
                     rules.append(self._fields_to_function(a, b, X, Y))
         return rules
 
@@ -37,4 +42,5 @@ class PrePostProcessor(object):
         word = '#{}#'.format(word)
         for rule in self.rules:
             word = rule(word)
+            logging.debug(word.encode('utf-8'))
         return word[1:-1]  # Remove octothorps.
