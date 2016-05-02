@@ -165,55 +165,22 @@ class TestGerman(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'deu-Latn')
 
+    def test_german(self, orth, correct):
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        self.assertEqual(attempt, correct)
+
     def test_wasser(self):
-        correct = u'vasər'
-        orth = u'wasser'
-        logging.debug(orth)
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(attempt)
-        self.assertEqual(attempt, correct)
-
-    def test_da(self):
-        correct = u'daː'
-        orth = u'da'
-        logging.debug(orth)
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(attempt)
-        self.assertEqual(attempt, correct)
-
-    def test_e(self):
-        correct = u'ə'
-        orth = u'e'
-        logging.debug(orth)
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(attempt)
-        self.assertEqual(attempt, correct)
+        self.test_german(u'wasser', u'vasər')
 
     def test_ahre(self):
-        correct = u'eːrə'
-        orth = u'Ähre'
-        logging.debug(orth)
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(attempt)
-        self.assertEqual(attempt, correct)
+        self.test_german(u'Ähre', u'eːrə')
 
     def test_abdanken(self):
-        correct = u'apdaŋkən'
-        orth = u'abdanken'
-        logging.debug(orth)
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(attempt)
-        # print(u'{} ?= {}'.format(attempt, correct))
-        self.assertEqual(attempt, correct)
+        self.test_german(u'abdanken', u'apdaŋkən')
 
     def test_rotgelb(self):
-        correct = u'rotgelp'
-        orth = u'rotgelb'
-        logging.debug(orth)
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(attempt)
-        # print(u'{} ?= {}'.format(attempt, correct))
-        self.assertEqual(attempt, correct)
+        self.test_german(u'rotgelb', u'rotgelp')
 
 
 class TestSpanish(unittest.TestCase):
