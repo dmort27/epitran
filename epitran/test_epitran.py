@@ -4,8 +4,11 @@ from __future__ import print_function
 
 import unicodedata
 import unittest
+import logging
 
 import _epitran
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 def map_slice(xs, start, end):
@@ -164,33 +167,51 @@ class TestGerman(unittest.TestCase):
 
     def test_wasser(self):
         correct = u'vasər'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'wasser'))
+        orth = u'wasser'
+        logging.debug(orth)
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(attempt)
         self.assertEqual(attempt, correct)
 
     def test_da(self):
         correct = u'daː'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'da'))
+        orth = u'da'
+        logging.debug(orth)
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(attempt)
         self.assertEqual(attempt, correct)
 
     def test_e(self):
         correct = u'ə'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'e'))
+        orth = u'e'
+        logging.debug(orth)
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(attempt)
         self.assertEqual(attempt, correct)
 
     def test_ahre(self):
         correct = u'eːrə'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'Ähre'))
+        orth = u'Ähre'
+        logging.debug(orth)
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(attempt)
         self.assertEqual(attempt, correct)
 
     def test_abdanken(self):
         correct = u'apdaŋkən'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'abdanken'))
+        orth = u'abdanken'
+        logging.debug(orth)
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(attempt)
         # print(u'{} ?= {}'.format(attempt, correct))
         self.assertEqual(attempt, correct)
 
     def test_rotgelb(self):
         correct = u'rotgelp'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'rotgelb'))
+        orth = u'rotgelb'
+        logging.debug(orth)
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(attempt)
         # print(u'{} ?= {}'.format(attempt, correct))
         self.assertEqual(attempt, correct)
 
@@ -221,5 +242,5 @@ class TestFrench(unittest.TestCase):
 
     def test_suggerer(self):
         attempt = assemble_ipa(self.epi.word_to_tuples(u'suggérer'))
-        correct = u'sygʒɛre'
+        correct = u'sygʒere'
         self.assertEqual(attempt, correct)
