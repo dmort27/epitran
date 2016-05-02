@@ -10,6 +10,7 @@ import unicodecsv as csv
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 class PrePostProcessor(object):
     def __init__(self, code, fix):
         self.rules = self._read_file(code, fix)
