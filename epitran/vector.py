@@ -12,7 +12,7 @@ class VectorsWithIPASpace(object):
         self.space = self._load_space(space_name)
 
     def _load_space(self, space_name):
-        space_fn = os.path.join('data', space_name + '.csv')
+        space_fn = os.path.join('data', 'space', space_name + '.csv')
         space_fn = pkg_resources.resource_filename(__name__, space_fn)
         with open(space_fn, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
