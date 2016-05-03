@@ -8,7 +8,7 @@ import logging
 
 import _epitran
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 def map_slice(xs, start, end):
@@ -165,49 +165,66 @@ class TestGerman(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'deu-Latn')
 
-    def test_german(self, orth, correct):
+    def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
         logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_wasser(self):
-        self.test_german(u'wasser', u'vasər')
+        self._derivation(u'wasser', u'vasər')
 
     def test_ahre(self):
-        self.test_german(u'Ähre', u'eːrə')
+        self._derivation(u'Ähre', u'eːrə')
 
     def test_abdanken(self):
-        self.test_german(u'abdanken', u'apdaŋkən')
+        self._derivation(u'abdanken', u'apdaŋkən')
 
     def test_rotgelb(self):
-        self.test_german(u'rotgelb', u'rotgelp')
+        self._derivation(u'rotgelb', u'rotgelp')
 
 
 class TestSpanish(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'spa-Latn')
 
-    def test_queso(self):
-        correct = u'keso'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'queso'))
+    def _derivation(self, orth, correct):
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
+
+    def test_queso(self):
+        self._derivation(u'queso', u'keso')
 
     def test_general(self):
-        correct = u'xeneɾal'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'general'))
-        self.assertEqual(attempt, correct)
+        self._derivation(u'general', u'xeneɾal')
 
     def test_cuestion(self):
-        correct = u'kwestjon'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'cuestión'))
-        self.assertEqual(attempt, correct)
+        self._derivation(u'cuestión', u'kwestjon')
 
 
 class TestFrench(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'fra-Latn')
 
-    def test_suggerer(self):
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'suggérer'))
-        correct = u'sygʒere'
+    def _derivation(self, orth, correct):
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
+
+    def test_suggerer(self):
+        self._derivation(u'suggérer', u'sygʒere')
+
+    def test_garcon(self):
+        self._derivation(u'garçon', u'garsõ')
+
+    def test_jeune(self):
+        self._derivation(u'jeûne', u'ʒøn')
+
+    def test_deux(self):
+        self._derivation(u'deux', u'dœ')
+
+    def test_coup(self):
+        self._derivation(u'coup', u'ku')
+
+    def test_oui(self):
+        self._derivation(u'oui', u'wi')
