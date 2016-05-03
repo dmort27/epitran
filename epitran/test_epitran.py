@@ -207,6 +207,7 @@ class TestFrench(unittest.TestCase):
         self.epi = _epitran.Epitran(u'fra-Latn')
 
     def _derivation(self, orth, correct):
+        logging.debug(orth.encode('utf-8'))
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
         logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
@@ -215,7 +216,7 @@ class TestFrench(unittest.TestCase):
         self._derivation(u'suggérer', u'sygʒere')
 
     def test_garcon(self):
-        self._derivation(u'garçon', u'garsõ')
+        self._derivation(u'garçon', u'garsɔ̃')
 
     def test_jeune(self):
         self._derivation(u'jeûne', u'ʒøn')
