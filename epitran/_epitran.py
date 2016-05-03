@@ -39,8 +39,8 @@ class Epitran(object):
                 reader = csv.reader(f, encoding='utf-8')
                 reader.next()
                 for graph, phon in reader:
-                    graph = unicodedata.normalize('NFD', graph)
-                    phon = unicodedata.normalize('NFD', phon)
+                    graph = unicodedata.normalize('NFC', graph)
+                    phon = unicodedata.normalize('NFC', phon)
                     g2p[graph].append(phon)
         except IOError:
             print(u'Unknown language.')
@@ -93,7 +93,7 @@ class Epitran(object):
             else:
                 return c
 
-        text = unicodedata.normalize('NFD', text.lower())
+        text = unicodedata.normalize('NFC', text.lower())
         text = self.preprocessor.process(text)
         text = self.regexp.sub(trans, text)
         text = ''.join([normp(c) for c in text])
@@ -140,7 +140,7 @@ class Epitran(object):
                 return [to_vector(seg) for seg in self.ft.segs(phon)]
 
         tuples = []
-        word = unicodedata.normalize('NFD', word)
+        word = unicodedata.normalize('NFC', word)
         word = self.preprocessor.process(word)
         while word:
             match = self.regexp.match(word)

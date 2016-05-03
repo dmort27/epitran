@@ -25,7 +25,7 @@ class PrePostProcessor(object):
                 reader = csv.reader(f, encoding='utf-8')
                 next(reader)
                 for record in reader:
-                    record = map(lambda x: unicodedata.normalize('NFD', x), record)
+                    record = map(lambda x: unicodedata.normalize('NFC', x), record)
                     a, b, X, Y = record
                     rules.append(self._fields_to_function(a, b, X, Y))
         return rules
