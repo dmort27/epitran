@@ -4,8 +4,11 @@ from __future__ import print_function
 
 import unicodedata
 import unittest
+import logging
 
 import _epitran
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 def map_slice(xs, start, end):
@@ -162,37 +165,22 @@ class TestGerman(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'deu-Latn')
 
+    def test_german(self, orth, correct):
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        self.assertEqual(attempt, correct)
+
     def test_wasser(self):
-        correct = u'vasər'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'wasser'))
-        self.assertEqual(attempt, correct)
-
-    def test_da(self):
-        correct = u'daː'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'da'))
-        self.assertEqual(attempt, correct)
-
-    def test_e(self):
-        correct = u'ə'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'e'))
-        self.assertEqual(attempt, correct)
+        self.test_german(u'wasser', u'vasər')
 
     def test_ahre(self):
-        correct = u'eːrə'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'Ähre'))
-        self.assertEqual(attempt, correct)
+        self.test_german(u'Ähre', u'eːrə')
 
     def test_abdanken(self):
-        correct = u'apdaŋkən'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'abdanken'))
-        # print(u'{} ?= {}'.format(attempt, correct))
-        self.assertEqual(attempt, correct)
+        self.test_german(u'abdanken', u'apdaŋkən')
 
     def test_rotgelb(self):
-        correct = u'rotgelp'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'rotgelb'))
-        # print(u'{} ?= {}'.format(attempt, correct))
-        self.assertEqual(attempt, correct)
+        self.test_german(u'rotgelb', u'rotgelp')
 
 
 class TestSpanish(unittest.TestCase):
@@ -212,4 +200,14 @@ class TestSpanish(unittest.TestCase):
     def test_cuestion(self):
         correct = u'kwestjon'
         attempt = assemble_ipa(self.epi.word_to_tuples(u'cuestión'))
+        self.assertEqual(attempt, correct)
+
+
+class TestFrench(unittest.TestCase):
+    def setUp(self):
+        self.epi = _epitran.Epitran(u'fra-Latn')
+
+    def test_suggerer(self):
+        attempt = assemble_ipa(self.epi.word_to_tuples(u'suggérer'))
+        correct = u'sygʒere'
         self.assertEqual(attempt, correct)

@@ -1,10 +1,10 @@
+a,b,X,Y
 x,ks,,#
 x,ks,,p|t|k|f|s|ch
 sc,s,,[ieyIEY]
 Sc,S,,[ieyIEY]
 c,s,,[ieyIEY]
 C,S,,[ieyIEY]
-ct,,,(am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
 g,ʒ,,[eiyIEY]
 G,Ʒ,,[eiyIEY]
 s,z,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
@@ -19,3 +19,13 @@ er,é,,
 es,,,#
 ge,ʒ,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
 Ge,Ʒ,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+ct,,,(am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
+d,,,#
+dd,,,#
+g,,,#
+p,,,#
+pp,,,#
+t,,,#
+tt,,,#
+x,,,#
+ent,,,#
