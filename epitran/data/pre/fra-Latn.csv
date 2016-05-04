@@ -1,43 +1,46 @@
 a,b,X,Y
-em,ɑ̃,,#
-en,ɑ̃,,#
-ein,ɛ̃,,#
-eun,œ̃,,#
-ien,iɛ̃,,#
-im,ɛ̃,,#
-in,ɛ̃,,#
-oin,wɛ̃,,#
-om,ɔ̃,,#
-on,ɔ̃,,#
-uin,ɥɛ̃,,#
-um,ɥɛ̃,,#
-un,œ̃,,#
-ym,ɛ̃,,#
-yn,ɛ̃,,#
 j,ʒ,,
 J,Ʒ,,
 i,j,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% Rules to be completed (with tilde)
+e[mn],ẫ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+ein|im|in|ym|yn,aî̃,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+eun|un,œ̃,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+ien,iễ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+om|on,õ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+uin|um,uẽ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+oin,ouễ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+% Treatment of <l>
 il,j,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],
 ill,j,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],
 e,ɛ,,x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
 x,ks,,p|t|k|f|s|ch
+% Treatment of <c> and <s>
 sc,s,,[eéèêëiîïyEÉÈÊËIÎÏY]
 Sc,S,,[eéèêëiîïyEÉÈÊËIÎÏY]
 c,s,,[eéèêëiîïyEÉÈÊËIÎÏY]
 C,S,,[eéèêëiîïyEÉÈÊËIÎÏY]
+% Intervocalic voicing of <s>
 s,z,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% High vowels become glides before vowels
 ou,w,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
 Ou,W,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
 u,ɥ,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% Context where <y> is realized as a vowel
 y,i,[^#],
 y,i,,[^aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% "Deletion" of <ent> word finally
 ent,,,#
-er,é,,
+% "Deletion" of <es> word finally
 es,,,#
+% Treatment of <er>
+er,é,,
 g,ʒ,,[eéèêëiîïyEÉÈÊËIÎÏY]
 G,Ʒ,,[eéèêëiîïyEÉÈÊËIÎÏY]
 e,,,#
+% A strange rule
 ct,,,(am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
+% These rules can be excised if we assume liason:
 d,,,#
 dd,,,#
 g,,,#
