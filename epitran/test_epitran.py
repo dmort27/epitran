@@ -229,3 +229,9 @@ class TestFrench(unittest.TestCase):
 
     def test_oui(self):
         self._derivation(u'oui', u'wi')
+
+    def test_xylophone(self):
+        self._derivation(u'xylophone', u'ksilɔfɔn')
+
+    def test_expansion(self):
+        self._derivation(u'expansion', u'ɛkspɑ̃sjɔ̃')
