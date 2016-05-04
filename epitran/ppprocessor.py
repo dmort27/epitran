@@ -41,6 +41,7 @@ class PrePostProcessor(object):
         return lambda w: regexp.sub(rewrite, w, re.U)
 
     def process(self, word):
+        word = unicodedata.normalize('NFC', word)
         word = '#{}#'.format(word)
         for rule in self.rules:
             word = rule(word)
