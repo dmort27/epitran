@@ -41,8 +41,8 @@ def add_file_gen(epi, ft, fn):
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
             fields = line.split(u'\t')
-            if len(fields) == 2:
-                orth, _ = fields
+            if len(fields) > 1:
+                orth = fields[0]
                 space.update(add_record_gen(epi, ft, orth))
     return space
 
