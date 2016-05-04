@@ -1,11 +1,9 @@
 a,b,X,Y
 x,ks,,p|t|k|f|s|ch
-sc,s,,[ieyIEY]
-Sc,S,,[ieyIEY]
-c,s,,[ieyIEY]
-C,S,,[ieyIEY]
-g,ʒ,,[eiyIEY]
-G,Ʒ,,[eiyIEY]
+sc,s,,[eéèêëiîïyEÉÈÊËIÎÏY]
+Sc,S,,[eéèêëiîïyEÉÈÊËIÎÏY]
+c,s,,[eéèêëiîïyEÉÈÊËIÎÏY]
+C,S,,[eéèêëiîïyEÉÈÊËIÎÏY]
 s,z,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
 ou,w,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
 Ou,W,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
@@ -15,8 +13,8 @@ y,i,,[^aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
 ent,,,#
 er,é,,
 es,,,#
-ge,ʒ,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
-Ge,Ʒ,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+g,ʒ,,[eéèêëiîïyEÉÈÊËIÎÏY]
+G,Ʒ,,[eéèêëiîïyEÉÈÊËIÎÏY]
 e,,,#
 ct,,,(am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
 d,,,#
