@@ -97,8 +97,16 @@ class TestUzbek(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'uzb-Latn')
 
-    def test_e_diaresis1(self):
-        char = unicodedata.normalize('NFD', u'ë')
+    def _derivation(self, orth, correct):
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        self.assertEqual(attempt, correct)
+
+    def test_uppercase_e_diaeresis(self):
+        self._derivation(u'Ë', u'ja')
+
+    def test_e_diasresis1(self):
+        char = unicodedata.normalize('NFC', u'ë')
         target = [(u'L', 0, char, u'ja')]
         test = self.epi.word_to_tuples(u'ë')
         self.assertEqual([x[:4] for x in test], target)
