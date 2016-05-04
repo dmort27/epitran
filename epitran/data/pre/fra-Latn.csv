@@ -1,10 +1,10 @@
-a,b,X,Y
+                                                                     a,b,X,Y
 j,ʒ,,
 J,Ʒ,,
 i,j,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
 % Rules to be completed (with tilde)
 a[mn],ẫ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-ai[mn],aî̃,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+ai[mn],ễ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
 e[mn],ẫ,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
 ein|im|in|ym|yn,aî̃,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
 eun|un,œ̃,,#|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
