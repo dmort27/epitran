@@ -235,3 +235,12 @@ class TestFrench(unittest.TestCase):
 
     def test_expansion(self):
         self._derivation(u'expansion', u'ɛkspɑ̃sjɔ̃')
+
+    def test_saint(self):
+        self._derivation(u'saint', u'sɛn')
+
+    def test_seing(self):
+        self._derivation(u'seing', u'sɛn')
+
+    def test_ceins(self):
+        self._derivation(u'ceins', u'sɛn')
