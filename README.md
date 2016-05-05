@@ -111,6 +111,8 @@ A few notes are in order regarding this data structure:
 |----------|------------------------|
 | aze-Cyrl | Azerbaijani (Cyrillic) |
 | aze-Latn | Azerbaijani (Latin)    |
+| deu-Latn | German                 |
+| fra-Latn | French                 |
 | hau-Latn | Hausa                  |
 | ind-Latn | Indonesian             |
 | jav-Latn | Javanese               |
@@ -119,6 +121,8 @@ A few notes are in order regarding this data structure:
 | kir-Arab | Kyrgyz (Perso-Arabic)  |
 | kir-Cyrl | Kyrgyz (Cyrillic)      |
 | kir-Latn | Kyrgyz (Latin)         |
+| nld-Latn | Dutch                  |
+| spa-Latn | Spanish                |
 | tuk-Cyrl | Turkmen (Cyrillic)     |
 | tuk-Latn | Turkmen (Latin)        |
 | tur-Latn | Turkish (Latin)        |
@@ -129,8 +133,11 @@ A few notes are in order regarding this data structure:
 
 ### Language "Spaces"
 
-| Code                                | Language | Note                                 |
-|-------------------------------------|----------|--------------------------------------|
-| tur-with_attached_suffixes-space    | Turkish  | Based on data with suffixes attached |
-| tur-without_attached_suffixes-space | Turkish  | Based on data with suffixes removed  |
-| uzb-with_attached_suffixes-space    | Uzbek    | Based on data with suffixes attached |
+| Code            | Language | Note                                 |
+|-----------------|----------|--------------------------------------|
+| deu-Latn        | German   |                                      |
+| nld-Latn        | Dutch    |                                      |
+| spa-Latn        | Spanish  |                                      |
+| tur-Latn-suf    | Turkish  | Based on data with suffixes attached |
+| tur-Latn-nosuf  | Turkish  | Based on data with suffixes removed  |
+| uzb-Latn-suf    | Uzbek    | Based on data with suffixes attached |
