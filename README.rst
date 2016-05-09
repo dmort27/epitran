@@ -91,6 +91,39 @@ Here is an example of an interaction with ``word_to_tuples``:
     >>> epi.word_to_tuples(u'Düğün')
     [(u'L', 1, u'D', u'd', [(u'd', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'g\u0306', u'\u0270', [(u'\u0270', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
 
+Preprocessors and Their Pitfalls
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to build a maintainable orthography to phoneme mapper, it is
+sometimes necessary to employ preprocessors that make contextual
+substitutions of symbols before text is passed to a orthography-to-IPA
+mapping system that preserves relationships between input and output
+characters. This is particularly true of languages with a poor
+sound-symbols correspondence (like French and English). Languages like
+French are particularly good targets for this approach because the
+pronunication of a given string of letters is highly predictable even
+though the individual symbols often do not map neatly into sounds.
+(Sound-symbol correspondence is so poor on English that effective
+English G2P systems rely heavily on pronouncing dictionaries.)
+
+Preprocessing the inputs words to allow for straightforward
+grapheme-to-phoneme mappings (as is done in the current version of
+``epitran`` for some languages) is advantaeous because the restricted
+regular expression language used to write the preprocessing rules is
+more powerful than the language for the mapping rules and allows the
+equivalent of many mapping rules to be written with a single rule.
+Without them, providing ``epitran`` support for languages like French
+and German would not be practical. However, they do present some
+problems. Specifically, when using a language with a preprocessor, one
+**must** be aware that the input word will not always be identical to
+the concatenation of the orthographic strings (``orthographic_form``)
+output by ``Epitran.word_to_tuples``. Instead, the output of
+``word_to_tuple`` will reflect the output of the preprocessor, which may
+delete, insert, and change letters in order to allow direct
+orthography-to-phoneme mapping at the next step. The same is true of
+other methods that rely on ``Epitran.word_to_tuple`` such as
+``VectorsWithIPASpace.word_to_segs`` from the ``epitran.vector`` module.
+
 Using the ``epitran.vector`` Module
 -----------------------------------
 
@@ -164,54 +197,39 @@ Language Support
 Transliteration Languages
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-+------------+--------------------------+
-| Code       | Language (Script)        |
-+============+==========================+
-| aze-Cyrl   | Azerbaijani (Cyrillic)   |
-+------------+--------------------------+
-| aze-Latn   | Azerbaijani (Latin)      |
-+------------+--------------------------+
-| hau-Latn   | Hausa                    |
-+------------+--------------------------+
-| ind-Latn   | Indonesian               |
-+------------+--------------------------+
-| jav-Latn   | Javanese                 |
-+------------+--------------------------+
-| kaz-Cyrl   | Kazakh (Cyrillic)        |
-+------------+--------------------------+
-| kaz-Latn   | Kazakh (Latin)           |
-+------------+--------------------------+
-| kir-Arab   | Kyrgyz (Perso-Arabic)    |
-+------------+--------------------------+
-| kir-Cyrl   | Kyrgyz (Cyrillic)        |
-+------------+--------------------------+
-| kir-Latn   | Kyrgyz (Latin)           |
-+------------+--------------------------+
-| tuk-Cyrl   | Turkmen (Cyrillic)       |
-+------------+--------------------------+
-| tuk-Latn   | Turkmen (Latin)          |
-+------------+--------------------------+
-| tur-Latn   | Turkish (Latin)          |
-+------------+--------------------------+
-| yor-Latn   | Yoruba                   |
-+------------+--------------------------+
-| uig-Arab   | Uyghur (Perso-Arabic)    |
-+------------+--------------------------+
-| uzb-Cyrl   | Uzbek (Cyrillic)         |
-+------------+--------------------------+
-| uzb-Latn   | Uzbek (Latin)            |
-+------------+--------------------------+
+\| Code \| Language (Script) \|
+\|-------------\|------------------------\| \| aze-Cyrl \| Azerbaijani
+(Cyrillic) \| \| aze-Latn \| Azerbaijani (Latin) \| \| deu-Latn \|
+German \| \| deu-Latn-np \| German\* \| \| fra-Latn \| French \| \|
+fra-Latn-np \| French\* \| \| hau-Latn \| Hausa \| \| ind-Latn \|
+Indonesian \| \| jav-Latn \| Javanese \| \| kaz-Cyrl \| Kazakh
+(Cyrillic) \| \| kaz-Latn \| Kazakh (Latin) \| \| kir-Arab \| Kyrgyz
+(Perso-Arabic) \| \| kir-Cyrl \| Kyrgyz (Cyrillic) \| \| kir-Latn \|
+Kyrgyz (Latin) \| \| nld-Latn \| Dutch \| \| spa-Latn \| Spanish \| \|
+tuk-Cyrl \| Turkmen (Cyrillic) \| \| tuk-Latn \| Turkmen (Latin) \| \|
+tur-Latn \| Turkish (Latin) \| \| yor-Latn \| Yoruba \| \| uig-Arab \|
+Uyghur (Perso-Arabic) \| \| uzb-Cyrl \| Uzbek (Cyrillic) \| \| uzb-Latn
+\| Uzbek (Latin) \| \*These language preprocessors and maps naively
+assume a phonemic orthography.
 
 Language "Spaces"
 ~~~~~~~~~~~~~~~~~
 
-+-----------------------------------------+------------+----------------------------------------+
-| Code                                    | Language   | Note                                   |
-+=========================================+============+========================================+
-| tur-with\_attached\_suffixes-space      | Turkish    | Based on data with suffixes attached   |
-+-----------------------------------------+------------+----------------------------------------+
-| tur-without\_attached\_suffixes-space   | Turkish    | Based on data with suffixes removed    |
-+-----------------------------------------+------------+----------------------------------------+
-| uzb-with\_attached\_suffixes-space      | Uzbek      | Based on data with suffixes attached   |
-+-----------------------------------------+------------+----------------------------------------+
++------------------+------------+----------------------------------------+
+| Code             | Language   | Note                                   |
++==================+============+========================================+
+| deu-Latn         | German     |                                        |
++------------------+------------+----------------------------------------+
+| nld-Latn         | Dutch      |                                        |
++------------------+------------+----------------------------------------+
+| spa-Latn         | Spanish    |                                        |
++------------------+------------+----------------------------------------+
+| tur-Latn-suf     | Turkish    | Based on data with suffixes attached   |
++------------------+------------+----------------------------------------+
+| tur-Latn-nosuf   | Turkish    | Based on data with suffixes removed    |
++------------------+------------+----------------------------------------+
+| uzb-Latn-suf     | Uzbek      | Based on data with suffixes attached   |
++------------------+------------+----------------------------------------+
 
+Note that major languages, including **French**, are missing from this
+table to to a lack of appropriate text data.
