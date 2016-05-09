@@ -11,6 +11,7 @@ import unicodecsv as csv
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 def normpunc(epi, s):
     def norm(c):
         if c in epi.puncnorm:
