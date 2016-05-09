@@ -181,6 +181,9 @@ class TestGerman(unittest.TestCase):
     def test_wasser(self):
         self._derivation(u'wasser', u'vasər')
 
+    def test_geben(self):
+        self._derivation(u'geben', u'geːbən')
+
     def test_ahre(self):
         self._derivation(u'Ähre', u'eːrə')
 
@@ -203,14 +206,17 @@ class TestGermanNP(unittest.TestCase):
     def test_wasser(self):
         self._derivation(u'wasser', u'vasər')
 
+    def test_geben(self):
+        self._derivation(u'geben', u'geːbən')
+
     def test_ahre(self):
         self._derivation(u'Ähre', u'eːrə')
 
     def test_abdanken(self):
-        self._derivation(u'abdanken', u'apdaŋkən')
+        self._derivation(u'abdanken', u'abdaŋkən')
 
     def test_rotgelb(self):
-        self._derivation(u'rotgelb', u'rotgelp')
+        self._derivation(u'rotgelb', u'rotgelb')
 
 
 class TestSpanish(unittest.TestCase):
