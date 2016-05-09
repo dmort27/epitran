@@ -191,6 +191,28 @@ class TestGerman(unittest.TestCase):
         self._derivation(u'rotgelb', u'rotgelp')
 
 
+class TestGermanNP(unittest.TestCase):
+    def setUp(self):
+        self.epi = _epitran.Epitran(u'deu-Latn-np')
+
+    def _derivation(self, orth, correct):
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        self.assertEqual(attempt, correct)
+
+    def test_wasser(self):
+        self._derivation(u'wasser', u'vasər')
+
+    def test_ahre(self):
+        self._derivation(u'Ähre', u'eːrə')
+
+    def test_abdanken(self):
+        self._derivation(u'abdanken', u'apdaŋkən')
+
+    def test_rotgelb(self):
+        self._derivation(u'rotgelb', u'rotgelp')
+
+
 class TestSpanish(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'spa-Latn')
