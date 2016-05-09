@@ -1,9 +1,11 @@
 a,b,X,Y
-s,z,#,
-S,Z,#,
+s,z,#,[aäeioöuü]
+S,Z,#,[aäeioöuü]
 b,p,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
 d,t,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
 g,k,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
+Ge,Gə,#,
+ge,gə,#,
 e,ə,,#
 I,Ie,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
 i,ie,,#|(b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z)[aäeioöuü]
