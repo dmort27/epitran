@@ -148,25 +148,22 @@ class TestDutch(unittest.TestCase):
     def setUp(self):
         self.epi = _epitran.Epitran(u'nld-Latn')
 
-    def test_bernhard(self):
-        correct = u'bɛrnɦɑrt'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'Bernhard'))
+    def _derivation(self, orth, correct):
+        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
+
+    def test_bernhard(self):
+        self._derivation(u'Bernhard', u'bɛrnhɑrt')
 
     def test_utrecht(self):
-        correct = u'ʏtrɛxt'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'Utrecht'))
-        self.assertEqual(attempt, correct)
+        self._derivation(u'Utrecht', u'ʏtrɛxt')
 
     def test_lodewijk(self):
-        correct = u'loːdeːʋɛjk'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'Lodewijk'))
-        self.assertEqual(attempt, correct)
+        self._derivation(u'Lodewijk', u'loːdeːʋɛjk')
 
     def test_random(self):
-        correct = u'ɛrtoːɣɛnbɔs'
-        attempt = assemble_ipa(self.epi.word_to_tuples(u'ertogenbosch'))
-        self.assertEqual(attempt, correct)
+        self._derivation(u'ertogenbosch', u'ɛrtoːɣɛnbɔs')
 
 
 class TestGerman(unittest.TestCase):
