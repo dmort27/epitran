@@ -184,6 +184,18 @@ class TestGerman(unittest.TestCase):
     def test_geben(self):
         self._derivation(u'geben', u'geːbən')
 
+    def test_scheisse(self):
+        self._derivation(u'scheiẞe', u'ʃajsə')
+
+    def test_nietzsche(self):
+        self._derivation(u'Nietzsche', u'niːt͡ʃə')
+
+    def test_gefaelscht(self):
+        self._derivation(u'gefälscht', u'gəfelʃt')
+
+    def test_geben(self):
+        self._derivation(u'immer', u'imər')
+
     def test_ahre(self):
         self._derivation(u'Ähre', u'eːrə')
 
@@ -205,9 +217,6 @@ class TestGermanNP(unittest.TestCase):
 
     def test_wasser(self):
         self._derivation(u'wasser', u'vasər')
-
-    def test_geben(self):
-        self._derivation(u'geben', u'geːbən')
 
     def test_ahre(self):
         self._derivation(u'Ähre', u'eːrə')
