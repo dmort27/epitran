@@ -1,10 +1,10 @@
 a,b,X,Y
-g,ch,,#
-b,p,,#
-d,t,,#
-sch,s,,#
+g,ch,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)
+b,p,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)
+d,t,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)
+sch,s,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)
 c,k,,#
-gh,ch,,#
+gh,ch,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)
 c,s,,[eiy]
 C,S,,[eiy]
 a,aa,,#|(b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z)[aeiou]
