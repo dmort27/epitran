@@ -1,12 +1,13 @@
 from __future__ import print_function, unicode_literals
 
-import subprocess
 import os.path
-import unicodecsv as csv
-import unicodedata
 import string
+import subprocess32 as subprocess
+import unicodedata
 
 import pkg_resources
+
+import unicodecsv as csv
 
 
 class Flite(object):
@@ -23,6 +24,7 @@ class Flite(object):
         return darpa_map
 
     def normalize(self, text):
+        text = unicode(text)
         text = unicodedata.normalize('NFD', text)
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
