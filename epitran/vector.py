@@ -25,7 +25,7 @@ class VectorsWithIPASpace(object):
                 when the class is instantiated.
         return -- a list of tuples, each representing an IPA segment or a
                   punctuation character. Tuples consist of <category, lettercase,
-                  orthographic_form, phonetic_form, feature_vector>.
+                  orthographic_form, phonetic_form, id, feature_vector>.
 
         Category consists of the standard Unicode classes (e.g. 'L' for letter
         and 'P' for punctuation). Case is binary: 1 for uppercase and 0 for
