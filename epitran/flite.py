@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*-
 from __future__ import print_function, unicode_literals
 
 import subprocess
 import os.path
 import unicodecsv as csv
+import unicodedata
+import string
 
 import pkg_resources
 
@@ -21,6 +22,11 @@ class Flite(object):
                 darpa_map[darpa] = ipa
         return darpa_map
 
+    def normalize(self, text):
+        text = unicodedata.normalize('NFD', text)
+        text = ''.join(filter(lambda x: x in string.printable, text))
+        return text
+
     def darpa_to_ipa(self, darpa_text):
         darpa_text = darpa_text.strip()
         darpa_list = darpa_text.split(' ')[1:-1]  # remove pauses
@@ -28,5 +34,6 @@ class Flite(object):
         return ''.join(ipa_list)
 
     def english_g2p(self, text):
+        text = self.normalize(text)
         darpa_text = subprocess.check_output(['flite', '-ps', '-o', '/dev/null', '-t', '"{}"'.format(text)])
         return self.darpa_to_ipa(darpa_text)
