@@ -152,3 +152,16 @@ A few notes are in order regarding this data structure:
 | uzb-Latn-suf    | Uzbek    | Based on data with suffixes attached |
 
 Note that major languages, including **French**, are missing from this table to to a lack of appropriate text data.
+
+## Using the ```epitran.flite``` Module
+
+The ```epitran.flite``` module shells out to the ```flite``` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. Usage is illustrated below:
+
+      >>> import epitran.flite
+      >>> fl = epitran.flite.Flite()
+      >>> print fl.english_g2p(u'San Leandro')
+      sænliɑndɹow
+
+There is only one class is this module (Flite) and it has only a small number of "public" methods, of which only ```english_g2p``` is truly of interest. It takes English words and returns a pronunciation of these words in Unicode IPA.
+
+In the future, there will be a wrapper that will provide a data structure identical to that for other languages (continaing other associated data including articulatory feature vectors).
