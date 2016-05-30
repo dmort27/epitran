@@ -24,7 +24,6 @@ class Epitran(object):
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
         self.preprocessor = PrePostProcessor(code, 'pre')
-        # self.postprocessor = PrePostProcessor(code, 'post')
 
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
