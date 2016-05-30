@@ -12,8 +12,8 @@ import subprocess32 as subprocess
 import unicodecsv as csv
 import panphon
 
-logging.basicConfig(level=logging.DEBUG)
-
+logging.basicConfig(level=logging.CRITICAL)
+logging.disable(logging.DEBUG)
 
 class Flite(object):
     def __init__(self, darpabet='darpabet'):
