@@ -7,6 +7,7 @@ import unicodedata
 
 import pkg_resources
 import unicodecsv as csv
+import regex as re
 
 import subprocess32 as subprocess
 
@@ -65,6 +66,17 @@ class Flite(object):
             logging.warning('Non-zero exit status from flite.')
             darpa_text = ''
         return self.darpa_to_ipa(darpa_text)
+
+    def transliterate(self, text, normpunc=False):
+        chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
+        text = unicodedata.normalize('NFC', text)
+        acc = []
+        for chunk in chunk_re.findall(text):
+            if unicodedata.category(chunk[0])[0] == 'L':
+                acc.append(self.english_g2p(chunk))
+            else:
+                acc.append(chunk)
+        return ''.join(acc)
 
 
 class VectorsWithIPASpace(object):
