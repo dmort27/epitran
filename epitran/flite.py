@@ -147,12 +147,6 @@ class VectorsWithIPASpace(object):
             else:
                 return vec2bin(self.ft.segment_to_vector(seg))
 
-        # def to_vectors(phon):
-        #     if phon == u'':
-        #         return [(-1, [0] * self.num_panphon_fts)]
-        #     else:
-        #         return [to_vector(seg) for seg in self.ft.segs(phon)]
-
         def to_space(seg):
             if seg in self.space:
                 return self.space[seg]
