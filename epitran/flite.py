@@ -6,10 +6,10 @@ import string
 import unicodedata
 
 import pkg_resources
-import unicodecsv as csv
-import regex as re
 
+import regex as re
 import subprocess32 as subprocess
+import unicodecsv as csv
 
 logging.basicConfig(level=logging.DEBUG)
 
