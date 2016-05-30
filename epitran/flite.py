@@ -143,13 +143,13 @@ class VectorsWithIPASpace(object):
 
         def to_vector(seg):
             if seg == '':
-                return [(-1, [0] * self.num_panphon_fts)]
+                return [0] * self.num_panphon_fts
             else:
                 return vec2bin(self.ft.segment_to_vector(seg))
 
         def to_space(seg):
             if seg in self.space:
-                return self.space[seg]
+                return int(self.space[seg])
             else:
                 return -1
 
@@ -158,7 +158,7 @@ class VectorsWithIPASpace(object):
         first = True
         trans = self.flite.transliterate(word, normpunc)
         while trans:
-            match = self.regexp.match(trans)
+            match = self.ft.seg_regex.match(trans)
             if match:
                 span = match.group(1)
                 case = capitalized if first else 0
