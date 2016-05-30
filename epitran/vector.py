@@ -40,9 +40,9 @@ class VectorsWithIPASpace(object):
                     orth = self.epi.puncnorm[orth]
             for s, vector in id_vec_list:
                 if s in self.space:
-                    id_ = self.space[s]
+                    id_ = int(self.space[s])
                 elif orth in self.space:
-                    id_ = self.space[orth]
+                    id_ = int(self.space[orth])
                 else:
                     id_ = -1
                 new_segs.append((cat, case, orth, phon, id_, vector))
