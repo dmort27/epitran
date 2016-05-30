@@ -26,14 +26,13 @@ def normpunc(flite, s):
 def add_record(flite, ft, orth):
     space = Counter()
     orth = normpunc(flite, orth)
-    trans = flite.english_g2p(orth)
+    trans = flite.transliterate(orth)
     while trans:
         pref = ft.longest_one_seg_prefix(trans)
         if pref != '':
             space[pref] += 1
             trans = trans[len(pref):]
         else:
-            # Fix this!
             if trans[0] in flite.puncnorm_vals:
                 space[trans[0]] += 1
             else:
