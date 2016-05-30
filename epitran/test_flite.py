@@ -5,8 +5,9 @@ import unittest
 import flite
 import types
 
+
 class TestVectorWithIPASpace(unittest.TestCase):
-    def  setUp(self):
+    def setUp(self):
         self.vwis = flite.VectorsWithIPASpace()
 
     def test_data_structure1(self):
