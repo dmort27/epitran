@@ -155,13 +155,18 @@ Note that major languages, including **French**, are missing from this table to 
 
 ## Using the ```epitran.flite``` Module
 
-The ```epitran.flite``` module shells out to the ```flite``` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. Usage is illustrated below:
+The ```epitran.flite``` module shells out to the ```flite``` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. Because ```flite``` must be loaded each time ```english_g2p``` is called, performance is quite poor. Usage is illustrated below:
 
       >>> import epitran.flite
       >>> fl = epitran.flite.Flite()
       >>> print fl.english_g2p(u'San Leandro')
       sænliɑndɹow
 
-There is only one class is this module (Flite) and it has only a small number of "public" methods, of which only ```english_g2p``` is truly of interest. It takes English words and returns a pronunciation of these words in Unicode IPA.
+This module also contains a wrapper that takes orthographic English as an input and returns as an output the same data structure returned by ```epitran.vector.VectorWithIPASpace.word_to_segs```. Usage of this class and its most useful method is illustrated below:
 
-In the future, there will be a wrapper that will provide a data structure identical to that for other languages (continaing other associated data including articulatory feature vectors).
+      >>> import epitran.flite
+      >>> vwis = epitran.flite.VectorsWithIPASpace()
+      >>> vwis.word_to_segs(u'San Leandro')
+      [(u'L', 1, u's', u's', 50, [-1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\xe6', u'\xe6', 58, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'Z', 0, u' ', u'', 1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), (u'L', 0, u'l', u'l', 45, [-1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'i', u'i', 4 2, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1]), (u'L', 0, u'\u0251', u'\u0251', 61, [1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'd', u'd', 36, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\u0279', u'\u0279', 66, [-1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 0, -1]), (u'L', 0, u'o', u'o', 48, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1]), (u'L', 0, u'w', u'w', 55, [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, 1, 1, -1, 1, 1, 0, -1])]
+
+The observant user will note that the interface is the same as that of the identically-named class in the the ```epitran.vector``` module.
