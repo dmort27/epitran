@@ -10,6 +10,7 @@ import pkg_resources
 import regex as re
 import subprocess32 as subprocess
 import unicodecsv as csv
+import panphon
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -18,6 +19,7 @@ class Flite(object):
     def __init__(self, darpabet='darpabet'):
         darpabet = pkg_resources.resource_filename(__name__, os.path.join('data', darpabet + '.csv'))
         self.darpa_map = self._read_darpabet(darpabet)
+        self.chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
         self.puncnorm = self._load_punc_norm_map()
         self.puncnorm_vals = self.puncnorm.values()
 
@@ -68,10 +70,9 @@ class Flite(object):
         return self.darpa_to_ipa(darpa_text)
 
     def transliterate(self, text, normpunc=False):
-        chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
         text = unicodedata.normalize('NFC', text)
         acc = []
-        for chunk in chunk_re.findall(text):
+        for chunk in self.chunk_re.findall(text):
             if unicodedata.category(chunk[0])[0] == 'L':
                 acc.append(self.english_g2p(chunk))
             else:
@@ -82,7 +83,11 @@ class Flite(object):
 class VectorsWithIPASpace(object):
     def __init__(self, code='eng-Latn', space_name='eng-Latn'):
         self.flite = Flite()
+        self.ft = panphon.FeatureTable()
         self.space = self._load_space(space_name)
+        self.darpa2ipa = self._load_darpa2ipa_map()
+        self.regexp = self._compile_regexp()
+        self.num_panphon_fts = len(self.ft.names)
 
     def _load_space(self, space_name):
         space_fn = os.path.join('data', 'space', space_name + '.csv')
@@ -90,6 +95,21 @@ class VectorsWithIPASpace(object):
         with open(space_fn, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             return {seg: num for (num, seg) in reader}
+
+    def _load_darpa2ipa_map(self):
+        darpa2ipa = {}
+        path = os.path.join('data', 'darpabet.csv')
+        path = pkg_resources.resource_filename(__name__, path)
+        with open(path, 'rb') as f:
+            reader = csv.reader(f, encoding='utf-8')
+            next(reader)
+            for darpa, phon in reader:
+                darpa2ipa[darpa] = phon
+        return darpa2ipa
+
+    def _compile_regexp(self):
+        regex = ur'({})'.format('|'.join([v for v in self.darpa2ipa.values()]))
+        return re.compile(regex, re.U)
 
     def word_to_segs(self, word, normpunc=False):
         """Returns feature vectors, etc. for segments and punctuation in a word.
@@ -110,9 +130,6 @@ class VectorsWithIPASpace(object):
             case = 1 if case == 'u' else 0
             return unicode(cat), case
 
-        def cat(c):
-            return unicodedata.category(c)[0]
-
         def recode_ft(ft):
             if ft == '+':
                 return 1
@@ -125,13 +142,16 @@ class VectorsWithIPASpace(object):
             return map(recode_ft, vec)
 
         def to_vector(seg):
-            return seg, vec2bin(self.ft.segment_to_vector(seg))
-
-        def to_vectors(phon):
-            if phon == u'':
+            if seg == '':
                 return [(-1, [0] * self.num_panphon_fts)]
             else:
-                return [to_vector(seg) for seg in self.ft.segs(phon)]
+                return vec2bin(self.ft.segment_to_vector(seg))
+
+        # def to_vectors(phon):
+        #     if phon == u'':
+        #         return [(-1, [0] * self.num_panphon_fts)]
+        #     else:
+        #         return [to_vector(seg) for seg in self.ft.segs(phon)]
 
         def to_space(seg):
             if seg in self.space:
@@ -139,12 +159,27 @@ class VectorsWithIPASpace(object):
             else:
                 return -1
 
-        segs = []
-        word = self.normalize(word)
-        if normpunc:
-            word = self.flite.normalize_punc(word)
-        while word:
-            while cat(word[0]) != 'L':
-                pass
-            while cat(word[0]) == 'L':
-                pass
+        tuples = []
+        _, capitalized = cat_and_cap(word[0])
+        first = True
+        trans = self.flite.transliterate(word, normpunc)
+        while trans:
+            match = self.regexp.match(trans)
+            if match:
+                span = match.group(1)
+                case = capitalized if first else 0
+                first = False
+                logging.debug(u'span = "{}" (letter)'.format(span))
+                tuples.append(('L', case, span, span, to_space(span), to_vector(span)))
+                trans = trans[len(span):]
+                logging.debug(u'trans = "{}" (letter)'.format(trans))
+            else:
+                span = trans[0]
+                logging.debug('span = "{}" (non-letter)'.format(span))
+                span = self.normalize_punc(span) if normpunc else span
+                cat, case = cat_and_cap(span)
+                cat = 'P' if normpunc and cat in self.puncnorm else cat
+                tuples.append((cat, case, span, '', to_space(span), to_vector('')))
+                trans = trans[1:]
+                logging.debug(u'trans = "{}" (non-letter)'.format(trans))
+        return tuples
