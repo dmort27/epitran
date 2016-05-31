@@ -6,14 +6,15 @@ import string
 import unicodedata
 
 import pkg_resources
-
 import regex as re
-import subprocess32 as subprocess
 import unicodecsv as csv
+
 import panphon
+import subprocess32 as subprocess
 
 logging.basicConfig(level=logging.CRITICAL)
 logging.disable(logging.DEBUG)
+
 
 class Flite(object):
     def __init__(self, darpabet='darpabet'):
