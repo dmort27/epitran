@@ -1,4 +1,5 @@
 import os.path
+from types import StringTypes, ListType
 
 import pkg_resources
 
@@ -9,14 +10,29 @@ from _epitran import Epitran
 class VectorsWithIPASpace(object):
     def __init__(self, code, space_name):
         self.epi = Epitran(code)
-        self.space = self._load_space(space_name)
+        if isinstance(space_name, StringTypes):
+            self.space = self._load_single_space(space_name)
+        elif isinstance(space_name, ListType):
+            self.space = self._load_union_space(space_name)
 
-    def _load_space(self, space_name):
+    def _load_single_space(self, space_name):
         space_fn = os.path.join('data', 'space', space_name + '.csv')
         space_fn = pkg_resources.resource_filename(__name__, space_fn)
         with open(space_fn, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             return {seg: num for (num, seg) in reader}
+
+    def _load_union_space(self, space_names):
+        segs = set()
+        for name in space_names:
+            fn = os.path.join('data', name + '.csv')
+            fn = pkg_resources.resource_filename(__name__, fn)
+            with open(fn, 'rb') as f:
+                reader = csv.reader(f, encoding='utf-8')
+                for _, to_ in reader:
+                    for seg in self.epi.ft.segs(to_):
+                        segs.add(seg)
+        return {}
 
     def word_to_segs(self, word, normpunc=False):
         """Returns feature vectors, etc. for segments and punctuation in a word.
