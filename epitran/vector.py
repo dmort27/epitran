@@ -1,5 +1,5 @@
 import os.path
-from types import StringTypes, ListType
+from types import ListType, StringTypes
 
 import pkg_resources
 
@@ -32,7 +32,7 @@ class VectorsWithIPASpace(object):
                 for _, to_ in reader:
                     for seg in self.epi.ft.segs(to_):
                         segs.add(seg)
-        return {}
+        return {seg: num for (num, seg) in enumerate(segs)}
 
     def word_to_segs(self, word, normpunc=False):
         """Returns feature vectors, etc. for segments and punctuation in a word.
