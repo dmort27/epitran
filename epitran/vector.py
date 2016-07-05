@@ -2,6 +2,7 @@ import os.path
 from types import ListType, StringTypes
 
 import pkg_resources
+from collections import OrderedDict
 
 import unicodecsv as csv
 from _epitran import Epitran
@@ -13,7 +14,7 @@ class VectorsWithIPASpace(object):
         if isinstance(space_name, StringTypes):
             self.space = self._load_single_space(space_name)
         elif isinstance(space_name, ListType):
-            self.space = self._load_union_space_ternary(space_name)
+            self.space = self._load_union_space(space_name)
 
     def _load_single_space(self, space_name):
         space_fn = os.path.join('data', 'space', space_name + '.csv')
@@ -32,7 +33,8 @@ class VectorsWithIPASpace(object):
                 for _, to_ in reader:
                     for seg in self.epi.ft.segs(to_):
                         segs.add(seg)
-        return {seg: num for (num, seg) in enumerate(segs)}
+        enum = enumerate(sorted(list(segs)))
+        return {seg: num for (num, seg) in enum}
 
     def _load_union_space_ternary(self, space_names):
 
@@ -58,7 +60,7 @@ class VectorsWithIPASpace(object):
                 for _, to_ in reader:
                     for seg in self.epi.ft.segs(to_):
                         segs[seg] = to_int(seg)
-        return {seg: int(tern, base=3) for (seg, tern) in segs}
+        return segs
 
     def word_to_segs(self, word, normpunc=False):
         """Returns feature vectors, etc. for segments and punctuation in a word.
