@@ -13,7 +13,7 @@ class VectorsWithIPASpace(object):
         if isinstance(space_name, StringTypes):
             self.space = self._load_single_space(space_name)
         elif isinstance(space_name, ListType):
-            self.space = self._load_union_space(space_name)
+            self.space = self._load_union_space_ternary(space_name)
 
     def _load_single_space(self, space_name):
         space_fn = os.path.join('data', 'space', space_name + '.csv')
@@ -33,6 +33,32 @@ class VectorsWithIPASpace(object):
                     for seg in self.epi.ft.segs(to_):
                         segs.add(seg)
         return {seg: num for (num, seg) in enumerate(segs)}
+
+    def _load_union_space_ternary(self, space_names):
+
+        def recode_ft(ft):
+            val2trn = {'+': '2', '0': '1', '-': '0'}
+            try:
+                return val2trn[ft]
+            except KeyError:
+                raise ValueError("Feature values must be '+', '-', or '0'.")
+
+        def vec2ternary(vec):
+            return ''.join(map(recode_ft, vec))
+
+        def to_int(seg):
+            return int(vec2ternary(self.epi.ft.segment_to_vector(seg)), base=3)
+
+        segs = {}
+        for name in space_names:
+            fn = os.path.join('data', name + '.csv')
+            fn = pkg_resources.resource_filename(__name__, fn)
+            with open(fn, 'rb') as f:
+                reader = csv.reader(f, encoding='utf-8')
+                for _, to_ in reader:
+                    for seg in self.epi.ft.segs(to_):
+                        segs[seg] = to_int(seg)
+        return {seg: int(tern, base=3) for (seg, tern) in segs}
 
     def word_to_segs(self, word, normpunc=False):
         """Returns feature vectors, etc. for segments and punctuation in a word.
