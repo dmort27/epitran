@@ -11,6 +11,7 @@ class VectorsWithIPASpace(object):
     def __init__(self, code, space_name):
         self.epi = Epitran(code)
         if isinstance(space_name, StringTypes):
+            # Deprectated.
             self.space = self._load_single_space(space_name)
         elif isinstance(space_name, ListType):
             self.space = self._load_union_space(space_name)
@@ -18,6 +19,7 @@ class VectorsWithIPASpace(object):
             raise TypeError('Argument space_name must be string or list.')
 
     def _load_single_space(self, space_name):
+        # Deprectated.
         space_fn = os.path.join('data', 'space', space_name + '.csv')
         space_fn = pkg_resources.resource_filename(__name__, space_fn)
         with open(space_fn, 'rb') as f:
