@@ -26,6 +26,12 @@ class VectorsWithIPASpace(object):
 
     def _load_union_space(self, space_names):
         segs = set()
+        punc_fn = os.path.join('data', 'space', 'punc-Latn.csv')
+        punc_fn = pkg_resources.resource_filename(__name__, punc_fn)
+        with open(punc_fn, 'rb') as f:
+            reader = csv.reader(f, encoding='utf-8')
+            for (mark,) in reader:
+                segs.add(mark)
         for name in space_names:
             fn = os.path.join('data', name + '.csv')
             fn = pkg_resources.resource_filename(__name__, fn)
@@ -35,7 +41,7 @@ class VectorsWithIPASpace(object):
                     for seg in self.epi.ft.segs(to_):
                         segs.add(seg)
         enum = enumerate(sorted(list(segs)))
-        return {seg: num for (num, seg) in enum}
+        return {seg: num for num, seg in enum}
 
     def _load_union_space_ternary(self, space_names):
 
