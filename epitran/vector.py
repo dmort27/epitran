@@ -2,7 +2,6 @@ import os.path
 from types import ListType, StringTypes
 
 import pkg_resources
-from collections import OrderedDict
 
 import unicodecsv as csv
 from _epitran import Epitran
