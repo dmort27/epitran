@@ -15,6 +15,8 @@ class VectorsWithIPASpace(object):
             self.space = self._load_single_space(space_name)
         elif isinstance(space_name, ListType):
             self.space = self._load_union_space(space_name)
+        else:
+            raise TypeError('Argument space_name must be string or list.')
 
     def _load_single_space(self, space_name):
         space_fn = os.path.join('data', 'space', space_name + '.csv')
