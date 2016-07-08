@@ -25,16 +25,17 @@ documented below.
 Using the ``epitran`` Module
 ----------------------------
 
-The functionality in the ``epitran`` module is encapsulated in the very
-simple ``Epitran`` class. Its constructor takes one argument, ``code``,
-the ISO 639-3 code of the language to be transliterated plus a hyphen
-plus a four letter code for the script (e.g. 'Latn' for Latin script,
-'Cyrl' for Cyrillic script, and 'Arab' for a Person-Arabic script).
+The most general functionality in the ``epitran`` module is encapsulated
+in the very simple ``Epitran`` class. Its constructor takes one
+argument, ``code``, the ISO 639-3 code of the language to be
+transliterated plus a hyphen plus a four letter code for the script
+(e.g. 'Latn' for Latin script, 'Cyrl' for Cyrillic script, and 'Arab'
+for a Perso-Arabic script).
 
 ::
 
     >>> import epitran
-    >>> epi = epitran.Epitran('tur-Latn')
+    >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 
 The ``Epitran`` class has only a few "public" method (to the extent that
 such a concept exists in Python). The most important are
@@ -133,7 +134,7 @@ class, ``VectorsWithIPASpace``, including one method of interest,
 
 The constructor for ``VectorsWithIPASpace`` takes two arguments: -
 ``code``: the language-script code for the language to be processed. -
-``space``: the code for the punctuation/symbol/IPA space in which the
+``spaces``: the codes for the punctuation/symbol/IPA space in which the
 characters/segments from the data are expected to reside. The available
 spaces are listed `below <#language-support>`__.
 
