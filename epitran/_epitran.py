@@ -92,6 +92,7 @@ class Epitran(object):
             else:
                 return c
 
+        text = unicode(text)
         text = unicodedata.normalize('NFC', text.lower())
         text = self.preprocessor.process(text)
         text = self.regexp.sub(trans, text)
@@ -139,6 +140,7 @@ class Epitran(object):
                 return [to_vector(seg) for seg in self.ft.segs(phon)]
 
         tuples = []
+        word = unicode(word)
         word = unicodedata.normalize('NFC', word)
         word = self.preprocessor.process(word)
         while word:

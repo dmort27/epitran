@@ -87,7 +87,7 @@ class VectorsWithIPASpace(object):
         and 'P' for punctuation). Case is binary: 1 for uppercase and 0 for
         lowercase.
         """
-
+        
         segs = self.epi.word_to_tuples(word, normpunc)
         new_segs = []
         for cat, case, orth, phon, id_vec_list in segs:
