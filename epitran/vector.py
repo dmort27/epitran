@@ -10,8 +10,8 @@ from _epitran import Epitran
 class VectorsWithIPASpace(object):
     def __init__(self, code, space_name):
         self.epi = Epitran(code)
+        # This (singelton) usage is Deprectated.
         if isinstance(space_name, StringTypes):
-            # Deprectated.
             self.space = self._load_single_space(space_name)
         elif isinstance(space_name, ListType):
             self.space = self._load_union_space(space_name)
@@ -28,12 +28,15 @@ class VectorsWithIPASpace(object):
 
     def _load_union_space(self, space_names):
         segs = set()
-        punc_fn = os.path.join('data', 'space', 'punc-Latn.csv')
-        punc_fn = pkg_resources.resource_filename(__name__, punc_fn)
-        with open(punc_fn, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
-            for (mark,) in reader:
-                segs.add(mark)
+        scripts = [nm.split('-')[1] for nm in space_names]
+        punc_fns = ['punc-{}.csv'.format(sc) for sc in scripts]
+        for punc_fn in punc_fns:
+            punc_fn = os.path.join('data', 'space', punc_fn)
+            punc_fn = pkg_resources.resource_filename(__name__, punc_fn)
+            with open(punc_fn, 'rb') as f:
+                reader = csv.reader(f, encoding='utf-8')
+                for (mark,) in reader:
+                    segs.add(mark)
         for name in space_names:
             fn = os.path.join('data', name + '.csv')
             fn = pkg_resources.resource_filename(__name__, fn)
