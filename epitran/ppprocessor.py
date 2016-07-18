@@ -17,9 +17,12 @@ class PrePostProcessor(object):
 
     def _read_file(self, code, fix):
         assert fix in ['pre', 'post']
-        fn = os.path.join('data', fix, code + '.csv')
-        abs_fn = pkg_resources.resource_filename(__name__, fn)
         rules = []
+        fn = os.path.join('data', fix, code + '.csv')
+        try:
+            abs_fn = pkg_resources.resource_filename(__name__, fn)
+        except KeyError:
+            return []
         if os.path.isfile(abs_fn):
             with open(abs_fn, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
