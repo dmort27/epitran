@@ -16,7 +16,7 @@ from ppprocessor import PrePostProcessor
 
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
-    def __init__(self, code):
+    def __init__(self, code, preproc=True):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
         self.puncnorm = self._load_punc_norm_map()
@@ -24,6 +24,7 @@ class Epitran(object):
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
         self.preprocessor = PrePostProcessor(code, 'pre')
+        self.preproc = preproc
 
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
@@ -95,7 +96,8 @@ class Epitran(object):
 
         text = unicode(text)
         text = unicodedata.normalize('NFC', text.lower())
-        text = self.preprocessor.process(text)
+        if self.preproc:
+            text = self.preprocessor.process(text)
         text = self.regexp.sub(trans, text)
         text = ''.join([normp(c) for c in text]) if normpunc else text
         return text
@@ -179,7 +181,8 @@ class Epitran(object):
         tuples = []
         word = unicode(word)
         word = unicodedata.normalize('NFC', word)
-        word = self.preprocessor.process(word)
+        if self.preproc:
+            word = self.preprocessor.process(word)
         while word:
             match = self.regexp.match(word)
             if match:
