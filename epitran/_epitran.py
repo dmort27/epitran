@@ -75,6 +75,7 @@ class Epitran(object):
         """Transliterate text from orthography to Unicode IPA.
 
         text -- The text to be transliterated
+        normpunc -- Normalize punctuation?
         """
         def trans(m):
             if m.group(0) in self.g2p:
@@ -96,8 +97,44 @@ class Epitran(object):
         text = unicodedata.normalize('NFC', text.lower())
         text = self.preprocessor.process(text)
         text = self.regexp.sub(trans, text)
-        text = ''.join([normp(c) for c in text])
+        text = ''.join([normp(c) for c in text]) if normpunc else text
         return text
+
+    def trans_list(self, text, normpunc=False):
+        """Transliterate text from orthography to Unicode IPA (as a list of
+        segments.
+
+        text -- The text to be transliterated
+        normpunc -- Normalize punctuation?
+        """
+        def normp(c):
+            if normpunc:
+                if c in self.puncnorm:
+                    return unicode(self.normalize_punc(c))
+                else:
+                    return unicode(c)
+            else:
+                return c
+
+        text = unicode(text)
+        text = unicodedata.normalize('NFC', text.lower())
+        text = self.preprocessor.process(text)
+        tr_list = []
+        while text:
+            m = self.regexp.match(text)
+            if m:
+                from_seg = m.group(0)
+                to_seg = self.g2p[from_seg][0]
+                tr_list.append(to_seg)
+                text = text[len(from_seg):]
+            else:
+                tr_list.append(text[0])
+                text = text[1:]
+        tr_list = [normp(c) for c in tr_list] if normpunc else tr_list
+        return tr_list
+
+    def trans_delimiter(self, text, delimiter=' ', normpunc=False):
+        return delimiter.join(self.trans_list(text, normpunc=normpunc))
 
     def word_to_tuples(self, word, normpunc=False):
         """Given a word, returns a list of tuples corresponding to IPA segments.
