@@ -24,6 +24,6 @@ setup(name='epitran',
       package_dir={'epitran': 'epitran'},
       package_data={'epitran': ['data/*.csv', 'data/*.json',
                                 'data/pre/*.csv', 'data/post/*.csv',
-                                'data/space/*.csv']},
+                                'data/space/*.csv', 'data/reromanize/*.csv']},
       zip_safe=True
       )
