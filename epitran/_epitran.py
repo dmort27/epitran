@@ -12,6 +12,7 @@ import unicodecsv as csv
 
 import panphon
 from ppprocessor import PrePostProcessor
+from stripdiacritics import StripDiacritics
 
 
 class Epitran(object):
@@ -24,6 +25,7 @@ class Epitran(object):
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
         self.preprocessor = PrePostProcessor(code, 'pre')
+        self.strip_diacritics = StripDiacritics(code)
         self.preproc = preproc
 
     def _load_g2p_map(self, code):
@@ -95,6 +97,7 @@ class Epitran(object):
                 return c
 
         text = unicode(text)
+        text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFC', text.lower())
         if self.preproc:
             text = self.preprocessor.process(text)
@@ -119,6 +122,7 @@ class Epitran(object):
                 return c
 
         text = unicode(text)
+        text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFC', text.lower())
         text = self.preprocessor.process(text)
         tr_list = []
@@ -180,6 +184,7 @@ class Epitran(object):
 
         tuples = []
         word = unicode(word)
+        word = self.strip_diacritics.process(word)
         word = unicodedata.normalize('NFC', word)
         if self.preproc:
             word = self.preprocessor.process(word)
