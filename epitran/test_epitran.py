@@ -8,7 +8,7 @@ import unittest
 
 import _epitran
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.ERROR)
 
 
 def map_slice(xs, start, end):
@@ -99,7 +99,7 @@ class TestUzbek(unittest.TestCase):
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        # logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_uppercase_e_diaeresis(self):
@@ -144,7 +144,7 @@ class TestDutch(unittest.TestCase):
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        # logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_bernhard(self):
@@ -202,7 +202,7 @@ class TestGermanNP(unittest.TestCase):
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        # logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_wasser(self):
@@ -224,7 +224,7 @@ class TestSpanish(unittest.TestCase):
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        # logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_queso(self):
@@ -242,9 +242,9 @@ class TestFrench(unittest.TestCase):
         self.epi = _epitran.Epitran(u'fra-Latn')
 
     def _derivation(self, orth, correct):
-        logging.debug(orth.encode('utf-8'))
+        # logging.debug(orth.encode('utf-8'))
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        # logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_suggerer(self):
