@@ -236,6 +236,9 @@ class TestSpanish(unittest.TestCase):
     def test_cuestion(self):
         self._derivation(u'cuestión', u'kwestjon')
 
+    def test_sabado(self):
+        self._derivation(u'sábado', u'sabado')
+
 
 class TestFrench(unittest.TestCase):
     def setUp(self):
