@@ -29,6 +29,7 @@ class PrePostProcessor(object):
                 next(reader)
                 for record in reader:
                     if not re.match(ur'\s*%', record[0]):
+                        assert len(record) == 4
                         record = map(lambda x: unicodedata.normalize('NFC', x), record)
                         a, b, X, Y = record
                         rules.append(self._fields_to_function(a, b, X, Y))
@@ -36,7 +37,10 @@ class PrePostProcessor(object):
 
     def _fields_to_function(self, a, b, X, Y):
         left = r'(?P<X>{})(?P<a>{})(?P<Y>{})'.format(X, a, Y)
-        regexp = re.compile(left)
+        try:
+            regexp = re.compile(left)
+        except:
+            logging.error('"{}" is not a valid regexp.'.format(left))
 
         def rewrite(m):
             return '{}{}{}'.format(m.group('X'), b, m.group('Y'))

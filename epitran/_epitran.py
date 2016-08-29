@@ -17,7 +17,7 @@ from stripdiacritics import StripDiacritics
 
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
-    def __init__(self, code, preproc=True):
+    def __init__(self, code, preproc=True, postproc=True):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
         self.puncnorm = self._load_punc_norm_map()
@@ -25,8 +25,10 @@ class Epitran(object):
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
         self.preprocessor = PrePostProcessor(code, 'pre')
+        self.postprocessor = PrePostProcessor(code, 'post')
         self.strip_diacritics = StripDiacritics(code)
         self.preproc = preproc
+        self.postproc = postproc
 
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
@@ -103,6 +105,8 @@ class Epitran(object):
             text = self.preprocessor.process(text)
         text = self.regexp.sub(trans, text)
         text = ''.join([normp(c) for c in text]) if normpunc else text
+        if self.postproc:
+            text = self.postprocessor.process(text)
         return text
 
     def trans_list(self, text, normpunc=False):
