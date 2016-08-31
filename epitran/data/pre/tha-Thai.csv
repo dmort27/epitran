@@ -1,0 +1,7 @@
+% Thai Preprocessor
+%
+% Reorder Vowel Symbols
+(?P<sw1>[เแโไใไ])(?P<sw2>.),,,
+%
+% Delete tone marks
+[่้๊๋],,,
