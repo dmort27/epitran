@@ -5,3 +5,6 @@
 %
 % Delete tone marks
 [่้๊๋],,,
+%
+% Convert อ to glottal-stop before a vowel diacritic series
+อ,ʔ,,(า|ี|ู|เ|เ็|แ|ื-|ื|เอ|โ|อ|ะ|ิ|ุ|เะ|แะ|ึ|เอะ|โะ|เาะ|ไ|ใ|โ|ั)
