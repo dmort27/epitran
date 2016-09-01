@@ -36,14 +36,17 @@ class PrePostProcessor(object):
         return rules
 
     def _fields_to_function(self, a, b, X, Y):
-        left = r'(?P<X>{})(?P<a>{})(?P<Y>{})'.format(X, a, Y)
+        left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
         try:
             regexp = re.compile(left)
         except:
             logging.error('"{}" is not a valid regexp.'.format(left))
 
         def rewrite(m):
-            return '{}{}{}'.format(m.group('X'), b, m.group('Y'))
+            if 'sw1' in m.groupdict() and 'sw2' in m.groupdict():
+                return r'{}{}{}{}'.format(m.group('X'), m.group('sw2'), m.group('sw1'), m.group('Y'))
+            else:
+                return r'{}{}{}'.format(m.group('X'), b, m.group('Y'))
 
         return lambda w: regexp.sub(rewrite, w, re.U)
 
@@ -52,5 +55,5 @@ class PrePostProcessor(object):
         word = '#{}#'.format(word)
         for rule in self.rules:
             word = rule(word)
-            # logging.debug(word.encode('utf-8'))
+            logging.debug(word.encode('utf-8'))
         return word[1:-1]  # Remove octothorps.
