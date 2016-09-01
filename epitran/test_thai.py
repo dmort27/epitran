@@ -59,7 +59,7 @@ class TestGeneral(unittest.TestCase):
         self._assert_trans('เลขไทย', 'leːktʰaj')
 
     def test_okson(self):
-        self._assert_trans('อักษร', 'ʔokson')
+        self._assert_trans('อักษร', 'ʔakson')
 
     def test_ngan(self):
         self._assert_trans('เงิน', 'ŋɤn')
