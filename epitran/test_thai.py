@@ -51,3 +51,42 @@ class TestGeneral(unittest.TestCase):
 
     def test_en(self):
         self._assert_trans('เอ็น', 'ʔeːn')
+
+    def test_lek_hindu_chunlaphak(self):
+        self._assert_trans('จุลภาค', 't͡ɕunpʰaːk')
+
+    def test_lek_thai(self):
+        self._assert_trans('เลขไทย', 'leːktʰaj')
+
+    def test_okson(self):
+        self._assert_trans('อักษร', 'ʔokson')
+
+    def test_ngan(self):
+        self._assert_trans('เงิน', 'ŋɤn')
+
+    def test_pheq(self):
+        self._assert_trans('แพะ', 'pʰɛʔ')
+
+    def test_kriit(self):
+        self._assert_trans('กรีด', 'kriːt')
+
+    def test_phasaphut(self):
+        self._assert_trans('ภาษาพูด', 'pʰaːsaːpʰuːt')
+
+    def test_phasakhian(self):
+        self._assert_trans('ภาษาเขียน', 'pʰaːsaːkʰiːa̯n')
+
+    def test_rachasap(self):
+        self._assert_trans('ราชาศัพท์', 'raːt͡ɕʰaːsap')
+
+    def test_maatraa(self):
+        self._assert_trans('มาตรา', 'maːtraː')
+
+    def test_inthra(self):
+        self._assert_trans('อินทรา', 'ʔintʰraː')
+
+    def test_mak(self):
+        self._assert_trans('มัก', 'mak')
+
+    def test_maak(self):
+        self._assert_trans('มาก', 'maːk')
