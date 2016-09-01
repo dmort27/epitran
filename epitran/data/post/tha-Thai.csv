@@ -28,11 +28,11 @@ pʰ,p,,(#|(k|kʰ|ŋ|t͡ɕ|t͡ɕʰ|j|d|t|tʰ|n|b|p|pʰ|f|pʰ|f|m|r|l|w|s|h|l|ʔ|h
 ə,,(pʰ|p),(l|r)
 ə,,(tʰ|t),r
 %
+% ə -> o / _C{#,C}
+ə,o,,(k|kʰ|ŋ|t͡ɕ|t͡ɕʰ|d|t|tʰ|n|b|p|pʰ|f|pʰ|f|m|r|l|s|h|l|ʔ|h)(#|(k|kʰ|ŋ|t͡ɕ|t͡ɕʰ|j|d|t|tʰ|n|b|p|pʰ|f|pʰ|f|m|r|l|w|s|h|l|ʔ|h))
+%
 % ə -> a
 ə,a,,
-%
-% ə -> o / _C{#,C}
-a,o,,(k|kʰ|ŋ|t͡ɕ|t͡ɕʰ|d|t|tʰ|n|b|p|pʰ|f|pʰ|f|m|r|l|s|h|l|ʔ|h)(#|(k|kʰ|ŋ|t͡ɕ|t͡ɕʰ|j|d|t|tʰ|n|b|p|pʰ|f|pʰ|f|m|r|l|w|s|h|l|ʔ|h))
 %
 % 0 -> ʔ / V[-long]_#
 ,ʔ,(a|e|i|o|ɔ|u|ɛ|ɯ|ɤ|ia̯|ɯa̯|ua̯),#
