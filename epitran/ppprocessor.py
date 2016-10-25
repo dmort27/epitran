@@ -55,5 +55,5 @@ class PrePostProcessor(object):
         word = '#{}#'.format(word)
         for rule in self.rules:
             word = rule(word)
-            logging.debug(word.encode('utf-8'))
+            # logging.debug(word.encode('utf-8'))
         return word[1:-1]  # Remove octothorps.
