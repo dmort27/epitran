@@ -48,7 +48,7 @@ class Epitran(object):
                     g2p[graph].append(phon)
         except IOError:
             print(u'Unknown language.')
-            print(u'Add an appropriately-named mapping to the data folder.')
+            print(u'Add an appropriately-named mapping to the data directory.')
         return g2p
 
     def _load_punc_norm_map(self):
