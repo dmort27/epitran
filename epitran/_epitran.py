@@ -31,14 +31,12 @@ class Epitran(object):
         self.postproc = postproc
         self.nils = defaultdict(int)
 
-
     def __enter__(self):
         return self
 
     def __exit__(self, type_, val, tb):
         for nil, count in self.nils.items():
             sys.stderr.write('Unknown character "{}" occured {} times.\n'.format(nil, count))
-
 
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
