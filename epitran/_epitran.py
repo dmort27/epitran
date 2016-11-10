@@ -86,7 +86,7 @@ class Epitran(object):
                 new_text.append(c)
         return u''.join(new_text)
 
-    def transliterate2(self, text, normpunc=False):
+    def transliterate(self, text, normpunc=False):
         """Transliterate text from orthography to Unicode IPA.
 
         text -- The text to be transliterated
@@ -118,41 +118,6 @@ class Epitran(object):
                 self.nils[text[0]] += 1
                 text = text[1:]
         text = ''.join([normp(c) for c in tr_list]) if normpunc else ''.join(tr_list)
-        if self.postproc:
-            text = self.postprocessor.process(text)
-        return text
-
-    def transliterate(self, text, normpunc=False):
-        """Transliterate text from orthography to Unicode IPA.
-
-        text -- The text to be transliterated
-        normpunc -- Normalize punctuation?
-        """
-
-        def trans(m):
-            if m.group(0) in self.g2p:
-                return self.g2p[m.group(0)][0]
-            else:
-                print('Cannot match "{}"!'.format(m.group(0)), file=sys.stderr)
-                return m.group(0)
-
-        def normp(c):
-            if normpunc:
-                if c in self.puncnorm:
-                    return unicode(self.normalize_punc(c))
-                else:
-                    return unicode(c)
-            else:
-                return c
-
-        text = unicode(text)
-        text = self.strip_diacritics.process(text)
-        text = unicodedata.normalize('NFKD', text)
-        text = unicodedata.normalize('NFC', text.lower())
-        if self.preproc:
-            text = self.preprocessor.process(text)
-        text = self.regexp.sub(trans, text)
-        text = ''.join([normp(c) for c in text]) if normpunc else text
         if self.postproc:
             text = self.postprocessor.process(text)
         return text
