@@ -13,7 +13,7 @@ def map_slice(xs, start, end):
 class TestTurkish(unittest.TestCase):
     def setUp(self):
         self.vwis = vector.VectorsWithIPASpace('tur-Latn',
-                                               'tur-Latn-suf')
+                                               'tur-Latn')
 
     def test_punc(self):
         punc_words = [u'"', u"'", u'.', u',', u':', u';', u"‘", u"’", u"”", u"“", u"，"]
@@ -81,7 +81,7 @@ class TestTurkish(unittest.TestCase):
 class TestUzbek(unittest.TestCase):
     def setUp(self):
         self.vwis = vector.VectorsWithIPASpace('uzb-Latn',
-                                               'uzb-Latn-suf')
+                                               'uzb-Latn')
 
     def test_apostrophe_letter(self):
         target = [(u'L', 0, u'ʼ', u'ʔ')]
@@ -109,12 +109,12 @@ class TestUzbek(unittest.TestCase):
         self.assertEqual(map_slice(test, 0, 4), target)
 
     def test_o_turned_comma_full(self):
-        target = [(u'L', 0, u'o\u02bb', u'o', 51, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1])]
+        target = [(u'L', 0, u'o\u02bb', u'o', 51, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, -1, -1, 1, 1, 1, -1])]
         test = self.vwis.word_to_segs(u"oʻ")
         self.assertEqual(test, target)
 
     def test_o_turned_comma_full_normpunc(self):
-        target = [(u'L', 0, u'o\u02bb', u'o', 51, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1])]
+        target = [(u'L', 0, u'o\u02bb', u'o', 51, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, -1, -1, 1, 1, 1, -1])]
         test = self.vwis.word_to_segs(u"oʻ", normpunc=True)
         self.assertEqual(test, target)
 
