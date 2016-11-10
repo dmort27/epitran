@@ -29,6 +29,16 @@ class Epitran(object):
         self.strip_diacritics = StripDiacritics(code)
         self.preproc = preproc
         self.postproc = postproc
+        self.nils = defaultdict(int)
+
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type_, val, tb):
+        for nil, count in self.nils.items():
+            sys.stderr.write('Unknown character "{}" occured {} times.\n'.format(nil, count))
+
 
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
@@ -76,12 +86,49 @@ class Epitran(object):
                 new_text.append(c)
         return u''.join(new_text)
 
+    def transliterate2(self, text, normpunc=False):
+        """Transliterate text from orthography to Unicode IPA.
+
+        text -- The text to be transliterated
+        normpunc -- Normalize punctuation?
+        """
+        def normp(c):
+            if c in self.puncnorm:
+                return unicode(self.normalize_punc(c))
+            else:
+                return unicode(c)
+
+        text = unicode(text)
+        text = self.strip_diacritics.process(text)
+        text = unicodedata.normalize('NFKD', text)
+        text = unicodedata.normalize('NFC', text.lower())
+        if self.preproc:
+            text = self.preprocessor.process(text)
+        # main loop
+        tr_list = []
+        while text:
+            m = self.regexp.match(text)
+            if m:
+                from_seg = m.group(0)
+                to_seg = self.g2p[from_seg][0]
+                tr_list.append(to_seg)
+                text = text[len(from_seg):]
+            else:
+                tr_list.append(text[0])
+                self.nils[text[0]] += 1
+                text = text[1:]
+        text = ''.join([normp(c) for c in tr_list]) if normpunc else ''.join(tr_list)
+        if self.postproc:
+            text = self.postprocessor.process(text)
+        return text
+
     def transliterate(self, text, normpunc=False):
         """Transliterate text from orthography to Unicode IPA.
 
         text -- The text to be transliterated
         normpunc -- Normalize punctuation?
         """
+
         def trans(m):
             if m.group(0) in self.g2p:
                 return self.g2p[m.group(0)][0]
