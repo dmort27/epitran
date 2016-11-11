@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import logging
 import os.path
 import sys
 import unicodedata
 from collections import defaultdict
 
 import pkg_resources
-import regex as re
-import unicodecsv as csv
 
 import panphon
+import regex as re
+import unicodecsv as csv
 from ppprocessor import PrePostProcessor
 from stripdiacritics import StripDiacritics
 
+logging.basicConfig(level=logging.DEBUG)
 
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
@@ -100,15 +102,21 @@ class Epitran(object):
         text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFKD', text)
         text = unicodedata.normalize('NFC', text.lower())
+        # logging.debug(u'normalized: {}'.format(text))
         if self.preproc:
             text = self.preprocessor.process(text)
+        # logging.debug(u'preprocessed: {}'.format(text))
         # main loop
         tr_list = []
         while text:
             m = self.regexp.match(text)
             if m:
                 from_seg = m.group(0)
-                to_seg = self.g2p[from_seg][0]
+                try:
+                    to_seg = self.g2p[from_seg][0]
+                except:
+                    print("from_seg = {}".format(from_seg))
+                    print("self.g2p[from_seg] = {}".format(self.g2p[from_seg]))
                 tr_list.append(to_seg)
                 text = text[len(from_seg):]
             else:
@@ -116,8 +124,10 @@ class Epitran(object):
                 self.nils[text[0]] += 1
                 text = text[1:]
         text = ''.join([normp(c) for c in tr_list]) if normpunc else ''.join(tr_list)
+        # logging.debug(u'processed: {}'.format(text))
         if self.postproc:
             text = self.postprocessor.process(text)
+        # logging.debug(u'postprocessed: {}'.format(text))
         return text
 
     def trans_list(self, text, normpunc=False):
