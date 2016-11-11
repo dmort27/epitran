@@ -245,9 +245,9 @@ class TestFrench(unittest.TestCase):
         self.epi = _epitran.Epitran(u'fra-Latn')
 
     def _derivation(self, orth, correct):
-        # logging.debug(orth.encode('utf-8'))
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        # logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        logging.debug(orth.encode('utf-8'))
+        attempt = self.epi.transliterate(orth)
+        logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_suggerer(self):
