@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import logging
 import os.path
 import sys
 import unicodedata
 from collections import defaultdict
 
 import pkg_resources
-import regex as re
-import unicodecsv as csv
 
 import panphon
+import regex as re
+import unicodecsv as csv
 from ppprocessor import PrePostProcessor
 from stripdiacritics import StripDiacritics
 
+logging.basicConfig(level=logging.DEBUG)
 
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
@@ -29,6 +31,14 @@ class Epitran(object):
         self.strip_diacritics = StripDiacritics(code)
         self.preproc = preproc
         self.postproc = postproc
+        self.nils = defaultdict(int)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type_, val, tb):
+        for nil, count in self.nils.items():
+            sys.stderr.write('Unknown character "{}" occured {} times.\n'.format(nil, count))
 
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
@@ -48,7 +58,7 @@ class Epitran(object):
                     g2p[graph].append(phon)
         except IOError:
             print(u'Unknown language.')
-            print(u'Add an appropriately-named mapping to the data folder.')
+            print(u'Add an appropriately-named mapping to the data directory.')
         return g2p
 
     def _load_punc_norm_map(self):
@@ -82,32 +92,42 @@ class Epitran(object):
         text -- The text to be transliterated
         normpunc -- Normalize punctuation?
         """
-        def trans(m):
-            if m.group(0) in self.g2p:
-                return self.g2p[m.group(0)][0]
-            else:
-                print('Cannot match "{}"!'.format(m.group(0)), file=sys.stderr)
-                return m.group(0)
-
         def normp(c):
-            if normpunc:
-                if c in self.puncnorm:
-                    return unicode(self.normalize_punc(c))
-                else:
-                    return unicode(c)
+            if c in self.puncnorm:
+                return unicode(self.normalize_punc(c))
             else:
-                return c
+                return unicode(c)
 
         text = unicode(text)
         text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFKD', text)
         text = unicodedata.normalize('NFC', text.lower())
+        # logging.debug(u'normalized: {}'.format(text))
         if self.preproc:
             text = self.preprocessor.process(text)
-        text = self.regexp.sub(trans, text)
-        text = ''.join([normp(c) for c in text]) if normpunc else text
+        # logging.debug(u'preprocessed: {}'.format(text))
+        # main loop
+        tr_list = []
+        while text:
+            m = self.regexp.match(text)
+            if m:
+                from_seg = m.group(0)
+                try:
+                    to_seg = self.g2p[from_seg][0]
+                except:
+                    print("from_seg = {}".format(from_seg))
+                    print("self.g2p[from_seg] = {}".format(self.g2p[from_seg]))
+                tr_list.append(to_seg)
+                text = text[len(from_seg):]
+            else:
+                tr_list.append(text[0])
+                self.nils[text[0]] += 1
+                text = text[1:]
+        text = ''.join([normp(c) for c in tr_list]) if normpunc else ''.join(tr_list)
+        # logging.debug(u'processed: {}'.format(text))
         if self.postproc:
             text = self.postprocessor.process(text)
+        # logging.debug(u'postprocessed: {}'.format(text))
         return text
 
     def trans_list(self, text, normpunc=False):
