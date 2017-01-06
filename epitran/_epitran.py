@@ -17,6 +17,11 @@ from stripdiacritics import StripDiacritics
 
 logging.basicConfig(level=logging.DEBUG)
 
+
+class MappingError(Exception):
+    pass
+
+
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
     def __init__(self, code, preproc=True, postproc=True):
@@ -40,6 +45,12 @@ class Epitran(object):
         for nil, count in self.nils.items():
             sys.stderr.write('Unknown character "{}" occured {} times.\n'.format(nil, count))
 
+    def _nonsurjective_g2p_map(self, g2p):
+        for g, p in g2p.items():
+            if len(p) != 1:
+                return g
+        return None
+
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
 
@@ -59,6 +70,9 @@ class Epitran(object):
         except IOError:
             print(u'Unknown language.')
             print(u'Add an appropriately-named mapping to the data directory.')
+        if self._nonsurjective_g2p_map(g2p):
+            graph = self._nonsurjective_g2p_map(g2p)
+            raise MappingError(u'Non-surjective G2P mapping for "{}"'.format(graph).encode('utf-8'))
         return g2p
 
     def _load_punc_norm_map(self):
