@@ -111,7 +111,7 @@ A few notes are in order regarding this data structure:
 
 ## <a name='language-support'></a>Language Support
 
-### Transliteration Languages
+### Transliteration Language/Script Pairs
 
 | Code        | Language (Script)      |
 |-------------|------------------------|
@@ -119,8 +119,10 @@ A few notes are in order regarding this data structure:
 | aze-Cyrl    | Azerbaijani (Cyrillic) |
 | aze-Latn    | Azerbaijani (Latin)    |
 | ben-Beng    | Bengali                |
+| ckb-Arab    | Sorani                 |
 | deu-Latn    | German                 |
 | deu-Latn-np | German*                |
+| fas-Arab    | Farsi (Perso-Arabic)   |
 | fra-Latn    | French                 |
 | fra-Latn-np | French*                |
 | hau-Latn    | Hausa                  |
@@ -133,6 +135,7 @@ A few notes are in order regarding this data structure:
 | kir-Arab    | Kyrgyz (Perso-Arabic)  |
 | kir-Cyrl    | Kyrgyz (Cyrillic)      |
 | kir-Latn    | Kyrgyz (Latin)         |
+| krm-Latn    | Kurmanji               |
 | nld-Latn    | Dutch                  |
 | orm-Latn    | Oromo                  |
 | som-Latn    | Somali                 |
@@ -143,7 +146,6 @@ A few notes are in order regarding this data structure:
 | tuk-Cyrl    | Turkmen (Cyrillic)     |
 | tuk-Latn    | Turkmen (Latin)        |
 | tur-Latn    | Turkish (Latin)        |
-| yor-Latn    | Yoruba                 |
 | uig-Arab    | Uyghur (Perso-Arabic)  |
 | uzb-Cyrl    | Uzbek (Cyrillic)       |
 | uzb-Latn    | Uzbek (Latin)          |
