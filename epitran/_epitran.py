@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import glob
 import logging
 import os.path
 import sys
@@ -18,8 +19,42 @@ from stripdiacritics import StripDiacritics
 logging.basicConfig(level=logging.DEBUG)
 
 
+class DatafileError(Exception):
+    pass
+
+
 class MappingError(Exception):
     pass
+
+
+class Maps(object):
+    """Query Epitran maps available locally."""
+    def __init__(self):
+        self.maps = self._query_maps()
+
+    def _query_maps(self):
+        path = os.path.join('data', 'map')
+        path = pkg_resources.resource_filename(__name__, path)
+        path = os.path.join(path, '*-*.csv')
+        path_re = re.compile(r'([a-z]{3})-([A-Z][a-z]{3})(-np|)[.]csv')
+        maps = []
+        for map_ in glob.glob(path):
+            match = path_re.search(map_)
+            if match:
+                lang, script, mod = match.groups()
+                maps.append({'path': map_, 'lang': lang, 'script': script, 'mod': mod.replace('-', '')})
+        return maps
+
+    def lang_script_pairs(self):
+        return sorted(list(set([(m['lang'], m['script']) for m in self.maps])))
+
+    def paths(self, code):
+        try:
+            lang, script, mod = code.split('-')
+        except ValueError:
+            lang, script = code.split('-')
+            mod = ''
+        return [m['path'] for m in self.maps if m['lang'] == lang and m['script'] == script and m['mod'] == mod]
 
 
 class Epitran(object):
@@ -57,9 +92,8 @@ class Epitran(object):
         code -- ISO 639-3 code for the language to be loaded
         """
         g2p = defaultdict(list)
-        path = os.path.join('data', 'map', code + '.csv')
-        path = pkg_resources.resource_filename(__name__, path)
         try:
+            path = Maps().paths(code)[0]
             with open(path, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
                 reader.next()
@@ -67,13 +101,12 @@ class Epitran(object):
                     graph = unicodedata.normalize('NFC', graph)
                     phon = unicodedata.normalize('NFC', phon)
                     g2p[graph].append(phon)
-        except IOError:
-            print(u'Unknown language.')
-            print(u'Add an appropriately-named mapping to the data directory.')
-        if self._nonsurjective_g2p_map(g2p):
-            graph = self._nonsurjective_g2p_map(g2p)
-            raise MappingError(u'Non-surjective G2P mapping for "{}"'.format(graph).encode('utf-8'))
-        return g2p
+            if self._nonsurjective_g2p_map(g2p):
+                graph = self._nonsurjective_g2p_map(g2p)
+                raise MappingError(u'Non-surjective G2P mapping for "{}"'.format(graph).encode('utf-8'))
+            return g2p
+        except IndexError:
+            raise DatafileError('Add an appropriately-named mapping to the data/maps directory.')
 
     def _load_punc_norm_map(self):
         """Load the map table for normalizing 'down' punctuation."""
