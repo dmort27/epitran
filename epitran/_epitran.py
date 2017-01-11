@@ -57,7 +57,7 @@ class Epitran(object):
         code -- ISO 639-3 code for the language to be loaded
         """
         g2p = defaultdict(list)
-        path = os.path.join('data', code + '.csv')
+        path = os.path.join('data', 'map', code + '.csv')
         path = pkg_resources.resource_filename(__name__, path)
         try:
             with open(path, 'rb') as f:
