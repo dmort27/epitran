@@ -81,7 +81,7 @@ class Epitran(object):
         for nil, count in self.nils.items():
             sys.stderr.write('Unknown character "{}" occured {} times.\n'.format(nil, count))
 
-    def _nonsurjective_g2p_map(self, g2p):
+    def _one_to_many_g2p_map(self, g2p):
         for g, p in g2p.items():
             if len(p) != 1:
                 return g
@@ -102,9 +102,9 @@ class Epitran(object):
                     graph = unicodedata.normalize('NFC', graph)
                     phon = unicodedata.normalize('NFC', phon)
                     g2p[graph].append(phon)
-            if self._nonsurjective_g2p_map(g2p):
-                graph = self._nonsurjective_g2p_map(g2p)
-                raise MappingError(u'Non-surjective G2P mapping for "{}"'.format(graph).encode('utf-8'))
+            if self._one_to_many_g2p_map(g2p):
+                graph = self._one_to_many_g2p_map(g2p)
+                raise MappingError(u'One-to-many G2P mapping for "{}"'.format(graph).encode('utf-8'))
             return g2p
         except IndexError:
             raise DatafileError('Add an appropriately-named mapping to the data/maps directory.')
