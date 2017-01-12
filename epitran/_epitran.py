@@ -15,6 +15,7 @@ import regex as re
 import unicodecsv as csv
 from ppprocessor import PrePostProcessor
 from stripdiacritics import StripDiacritics
+from ligaturize import ligaturize
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -177,10 +178,10 @@ class Epitran(object):
             text = self.postprocessor.process(text)
         # logging.debug(u'postprocessed: {}'.format(text))
         if ligatures or self.ligatures:
-            text = self.ligaturize(text)
+            text = ligaturize(text)
         return text
 
-    def trans_list(self, text, normpunc=False):
+    def trans_list(self, text, normpunc=False, ligatures=False):
         """Transliterate text from orthography to Unicode IPA (as a list of
         segments.
 
@@ -212,11 +213,12 @@ class Epitran(object):
             else:
                 tr_list.append(text[0])
                 text = text[1:]
-        tr_list = [normp(c) for c in tr_list] if normpunc else tr_list
+        tr_list = map(normp, tr_list) if normpunc else tr_list
+        tr_list = map(ligaturize, tr_list) if (self.ligatures or ligatures) else tr_list
         return tr_list
 
-    def trans_delimiter(self, text, delimiter=' ', normpunc=False):
-        return delimiter.join(self.trans_list(text, normpunc=normpunc))
+    def trans_delimiter(self, text, delimiter=' ', normpunc=False, ligatures=False):
+        return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
 
     def word_to_tuples(self, word, normpunc=False):
         """Given a word, returns a list of tuples corresponding to IPA segments.
@@ -284,18 +286,6 @@ class Epitran(object):
                 tuples.append((cat, case, span, phon, vecs))
                 word = word[1:]
         return tuples
-
-    def ligaturize(self, text):
-        """Convert text to employ non-standard ligatures."""
-        mapping = [(u't͡s', u'ʦ'),
-                   (u't͡ʃ', u'ʧ'),
-                   (u't͡ɕ', u'ʨ'),
-                   (u'd͡z', u'ʣ'),
-                   (u'd͡ʒ', u'ʤ'),
-                   (u'd͡ʑ', u'ʥ'),]
-        for from_, to_ in mapping:
-            text = text.replace(from_, to_)
-        return text
 
     def ipa_segs(self, ipa):
         return self.ft.segs(ipa)
