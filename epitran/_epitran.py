@@ -59,7 +59,7 @@ class Maps(object):
 
 class Epitran(object):
     """Transliterate text in Latin scripts to Unicode IPA."""
-    def __init__(self, code, preproc=True, postproc=True):
+    def __init__(self, code, preproc=True, postproc=True, ligatures=False):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
         self.puncnorm = self._load_punc_norm_map()
@@ -71,6 +71,7 @@ class Epitran(object):
         self.strip_diacritics = StripDiacritics(code)
         self.preproc = preproc
         self.postproc = postproc
+        self.ligatures = ligatures
         self.nils = defaultdict(int)
 
     def __enter__(self):
@@ -133,7 +134,7 @@ class Epitran(object):
                 new_text.append(c)
         return u''.join(new_text)
 
-    def transliterate(self, text, normpunc=False):
+    def transliterate(self, text, normpunc=False, ligatures=False):
         """Transliterate text from orthography to Unicode IPA.
 
         text -- The text to be transliterated
@@ -175,6 +176,8 @@ class Epitran(object):
         if self.postproc:
             text = self.postprocessor.process(text)
         # logging.debug(u'postprocessed: {}'.format(text))
+        if ligatures or self.ligatures:
+            text = self.ligaturize(text)
         return text
 
     def trans_list(self, text, normpunc=False):
@@ -281,6 +284,18 @@ class Epitran(object):
                 tuples.append((cat, case, span, phon, vecs))
                 word = word[1:]
         return tuples
+
+    def ligaturize(self, text):
+        """Convert text to employ non-standard ligatures."""
+        mapping = [(u't͡s', u'ʦ'),
+                   (u't͡ʃ', u'ʧ'),
+                   (u't͡ɕ', u'ʨ'),
+                   (u'd͡z', u'ʣ'),
+                   (u'd͡ʒ', u'ʤ'),
+                   (u'd͡ʑ', u'ʥ'),]
+        for from_, to_ in mapping:
+            text = text.replace(from_, to_)
+        return text
 
     def ipa_segs(self, ipa):
         return self.ft.segs(ipa)
