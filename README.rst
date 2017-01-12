@@ -37,8 +37,8 @@ for a Perso-Arabic script).
     >>> import epitran
     >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 
-The ``Epitran`` class has only a few "public" method (to the extent that
-such a concept exists in Python). The most important are
+The ``Epitran`` class has only a few "public" methods (to the extent
+that such a concept exists in Python). The most important are
 ``transliterate`` and ``word_to_tuples``:
 
 Epitran.\ **transliterate**\ (text): Convert ``text`` (in
@@ -125,6 +125,16 @@ orthography-to-phoneme mapping at the next step. The same is true of
 other methods that rely on ``Epitran.word_to_tuple`` such as
 ``VectorsWithIPASpace.word_to_segs`` from the ``epitran.vector`` module.
 
+The ``epitran`` module also includes the ``Maps`` class, which provides
+information about the mapping files (files that specify a mapping
+between orthography and IPA) that are available in the current
+installation. It has two public methods:
+
+-  ``lang_script_pairs`` takes no arguments and returns a sorted list of
+   tuples.
+-  ``paths`` returns a list of the paths to the mapping files for a
+   given code (e.g. "deu-Latn" or "deu-Latn-np").
+
 Using the ``epitran.vector`` Module
 -----------------------------------
 
@@ -195,23 +205,28 @@ equivalent, all values in the list are 0.
 Language Support
 ----------------
 
-Transliteration Languages
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Transliteration Language/Script Pairs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 \| Code \| Language (Script) \|
-\|-------------\|------------------------\| \| aze-Cyrl \| Azerbaijani
-(Cyrillic) \| \| aze-Latn \| Azerbaijani (Latin) \| \| deu-Latn \|
-German \| \| deu-Latn-np \| German\* \| \| fra-Latn \| French \| \|
-fra-Latn-np \| French\* \| \| hau-Latn \| Hausa \| \| ind-Latn \|
-Indonesian \| \| jav-Latn \| Javanese \| \| kaz-Cyrl \| Kazakh
-(Cyrillic) \| \| kaz-Latn \| Kazakh (Latin) \| \| kir-Arab \| Kyrgyz
-(Perso-Arabic) \| \| kir-Cyrl \| Kyrgyz (Cyrillic) \| \| kir-Latn \|
-Kyrgyz (Latin) \| \| nld-Latn \| Dutch \| \| spa-Latn \| Spanish \| \|
-tuk-Cyrl \| Turkmen (Cyrillic) \| \| tuk-Latn \| Turkmen (Latin) \| \|
-tur-Latn \| Turkish (Latin) \| \| yor-Latn \| Yoruba \| \| uig-Arab \|
-Uyghur (Perso-Arabic) \| \| uzb-Cyrl \| Uzbek (Cyrillic) \| \| uzb-Latn
-\| Uzbek (Latin) \| \*These language preprocessors and maps naively
-assume a phonemic orthography.
+\|-------------\|------------------------\| \| amh-Ethi \| Amharic \| \|
+aze-Cyrl \| Azerbaijani (Cyrillic) \| \| aze-Latn \| Azerbaijani (Latin)
+\| \| ben-Beng \| Bengali \| \| ckb-Arab \| Sorani \| \| deu-Latn \|
+German \| \| deu-Latn-np \| German\* \| \| fas-Arab \| Farsi
+(Perso-Arabic) \| \| fra-Latn \| French \| \| fra-Latn-np \| French\* \|
+\| hau-Latn \| Hausa \| \| hin-Deva \| Hindi \| \| hun-Latn \| Hungarian
+\| \| ind-Latn \| Indonesian \| \| jav-Latn \| Javanese \| \| kaz-Cyrl
+\| Kazakh (Cyrillic) \| \| kaz-Latn \| Kazakh (Latin) \| \| kir-Arab \|
+Kyrgyz (Perso-Arabic) \| \| kir-Cyrl \| Kyrgyz (Cyrillic) \| \| kir-Latn
+\| Kyrgyz (Latin) \| \| krm-Latn \| Kurmanji \| \| nld-Latn \| Dutch \|
+\| orm-Latn \| Oromo \| \| som-Latn \| Somali \| \| spa-Latn \| Spanish
+\| \| tam-Taml \| Tamil \| \| tel-Telu \| Telugu \| \| tha-Thai \| Thai
+\| \| tuk-Cyrl \| Turkmen (Cyrillic) \| \| tuk-Latn \| Turkmen (Latin)
+\| \| tur-Latn \| Turkish (Latin) \| \| uig-Arab \| Uyghur
+(Perso-Arabic) \| \| uzb-Cyrl \| Uzbek (Cyrillic) \| \| uzb-Latn \|
+Uzbek (Latin) \| \| vie-Latn \| Vietnamese \| \| yor-Latn \| Yoruba \|
+\*These language preprocessors and maps naively assume a phonemic
+orthography.
 
 Language "Spaces"
 ~~~~~~~~~~~~~~~~~
