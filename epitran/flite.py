@@ -6,23 +6,25 @@ import string
 import unicodedata
 
 import pkg_resources
-import regex as re
-import unicodecsv as csv
+import subprocess32 as subprocess
 
 import panphon
-import subprocess32 as subprocess
+import regex as re
+import unicodecsv as csv
+from ligaturize import ligaturize
 
 logging.basicConfig(level=logging.CRITICAL)
 logging.disable(logging.DEBUG)
 
 
 class Flite(object):
-    def __init__(self, darpabet='darpabet'):
+    def __init__(self, darpabet='darpabet', ligatures=False):
         darpabet = pkg_resources.resource_filename(__name__, os.path.join('data', darpabet + '.csv'))
         self.darpa_map = self._read_darpabet(darpabet)
         self.chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
         self.puncnorm = self._load_punc_norm_map()
         self.puncnorm_vals = self.puncnorm.values()
+        self.ligatures = ligatures
 
     def _read_darpabet(self, darpabet):
         darpa_map = {}
@@ -70,7 +72,7 @@ class Flite(object):
             darpa_text = ''
         return self.darpa_to_ipa(darpa_text)
 
-    def transliterate(self, text, normpunc=False):
+    def transliterate(self, text, normpunc=False, ligatures=False):
         text = unicodedata.normalize('NFC', text)
         acc = []
         for chunk in self.chunk_re.findall(text):
@@ -78,6 +80,7 @@ class Flite(object):
                 acc.append(self.english_g2p(chunk))
             else:
                 acc.append(chunk)
+        acc = map(ligaturize, acc) if ligatures or self.ligatures else acc
         return ''.join(acc)
 
 
