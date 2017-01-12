@@ -22,7 +22,7 @@ The most general functionality in the `epitran` module is encapsulated in the ve
 >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 ```
 
-The `Epitran` class has only a few "public" method (to the extent that such a concept exists in Python). The most important are ``transliterate`` and ``word_to_tuples``:
+The `Epitran` class has only a few "public" methods (to the extent that such a concept exists in Python). The most important are ``transliterate`` and ``word_to_tuples``:
 
 Epitran.**transliterate**(text):
 Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned.
@@ -67,6 +67,11 @@ Here is an example of an interaction with ```word_to_tuples```:
 In order to build a maintainable orthography to phoneme mapper, it is sometimes necessary to employ preprocessors that make contextual substitutions of symbols before text is passed to a orthography-to-IPA mapping system that preserves relationships between input and output characters. This is particularly true of languages with a poor sound-symbols correspondence (like French and English). Languages like French are particularly good targets for this approach because the pronunication of a given string of letters is highly predictable even though the individual symbols often do not map neatly into sounds. (Sound-symbol correspondence is so poor in English that effective English G2P systems rely heavily on pronouncing dictionaries.)
 
 Preprocessing the inputs words to allow for straightforward grapheme-to-phoneme mappings (as is done in the current version of ```epitran``` for some languages) is advantaeous because the restricted regular expression language used to write the preprocessing rules is more powerful than the language for the mapping rules and allows the equivalent of many mapping rules to be written with a single rule. Without them, providing ```epitran``` support for languages like French and German would not be practical. However, they do present some problems. Specifically, when using a language with a preprocessor, one **must** be aware that the input word will not always be identical to the concatenation of the orthographic strings (```orthographic_form```) output by ```Epitran.word_to_tuples```. Instead, the output of ```word_to_tuple``` will reflect the output of the preprocessor, which may delete, insert, and change letters in order to allow direct orthography-to-phoneme mapping at the next step. The same is true of other methods that rely on ```Epitran.word_to_tuple``` such as ```VectorsWithIPASpace.word_to_segs``` from the ```epitran.vector``` module.
+
+The `epitran` module also includes the `Maps` class, which provides information about the mapping files (files that specify a mapping between orthography and IPA) that are available in the current installation. It has two public methods:
+
+* `lang_script_pairs` takes no arguments and returns a sorted list of <language, script> tuples.
+* `paths` returns a list of the paths to the mapping files for a given code (e.g. "deu-Latn" or "deu-Latn-np").
 
 ## Using the ```epitran.vector``` Module
 
