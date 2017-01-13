@@ -148,6 +148,7 @@ A few notes are in order regarding this data structure:
 | tam-Taml    | Tamil                  |
 | tel-Telu    | Telugu                 |
 | tha-Thai    | Thai                   |
+| tir-Ethi    | Tigrinya               |
 | tuk-Cyrl    | Turkmen (Cyrillic)     |
 | tuk-Latn    | Turkmen (Latin)        |
 | tur-Latn    | Turkish (Latin)        |
@@ -156,6 +157,7 @@ A few notes are in order regarding this data structure:
 | uzb-Latn    | Uzbek (Latin)          |
 | vie-Latn    | Vietnamese             |
 | yor-Latn    | Yoruba                 |
+
 *These language preprocessors and maps naively assume a phonemic orthography.
 
 ### Language "Spaces"

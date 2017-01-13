@@ -208,23 +208,84 @@ Language Support
 Transliteration Language/Script Pairs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-\| Code \| Language (Script) \|
-\|-------------\|------------------------\| \| amh-Ethi \| Amharic \| \|
-aze-Cyrl \| Azerbaijani (Cyrillic) \| \| aze-Latn \| Azerbaijani (Latin)
-\| \| ben-Beng \| Bengali \| \| ckb-Arab \| Sorani \| \| deu-Latn \|
-German \| \| deu-Latn-np \| German\* \| \| fas-Arab \| Farsi
-(Perso-Arabic) \| \| fra-Latn \| French \| \| fra-Latn-np \| French\* \|
-\| hau-Latn \| Hausa \| \| hin-Deva \| Hindi \| \| hun-Latn \| Hungarian
-\| \| ind-Latn \| Indonesian \| \| jav-Latn \| Javanese \| \| kaz-Cyrl
-\| Kazakh (Cyrillic) \| \| kaz-Latn \| Kazakh (Latin) \| \| kir-Arab \|
-Kyrgyz (Perso-Arabic) \| \| kir-Cyrl \| Kyrgyz (Cyrillic) \| \| kir-Latn
-\| Kyrgyz (Latin) \| \| krm-Latn \| Kurmanji \| \| nld-Latn \| Dutch \|
-\| orm-Latn \| Oromo \| \| som-Latn \| Somali \| \| spa-Latn \| Spanish
-\| \| tam-Taml \| Tamil \| \| tel-Telu \| Telugu \| \| tha-Thai \| Thai
-\| \| tuk-Cyrl \| Turkmen (Cyrillic) \| \| tuk-Latn \| Turkmen (Latin)
-\| \| tur-Latn \| Turkish (Latin) \| \| uig-Arab \| Uyghur
-(Perso-Arabic) \| \| uzb-Cyrl \| Uzbek (Cyrillic) \| \| uzb-Latn \|
-Uzbek (Latin) \| \| vie-Latn \| Vietnamese \| \| yor-Latn \| Yoruba \|
++---------------+--------------------------+
+| Code          | Language (Script)        |
++===============+==========================+
+| amh-Ethi      | Amharic                  |
++---------------+--------------------------+
+| aze-Cyrl      | Azerbaijani (Cyrillic)   |
++---------------+--------------------------+
+| aze-Latn      | Azerbaijani (Latin)      |
++---------------+--------------------------+
+| ben-Beng      | Bengali                  |
++---------------+--------------------------+
+| ckb-Arab      | Sorani                   |
++---------------+--------------------------+
+| deu-Latn      | German                   |
++---------------+--------------------------+
+| deu-Latn-np   | German\*                 |
++---------------+--------------------------+
+| fas-Arab      | Farsi (Perso-Arabic)     |
++---------------+--------------------------+
+| fra-Latn      | French                   |
++---------------+--------------------------+
+| fra-Latn-np   | French\*                 |
++---------------+--------------------------+
+| hau-Latn      | Hausa                    |
++---------------+--------------------------+
+| hin-Deva      | Hindi                    |
++---------------+--------------------------+
+| hun-Latn      | Hungarian                |
++---------------+--------------------------+
+| ind-Latn      | Indonesian               |
++---------------+--------------------------+
+| jav-Latn      | Javanese                 |
++---------------+--------------------------+
+| kaz-Cyrl      | Kazakh (Cyrillic)        |
++---------------+--------------------------+
+| kaz-Latn      | Kazakh (Latin)           |
++---------------+--------------------------+
+| kir-Arab      | Kyrgyz (Perso-Arabic)    |
++---------------+--------------------------+
+| kir-Cyrl      | Kyrgyz (Cyrillic)        |
++---------------+--------------------------+
+| kir-Latn      | Kyrgyz (Latin)           |
++---------------+--------------------------+
+| krm-Latn      | Kurmanji                 |
++---------------+--------------------------+
+| nld-Latn      | Dutch                    |
++---------------+--------------------------+
+| orm-Latn      | Oromo                    |
++---------------+--------------------------+
+| som-Latn      | Somali                   |
++---------------+--------------------------+
+| spa-Latn      | Spanish                  |
++---------------+--------------------------+
+| tam-Taml      | Tamil                    |
++---------------+--------------------------+
+| tel-Telu      | Telugu                   |
++---------------+--------------------------+
+| tha-Thai      | Thai                     |
++---------------+--------------------------+
+| tir-Ethi      | Tigrinya                 |
++---------------+--------------------------+
+| tuk-Cyrl      | Turkmen (Cyrillic)       |
++---------------+--------------------------+
+| tuk-Latn      | Turkmen (Latin)          |
++---------------+--------------------------+
+| tur-Latn      | Turkish (Latin)          |
++---------------+--------------------------+
+| uig-Arab      | Uyghur (Perso-Arabic)    |
++---------------+--------------------------+
+| uzb-Cyrl      | Uzbek (Cyrillic)         |
++---------------+--------------------------+
+| uzb-Latn      | Uzbek (Latin)            |
++---------------+--------------------------+
+| vie-Latn      | Vietnamese               |
++---------------+--------------------------+
+| yor-Latn      | Yoruba                   |
++---------------+--------------------------+
+
 \*These language preprocessors and maps naively assume a phonemic
 orthography.
 
