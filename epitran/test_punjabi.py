@@ -38,3 +38,7 @@ class TestPunjabi(unittest.TestCase):
     def test_nal(self):
         tr = self.epi.transliterate('ਨਾਲ')
         self.assertEqual(tr, 'nɑl')
+
+    def test_praband(self):
+        tr = self.epi.transliterate('ਪ੍ਰਬੰਧ')
+        self.assertEqual(tr, 'pɾəbə̃t̪')
