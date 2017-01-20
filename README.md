@@ -120,6 +120,7 @@ A few notes are in order regarding this data structure:
 
 | Code        | Language (Script)      |
 |-------------|------------------------|
+| aar-Latn    | Afar                   |
 | amh-Ethi    | Amharic                |
 | aze-Cyrl    | Azerbaijani (Cyrillic) |
 | aze-Latn    | Azerbaijani (Latin)    |
@@ -143,6 +144,7 @@ A few notes are in order regarding this data structure:
 | krm-Latn    | Kurmanji               |
 | nld-Latn    | Dutch                  |
 | orm-Latn    | Oromo                  |
+| pan-Guru    | Punjabi (Eastern)      |
 | som-Latn    | Somali                 |
 | spa-Latn    | Spanish                |
 | tam-Taml    | Tamil                  |
@@ -189,4 +191,30 @@ This module also contains a wrapper that takes orthographic English as an input 
       >>> vwis.word_to_segs(u'San Leandro')
       [(u'L', 1, u's', u's', 50, [-1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\xe6', u'\xe6', 58, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'Z', 0, u' ', u'', 1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), (u'L', 0, u'l', u'l', 45, [-1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'i', u'i', 4 2, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1]), (u'L', 0, u'\u0251', u'\u0251', 61, [1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'd', u'd', 36, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\u0279', u'\u0279', 66, [-1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 0, -1]), (u'L', 0, u'o', u'o', 48, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1]), (u'L', 0, u'w', u'w', 55, [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, 1, 1, -1, 1, 1, 0, -1])]
 
-The observant user will note that the interface is the same as that of the identically-named class in the the ```epitran.vector``` module.
+The observant user will note that the interface is the same as that of the identically-named class in the the `epitran.vector` module.
+
+## Extending Epitran with map files, preprocessors and postprocessors
+
+Language support in Epitran is provided through map files, which define mappings between orthographic and phonetic units, preprocessors that run before the map is applied, and postprocessors that run after the map is applied. These are all defined in UTF8-encoded, comma-delimited value (CSV) files. The files are each named <iso639>-<iso15924>.csv where <iso639> is the (three letter, all lowercase) ISO 639-3 code for the language and <iso15924> is the (four letter, capitalized) ISO 15924 code for the script. These files reside in the `data` directory of the Epitran installation under the `map`, `pre`, and `post` subdirectories, respectively.
+
+### Map files (mapping tables)
+
+The map files are simple, two-column files where the first column contains the orthgraphic characters/sequences and the second column contains the phonetic characters/sequences. For many languages (most languages with unambiguous, phonemically adequate orthographies) just this easy-to-produce mapping file is adequate to produce a serviceable G2P system.
+
+The first row is a header and is discarded. For consistency, it should contain the fields "Orth" and "Phon". The following rows by consist of fields of any length, separated by a comma. The same phonetic form (the second field) may occur any number of times but an orthographic form may only occur once. Where one orthograrphic form is a prefix of another form, the longer form has priority in mapping. In other words, matching between orthographic units and orthographic strings is greedy. Mapping works by finding the longest prefix of the orthographic form and adding the corresponding phonetic string to the end of the phonetic form, then removing the prefix from the orthographic form and continuing, in the same manner, until the orthographic form is consumed. If no non-empty prefix of the orthographic form is present in the mapping table, the first character in the orthographic form is removed and appended to the phonetic form. The normal sequence then resumes. This means that non-phonetic characters may end up in the "phonetic" form, which we judge to be better than loosing information through an inadequate mapping table.
+
+### Preprocesssors and postprocessors
+
+For language-script pairs with more complicated orthographies, it is sometimes necessary to manipulate the orthographic form prior to mapping or to manipulate the phonetic form after mapping. This is done, in Epitran, with grammars of context-sensitive string rewrite rules. In truth, these rules would be more than adequate to solve the mapping problem as well but in practical terms, it is usually easier to let easy-to-understand and easy-to-maintain mapping files carry most of the weight of conversion and reserve the more powerful context sensitive grammar formalism for pre- and post-processing.
+
+To make it easy to edit the files in a spreadsheet (like LibreOffice Calc), the files are formatted as CSV. Of course, they can be edited in text editor as well. The first row is a header, which should have the fields "a", "b", "X", and "Y", corresponding to the parts of "a → b / X _ Y", which can be read as "a is rewritten as b in the context between X and Y". It is equivalent to XaY → XbY. Each subsequent row is a rule in this format. The symbol "#" matches a word-boundary (at the beginning and end of a word-length token). For example, a rule that changes "e" to "ə" at the end of a word, for use in a postprocessor, would have the following form:
+
+```
+e,ə,,#
+```
+Which corresponds to:
+```
+e → ə / _ #
+```
+
+The rules apply in order, so earlier rules may "feed" and "bleed" later rules. Therefore, their sequence is *very important* and can be leveraged in order to achieve valuable results.
