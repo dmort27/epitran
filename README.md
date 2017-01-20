@@ -218,3 +218,5 @@ e → ə / _ #
 ```
 
 The rules apply in order, so earlier rules may "feed" and "bleed" later rules. Therefore, their sequence is *very important* and can be leveraged in order to achieve valuable results.
+
+All of the fields are strings (of zero or more characters). If "a" is the empty string, the rule will insert "b" in the environment between "X" and "Y". If "b" is the empty string, the rule will delete "a" in the environment betwee "X" and "Y". It is sometimes useful to write rules that insert custom symbols that trigger (or prevent the triggering of) subsequent rules (and which are subsequently deleted). By convention, these symbols consist of lowercase characters enclosed in angle brackets ("<" and ">").
