@@ -425,3 +425,38 @@ Which corresponds to:
 The rules apply in order, so earlier rules may "feed" and "bleed" later
 rules. Therefore, their sequence is *very important* and can be
 leveraged in order to achieve valuable results.
+
+All of the fields are strings (of zero or more characters). If "a" is
+the empty string, the rule will insert "b" in the environment between
+"X" and "Y". If "b" is the empty string, the rule will delete "a" in the
+environment betwee "X" and "Y". It is sometimes useful to write rules
+that insert custom symbols that trigger (or prevent the triggering of)
+subsequent rules (and which are subsequently deleted). By convention,
+these symbols consist of lowercase characters enclosed in angle brackets
+("<" and ">").
+
+The strings are combined to form a regular expression using the python
+``regex`` module (a drop-in replacement for the ``re`` module). Because
+of this, it is possible to use most regex notation in the strings. For
+example, to replace "a" with "aa" before "b", "d", or "g', one would use
+the following rule:
+
+::
+
+    a,aa,,(b|d|g)
+
+or, less optimally:
+
+::
+
+    a,aa,,[bdg]
+
+There is a special construct for handling cases of metathesis (where
+"AB" is replaced with "BA"). For example, the rule:
+
+::
+
+    (?P<sw1>[เแโไใไ])(?P<sw2>.),,,
+
+Will "swap" the positions of any character in "เแโไใไ" and any following
+character.
