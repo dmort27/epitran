@@ -34,8 +34,9 @@ class Maps(object):
         self.maps = self._query_maps()
 
     def _query_maps(self):
-        path = os.path.join('data', 'map')
+        path = os.path.join('data', 'map', 'maps')
         path = pkg_resources.resource_filename(__name__, path)
+        path = os.path.dirname(path)
         path = os.path.join(path, '*-*.csv')
         path_re = re.compile(r'([a-z]{3})-([A-Z][a-z]{3})(-np|)[.]csv')
         maps = []
@@ -95,7 +96,8 @@ class Epitran(object):
         """
         g2p = defaultdict(list)
         try:
-            path = Maps().paths(code)[0]
+            path = os.path.join('data', 'map', code + '.csv')
+            path = pkg_resources.resource_filename(__name__, path)
             with open(path, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
                 reader.next()
