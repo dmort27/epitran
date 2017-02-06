@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import unittest
 import unicodedata
 
-import _epitran
+import epitran
 
 
 class TestHungarianGeneral(unittest.TestCase):

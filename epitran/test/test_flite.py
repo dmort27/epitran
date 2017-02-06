@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, print_function
 
 import unittest
-import flite
+import epitran.flite
 import types
 
 

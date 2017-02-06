@@ -5,7 +5,7 @@ from __future__ import unicode_literals, print_function
 import unicodedata
 import unittest
 
-import _epitran
+import epitran
 
 
 class TestHindiHalant(unittest.TestCase):

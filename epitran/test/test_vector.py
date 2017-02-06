@@ -3,7 +3,7 @@
 from __future__ import print_function
 
 import unittest
-import vector
+import epitran.vector
 
 
 def map_slice(xs, start, end):

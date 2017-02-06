@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 import unittest
 
-import _epitran
+import epitran
 
 
 class TestPunjabi(unittest.TestCase):

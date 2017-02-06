@@ -6,7 +6,7 @@ import logging
 import unicodedata
 import unittest
 
-import _epitran
+import epitran
 
 logging.basicConfig(level=logging.ERROR)
 
