@@ -1,4 +1,17 @@
 from setuptools import setup
+import sys
+
+if sys.version_info[0] == 3:
+    install_requires = ['setuptools',
+                        'unicodecsv',
+                        'regex',
+                        'panphon>=0.3']
+else:
+    install_requires = ['setuptools',
+                        'unicodecsv',
+                        'regex',
+                        'subprocess32',
+                        'panphon>=0.3']
 
 setup(name='epitran',
       version='0.5',
@@ -8,11 +21,7 @@ setup(name='epitran',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
       license='MIT',
-      install_requires=['setuptools',
-                        'unicodecsv',
-                        'regex',
-                        'subprocess32',
-                        'panphon>=0.3'],
+      install_requires=install_requires,
       scripts=['epitran/bin/epitranscribe.py',
                'epitran/bin/uigtransliterate.py',
                'epitran/bin/detectcaps.py',

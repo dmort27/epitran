@@ -6,12 +6,16 @@ import string
 import unicodedata
 
 import pkg_resources
-import subprocess32 as subprocess
 
 import panphon
 import regex as re
 import unicodecsv as csv
 from ligaturize import ligaturize
+
+if os.name == 'posix' and sys.version_info[0] < 3:
+    import subprocess32 as subprocess
+else:
+    import subprocess
 
 logging.basicConfig(level=logging.CRITICAL)
 logging.disable(logging.DEBUG)
