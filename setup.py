@@ -1,7 +1,7 @@
 from setuptools import setup
 import sys
 
-if sys.version_info[0] == 3:
+if sys.version_info[0] > 2:
     install_requires = ['setuptools',
                         'unicodecsv',
                         'regex',
