@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, unicode_literals
+from __future__ import print_function, unicode_literals, division, absolute_import
 
 import glob
 import logging
@@ -13,9 +13,9 @@ import pkg_resources
 import panphon
 import regex as re
 import unicodecsv as csv
-from ppprocessor import PrePostProcessor
-from stripdiacritics import StripDiacritics
-from ligaturize import ligaturize
+from epitran.ppprocessor import PrePostProcessor
+from epitran.stripdiacritics import StripDiacritics
+from epitran.ligaturize import ligaturize
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -27,6 +27,9 @@ class DatafileError(Exception):
 class MappingError(Exception):
     pass
 
+if sys.version_info[0] == 3:
+    def unicode(x):
+        return x
 
 class Maps(object):
     """Query Epitran maps available locally."""
@@ -100,7 +103,7 @@ class Epitran(object):
             path = pkg_resources.resource_filename(__name__, path)
             with open(path, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
-                reader.next()
+                next(reader)
                 for graph, phon in reader:
                     graph = unicodedata.normalize('NFC', graph)
                     phon = unicodedata.normalize('NFC', phon)
@@ -117,7 +120,7 @@ class Epitran(object):
         path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
         with open(path, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8', delimiter=str(','), quotechar=str('"'))
-            reader.next()
+            next(reader)
             return {punc: norm for (punc, norm) in reader}
 
     def _construct_regex(self):
