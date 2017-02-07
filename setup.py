@@ -36,5 +36,10 @@ setup(name='epitran',
                                 'data/pre/*.csv', 'data/post/*.csv',
                                 'data/space/*.csv', 'data/strip/*.csv',
                                 'data/reromanize/*.csv']},
-      zip_safe=True
+      zip_safe=True,
+      classifiers=['Operating System :: OS Independent',
+                   'Programming Language :: Python :: 2',
+                   'Programming Language :: Python :: 3',
+                   'Topic :: Software Development :: Libraries :: Python Modules',
+                   'Topic :: Text Processing :: Linguistic']
       )
