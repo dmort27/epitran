@@ -4,12 +4,12 @@ from __future__ import unicode_literals
 
 import unittest
 
-import _epitran
+import epitran
 
 
 class TestNormalizePunc(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'vie-Latn')
+        self.epi = epitran.Epitran(u'vie-Latn')
 
     def test_tieng(self):
         tr = self.epi.transliterate('tiếng')

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function, unicode_literals, division, absolute_import
+
+
 def ligaturize(text):
     """Convert text to employ non-standard ligatures."""
     mapping = [(u't͡s', u'ʦ'),

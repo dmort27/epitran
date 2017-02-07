@@ -4,12 +4,12 @@ from __future__ import unicode_literals
 import unittest
 import unicodedata
 
-import _epitran
+import epitran
 
 
 class TestHungarianGeneral(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'hun-Latn')
+        self.epi = epitran.Epitran(u'hun-Latn')
 
     def _assert_trans(self, src, tar):
         trans = self.epi.transliterate(src)

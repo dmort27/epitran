@@ -4,12 +4,12 @@ from __future__ import unicode_literals
 
 import unittest
 
-import _epitran
+import epitran
 
 
 class TestSorani(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'ckb-Arab')
+        self.epi = epitran.Epitran(u'ckb-Arab')
 
     def test_afandii(self):
         tr = self.epi.transliterate('ئهفهندی')

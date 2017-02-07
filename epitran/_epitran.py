@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+from __future__ import print_function, unicode_literals, division, absolute_import
 
 import glob
 import logging
@@ -13,9 +13,9 @@ import pkg_resources
 import panphon
 import regex as re
 import unicodecsv as csv
-from ppprocessor import PrePostProcessor
-from stripdiacritics import StripDiacritics
-from ligaturize import ligaturize
+from epitran.ppprocessor import PrePostProcessor
+from epitran.stripdiacritics import StripDiacritics
+from epitran.ligaturize import ligaturize
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -27,6 +27,9 @@ class DatafileError(Exception):
 class MappingError(Exception):
     pass
 
+if sys.version_info[0] == 3:
+    def unicode(x):
+        return x
 
 class Maps(object):
     """Query Epitran maps available locally."""
@@ -100,14 +103,14 @@ class Epitran(object):
             path = pkg_resources.resource_filename(__name__, path)
             with open(path, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
-                reader.next()
+                next(reader)
                 for graph, phon in reader:
                     graph = unicodedata.normalize('NFC', graph)
                     phon = unicodedata.normalize('NFC', phon)
                     g2p[graph].append(phon)
             if self._one_to_many_g2p_map(g2p):
                 graph = self._one_to_many_g2p_map(g2p)
-                raise MappingError(u'One-to-many G2P mapping for "{}"'.format(graph).encode('utf-8'))
+                raise MappingError('One-to-many G2P mapping for "{}"'.format(graph).encode('utf-8'))
             return g2p
         except IndexError:
             raise DatafileError('Add an appropriately-named mapping to the data/maps directory.')
@@ -116,8 +119,8 @@ class Epitran(object):
         """Load the map table for normalizing 'down' punctuation."""
         path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
         with open(path, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8', delimiter=',', quotechar='"')
-            reader.next()
+            reader = csv.reader(f, encoding='utf-8', delimiter=str(','), quotechar=str('"'))
+            next(reader)
             return {punc: norm for (punc, norm) in reader}
 
     def _construct_regex(self):
@@ -126,7 +129,7 @@ class Epitran(object):
         """
         graphemes = sorted(self.g2p.keys(), key=len, reverse=True)
         #  print(graphemes)
-        return re.compile(ur'({})'.format(ur'|'.join(graphemes)), re.I)
+        return re.compile(r'({})'.format(r'|'.join(graphemes)), re.I)
 
     def normalize_punc(self, text):
         new_text = []
@@ -135,7 +138,7 @@ class Epitran(object):
                 new_text.append(self.puncnorm[c])
             else:
                 new_text.append(c)
-        return u''.join(new_text)
+        return ''.join(new_text)
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         """Transliterate text from orthography to Unicode IPA.
@@ -153,10 +156,10 @@ class Epitran(object):
         text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFKD', text)
         text = unicodedata.normalize('NFC', text.lower())
-        # logging.debug(u'normalized: {}'.format(text))
+        # logging.debug('normalized: {}'.format(text))
         if self.preproc:
             text = self.preprocessor.process(text)
-        # logging.debug(u'preprocessed: {}'.format(text))
+        # logging.debug('preprocessed: {}'.format(text))
         # main loop
         tr_list = []
         while text:
@@ -175,10 +178,10 @@ class Epitran(object):
                 self.nils[text[0]] += 1
                 text = text[1:]
         text = ''.join([normp(c) for c in tr_list]) if normpunc else ''.join(tr_list)
-        # logging.debug(u'processed: {}'.format(text))
+        # logging.debug('processed: {}'.format(text))
         if self.postproc:
             text = self.postprocessor.process(text)
-        # logging.debug(u'postprocessed: {}'.format(text))
+        # logging.debug('postprocessed: {}'.format(text))
         if ligatures or self.ligatures:
             text = ligaturize(text)
         return text
@@ -219,7 +222,7 @@ class Epitran(object):
         tr_list = map(ligaturize, tr_list) if (self.ligatures or ligatures) else tr_list
         return tr_list
 
-    def trans_delimiter(self, text, delimiter=' ', normpunc=False, ligatures=False):
+    def trans_delimiter(self, text, delimiter=str(' '), normpunc=False, ligatures=False):
         return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
 
     def word_to_tuples(self, word, normpunc=False):
@@ -257,7 +260,7 @@ class Epitran(object):
             return seg, vec2bin(self.ft.segment_to_vector(seg))
 
         def to_vectors(phon):
-            if phon == u'':
+            if phon == '':
                 return [(-1, [0] * self.num_panphon_fts)]
             else:
                 return [to_vector(seg) for seg in self.ft.segs(phon)]
@@ -276,14 +279,14 @@ class Epitran(object):
                 cat, case = cat_and_cap(span[0])
                 phon = self.g2p[span.lower()][0]
                 vecs = to_vectors(phon)
-                tuples.append((u'L', case, span, phon, vecs))
+                tuples.append(('L', case, span, phon, vecs))
                 word = word[len(span):]
             else:
                 span = word[0]
                 span = self.normalize_punc(span) if normpunc else span
                 cat, case = cat_and_cap(span)
                 cat = 'P' if normpunc and cat in self.puncnorm else cat
-                phon = u''
+                phon = ''
                 vecs = to_vectors(phon)
                 tuples.append((cat, case, span, phon, vecs))
                 word = word[1:]

@@ -6,7 +6,7 @@ import logging
 import unicodedata
 import unittest
 
-import _epitran
+import epitran
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -21,7 +21,7 @@ def assemble_ipa(xs):
 
 class TestNormalizePunc(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'tur-Latn')
+        self.epi = epitran.Epitran(u'tur-Latn')
 
     def test_modifier_letter_apostrophe(self):
         self.assertEqual(self.epi.normalize_punc(u'\u02bc'), "'")
@@ -38,7 +38,7 @@ class TestNormalizePunc(unittest.TestCase):
 
 class TestTurkish(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'tur-Latn')
+        self.epi = epitran.Epitran(u'tur-Latn')
 
     def test_transliterate1(self):
         self.assertEqual(self.epi.transliterate(u'Haziran\'da'), u'haziɾan\'da')
@@ -95,7 +95,7 @@ class TestTurkish(unittest.TestCase):
 
 class TestUzbek(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'uzb-Latn')
+        self.epi = epitran.Epitran(u'uzb-Latn')
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
@@ -140,7 +140,7 @@ class TestUzbek(unittest.TestCase):
 
 class TestDutch(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'nld-Latn')
+        self.epi = epitran.Epitran(u'nld-Latn')
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
@@ -162,7 +162,7 @@ class TestDutch(unittest.TestCase):
 
 class TestGerman(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'deu-Latn')
+        self.epi = epitran.Epitran(u'deu-Latn')
 
     def _derivation(self, orth, correct):
         attempt = self.epi.transliterate(orth)
@@ -198,7 +198,7 @@ class TestGerman(unittest.TestCase):
 
 class TestGermanNP(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'deu-Latn-np')
+        self.epi = epitran.Epitran(u'deu-Latn-np')
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
@@ -220,7 +220,7 @@ class TestGermanNP(unittest.TestCase):
 
 class TestSpanish(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'spa-Latn')
+        self.epi = epitran.Epitran(u'spa-Latn')
 
     def _derivation(self, orth, correct):
         attempt = assemble_ipa(self.epi.word_to_tuples(orth))
@@ -242,7 +242,7 @@ class TestSpanish(unittest.TestCase):
 
 class TestFrench(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'fra-Latn')
+        self.epi = epitran.Epitran(u'fra-Latn')
 
     def _derivation(self, orth, correct):
         logging.debug(orth.encode('utf-8'))
