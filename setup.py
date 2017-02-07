@@ -5,13 +5,13 @@ if sys.version_info[0] > 2:
     install_requires = ['setuptools',
                         'unicodecsv',
                         'regex',
-                        'panphon>=0.3']
+                        'panphon>=0.5']
 else:
     install_requires = ['setuptools',
                         'unicodecsv',
                         'regex',
                         'subprocess32',
-                        'panphon>=0.3']
+                        'panphon>=0.5']
 
 setup(name='epitran',
       version='0.6',
