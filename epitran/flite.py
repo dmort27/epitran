@@ -10,7 +10,7 @@ import pkg_resources
 import panphon
 import regex as re
 import unicodecsv as csv
-from ligaturize import ligaturize
+from epitran.ligaturize import ligaturize
 
 import sys
 if os.name == 'posix' and sys.version_info[0] < 3:
@@ -20,6 +20,11 @@ else:
 
 logging.basicConfig(level=logging.CRITICAL)
 logging.disable(logging.DEBUG)
+
+
+if sys.version_info[0] == 3:
+    def unicode(x):
+        return x
 
 
 class Flite(object):
@@ -44,7 +49,7 @@ class Flite(object):
         path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
         with open(path, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8', delimiter=str(','), quotechar=str('"'))
-            reader.next()
+            next(reader)
             return {punc: norm for (punc, norm) in reader}
 
     def normalize_punc(self, text):
@@ -72,6 +77,7 @@ class Flite(object):
         text = self.normalize(text)
         try:
             darpa_text = subprocess.check_output(['flite', '-ps', '-o', '/dev/null', '-t', '"{}"'.format(text)])
+            darpa_text = darpa_text.decode('utf-8')
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from flite.')
             darpa_text = ''
@@ -117,7 +123,7 @@ class VectorsWithIPASpace(object):
         return darpa2ipa
 
     def _compile_regexp(self):
-        regex = ur'({})'.format('|'.join([v for v in self.darpa2ipa.values()]))
+        regex = r'({})'.format('|'.join([v for v in self.darpa2ipa.values()]))
         return re.compile(regex, re.U)
 
     def word_to_segs(self, word, normpunc=False):
