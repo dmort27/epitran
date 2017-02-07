@@ -10,7 +10,7 @@ import epitran
 
 class TestTamilGeneral(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'tam-Taml')
+        self.epi = epitran.Epitran(u'tam-Taml')
 
     def _assert_trans(self, src, tar):
         trans = self.epi.transliterate(src)

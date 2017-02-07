@@ -9,7 +9,7 @@ import epitran
 
 class TestPunjabi(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'pan-Guru')
+        self.epi = epitran.Epitran(u'pan-Guru')
 
     def test_lahore(self):
         tr = self.epi.transliterate('ਲਹੌਰ')

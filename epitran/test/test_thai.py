@@ -10,7 +10,7 @@ import epitran
 
 class TestGeneral(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'tha-Thai')
+        self.epi = epitran.Epitran(u'tha-Thai')
 
     def _assert_trans(self, src, tar):
         trans = self.epi.transliterate(src)

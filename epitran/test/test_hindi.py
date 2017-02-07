@@ -10,7 +10,7 @@ import epitran
 
 class TestHindiHalant(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran('hin-Deva')
+        self.epi = epitran.Epitran('hin-Deva')
 
     def _assert_trans(self, src, tar):
         trans = self.epi.transliterate(src)
@@ -25,7 +25,7 @@ class TestHindiHalant(unittest.TestCase):
 
 class TestHindiSchwaDel(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran('hin-Deva')
+        self.epi = epitran.Epitran('hin-Deva')
 
     def _assert_trans(self, src, tar):
         trans = self.epi.transliterate(src)

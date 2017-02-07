@@ -9,7 +9,7 @@ import epitran
 
 class TestSorani(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'fas-Arab')
+        self.epi = epitran.Epitran(u'fas-Arab')
 
     def test_faarsi(self):
         tr = self.epi.transliterate('فارسی')

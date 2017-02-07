@@ -9,7 +9,7 @@ import epitran
 
 class TestRussian(unittest.TestCase):
     def setUp(self):
-        self.epi = _epitran.Epitran(u'rus-Cyrl')
+        self.epi = epitran.Epitran(u'rus-Cyrl')
 
     def test_straitilstva(self):
         tr = self.epi.transliterate('строительство')
