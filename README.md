@@ -158,6 +158,7 @@ A few notes are in order regarding this data structure:
 | uzb-Cyrl    | Uzbek (Cyrillic)       |
 | uzb-Latn    | Uzbek (Latin)          |
 | vie-Latn    | Vietnamese             |
+| xho-Latn    | Xhosa                  |
 | yor-Latn    | Yoruba                 |
 
 *These language preprocessors and maps naively assume a phonemic orthography.
