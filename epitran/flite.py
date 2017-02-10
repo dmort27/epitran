@@ -70,13 +70,14 @@ class Flite(object):
     def darpa_to_ipa(self, darpa_text):
         darpa_text = darpa_text.strip()
         darpa_list = darpa_text.split(' ')[1:-1]  # remove pauses
+        darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
         ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
         return ''.join(ipa_list)
 
     def english_g2p(self, text):
         text = self.normalize(text)
         try:
-            darpa_text = subprocess.check_output(['flite', '-ps', '-o', '/dev/null', '-t', '"{}"'.format(text)])
+            darpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
             darpa_text = darpa_text.decode('utf-8')
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from flite.')
