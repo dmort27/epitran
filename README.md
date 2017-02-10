@@ -177,7 +177,7 @@ Note that major languages, including **French**, are missing from this table to 
 
 ## Using the ```epitran.flite``` Module
 
-The ```epitran.flite``` module shells out to the ```flite``` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. Because ```flite``` must be loaded each time ```english_g2p``` is called, performance is quite poor. Usage is illustrated below:
+The `epitran.flite` module shells out to the `flite` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. The `t2p` binary from `flite` is not installed by default and must be manually copied into the path.  Because `t2p` must be loaded each time ```english_g2p``` is called, performance is suboptimal. Usage is illustrated below:
 
       >>> import epitran.flite
       >>> fl = epitran.flite.Flite()
