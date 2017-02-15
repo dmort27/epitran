@@ -185,7 +185,7 @@ $ tar xjf flite-2.0.0-release.tar.bz2
 $ cd flite-2.0.0-release/
 $ ./configure && make
 $ sudo make install
-$ cp bin/t2p /usr/local/bin
+$ sudo cp bin/t2p /usr/local/bin
 ```
 
 You should adapt these instructions to local conditions. Installation on Windows is easiest when using Cygwin. You will have to use your discretion in deciding where to put `t2p.exe` on Windows, since this may depend on your python setup. Other platforms are likely workable but have not been tested.
