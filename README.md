@@ -178,20 +178,32 @@ Note that major languages, including **French**, are missing from this table to 
 
 ## Using the ```epitran.flite``` Module
 
-The `epitran.flite` module shells out to the `flite` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. The `t2p` binary from `flite` is not installed by default and must be manually copied into the path.  Because `t2p` must be loaded each time ```english_g2p``` is called, performance is suboptimal. Usage is illustrated below:
+The `epitran.flite` module shells out to the `flite` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. The `t2p` binary from `flite` is not installed by default and must be manually copied into the path. An illustration of how this can be done on a Unix-like system is given below. Note that GNU `gmake` is required and that, if you have another `make` installed, you may have to call `gmake` explicitly:
 
-      >>> import epitran.flite
-      >>> fl = epitran.flite.Flite()
-      >>> print fl.english_g2p(u'San Leandro')
-      sænliɑndɹow
+```
+$ tar xjf flite-2.0.0-release.tar.bz2
+$ cd flite-2.0.0-release/
+$ ./configure && make
+$ sudo make install
+$ cp bin/t2p /usr/local/bin
+```
 
+You should adapt these instructions to local conditions. Installation on Windows is easiest when using Cygwin. You will have to use your discretion in deciding where to put `t2p.exe` on Windows, since this may depend on your python setup. Other platforms are likely workable but have not been tested.
+
+Because `t2p` must be loaded each time ```english_g2p``` is called, performance is suboptimal. Usage is illustrated below:
+```
+>>> import epitran.flite
+>>> fl = epitran.flite.Flite()
+>>> print fl.english_g2p(u'San Leandro')
+sænliɑndɹow
+```
 This module also contains a wrapper that takes orthographic English as an input and returns as an output the same data structure returned by ```epitran.vector.VectorWithIPASpace.word_to_segs```. Usage of this class and its most useful method is illustrated below:
-
-      >>> import epitran.flite
-      >>> vwis = epitran.flite.VectorsWithIPASpace()
-      >>> vwis.word_to_segs(u'San Leandro')
-      [(u'L', 1, u's', u's', 50, [-1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\xe6', u'\xe6', 58, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'Z', 0, u' ', u'', 1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), (u'L', 0, u'l', u'l', 45, [-1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'i', u'i', 4 2, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1]), (u'L', 0, u'\u0251', u'\u0251', 61, [1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'd', u'd', 36, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\u0279', u'\u0279', 66, [-1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 0, -1]), (u'L', 0, u'o', u'o', 48, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1]), (u'L', 0, u'w', u'w', 55, [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, 1, 1, -1, 1, 1, 0, -1])]
-
+```
+>>> import epitran.flite
+>>> vwis = epitran.flite.VectorsWithIPASpace()
+>>> vwis.word_to_segs(u'San Leandro')
+[(u'L', 1, u's', u's', 50, [-1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\xe6', u'\xe6', 58, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'Z', 0, u' ', u'', 1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), (u'L', 0, u'l', u'l', 45, [-1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'i', u'i', 4 2, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1]), (u'L', 0, u'\u0251', u'\u0251', 61, [1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'd', u'd', 36, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\u0279', u'\u0279', 66, [-1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 0, -1]), (u'L', 0, u'o', u'o', 48, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1]), (u'L', 0, u'w', u'w', 55, [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, 1, 1, -1, 1, 1, 0, -1])]
+```
 The observant user will note that the interface is the same as that of the identically-named class in the the `epitran.vector` module.
 
 ## Extending Epitran with map files, preprocessors and postprocessors
