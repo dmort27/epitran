@@ -39,17 +39,17 @@ es,,,#
 er,é,,
 g,ʒ,,[eéèêëiîïyEÉÈÊËIÎÏY]
 G,Ʒ,,[eéèêëiîïyEÉÈÊËIÎÏY]
-e,,.,#
+e,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ].+,#
 % A strange rule
 ct,,,(am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
 % These rules can be excised if we assume liason:
-d,,.,#
-dd,,.,#
-g,,.,#
-p,,.,#
-pp,,.,#
-t,,.,#
-tt,,.,#
-x,,.,#
-s,,.,#
+d,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+dd,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+g,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+p,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+pp,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+t,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+tt,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+x,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
+s,,[aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ],#
 ent,,.,#
