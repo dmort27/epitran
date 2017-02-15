@@ -125,6 +125,7 @@ A few notes are in order regarding this data structure:
 | aze-Cyrl    | Azerbaijani (Cyrillic) |
 | aze-Latn    | Azerbaijani (Latin)    |
 | ben-Beng    | Bengali                |
+| ceb-Latn    | Cebuano                |
 | ckb-Arab    | Sorani                 |
 | deu-Latn    | German                 |
 | deu-Latn-np | German*                |
@@ -134,6 +135,7 @@ A few notes are in order regarding this data structure:
 | hau-Latn    | Hausa                  |
 | hin-Deva    | Hindi                  |
 | hun-Latn    | Hungarian              |
+| ilo-Latn    | Ilocano                |
 | ind-Latn    | Indonesian             |
 | jav-Latn    | Javanese               |
 | kaz-Cyrl    | Kazakh (Cyrillic)      |
@@ -149,6 +151,7 @@ A few notes are in order regarding this data structure:
 | spa-Latn    | Spanish                |
 | tam-Taml    | Tamil                  |
 | tel-Telu    | Telugu                 |
+| tgl-Latn    | Tagalog                |
 | tha-Thai    | Thai                   |
 | tir-Ethi    | Tigrinya               |
 | tuk-Cyrl    | Turkmen (Cyrillic)     |
