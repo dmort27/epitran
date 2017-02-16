@@ -93,17 +93,13 @@ class Flite(object):
 
     def english_g2p_ll(self, text):
         text = self.normalize(text).lower()
-        print("text =", text)
         try:
             darpa_text = subprocess.check_output(['lex_lookup', text])
             darpa_text = darpa_text.decode('utf-8')
-            print('darpa_text=', darpa_text)
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exist status from lex_lookup.')
             darpa_text = ''
-        ipa = self.darpa_to_ipa_ll(darpa_text)
-        print('ipa =', ipa)
-        return ipa
+        return self.darpa_to_ipa_ll(darpa_text)
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         text = unicodedata.normalize('NFC', text)
