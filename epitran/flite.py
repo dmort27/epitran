@@ -97,7 +97,7 @@ class Flite(object):
             darpa_text = subprocess.check_output(['lex_lookup', text])
             darpa_text = darpa_text.decode('utf-8')
         except subprocess.CalledProcessError:
-            logging.warning('Non-zero exist status from lex_lookup.')
+            logging.warning('Non-zero exit status from lex_lookup.')
             darpa_text = ''
         return self.darpa_to_ipa_ll(darpa_text)
 
