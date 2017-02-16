@@ -326,6 +326,9 @@ table to to a lack of appropriate text data.
 Using the ``epitran.flite`` Module
 ----------------------------------
 
+``t2p``
+~~~~~~~
+
 The ``epitran.flite`` module shells out to the ``flite`` speech
 synthesis system to do English G2P.
 `Flite <http://www.speech.cs.cmu.edu/flite/>`__ must be installed in
@@ -348,6 +351,34 @@ Windows is easiest when using Cygwin. You will have to use your
 discretion in deciding where to put ``t2p.exe`` on Windows, since this
 may depend on your python setup. Other platforms are likely workable but
 have not been tested.
+
+``lex_lookup``
+~~~~~~~~~~~~~~
+
+``t2p`` does not behave as expected on letter sequences that are highly
+infrequent in English. In such cases, ``t2p`` gives the pronunciation of
+the English letters of the name, rather than an attempt at the
+pronunciation of the name. There is a different binary included in the
+most recent (pre-release) versions of Flite that behaves better in this
+regard, but takes some extra effort to install. To install, you need to
+obtain at least version 2.0.5 of Flite. Untar and compile the source,
+following the steps below, adjusting where appropriate for your system:
+
+::
+
+    $ tar xjf flite-2.0.5-current.tar.bz2
+    $ cd flite-2.0.5-current
+    $ ./configure && make
+    $ sudo make install
+    $ cd testsuite
+    $ make lex_lookup
+    $ sudo cp lex_lookup /usr/local/bin
+
+``lex_lookup`` is accessed using the ``english_g2p_ll`` method of Flite
+objects. It takes the same arguments as ``english_g2p``.
+
+Usage
+~~~~~
 
 Because ``t2p`` must be loaded each time ``english_g2p`` is called,
 performance is suboptimal. Usage is illustrated below:

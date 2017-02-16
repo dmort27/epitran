@@ -74,15 +74,36 @@ class Flite(object):
         ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
         return ''.join(ipa_list)
 
+    def darpa_to_ipa_ll(self, darpa_text):
+        darpa_text = darpa_text.strip()
+        darpa_list = darpa_text[1:-1].split(' ')
+        darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
+        ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
+        return ''.join(ipa_list)
+
     def english_g2p(self, text):
         text = self.normalize(text)
         try:
             darpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
             darpa_text = darpa_text.decode('utf-8')
         except subprocess.CalledProcessError:
-            logging.warning('Non-zero exit status from flite.')
+            logging.warning('Non-zero exit status from t2p.')
             darpa_text = ''
         return self.darpa_to_ipa(darpa_text)
+
+    def english_g2p_ll(self, text):
+        text = self.normalize(text).lower()
+        print("text =", text)
+        try:
+            darpa_text = subprocess.check_output(['lex_lookup', text])
+            darpa_text = darpa_text.decode('utf-8')
+            print('darpa_text=', darpa_text)
+        except subprocess.CalledProcessError:
+            logging.warning('Non-zero exist status from lex_lookup.')
+            darpa_text = ''
+        ipa = self.darpa_to_ipa_ll(darpa_text)
+        print('ipa =', ipa)
+        return ipa
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         text = unicodedata.normalize('NFC', text)
