@@ -15,3 +15,6 @@ class TestFlite(unittest.TestCase):
 
     def test_parowan(self):
         self.assertEqual(self.flite.transliterate('Parowan'), 'pɛɹ̩awən')
+
+    def test_brzezinski(self):
+        self.assertEqual(self.flite.english_g2p_ll('Brzezinski'), 'bɹɪzɪnski')
