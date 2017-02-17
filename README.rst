@@ -221,6 +221,8 @@ Transliteration Language/Script Pairs
 +---------------+--------------------------+
 | ben-Beng      | Bengali                  |
 +---------------+--------------------------+
+| ceb-Latn      | Cebuano                  |
++---------------+--------------------------+
 | ckb-Arab      | Sorani                   |
 +---------------+--------------------------+
 | deu-Latn      | German                   |
@@ -238,6 +240,8 @@ Transliteration Language/Script Pairs
 | hin-Deva      | Hindi                    |
 +---------------+--------------------------+
 | hun-Latn      | Hungarian                |
++---------------+--------------------------+
+| ilo-Latn      | Ilocano                  |
 +---------------+--------------------------+
 | ind-Latn      | Indonesian               |
 +---------------+--------------------------+
@@ -269,6 +273,8 @@ Transliteration Language/Script Pairs
 +---------------+--------------------------+
 | tel-Telu      | Telugu                   |
 +---------------+--------------------------+
+| tgl-Latn      | Tagalog                  |
++---------------+--------------------------+
 | tha-Thai      | Thai                     |
 +---------------+--------------------------+
 | tir-Ethi      | Tigrinya                 |
@@ -286,6 +292,8 @@ Transliteration Language/Script Pairs
 | uzb-Latn      | Uzbek (Latin)            |
 +---------------+--------------------------+
 | vie-Latn      | Vietnamese               |
++---------------+--------------------------+
+| xho-Latn      | Xhosa                    |
 +---------------+--------------------------+
 | yor-Latn      | Yoruba                   |
 +---------------+--------------------------+
@@ -318,19 +326,69 @@ table to to a lack of appropriate text data.
 Using the ``epitran.flite`` Module
 ----------------------------------
 
+``t2p``
+~~~~~~~
+
 The ``epitran.flite`` module shells out to the ``flite`` speech
 synthesis system to do English G2P.
 `Flite <http://www.speech.cs.cmu.edu/flite/>`__ must be installed in
-order for this module to function. Because ``flite`` must be loaded each
-time ``english_g2p`` is called, performance is quite poor. Usage is
-illustrated below:
+order for this module to function. The ``t2p`` binary from ``flite`` is
+not installed by default and must be manually copied into the path. An
+illustration of how this can be done on a Unix-like system is given
+below. Note that GNU ``gmake`` is required and that, if you have another
+``make`` installed, you may have to call ``gmake`` explicitly:
 
 ::
 
-      >>> import epitran.flite
-      >>> fl = epitran.flite.Flite()
-      >>> print fl.english_g2p(u'San Leandro')
-      sænliɑndɹow
+    $ tar xjf flite-2.0.0-release.tar.bz2
+    $ cd flite-2.0.0-release/
+    $ ./configure && make
+    $ sudo make install
+    $ sudo cp bin/t2p /usr/local/bin
+
+You should adapt these instructions to local conditions. Installation on
+Windows is easiest when using Cygwin. You will have to use your
+discretion in deciding where to put ``t2p.exe`` on Windows, since this
+may depend on your python setup. Other platforms are likely workable but
+have not been tested.
+
+``lex_lookup``
+~~~~~~~~~~~~~~
+
+``t2p`` does not behave as expected on letter sequences that are highly
+infrequent in English. In such cases, ``t2p`` gives the pronunciation of
+the English letters of the name, rather than an attempt at the
+pronunciation of the name. There is a different binary included in the
+most recent (pre-release) versions of Flite that behaves better in this
+regard, but takes some extra effort to install. To install, you need to
+obtain at least version 2.0.5 of Flite. Untar and compile the source,
+following the steps below, adjusting where appropriate for your system:
+
+::
+
+    $ tar xjf flite-2.0.5-current.tar.bz2
+    $ cd flite-2.0.5-current
+    $ ./configure && make
+    $ sudo make install
+    $ cd testsuite
+    $ make lex_lookup
+    $ sudo cp lex_lookup /usr/local/bin
+
+``lex_lookup`` is accessed using the ``english_g2p_ll`` method of Flite
+objects. It takes the same arguments as ``english_g2p``.
+
+Usage
+~~~~~
+
+Because ``t2p`` must be loaded each time ``english_g2p`` is called,
+performance is suboptimal. Usage is illustrated below:
+
+::
+
+    >>> import epitran.flite
+    >>> fl = epitran.flite.Flite()
+    >>> print fl.english_g2p(u'San Leandro')
+    sænliɑndɹow
 
 This module also contains a wrapper that takes orthographic English as
 an input and returns as an output the same data structure returned by
@@ -339,10 +397,10 @@ and its most useful method is illustrated below:
 
 ::
 
-      >>> import epitran.flite
-      >>> vwis = epitran.flite.VectorsWithIPASpace()
-      >>> vwis.word_to_segs(u'San Leandro')
-      [(u'L', 1, u's', u's', 50, [-1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\xe6', u'\xe6', 58, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'Z', 0, u' ', u'', 1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), (u'L', 0, u'l', u'l', 45, [-1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'i', u'i', 4 2, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1]), (u'L', 0, u'\u0251', u'\u0251', 61, [1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'd', u'd', 36, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\u0279', u'\u0279', 66, [-1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 0, -1]), (u'L', 0, u'o', u'o', 48, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1]), (u'L', 0, u'w', u'w', 55, [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, 1, 1, -1, 1, 1, 0, -1])]
+    >>> import epitran.flite
+    >>> vwis = epitran.flite.VectorsWithIPASpace()
+    >>> vwis.word_to_segs(u'San Leandro')
+    [(u'L', 1, u's', u's', 50, [-1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\xe6', u'\xe6', 58, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'Z', 0, u' ', u'', 1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), (u'L', 0, u'l', u'l', 45, [-1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'i', u'i', 4 2, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1]), (u'L', 0, u'\u0251', u'\u0251', 61, [1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'd', u'd', 36, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\u0279', u'\u0279', 66, [-1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 0, -1]), (u'L', 0, u'o', u'o', 48, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1]), (u'L', 0, u'w', u'w', 55, [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, 1, 1, -1, 1, 1, 0, -1])]
 
 The observant user will note that the interface is the same as that of
 the identically-named class in the the ``epitran.vector`` module.
