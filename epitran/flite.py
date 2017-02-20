@@ -67,21 +67,27 @@ class Flite(object):
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
 
-    def darpa_to_ipa(self, darpa_text):
+    def darpa_to_ipa(self, darpa_text, ligatures=False):
         darpa_text = darpa_text.strip()
         darpa_list = darpa_text.split(' ')[1:-1]  # remove pauses
         darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
         ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
-        return ''.join(ipa_list)
+        text = ''.join(ipa_list)
+        if ligatures or self.ligatures:
+            text = ligaturize(text)
+        return text
 
-    def darpa_to_ipa_ll(self, darpa_text):
+    def darpa_to_ipa_ll(self, darpa_text, ligatures=False):
         darpa_text = darpa_text.strip()
         darpa_list = darpa_text[1:-1].split(' ')
         darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
         ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
-        return ''.join(ipa_list)
+        text = ''.join(ipa_list)
+        if ligatures or self.ligatures:
+            text = ligaturize(text)
+        return text
 
-    def english_g2p(self, text):
+    def english_g2p(self, text, ligatures=False):
         text = self.normalize(text)
         try:
             darpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
@@ -89,9 +95,9 @@ class Flite(object):
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from t2p.')
             darpa_text = ''
-        return self.darpa_to_ipa(darpa_text)
+        return self.darpa_to_ipa(darpa_text, ligatures=ligatures)
 
-    def english_g2p_ll(self, text):
+    def english_g2p_ll(self, text, ligatures=False):
         text = self.normalize(text).lower()
         try:
             darpa_text = subprocess.check_output(['lex_lookup', text])
@@ -99,7 +105,7 @@ class Flite(object):
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from lex_lookup.')
             darpa_text = ''
-        return self.darpa_to_ipa_ll(darpa_text)
+        return self.darpa_to_ipa_ll(darpa_text, ligatures=ligatures)
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         text = unicodedata.normalize('NFC', text)
