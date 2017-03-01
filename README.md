@@ -147,8 +147,10 @@ A few notes are in order regarding this data structure:
 | nld-Latn    | Dutch                  |
 | orm-Latn    | Oromo                  |
 | pan-Guru    | Punjabi (Eastern)      |
+| sna-Latn    | Shona                  |
 | som-Latn    | Somali                 |
 | spa-Latn    | Spanish                |
+| swa-Latn    | Swahili                |
 | tam-Taml    | Tamil                  |
 | tel-Telu    | Telugu                 |
 | tgl-Latn    | Tagalog                |
