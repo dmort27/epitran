@@ -140,6 +140,7 @@ A few notes are in order regarding this data structure:
 | jav-Latn    | Javanese               |
 | kaz-Cyrl    | Kazakh (Cyrillic)      |
 | kaz-Latn    | Kazakh (Latin)         |
+| kin-Latn    | Kinyarwanda            |
 | kir-Arab    | Kyrgyz (Perso-Arabic)  |
 | kir-Cyrl    | Kyrgyz (Cyrillic)      |
 | kir-Latn    | Kyrgyz (Latin)         |
