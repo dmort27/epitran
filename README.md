@@ -165,6 +165,7 @@ A few notes are in order regarding this data structure:
 | vie-Latn    | Vietnamese             |
 | xho-Latn    | Xhosa                  |
 | yor-Latn    | Yoruba                 |
+| zul-Latn    | Zulu                   |
 
 *These language preprocessors and maps naively assume a phonemic orthography.
 
