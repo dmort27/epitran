@@ -92,6 +92,9 @@ class Flite(object):
         try:
             darpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
             darpa_text = darpa_text.decode('utf-8')
+        except OSError:
+            logging.warning('t2p (from flite) is not installed.')
+            darpa_text = ''
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from t2p.')
             darpa_text = ''
@@ -102,6 +105,9 @@ class Flite(object):
         try:
             darpa_text = subprocess.check_output(['lex_lookup', text])
             darpa_text = darpa_text.decode('utf-8')
+        except OSError:
+            logging.warning('lex_lookup (from flite) is not installed.')
+            darpa_text = ''
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from lex_lookup.')
             darpa_text = ''

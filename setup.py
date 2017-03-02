@@ -14,10 +14,10 @@ else:
                         'panphon>=0.5']
 
 setup(name='epitran',
-      version='0.6',
+      version='0.7',
       description='Tools for transcribing languages into IPA.',
       url='http://github.com/dmort27/epitran',
-      download_url='http://github.com/dmort27/epitran/tarball/0.6',
+      download_url='http://github.com/dmort27/epitran/tarball/0.7',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
       license='MIT',

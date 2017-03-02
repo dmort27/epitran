@@ -211,6 +211,8 @@ $ make lex_lookup
 $ sudo cp lex_lookup /usr/local/bin
 ```
 
+When installing on MacOS and other systems that use a BSD version of `cp`, some modification to a Makefile must be made in order to install flite-2.0.5 (between steps 3 and 4). Edit `main/Makefile` and change both instances of `cp -pd` to `cp -pR`. Then resume the steps above at step 4.
+
 `lex_lookup` is accessed using the `english_g2p_ll` method of Flite objects. It takes the same arguments as `english_g2p`.
 
 ### Usage
