@@ -145,6 +145,7 @@ A few notes are in order regarding this data structure:
 | kir-Latn    | Kyrgyz (Latin)         |
 | krm-Latn    | Kurmanji               |
 | nld-Latn    | Dutch                  |
+| nya-Latn    | Chichewa               |
 | orm-Latn    | Oromo                  |
 | pan-Guru    | Punjabi (Eastern)      |
 | sna-Latn    | Shona                  |
