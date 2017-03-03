@@ -5,10 +5,12 @@ a,b,X,Y
 ə్,,,
 %
 % ə -> 0 / _V
-ə,,,(a|e|i|o|u|ru|l̩)
-%
+ə,,,(a|e|ɪ|i|o|ʊ|u|ru|l̩)
+% high lax vowels tense word-finally
+ɪ,i,,#
+ʊ,u,,#
 % Homorganic nasal
-N,m,,(p|pʰ|b|b̤|m)
 N,ŋ,,(k|kʰ|ɡ|ɡ̤|ŋ)
 N,ɲ,,(t͡ʃ|t͡ʃʰ|d͡ʒ|d͡ʒ̤|ɲ)
-N,n,,
+N,n,,(t̪|t̪ʰ|d̪ə|d̪̤|n)
+N,m,,
