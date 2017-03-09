@@ -1,0 +1,15 @@
+a,b,X,Y
+gn,ngn,.,
+c,s,,(e|i|y|ä|ö)
+g,j,,(e|i|y|ä|ö)
+k,ɕ,,(e|i|y|ä|ö)
+a,ɐ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+e,ɛ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+i,ɪ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+o,ɔ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+u,ɵ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+y,ʏ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+å,ɔ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+ä,ɛ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+ö,œ,,(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)(b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ng|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+é,e,,
