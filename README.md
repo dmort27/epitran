@@ -137,6 +137,7 @@ A few notes are in order regarding this data structure:
 | hun-Latn    | Hungarian              |
 | ilo-Latn    | Ilocano                |
 | ind-Latn    | Indonesian             |
+| ita-Latn    | Italian                |
 | jav-Latn    | Javanese               |
 | kaz-Cyrl    | Kazakh (Cyrillic)      |
 | kaz-Latn    | Kazakh (Latin)         |
@@ -153,6 +154,7 @@ A few notes are in order regarding this data structure:
 | som-Latn    | Somali                 |
 | spa-Latn    | Spanish                |
 | swa-Latn    | Swahili                |
+| swe-Latn    | Swedish                |
 | tam-Taml    | Tamil                  |
 | tel-Telu    | Telugu                 |
 | tgl-Latn    | Tagalog                |
