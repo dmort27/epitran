@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, unicode_literals, division, absolute_import
 
-import glob
 import logging
 import os.path
 import sys
@@ -13,10 +12,14 @@ import pkg_resources
 import panphon
 import regex as re
 import unicodecsv as csv
+from epitran.flite import FliteLexLookup
 from epitran.ppprocessor import PrePostProcessor
 from epitran.stripdiacritics import StripDiacritics
 from epitran.ligaturize import ligaturize
 
+if sys.version_info[0] == 3:
+    def unicode(x):
+        return x
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -27,43 +30,21 @@ class DatafileError(Exception):
 class MappingError(Exception):
     pass
 
-if sys.version_info[0] == 3:
-    def unicode(x):
-        return x
-
-class Maps(object):
-    """Query Epitran maps available locally."""
-    def __init__(self):
-        self.maps = self._query_maps()
-
-    def _query_maps(self):
-        path = os.path.join('data', 'map', 'maps')
-        path = pkg_resources.resource_filename(__name__, path)
-        path = os.path.dirname(path)
-        path = os.path.join(path, '*-*.csv')
-        path_re = re.compile(r'([a-z]{3})-([A-Z][a-z]{3})(-np|)[.]csv')
-        maps = []
-        for map_ in glob.glob(path):
-            match = path_re.search(map_)
-            if match:
-                lang, script, mod = match.groups()
-                maps.append({'path': map_, 'lang': lang, 'script': script, 'mod': mod.replace('-', '')})
-        return maps
-
-    def lang_script_pairs(self):
-        return sorted(list(set([(m['lang'], m['script']) for m in self.maps])))
-
-    def paths(self, code):
-        try:
-            lang, script, mod = code.split('-')
-        except ValueError:
-            lang, script = code.split('-')
-            mod = ''
-        return [m['path'] for m in self.maps if m['lang'] == lang and m['script'] == script and m['mod'] == mod]
-
 
 class Epitran(object):
-    """Transliterate text in Latin scripts to Unicode IPA."""
+    special = {'eng-Latn': FliteLexLookup}
+    """Transliterate text to Unicode IPA."""
+    def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict=None):
+        if code in self.special:
+            self.epi = self.special[code](ligatures=ligatures, cedict=cedict)
+        else:
+            self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
+
+    def transliterate(self, word, normpunc=False, ligatures=False):
+        return self.epi.transliterate(word, normpunc, ligatures)
+
+
+class SimpleEpitran(object):
     def __init__(self, code, preproc=True, postproc=True, ligatures=False):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
