@@ -28,6 +28,7 @@ if sys.version_info[0] == 3:
 
 
 class Flite(object):
+    """English G2P using the Flite speech synthesis system."""
     def __init__(self, darpabet='darpabet', ligatures=False):
         darpabet = pkg_resources.resource_filename(__name__, os.path.join('data', darpabet + '.csv'))
         self.darpa_map = self._read_darpabet(darpabet)
@@ -67,19 +68,23 @@ class Flite(object):
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
 
+    def transliterate(self, text, normpunc=False, ligatures=False):
+        text = unicodedata.normalize('NFC', text)
+        acc = []
+        for chunk in self.chunk_re.findall(text):
+            if unicodedata.category(chunk[0])[0] == 'L':
+                acc.append(self.english_g2p(chunk))
+            else:
+                acc.append(chunk)
+        acc = map(ligaturize, acc) if ligatures or self.ligatures else acc
+        return ''.join(acc)
+
+
+class FliteT2P(Flite):
+    """Flite G2P using t2p."""
     def darpa_to_ipa(self, darpa_text, ligatures=False):
         darpa_text = darpa_text.strip()
         darpa_list = darpa_text.split(' ')[1:-1]  # remove pauses
-        darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
-        ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
-        text = ''.join(ipa_list)
-        if ligatures or self.ligatures:
-            text = ligaturize(text)
-        return text
-
-    def darpa_to_ipa_ll(self, darpa_text, ligatures=False):
-        darpa_text = darpa_text.strip()
-        darpa_list = darpa_text[1:-1].split(' ')
         darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
         ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
         text = ''.join(ipa_list)
@@ -100,7 +105,20 @@ class Flite(object):
             darpa_text = ''
         return self.darpa_to_ipa(darpa_text, ligatures=ligatures)
 
-    def english_g2p_ll(self, text, ligatures=False):
+
+class FliteLexLookup(Flite):
+    """Flite G2P using lex_lookup."""
+    def darpa_to_ipa(self, darpa_text, ligatures=False):
+        darpa_text = darpa_text.strip()
+        darpa_list = darpa_text[1:-1].split(' ')
+        darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
+        ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
+        text = ''.join(ipa_list)
+        if ligatures or self.ligatures:
+            text = ligaturize(text)
+        return text
+
+    def english_g2p(self, text, ligatures=False):
         text = self.normalize(text).lower()
         try:
             darpa_text = subprocess.check_output(['lex_lookup', text])
@@ -111,18 +129,7 @@ class Flite(object):
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from lex_lookup.')
             darpa_text = ''
-        return self.darpa_to_ipa_ll(darpa_text, ligatures=ligatures)
-
-    def transliterate(self, text, normpunc=False, ligatures=False):
-        text = unicodedata.normalize('NFC', text)
-        acc = []
-        for chunk in self.chunk_re.findall(text):
-            if unicodedata.category(chunk[0])[0] == 'L':
-                acc.append(self.english_g2p(chunk))
-            else:
-                acc.append(chunk)
-        acc = map(ligaturize, acc) if ligatures or self.ligatures else acc
-        return ''.join(acc)
+        return self.darpa_to_ipa(darpa_text, ligatures=ligatures)
 
 
 class VectorsWithIPASpace(object):

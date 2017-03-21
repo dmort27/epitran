@@ -8,7 +8,7 @@ from epitran import flite
 
 class TestFlite(unittest.TestCase):
     def setUp(self):
-        self.flite = flite.Flite()
+        self.flite = flite.FliteT2P()
 
     def test_san_leandro(self):
         self.assertEqual(self.flite.transliterate('San Leandro'), 'sæn liɑndɹow')
@@ -19,13 +19,13 @@ class TestFlite(unittest.TestCase):
 
 class TestLexLookup(unittest.TestCase):
     def setUp(self):
-        self.flite = flite.Flite()
+        self.flite = flite.FliteLexLookup()
 
     def test_san_leandro(self):
-        self.assertEqual(self.flite.english_g2p_ll('San Leandro'), 'sænliɑndɹow')
+        self.assertEqual(self.flite.transliterate('San Leandro'), 'sæn liɑndɹow')
 
     def test_parowan(self):
-        self.assertEqual(self.flite.english_g2p_ll('Parowan'), 'pɛɹ̩awən')
+        self.assertEqual(self.flite.transliterate('Parowan'), 'pɛɹ̩awən')
 
     def test_brzezinski(self):
-        self.assertEqual(self.flite.english_g2p_ll('Brzezinski'), 'bɹɪzɪnski')
+        self.assertEqual(self.flite.transliterate('Brzezinski'), 'bɹɪzɪnski')
