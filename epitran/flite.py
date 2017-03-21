@@ -29,7 +29,7 @@ if sys.version_info[0] == 3:
 
 class Flite(object):
     """English G2P using the Flite speech synthesis system."""
-    def __init__(self, darpabet='darpabet', ligatures=False):
+    def __init__(self, darpabet='darpabet', ligatures=False, cedict=None):
         darpabet = pkg_resources.resource_filename(__name__, os.path.join('data', darpabet + '.csv'))
         self.darpa_map = self._read_darpabet(darpabet)
         self.chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
