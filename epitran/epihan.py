@@ -10,6 +10,10 @@ import rules
 from epitran.ligaturize import ligaturize
 
 
+class MissingData(Exception):
+    pass
+
+
 class Normalizer(object):
     punc = [(u'\uff0c', u','),
             (u'\uff01', u'!'),
@@ -33,7 +37,9 @@ class Normalizer(object):
 
 class Epihan(Normalizer):
     def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):
-        rules_file = os.path.join('data', rules_file)
+        if not cedict_file:
+            raise MissingData('Please specify a location for the CC-CEDict file.')
+        rules_file = os.path.join('data', 'rules', rules_file)
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file)
         self.rules = rules.Rules([rules_file])
