@@ -13,6 +13,7 @@ import panphon
 import regex as re
 import unicodecsv as csv
 from epitran.flite import FliteLexLookup
+from epitran.epihan import Epihan
 from epitran.ppprocessor import PrePostProcessor
 from epitran.stripdiacritics import StripDiacritics
 from epitran.ligaturize import ligaturize
@@ -32,11 +33,13 @@ class MappingError(Exception):
 
 
 class Epitran(object):
-    special = {'eng-Latn': FliteLexLookup}
+    special = {'eng-Latn': FliteLexLookup,
+               'cmn-Hans': Epihan,}
+
     """Transliterate text to Unicode IPA."""
-    def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict=None):
+    def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict_file=None):
         if code in self.special:
-            self.epi = self.special[code](ligatures=ligatures, cedict=cedict)
+            self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file)
         else:
             self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
 

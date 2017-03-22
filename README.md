@@ -126,9 +126,11 @@ A few notes are in order regarding this data structure:
 | aze-Latn    | Azerbaijani (Latin)    |
 | ben-Beng    | Bengali                |
 | ceb-Latn    | Cebuano                |
+| cmn-Hans    | Mandarin (Simplified)  |
 | ckb-Arab    | Sorani                 |
 | deu-Latn    | German                 |
 | deu-Latn-np | German*                |
+| eng-Latn    | English                |
 | fas-Arab    | Farsi (Perso-Arabic)   |
 | fra-Latn    | French                 |
 | fra-Latn-np | French*                |
