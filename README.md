@@ -148,10 +148,12 @@ A few notes are in order regarding this data structure:
 | kir-Cyrl    | Kyrgyz (Cyrillic)      |
 | kir-Latn    | Kyrgyz (Latin)         |
 | krm-Latn    | Kurmanji               |
+| mar-Deva    | Marathi                |
 | nld-Latn    | Dutch                  |
 | nya-Latn    | Chichewa               |
 | orm-Latn    | Oromo                  |
 | pan-Guru    | Punjabi (Eastern)      |
+| rus-Cyrl    | Russian                |
 | sna-Latn    | Shona                  |
 | som-Latn    | Somali                 |
 | spa-Latn    | Spanish                |
@@ -159,6 +161,7 @@ A few notes are in order regarding this data structure:
 | swe-Latn    | Swedish                |
 | tam-Taml    | Tamil                  |
 | tel-Telu    | Telugu                 |
+| tgk-Cyrl    | Tajik                  |
 | tgl-Latn    | Tagalog                |
 | tha-Thai    | Thai                   |
 | tir-Ethi    | Tigrinya               |

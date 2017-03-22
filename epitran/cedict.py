@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, unicode_literals
+from __future__ import print_function, unicode_literals, division, absolute_import
 
 import codecs
 import functools
@@ -47,9 +47,8 @@ class CEDictTrie(CEDict):
         for hz, df in self.hanzi.items():
             py, en = df
             py = str(''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py))))
-            assert isinstance(py, types.StringTypes)
-            pairs.append((hz, (py,)))
-        trie = marisa_trie.RecordTrie('@s', pairs)
+            pairs.append((hz, (py.encode('utf-8'),)))
+        trie = marisa_trie.RecordTrie(str('@s'), pairs)
         return trie
 
     def has_key(self, key):

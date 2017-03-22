@@ -1,12 +1,12 @@
 # -*- utf-8 -*-
-from __future__ import print_function
+from __future__ import print_function, unicode_literals, division, absolute_import
 
 import os.path
 
 import pkg_resources
 
-import cedict
-import rules
+from . import cedict
+from . import rules
 from epitran.ligaturize import ligaturize
 
 
