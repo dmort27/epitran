@@ -1,4 +1,5 @@
-from __future__ import print_function, unicode_literals
+# -*- coding: utf-8 -*-
+from __future__ import print_function, unicode_literals, division, absolute_import
 
 import logging
 import os.path
