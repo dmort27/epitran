@@ -7,6 +7,7 @@ import pkg_resources
 
 import cedict
 import rules
+from epitran.ligaturize import ligaturize
 
 
 class Normalizer(object):
@@ -50,4 +51,5 @@ class Epihan(Normalizer):
                 if normpunc:
                     token = self.normalize_punc(token)
                 ipa_tokens.append(token)
+            ipa_tokens = map(ligaturize, ipa_tokens) if ligatures else ipa_tokens
         return u''.join(ipa_tokens)
