@@ -15,10 +15,10 @@ ASCII_CHARS = ''.join([chr(i) for i in range(128)])
 
 
 class CEDict(object):
-    def __init__(self, cedict_file):
-        self.hanzi = self._read_cedict(cedict_file)
+    def __init__(self, cedict_file, traditional=False):
+        self.hanzi = self._read_cedict(cedict_file, traditional=False)
 
-    def _read_cedict(self, cedict_file):
+    def _read_cedict(self, cedict_file, traditional=False):
         comment_re = re.compile('\s*#')
         lemma_re = re.compile('(?P<hanzi>[^]]+) \[(?P<pinyin>[^]]+)\] /(?P<english>.+)/')
         cedict = {}
@@ -33,7 +33,10 @@ class CEDict(object):
                     hanzi = match.group('hanzi').split(' ')
                     pinyin = match.group('pinyin').split(' ')
                     english = match.group('english').split('/')
-                    cedict[hanzi[1]] = (pinyin, english)  # Simplified characters only.
+                    if traditional:
+                        cedict[hanzi[0]] = (pinyin, english) # traditional characters only
+                    else:
+                        cedict[hanzi[1]] = (pinyin, english)  # simplified characters only.
         return cedict
 
 
