@@ -34,7 +34,8 @@ class MappingError(Exception):
 
 class Epitran(object):
     special = {'eng-Latn': FliteLexLookup,
-               'cmn-Hans': Epihan,}
+               'cmn-Hans': Epihan,
+               'cmn-Hant': EpihanTraditional}
 
     """Transliterate text to Unicode IPA."""
     def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict_file=None):

@@ -59,3 +59,13 @@ class Epihan(Normalizer):
                 ipa_tokens.append(token)
             ipa_tokens = map(ligaturize, ipa_tokens) if ligatures else ipa_tokens
         return u''.join(ipa_tokens)
+
+
+class EpihanTraditional(Epihan):
+    def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):
+        if not cedict_file:
+            raise MissingData('Please specify a location for the CC-CEDict file.')
+        rules_file = os.path.join('data', 'rules', rules_file)
+        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
+        self.rules = rules.Rules([rules_file])
