@@ -4,9 +4,6 @@ from __future__ import print_function, unicode_literals
 import codecs
 import functools
 import types
-import os.path
-
-import pkg_resources
 
 import marisa_trie
 import regex as re
@@ -34,7 +31,7 @@ class CEDict(object):
                     pinyin = match.group('pinyin').split(' ')
                     english = match.group('english').split('/')
                     if traditional:
-                        cedict[hanzi[0]] = (pinyin, english) # traditional characters only
+                        cedict[hanzi[0]] = (pinyin, english)  # traditional characters only
                     else:
                         cedict[hanzi[1]] = (pinyin, english)  # simplified characters only.
         return cedict
