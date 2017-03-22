@@ -14,6 +14,7 @@ import regex as re
 import unicodecsv as csv
 from epitran.flite import FliteLexLookup
 from epitran.epihan import Epihan
+from epitran.epihan import EpihanTraditional
 from epitran.ppprocessor import PrePostProcessor
 from epitran.stripdiacritics import StripDiacritics
 from epitran.ligaturize import ligaturize
