@@ -30,21 +30,21 @@ if sys.version_info[0] == 3:
 
 class Flite(object):
     """English G2P using the Flite speech synthesis system."""
-    def __init__(self, darpabet='darpabet', ligatures=False, cedict=None):
-        darpabet = pkg_resources.resource_filename(__name__, os.path.join('data', darpabet + '.csv'))
-        self.darpa_map = self._read_darpabet(darpabet)
+    def __init__(self, arpabet='arpabet', ligatures=False, cedict_file=None):
+        arpabet = pkg_resources.resource_filename(__name__, os.path.join('data', arpabet + '.csv'))
+        self.arpa_map = self._read_arpabet(arpabet)
         self.chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
         self.puncnorm = self._load_punc_norm_map()
         self.puncnorm_vals = self.puncnorm.values()
         self.ligatures = ligatures
 
-    def _read_darpabet(self, darpabet):
-        darpa_map = {}
-        with open(darpabet, 'rb') as f:
+    def _read_arpabet(self, arpabet):
+        arpa_map = {}
+        with open(arpabet, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
-            for darpa, ipa in reader:
-                darpa_map[darpa] = ipa
-        return darpa_map
+            for arpa, ipa in reader:
+                arpa_map[arpa] = ipa
+        return arpa_map
 
     def _load_punc_norm_map(self):
         """Load the map table for normalizing 'down' punctuation."""
@@ -69,6 +69,19 @@ class Flite(object):
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
 
+    def arpa_text_to_list(self, arpa_text):
+        return arpa_text.split(' ')[1:-1]
+
+    def arpa_to_ipa(self, arpa_text, ligatures=False):
+        arpa_text = arpa_text.strip()
+        arpa_list = self.arpa_text_to_list(arpa_text)
+        arpa_list = map(lambda d: re.sub('\d', '', d), arpa_list)
+        ipa_list = map(lambda d: self.arpa_map[d], arpa_list)
+        text = ''.join(ipa_list)
+        if ligatures or self.ligatures:
+            text = ligaturize(text)
+        return text
+
     def transliterate(self, text, normpunc=False, ligatures=False):
         text = unicodedata.normalize('NFC', text)
         acc = []
@@ -83,54 +96,39 @@ class Flite(object):
 
 class FliteT2P(Flite):
     """Flite G2P using t2p."""
-    def darpa_to_ipa(self, darpa_text, ligatures=False):
-        darpa_text = darpa_text.strip()
-        darpa_list = darpa_text.split(' ')[1:-1]  # remove pauses
-        darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
-        ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
-        text = ''.join(ipa_list)
-        if ligatures or self.ligatures:
-            text = ligaturize(text)
-        return text
 
     def english_g2p(self, text, ligatures=False):
         text = self.normalize(text)
         try:
-            darpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
-            darpa_text = darpa_text.decode('utf-8')
+            arpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
+            arpa_text = arpa_text.decode('utf-8')
         except OSError:
             logging.warning('t2p (from flite) is not installed.')
-            darpa_text = ''
+            arpa_text = ''
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from t2p.')
-            darpa_text = ''
-        return self.darpa_to_ipa(darpa_text, ligatures=ligatures)
+            arpa_text = ''
+        return self.arpa_to_ipa(arpa_text, ligatures=ligatures)
 
 
 class FliteLexLookup(Flite):
     """Flite G2P using lex_lookup."""
-    def darpa_to_ipa(self, darpa_text, ligatures=False):
-        darpa_text = darpa_text.strip()
-        darpa_list = darpa_text[1:-1].split(' ')
-        darpa_list = map(lambda d: re.sub('\d', '', d), darpa_list)
-        ipa_list = map(lambda d: self.darpa_map[d], darpa_list)
-        text = ''.join(ipa_list)
-        if ligatures or self.ligatures:
-            text = ligaturize(text)
-        return text
+
+    def arpa_text_to_list(self, arpa_text):
+        return arpa_text[1:-1].split(' ')
 
     def english_g2p(self, text, ligatures=False):
         text = self.normalize(text).lower()
         try:
-            darpa_text = subprocess.check_output(['lex_lookup', text])
-            darpa_text = darpa_text.decode('utf-8')
+            arpa_text = subprocess.check_output(['lex_lookup', text])
+            arpa_text = arpa_text.decode('utf-8')
         except OSError:
             logging.warning('lex_lookup (from flite) is not installed.')
-            darpa_text = ''
+            arpa_text = ''
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from lex_lookup.')
-            darpa_text = ''
-        return self.darpa_to_ipa(darpa_text, ligatures=ligatures)
+            arpa_text = ''
+        return self.arpa_to_ipa(arpa_text, ligatures=ligatures)
 
 
 class VectorsWithIPASpace(object):
@@ -138,7 +136,7 @@ class VectorsWithIPASpace(object):
         self.flite = Flite()
         self.ft = panphon.FeatureTable()
         self.space = self._load_space(space_name)
-        self.darpa2ipa = self._load_darpa2ipa_map()
+        self.arpa2ipa = self._load_arpa2ipa_map()
         self.regexp = self._compile_regexp()
         self.num_panphon_fts = len(self.ft.names)
 
@@ -149,19 +147,19 @@ class VectorsWithIPASpace(object):
             reader = csv.reader(f, encoding='utf-8')
             return {seg: num for (num, seg) in reader}
 
-    def _load_darpa2ipa_map(self):
-        darpa2ipa = {}
-        path = os.path.join('data', 'darpabet.csv')
+    def _load_arpa2ipa_map(self):
+        arpa2ipa = {}
+        path = os.path.join('data', 'arpabet.csv')
         path = pkg_resources.resource_filename(__name__, path)
         with open(path, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             next(reader)
-            for darpa, phon in reader:
-                darpa2ipa[darpa] = phon
-        return darpa2ipa
+            for arpa, phon in reader:
+                arpa2ipa[arpa] = phon
+        return arpa2ipa
 
     def _compile_regexp(self):
-        regex = r'({})'.format('|'.join([v for v in self.darpa2ipa.values()]))
+        regex = r'({})'.format('|'.join([v for v in self.arpa2ipa.values()]))
         return re.compile(regex, re.U)
 
     def word_to_segs(self, word, normpunc=False):
