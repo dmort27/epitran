@@ -12,6 +12,7 @@ import pkg_resources
 import panphon
 import regex as re
 import unicodecsv as csv
+from epitran.puncnorm import PuncNorm
 from epitran.flite import FliteLexLookup
 from epitran.epihan import Epihan
 from epitran.epihan import EpihanTraditional
@@ -34,18 +35,32 @@ class MappingError(Exception):
 
 
 class Epitran(object):
+    """Unified interface for IPA transliteration/transcription"""
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional}
 
-    """Transliterate text to Unicode IPA."""
     def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict_file=None):
+        """Construct Epitran transliteration/transcription object
+
+        code -- ISO 639-3 code of the language that should be loaded
+        preproc -- apply preprocessors
+        postproc -- apply prostprocessors
+        ligatures -- use precomposed ligatures instead of standard IPA
+        cedict_filename -- file containing the CC-CEDict dictionary; relevant only for Chinese
+        """
         if code in self.special:
             self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file)
         else:
             self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
 
     def transliterate(self, word, normpunc=False, ligatures=False):
+        """Transliterates/transcribes a word into IPA
+
+        word -- word to transcribe; unicode string
+        normpunc -- normalize punctuation
+        ligatures -- use precomposed ligatures instead of standard IPA
+        """
         return self.epi.transliterate(word, normpunc, ligatures)
 
 
@@ -53,8 +68,7 @@ class SimpleEpitran(object):
     def __init__(self, code, preproc=True, postproc=True, ligatures=False):
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
-        self.puncnorm = self._load_punc_norm_map()
-        self.puncnorm_vals = self.puncnorm.values()
+        self.puncnorm = PuncNorm()
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
         self.preprocessor = PrePostProcessor(code, 'pre')
@@ -114,17 +128,7 @@ class SimpleEpitran(object):
            the mapping table.
         """
         graphemes = sorted(self.g2p.keys(), key=len, reverse=True)
-        #  print(graphemes)
         return re.compile(r'({})'.format(r'|'.join(graphemes)), re.I)
-
-    def normalize_punc(self, text):
-        new_text = []
-        for c in text:
-            if c in self.puncnorm:
-                new_text.append(self.puncnorm[c])
-            else:
-                new_text.append(c)
-        return ''.join(new_text)
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         """Transliterate text from orthography to Unicode IPA.
@@ -132,21 +136,12 @@ class SimpleEpitran(object):
         text -- The text to be transliterated
         normpunc -- Normalize punctuation?
         """
-        def normp(c):
-            if c in self.puncnorm:
-                return unicode(self.normalize_punc(c))
-            else:
-                return unicode(c)
-
         text = unicode(text)
         text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFKD', text)
         text = unicodedata.normalize('NFC', text.lower())
-        # logging.debug('normalized: {}'.format(text))
         if self.preproc:
             text = self.preprocessor.process(text)
-        # logging.debug('preprocessed: {}'.format(text))
-        # main loop
         tr_list = []
         while text:
             m = self.regexp.match(text)
@@ -163,13 +158,13 @@ class SimpleEpitran(object):
                 tr_list.append(text[0])
                 self.nils[text[0]] += 1
                 text = text[1:]
-        text = ''.join([normp(c) for c in tr_list]) if normpunc else ''.join(tr_list)
-        # logging.debug('processed: {}'.format(text))
+        text = ''.join(tr_list)
         if self.postproc:
             text = self.postprocessor.process(text)
-        # logging.debug('postprocessed: {}'.format(text))
         if ligatures or self.ligatures:
             text = ligaturize(text)
+        if normpunc:
+            text = self.puncnorm.norm(text)
         return text
 
     def trans_list(self, text, normpunc=False, ligatures=False):
@@ -179,15 +174,6 @@ class SimpleEpitran(object):
         text -- The text to be transliterated
         normpunc -- Normalize punctuation?
         """
-        def normp(c):
-            if normpunc:
-                if c in self.puncnorm:
-                    return unicode(self.normalize_punc(c))
-                else:
-                    return unicode(c)
-            else:
-                return c
-
         text = unicode(text)
         text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFKD', text)
@@ -204,7 +190,7 @@ class SimpleEpitran(object):
             else:
                 tr_list.append(text[0])
                 text = text[1:]
-        tr_list = map(normp, tr_list) if normpunc else tr_list
+        tr_list = map(self.puncnorm.norm, tr_list) if normpunc else tr_list
         tr_list = map(ligaturize, tr_list) if (self.ligatures or ligatures) else tr_list
         return tr_list
 
@@ -269,7 +255,7 @@ class SimpleEpitran(object):
                 word = word[len(span):]
             else:
                 span = word[0]
-                span = self.normalize_punc(span) if normpunc else span
+                span = self.puncnorm.norm(span) if normpunc else span
                 cat, case = cat_and_cap(span)
                 cat = 'P' if normpunc and cat in self.puncnorm else cat
                 phon = ''
