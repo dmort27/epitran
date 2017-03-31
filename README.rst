@@ -225,6 +225,8 @@ Transliteration Language/Script Pairs
 +---------------+--------------------------+
 | cmn-Hans      | Mandarin (Simplified)    |
 +---------------+--------------------------+
+| cmn-Hant      | Mandarin (Traditional)   |
++---------------+--------------------------+
 | ckb-Arab      | Sorani                   |
 +---------------+--------------------------+
 | deu-Latn      | German                   |
