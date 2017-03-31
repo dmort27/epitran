@@ -10,13 +10,9 @@ Usage
 The principle script for transliterating orthographic text as IPA is
 ``epitranscriber.py``. It takes one argument, the ISO 639-3 code for the
 language of the orthographic text, takes orthographic text at standard
-in and writes Unicode IPA to standard out.
-
-::
-
-    $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn" dyɰyn oluɾ bajɾam ɟeliɾ
-    $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
-
+in and writes Unicode IPA to standard out. $ echo "Düğün olur bayram
+gelir" \| epitranscribe.py "tur-Latn" dyɰyn oluɾ bajɾam ɟeliɾ $
+epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
 Additionally, the small Python modules ``epitran`` and
 ``epitran.vector`` can be used to easily write more sophisticated Python
 programs for deploying the **Epitran** mapping tables. This is
@@ -26,24 +22,46 @@ Using the ``epitran`` Module
 ----------------------------
 
 The most general functionality in the ``epitran`` module is encapsulated
-in the very simple ``Epitran`` class. Its constructor takes one
-argument, ``code``, the ISO 639-3 code of the language to be
-transliterated plus a hyphen plus a four letter code for the script
-(e.g. 'Latn' for Latin script, 'Cyrl' for Cyrillic script, and 'Arab'
-for a Perso-Arabic script).
+in the very simple ``Epitran`` class:
+
+Epitran(code, preproc=True, postproc=True, ligatures=False,
+cedict\_file=None).
+
+Its constructor takes one argument, ``code``, the ISO 639-3 code of the
+language to be transliterated plus a hyphen plus a four letter code for
+the script (e.g. 'Latn' for Latin script, 'Cyrl' for Cyrillic script,
+and 'Arab' for a Perso-Arabic script). It also takes optional keyword
+arguments: \* ``preproc`` and ``postproc`` enable pre- and
+post-processors. These are enabled by default. \* ``ligatures`` enables
+non-standard IPA ligatures like "ʤ" and "ʨ". \* ``cedict_file`` gives
+the path to the `CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary
+file (relevant only when working with Mandarin Chinese and which,
+because of licensing restrictions cannot be distributed with Epitran).
 
 ::
 
     >>> import epitran
     >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 
-The ``Epitran`` class has only a few "public" methods (to the extent
-that such a concept exists in Python). The most important are
-``transliterate`` and ``word_to_tuples``:
+It is now possible to use the Epitran class for English and Mandarin
+Chinese (Simplified and Traditional) G2P as well as the other langugages
+that use Epitran's "classic" model. For Chinese, it is necessary to
+point the constructor to a copy of the
+`CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary:
 
-Epitran.\ **transliterate**\ (text): Convert ``text`` (in
-Unicode-encoded orthography of the language specified in the
-constructor) to IPA, which is returned.
+::
+
+    >>> import epitran
+    >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
+
+The ``Epitran`` class has only one "public" method right now,
+``transliterate``:
+
+Epitran.\ **transliterate**\ (text, normpunc=False, ligatures=False).
+Convert ``text`` (in Unicode-encoded orthography of the language
+specified in the constructor) to IPA, which is returned. ``normpunc``
+enables punctuation normalization and ``ligatures`` enables non-standard
+IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below:
 
 ::
 
@@ -51,6 +69,9 @@ constructor) to IPA, which is returned.
     u'dy\u0270yn'
     >>> print(epi.transliterate(u'Düğün'))
     dyɰyn
+
+Historically, Epitran also had a ``word_to_tuples`` method. It will be
+reimplemented after some architectural decisions are resolved:
 
 Epitran.\ **word\_to\_tuples**\ (word, normpunc=False): Takes a ``word``
 (a Unicode string) in a supported orthography as input and returns a
@@ -123,20 +144,11 @@ output by ``Epitran.word_to_tuples``. Instead, the output of
 delete, insert, and change letters in order to allow direct
 orthography-to-phoneme mapping at the next step. The same is true of
 other methods that rely on ``Epitran.word_to_tuple`` such as
-``VectorsWithIPASpace.word_to_segs`` from the ``epitran.vector`` module.
+``VectorsWithIPASpace.word_to_segs`` from the ``epitran.vector`` module
+(deprecated).
 
-The ``epitran`` module also includes the ``Maps`` class, which provides
-information about the mapping files (files that specify a mapping
-between orthography and IPA) that are available in the current
-installation. It has two public methods:
-
--  ``lang_script_pairs`` takes no arguments and returns a sorted list of
-   tuples.
--  ``paths`` returns a list of the paths to the mapping files for a
-   given code (e.g. "deu-Latn" or "deu-Latn-np").
-
-Using the ``epitran.vector`` Module
------------------------------------
+Using the ``epitran.vector`` Module (deprecated)
+------------------------------------------------
 
 The ``epitran.vector`` module is also very simple. It contains one
 class, ``VectorsWithIPASpace``, including one method of interest,
@@ -148,7 +160,7 @@ The constructor for ``VectorsWithIPASpace`` takes two arguments: -
 characters/segments from the data are expected to reside. The available
 spaces are listed `below <#language-support>`__.
 
-It's principle method is ``word_to_segs``:
+Its principle method is ``word_to_segs``:
 
 VectorWithIPASpace.\ **word\_to\_segs**\ (word, normpunc=False) Word is
 a Unicode string. If the keyword argument *normpunc* is set to True,
@@ -233,7 +245,7 @@ Transliteration Language/Script Pairs
 +---------------+--------------------------+
 | deu-Latn-np   | German\*                 |
 +---------------+--------------------------+
-| eng-Latn      | English                  |
+| eng-Latn      | English\*\*              |
 +---------------+--------------------------+
 | fas-Arab      | Farsi (Perso-Arabic)     |
 +---------------+--------------------------+
@@ -325,7 +337,8 @@ Transliteration Language/Script Pairs
 +---------------+--------------------------+
 
 \*These language preprocessors and maps naively assume a phonemic
-orthography.
+orthography. \*\*English G2P requires the installation of the CMU Flite
+speech synthesis system.
 
 Language "Spaces"
 ~~~~~~~~~~~~~~~~~
@@ -349,8 +362,17 @@ Language "Spaces"
 Note that major languages, including **French**, are missing from this
 table to to a lack of appropriate text data.
 
-Using the ``epitran.flite`` Module
-----------------------------------
+Installation of Flite (for English G2P)
+---------------------------------------
+
+For use with most languages, Epitran requires no special installation
+steps. It can be installed as an ordinarary python package, either with
+``pip`` or by running ``python setup.py install`` in the root of the
+source directory. However, English G2P in Epitran relies on CMU Flite, a
+speech synthesis package by Alan Black and other speech researchers at
+Carnegie Mellon University. For the current version of Epitran, you
+should follow the installation instructions for ``lex_lookup``, which is
+used as the default G2P interface for Epitran.
 
 ``t2p``
 ~~~~~~~
@@ -387,8 +409,10 @@ the English letters of the name, rather than an attempt at the
 pronunciation of the name. There is a different binary included in the
 most recent (pre-release) versions of Flite that behaves better in this
 regard, but takes some extra effort to install. To install, you need to
-obtain at least version 2.0.5 of Flite. Untar and compile the source,
-following the steps below, adjusting where appropriate for your system:
+obtain at least version
+`2.0.5 <http://tts.speech.cs.cmu.edu/awb/flite-2.0.5-current.tar.bz2>`__
+of Flite. Untar and compile the source, following the steps below,
+adjusting where appropriate for your system:
 
 ::
 
@@ -406,36 +430,18 @@ flite-2.0.5 (between steps 3 and 4). Edit ``main/Makefile`` and change
 both instances of ``cp -pd`` to ``cp -pR``. Then resume the steps above
 at step 4.
 
-``lex_lookup`` is accessed using the ``english_g2p_ll`` method of Flite
-objects. It takes the same arguments as ``english_g2p``.
-
 Usage
 ~~~~~
 
-Because ``t2p`` must be loaded each time ``english_g2p`` is called,
-performance is suboptimal. Usage is illustrated below:
+To use ``lex_lookup``, simply instantiate Epitran as usual, but with the
+``code`` set to 'eng-Latn':
 
 ::
 
-    >>> import epitran.flite
-    >>> fl = epitran.flite.Flite()
-    >>> print fl.english_g2p(u'San Leandro')
-    sænliɑndɹow
-
-This module also contains a wrapper that takes orthographic English as
-an input and returns as an output the same data structure returned by
-``epitran.vector.VectorWithIPASpace.word_to_segs``. Usage of this class
-and its most useful method is illustrated below:
-
-::
-
-    >>> import epitran.flite
-    >>> vwis = epitran.flite.VectorsWithIPASpace()
-    >>> vwis.word_to_segs(u'San Leandro')
-    [(u'L', 1, u's', u's', 50, [-1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\xe6', u'\xe6', 58, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'Z', 0, u' ', u'', 1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), (u'L', 0, u'l', u'l', 45, [-1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'i', u'i', 4 2, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1]), (u'L', 0, u'\u0251', u'\u0251', 61, [1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'n', u'n', 47, [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'd', u'd', 36, [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'\u0279', u'\u0279', 66, [-1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 0, -1]), (u'L', 0, u'o', u'o', 48, [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1]), (u'L', 0, u'w', u'w', 55, [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, 1, 1, -1, 1, 1, 0, -1])]
-
-The observant user will note that the interface is the same as that of
-the identically-named class in the the ``epitran.vector`` module.
+    >>> import epitran
+    >>> epi = epitran.Epitran('eng-Latn')
+    >>> print epi.transliterate(u'Berkeley')
+    bɹ̩kli
 
 Extending Epitran with map files, preprocessors and postprocessors
 ------------------------------------------------------------------
