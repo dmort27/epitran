@@ -127,6 +127,7 @@ A few notes are in order regarding this data structure:
 | ben-Beng    | Bengali                |
 | ceb-Latn    | Cebuano                |
 | cmn-Hans    | Mandarin (Simplified)  |
+| cmn-Hant    | Mandarin (Traditional) |
 | ckb-Arab    | Sorani                 |
 | deu-Latn    | German                 |
 | deu-Latn-np | German*                |
