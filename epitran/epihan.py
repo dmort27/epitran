@@ -14,7 +14,7 @@ class MissingData(Exception):
     pass
 
 
-class Normalizer(object):
+class Epihan(object):
     punc = [(u'\uff0c', u','),
             (u'\uff01', u'!'),
             (u'\uff1f', u'?'),
@@ -27,15 +27,7 @@ class Normalizer(object):
             (u'\u3010', u'['),
             (u'\u3011', u']'),
             ]
-    puncnorm_vals = dict(punc).values()
 
-    def normalize_punc(self, text):
-        for a, b in self.punc:
-            text = text.replace(a, b)
-        return text
-
-
-class Epihan(Normalizer):
     def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):
         if not cedict_file:
             raise MissingData('Please specify a location for the CC-CEDict file.')
@@ -43,6 +35,11 @@ class Epihan(Normalizer):
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file)
         self.rules = rules.Rules([rules_file])
+
+    def normalize_punc(self, text):
+        for a, b in self.punc:
+            text = text.replace(a, b)
+        return text
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         tokens = self.cedict.tokenize(text)
