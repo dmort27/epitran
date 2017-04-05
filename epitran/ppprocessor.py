@@ -30,13 +30,13 @@ class PrePostProcessor(object):
                 for record in reader:
                     if not re.match(r'\s*%', record[0]):
                         assert len(record) == 4
-                        record = map(lambda x: unicodedata.normalize('NFC', unicodedata.normalize('NFKD', x)), record)
+                        record = map(lambda x: unicodedata.normalize('NFC', unicodedata.normalize('NFD', x)), record)
                         a, b, X, Y = record
                         rules.append(self._fields_to_function(a, b, X, Y))
         return rules
 
     def _fields_to_function(self, a, b, X, Y):
-        # logging.debug('rule-encoding: {} {} {} {}'.format(a, b, X, Y).encode('utf-8'))
+        logging.debug('rule-encoding: {} {} {} {}'.format(a, b, X, Y).encode('utf-8'))
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
         try:
             regexp = re.compile(left)
