@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, unicode_literals, division, absolute_import
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import codecs
-import functools
-import types
 
 import marisa_trie
 import regex as re
