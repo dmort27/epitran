@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-from __future__ import (print_function, absolute_import, unicode_literals, division)
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import os.path
 
 import pkg_resources
-import unicodecsv as csv
-import panphon
+
 import marisa_trie
+import panphon
+import unicodecsv as csv
 
 
 class XSampa(object):
@@ -58,5 +60,4 @@ class XSampa(object):
                 ipa = ipa[len(token):]
             else:
                 ipa = ipa[1:]
-        print(xsampa)
         return ''.join(xsampa)
