@@ -56,6 +56,7 @@ class Epitran(object):
             self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file)
         else:
             self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
+        self.ft = panphon.FeatureTable()
 
     def transliterate(self, word, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
@@ -69,6 +70,19 @@ class Epitran(object):
             unicode: IPA string
         """
         return self.epi.transliterate(word, normpunc, ligatures)
+
+    def trans_list(self, word, normpunc=False, ligatures=False):
+        """Transliterates/transcribes a word into list of IPA phonemes
+
+        Args:
+            word (str): word to transcribe; unicode string
+            normpunc (bool): normalize punctuation
+            ligatures (bool): use precomposed ligatures instead of standard IPA
+
+        Returns:
+            list: list of IPA strings, each corresponding to a segment
+        """
+        return self.ft.segs(self.epi.transliterate(word, normpunc, ligatures))
 
 
 class SimpleEpitran(object):
@@ -180,37 +194,6 @@ class SimpleEpitran(object):
         if normpunc:
             text = self.puncnorm.norm(text)
         return text
-
-    def trans_list(self, text, normpunc=False, ligatures=False):
-        """Transliterate text from orthography to Unicode IPA (as a list of
-        segments).
-
-        Args:
-            text (unicode): The text to be transliterated
-            normpunc (bool): Normalize punctuation?
-
-        Returns:
-            list: IPA segments
-        """
-        text = unicode(text)
-        text = self.strip_diacritics.process(text)
-        text = unicodedata.normalize('NFKD', text)
-        text = unicodedata.normalize('NFC', text.lower())
-        text = self.preprocessor.process(text)
-        tr_list = []
-        while text:
-            m = self.regexp.match(text)
-            if m:
-                from_seg = m.group(0)
-                to_seg = self.g2p[from_seg][0]
-                tr_list.append(to_seg)
-                text = text[len(from_seg):]
-            else:
-                tr_list.append(text[0])
-                text = text[1:]
-        tr_list = map(self.puncnorm.norm, tr_list) if normpunc else tr_list
-        tr_list = map(ligaturize, tr_list) if (self.ligatures or ligatures) else tr_list
-        return tr_list
 
     def trans_delimiter(self, text, delimiter=str(' '), normpunc=False, ligatures=False):
         return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
