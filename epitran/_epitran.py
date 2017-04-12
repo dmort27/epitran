@@ -98,7 +98,7 @@ class Epitran(object):
             list: X-SAMPA strings, each corresponding to a segment
         """
         ipa_segs = self.trans_list(word, normpunc, ligaturize)
-        return map(self.xsampa.ipa2xs, ipa_segs)
+        return list(map(self.xsampa.ipa2xs, ipa_segs))
 
 
 class SimpleEpitran(object):
