@@ -24,11 +24,11 @@ Its constructor takes one argument, `code`, the ISO 639-3 code of the language t
 >>> import epitran
 >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 ```
+```
 It is now possible to use the Epitran class for English and Mandarin Chinese (Simplified and Traditional) G2P as well as the other langugages that use Epitran's "classic" model. For Chinese, it is necessary to point the constructor to a copy of the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary:
 ```
 >>> import epitran
 >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
-```
 The `Epitran` class has only one "public" method right now, `transliterate`:
 
 Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned. `normpunc` enables punctuation normalization and `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below:
@@ -37,8 +37,6 @@ Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text`
     u'dy\u0270yn'
     >>> print(epi.transliterate(u'Düğün'))
     dyɰyn
-
-Historically, Epitran also had a `word_to_tuples` method. It will be reimplemented after some architectural decisions are resolved:
 
 Epitran.**word_to_tuples**(word, normpunc=False):
 Takes a `word` (a Unicode string) in a supported orthography as input and returns a list of tuples with each tuple corresponding to an IPA segment of the word. The tuples have the following structure:
@@ -51,6 +49,9 @@ Takes a `word` (a Unicode string) in a supported orthography as input and return
     segments :: List<Tuples>
 )
 ```
+
+Note that **word_to_tuples** is not implemented for all language-script pairs.
+
 The codes for `character_category` are from the initial characters of the two character sequences listed in the "General Category" codes found in [Chapter 4 of the Unicode Standard](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153). For example, "L" corresponds to letters and "P" corresponds to production marks. The above data structure is likely to change in subsequent versions of the library. The structure of ```segments``` is as follows:
 ```
 (
