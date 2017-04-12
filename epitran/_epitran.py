@@ -43,11 +43,14 @@ class Epitran(object):
     def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict_file=None):
         """Construct Epitran transliteration/transcription object
 
-        code -- ISO 639-3 code of the language that should be loaded
-        preproc -- apply preprocessors
-        postproc -- apply prostprocessors
-        ligatures -- use precomposed ligatures instead of standard IPA
-        cedict_filename -- file containing the CC-CEDict dictionary; relevant only for Chinese
+        Args:
+            code (str): ISO 639-3 plus "-" plus ISO 15924 code of the
+                        language/script pair that should be loaded
+            preproc (bool): apply preprocessors
+            postproc (bool): apply prostprocessors
+            ligatures (bool): use precomposed ligatures instead of standard IPA
+            cedict_filename (str): path to file containing the CC-CEDict
+                                   dictionary; relevant only for Chinese
         """
         if code in self.special:
             self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file)
@@ -57,9 +60,13 @@ class Epitran(object):
     def transliterate(self, word, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
 
-        word -- word to transcribe; unicode string
-        normpunc -- normalize punctuation
-        ligatures -- use precomposed ligatures instead of standard IPA
+        Args:
+            word (str): word to transcribe; unicode string
+            normpunc (bool): normalize punctuation
+            ligatures (bool): use precomposed ligatures instead of standard IPA
+
+        Returns:
+            unicode: IPA string
         """
         return self.epi.transliterate(word, normpunc, ligatures)
 
@@ -95,7 +102,9 @@ class SimpleEpitran(object):
     def _load_g2p_map(self, code):
         """Load the code table for the specified language.
 
-        code -- ISO 639-3 code for the language to be loaded
+        Args:
+            code (str): ISO 639-3 code plus "-" plus ISO 15924 code for the
+                        language/script to be loaded
         """
         g2p = defaultdict(list)
         try:
@@ -131,10 +140,15 @@ class SimpleEpitran(object):
         return re.compile(r'({})'.format(r'|'.join(graphemes)), re.I)
 
     def transliterate(self, text, normpunc=False, ligatures=False):
-        """Transliterate text from orthography to Unicode IPA.
+        """Transliterates/transcribes a word into IPA
 
-        text -- The text to be transliterated
-        normpunc -- Normalize punctuation?
+        Args:
+            word (str): word to transcribe; unicode string
+            normpunc (bool): normalize punctuation
+            ligatures (bool): use precomposed ligatures instead of standard IPA
+
+        Returns:
+            unicode: IPA string
         """
         text = unicode(text)
         text = self.strip_diacritics.process(text)
@@ -169,10 +183,14 @@ class SimpleEpitran(object):
 
     def trans_list(self, text, normpunc=False, ligatures=False):
         """Transliterate text from orthography to Unicode IPA (as a list of
-        segments.
+        segments).
 
-        text -- The text to be transliterated
-        normpunc -- Normalize punctuation?
+        Args:
+            text (unicode): The text to be transliterated
+            normpunc (bool): Normalize punctuation?
+
+        Returns:
+            list: IPA segments
         """
         text = unicode(text)
         text = self.strip_diacritics.process(text)
@@ -200,12 +218,15 @@ class SimpleEpitran(object):
     def word_to_tuples(self, word, normpunc=False):
         """Given a word, returns a list of tuples corresponding to IPA segments.
 
-        word -- Unicode string.
-        normpunc -- If True, normalizes punctuation to ASCII inventory.
-        returns -- A list of <category, lettercase, orthographic_form,
-                   phonetic_form, fecture_vectors> test_word_to_tuples.
+        Args:
+            word (unicode): word to transliterate
+            normpunc (bool): If True, normalizes punctuation to ASCII inventory
 
-        The "feature vectors" form a list consisting of <segment, vector> pairs.
+        Returns:
+        list: A list of (category, lettercase, orthographic_form, phonetic_form,
+              fecture_vectors) tuples.
+
+        The "feature vectors" form a list consisting of (segment, vector) pairs.
         For IPA segments, segment is a substring of phonetic_form such that the
         concatenation of all segments in the list is equal to the phonetic_form.
         The vectors are a sequence of integers drawn from the set {-1, 0, 1}
