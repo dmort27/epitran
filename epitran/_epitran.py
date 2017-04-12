@@ -19,6 +19,7 @@ from epitran.epihan import EpihanTraditional
 from epitran.ppprocessor import PrePostProcessor
 from epitran.stripdiacritics import StripDiacritics
 from epitran.ligaturize import ligaturize
+from epitran.xsampa import XSampa
 
 if sys.version_info[0] == 3:
     def unicode(x):
@@ -57,6 +58,7 @@ class Epitran(object):
         else:
             self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
         self.ft = panphon.FeatureTable()
+        self.xsampa = XSampa()
 
     def transliterate(self, word, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
@@ -83,6 +85,20 @@ class Epitran(object):
             list: list of IPA strings, each corresponding to a segment
         """
         return self.ft.segs(self.epi.transliterate(word, normpunc, ligatures))
+
+    def xsampa_list(self, word, normpunc=False, ligaturize=False):
+        """Transliterates/transcribes a word as X-SAMPA
+
+        Args:
+            word (str): word to transcribe; unicode string
+            normpunc (bool): normalize punctuation
+            ligatures (bool): use precomposed ligatures instead of standard IPA
+
+        Returns:
+            list: X-SAMPA strings, each corresponding to a segment
+        """
+        ipa_segs = self.trans_list(word, normpunc, ligaturize)
+        return map(self.xsampa.ipa2xs, ipa_segs)
 
 
 class SimpleEpitran(object):
