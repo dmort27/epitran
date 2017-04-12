@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+from __future__ import (print_function, absolute_import, unicode_literals, division)
+
+import os.path
+
+import pkg_resources
+import unicodecsv as csv
+import panphon
+import marisa_trie
+
+
+class XSampa(object):
+    ipa2xs_fn = 'ipa-xsampa.csv'
+
+    def __init__(self):
+        self.trie = self._read_ipa2xs()
+        self.ft = panphon.FeatureTable()
+
+    def _read_ipa2xs(self):
+        path = os.path.join('data', self.ipa2xs_fn)
+        path = pkg_resources.resource_filename(__name__, path)
+        pairs = []
+        with open(path, 'rb') as f:
+            reader = csv.reader(f, encoding='utf-8')
+            next(reader)
+            for ipa, xs, _ in reader:
+                pairs.append((ipa, xs.encode('utf-8'),))
+        trie = marisa_trie.BytesTrie(pairs)
+        return trie
+
+    def prefixes(self, s):
+        return self.trie.prefixes(s)
+
+    def longest_prefix(self, s):
+        prefixes = self.prefixes(s)
+        if not prefixes:
+            return ''
+        else:
+            return sorted(prefixes, key=len)[-1]  # sort by length and return last
+
+    def ipa2xs(self, ipa):
+        """Convert IPA string to X-SAMPA list
+
+        Args:
+            ipa (unicode): An IPA string as unicode
+
+        Returns:
+            list: a list of strings corresponding to X-SAMPA segments
+
+            Non-IPA segments are skipped.
+        """
+        xsampa = []
+        while ipa:
+            token = self.longest_prefix(ipa)
+            if token:
+                xs = self.trie[token][0]  # take first member of the list
+                xsampa.append(xs)
+                ipa = ipa[len(token):]
+            else:
+                ipa = ipa[1:]
+        print(xsampa)
+        return ''.join(xsampa)

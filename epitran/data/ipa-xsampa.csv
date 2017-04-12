@@ -1,0 +1,161 @@
+IPA,X-SAMPA,Name
+p,p,vl bilabial plosive
+b,b,vd bilabial plosive
+t,t,vl alveolar plosive
+d,d,vd alveolar plosive
+ʈ,t`,vl retroflex plosive
+ɖ,d`,vd retroflex plosive
+c,c,vl palatal plosive
+ɟ,J\,vd palatal plosive
+k,k,ld velar plosive
+ɡ,g,vd velar plosive
+q,q,vl uvular plosive
+ɢ,G\,vd uvular plosive
+ʔ,?,glottal plosive
+m,m,bilabial nasal
+ɱ,F,vl labiodental nasal
+n,n,alveolar nasal
+ɳ,n`,vl retroflex nasal
+ɲ,J,vl palatal nasal
+ŋ,N,vl velar nasal
+ɴ,N\,vl uvular nasal
+ʙ,B\,vd bilabial trill
+r,r,vd alveolar trill
+ʀ,R\,vl uvular trill
+ɾ,4,vl alveolar tap
+ɽ,r`,vl retroflex flap
+ɸ,p\,vl bilabial fricative
+β,B,vd bilabial fricative
+f,f,vl labiodental fricative
+v,v,vd labiodental fricative
+θ,T,vl dental fricative
+ð,D,vd dental fricative
+s,s,vl alveolar fricative
+z,z,vd alveolar fricative
+ʃ,S,vl postalveolar fricative
+ʒ,Z,vd postalveolar fricative
+ʂ,s`,vl retroflex fricative
+ʐ,z`,vd retroflex fricative
+ç,C,vl palatal fricative
+ʝ,j\,vd palatal fricative
+x,x,vl velar fricative
+ɣ,G,vd velar fricative
+χ,X,vl uvular fricative
+ʁ,R\,vd uvular fricative
+ħ,X\,vl pharyngeal fricative
+ʕ,?\,vd pharyngeal fricative
+h,h,vl glottal fricative
+ʔ,?,glottal plosive
+ɬ,K,vl alveolar lateral fricative
+ɮ,K\,vd alveolar lateral fricative
+ʋ,P,vd labiodental approximant
+ɹ,r\,vd (post)alveolar approximant
+ɻ,r\`,vd retroflex approximant
+j,j,vd palatal approximant
+ɰ,M\,vd velar approximant
+l,l,vd alveolar lateral approximant
+ɭ,l`,vd retroflex lateral approximant
+ʎ,L,vd palatal lateral approximant
+ʟ,L\,vd velar lateral approximant
+pʼ,p_>,ejective
+tʼ,t_>,ejective
+ʈʼ,t`_>,ejective
+cʼ,c_>,ejective
+kʼ,k_>,ejective
+qʼ,q_>,ejective
+ɓ,b_<,vl bilabial implosive
+ɗ,d_<,vl alveolar implosive
+ƙ,k_<,vl velar implosive
+ɠ,g_<,vl velar implosive
+i,i,close front unrounded
+y,y,close front rounded
+ɨ,1,close central unrounded
+ʉ,},close central rounded
+ɯ,M,close back unrounded
+u,u,close back rounded
+ɪ,I,lax close front unrounded
+ʏ,Y,lax close front rounded
+ʊ,U,lax close back rounded
+e,e,close-mid front unrounded
+ø,2,front close-mid rounded
+ɤ,7,close-mid back unrounded
+o,o,close-mid back rounded
+ə,@,schwa
+ɵ,8,rounded schwa
+ɛ,E,open-mid front unrounded
+œ,9,front open-mid rounded
+ʌ,V,open-mid back unrounded
+ɔ,O,open-mid back rounded
+æ,{,mid-open front unrounded vowel
+ɐ,6,open-mid schwa
+a,a,open front unrounded
+ɶ,&,front open rounded
+ɑ,A,open back unrounded
+ɒ,Q,open back rounded
+̥,_0,voiceless
+̬,_v,voiced
+ʰ,_h,aspirated
+̤,_t,breathy voiced
+̰,_k,creaky voiced
+̼,_N,linguolabial
+̪,_d,dental
+̺,_a,apical
+̻,_m,laminal
+̹,_O,more rounded
+̜,_c,less rounded
+̟,_+,advanced
+̠,_-,retracted
+̈,"_""",centralized
+̽,_x,mid-centralized
+̩,=,syllabic
+̯,_^,non-syllabic
+ʷ,_w,labialized
+ʲ,',palatalized
+ˠ,_G,velarized
+ˤ,_?\,pharyngealized
+̴,_e,velarized or pharyngealized
+̝,_r,raised
+̞,_o,lowered
+ˀ,_k,glottalized
+̃,~,nasalized
+ⁿ,_n,nasal release
+ˡ,_l,lateral release
+̚,_},not audibly released
+̘,_A,advanced tongue root
+̙,_q,retracted tongue root
+̋,_T,extra high tone
+́,_H,high tone
+̄,_M,mid tone
+̀,_L,low tone
+̏,_B,extra low tone
+ˈ,"""",(primary) stress mark
+ˌ,%,secondary stress
+ː,:,length mark
+ˑ,:\,half-length
+̆,_X,extra-short
+0,none,syllable break
+ʍ,W,vl labial-velar fricative
+w,w,vd labio-velar approximant
+ɥ,H,labial-palatal approximant
+ʜ,H\,vl epiglottal fricative
+ʢ,<\,vl epiglottal fricative
+ʡ,>\,vl epiglottal plosive
+ɕ,s\,vl alveolopalatal fricative
+ʑ,z\,vl alveolopalatal fricative
+ʘ,O\,bilabial click
+ǀ,|\,dental click
+!,!\,click
+ǂ,'=\,alveolar click
+ǁ,|\|\,alveolar lateral click
+ɺ,l\,vl alveolar lateral flap
+ɜ,3,open-mid central
+ʛ,G\_<,vl uvular implosive
+ɚ,@`,rhotacized schwa
+ɞ,3\,open-mid central rounded
+ɦ,h\,vd glottal fricative
+ɫ,5,velarized vl alveolar lateral
+ʄ,J\_<,vl palatal implosive
+ʼ,_>,ejective
+ʤ,dZ,vd postalveolar affricate
+ʴ,none,rhotacized
+ɝ,3`,rhotacized open-mid central
