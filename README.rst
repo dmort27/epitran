@@ -43,19 +43,14 @@ because of licensing restrictions cannot be distributed with Epitran).
     >>> import epitran
     >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 
-It is now possible to use the Epitran class for English and Mandarin
-Chinese (Simplified and Traditional) G2P as well as the other langugages
-that use Epitran's "classic" model. For Chinese, it is necessary to
-point the constructor to a copy of the
-`CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary:
-
 ::
 
-    >>> import epitran
-    >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
+    It is now possible to use the Epitran class for English and Mandarin Chinese (Simplified and Traditional) G2P as well as the other langugages that use Epitran's "classic" model. For Chinese, it is necessary to point the constructor to a copy of the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary:
 
-The ``Epitran`` class has only one "public" method right now,
-``transliterate``:
+            import epitran epi = epitran.Epitran('cmn-Hans',
+            cedict\_file='cedict\_1\_0\_ts\_utf-8\_mdbg.txt') The
+            ``Epitran`` class has only one "public" method right now,
+            ``transliterate``:
 
 Epitran.\ **transliterate**\ (text, normpunc=False, ligatures=False).
 Convert ``text`` (in Unicode-encoded orthography of the language
@@ -69,9 +64,6 @@ IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below:
     u'dy\u0270yn'
     >>> print(epi.transliterate(u'Düğün'))
     dyɰyn
-
-Historically, Epitran also had a ``word_to_tuples`` method. It will be
-reimplemented after some architectural decisions are resolved:
 
 Epitran.\ **word\_to\_tuples**\ (word, normpunc=False): Takes a ``word``
 (a Unicode string) in a supported orthography as input and returns a
@@ -87,6 +79,9 @@ word. The tuples have the following structure:
         phonetic_form :: Unicode String,
         segments :: List<Tuples>
     )
+
+Note that **word\_to\_tuples** is not implemented for all
+language-script pairs.
 
 The codes for ``character_category`` are from the initial characters of
 the two character sequences listed in the "General Category" codes found
