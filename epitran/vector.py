@@ -78,15 +78,20 @@ class VectorsWithIPASpace(object):
     def word_to_segs(self, word, normpunc=False):
         """Returns feature vectors, etc. for segments and punctuation in a word.
 
-        word -- Unicode string representing a word in the orthography specified
-                when the class is instantiated.
-        return -- a list of tuples, each representing an IPA segment or a
+        Args:
+            word (unicode): Unicode string representing a word in the
+                            orthography specified when the class is
+                            instantiated.
+            normpunc (bool): normalize punctuation
+
+        Returns:
+            list: a list of tuples, each representing an IPA segment or a
                   punctuation character. Tuples consist of <category, lettercase,
                   orthographic_form, phonetic_form, id, feature_vector>.
 
-        Category consists of the standard Unicode classes (e.g. 'L' for letter
-        and 'P' for punctuation). Case is binary: 1 for uppercase and 0 for
-        lowercase.
+                  Category consists of the standard Unicode classes (e.g. 'L'
+                  for letter and 'P' for punctuation). Case is binary: 1 for
+                  uppercase and 0 for lowercase.
         """
         segs = self.epi.word_to_tuples(word, normpunc)
         new_segs = []
