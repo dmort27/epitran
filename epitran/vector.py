@@ -81,7 +81,7 @@ class VectorsWithIPASpace(object):
         Args:
             word (unicode): Unicode string representing a word in the
                             orthography specified when the class is
-                            instantiated.
+                            instantiated
             normpunc (bool): normalize punctuation
 
         Returns:
