@@ -11,11 +11,23 @@ logging.basicConfig(level=logging.DEBUG)
 
 class VectorsWithIPASpace(object):
     def __init__(self, code, space_names):
+        """Constructs VectorWithIPASpace object
+
+        A VectorWithIPASpace object takes orthographic words, via the
+        word_to_segs method, and returns a list of tuples consisting of category
+        (letter or punctuation), lettercaase, orthographic form, phonetic form,
+        id within an IPA space, and articulatory feature vector.
+
+        Args:
+            code (str): ISO 639-3 code joined to ISO 15924 code with "-"
+            space_names (list): list of space names consisting of ISO 639-3
+            codes joined to ISO 15924 codes with "-"
+        """
         self.epi = Epitran(code)
         self.space = Space(code, space_names)
 
     def word_to_segs(self, word, normpunc=False):
-        """Returns feature vectors, etc. for segments and punctuation in a word.
+        """Returns feature vectors, etc. for segments and punctuation in a word
 
         Args:
             word (unicode): Unicode string representing a word in the
