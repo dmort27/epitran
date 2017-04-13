@@ -1,18 +1,21 @@
 from __future__ import print_function, unicode_literals, division, absolute_import
 import os.path
 from types import ListType, StringTypes
+import logging
 
 import pkg_resources
 
 import unicodecsv as csv
 from epitran import Epitran
 
+logging.basicConfig(level=logging.DEBUG)
 
 class VectorsWithIPASpace(object):
     def __init__(self, code, space_name):
         self.epi = Epitran(code)
         # This (singelton) usage is Deprectated.
         if isinstance(space_name, StringTypes):
+            logging.warn('Singleton spaces are deprecated. Pass space as list.')
             self.space = self._load_single_space(space_name)
         elif isinstance(space_name, ListType):
             self.space = self._load_union_space(space_name)
