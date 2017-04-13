@@ -33,7 +33,7 @@ class VectorsWithIPASpace(object):
 
     def _load_union_space(self, space_names):
         segs = set()
-        scripts = [nm.split('-')[1] for nm in space_names]
+        scripts = list(set([nm.split('-')[1] for nm in space_names]))
         punc_fns = ['punc-{}.csv'.format(sc) for sc in scripts]
         for punc_fn in punc_fns:
             punc_fn = os.path.join('data', 'space', punc_fn)
@@ -43,7 +43,7 @@ class VectorsWithIPASpace(object):
                 for (mark,) in reader:
                     segs.add(mark)
         for name in space_names:
-            fn = os.path.join('data', name + '.csv')
+            fn = os.path.join('data', 'space', name + '.csv')
             fn = pkg_resources.resource_filename(__name__, fn)
             with open(fn, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
