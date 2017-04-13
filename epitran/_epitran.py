@@ -14,8 +14,7 @@ from epitran.xsampa import XSampa
 if sys.version_info[0] == 3:
     def unicode(x):
         return x
-logging.basicConfig(level=logging.DEBUG)
-
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 class Epitran(object):
     """Unified interface for IPA transliteration/transcription"""
@@ -103,4 +102,5 @@ class Epitran(object):
         try:
             return self.epi.word_to_tuples(word, normpunc)
         except AttributeError:
-            logging.error('Method word_to_tuples not yet implemented for this language-script pair!')
+            print('Method word_to_tuples not yet implemented for this language-script pair!',
+                  file=sys.stderr)
