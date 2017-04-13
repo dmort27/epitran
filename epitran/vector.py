@@ -10,6 +10,7 @@ from epitran import Epitran
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 class VectorsWithIPASpace(object):
     def __init__(self, code, space_name):
         self.epi = Epitran(code)
