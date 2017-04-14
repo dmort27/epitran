@@ -14,8 +14,6 @@ class Rules(object):
     def __init__(self, rule_files):
         self.rules = []
         for rule_file in rule_files:
-            # rule_file = os.path.join('data', rule_file + '.txt')
-            # rule_file = pkg_resources.resource_filename(__name__, rule_file)
             rules = self._read_rule_file(rule_file)
             self.rules = self.rules + rules
 
