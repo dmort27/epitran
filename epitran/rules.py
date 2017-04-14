@@ -12,6 +12,15 @@ import regex as re
 
 class Rules(object):
     def __init__(self, rule_files):
+        """Construct an object encoding context-sensitive rules
+
+        This differs from PrePostProcessor in that the rules are written in
+        arrow notation rather than CSV. Eventually, processors for languages
+        other than Chinese should also be migrated to this format.
+
+        Args:
+            rule_files (list): list of names of rule files
+        """
         self.rules = []
         for rule_file in rule_files:
             rules = self._read_rule_file(rule_file)
@@ -47,6 +56,14 @@ class Rules(object):
         return lambda w: regexp.sub(rewrite, w, re.U)
 
     def apply(self, text):
+        """Apply rules to input text
+
+        Args:
+            text (unicode): input text (e.g. Pinyin)
+
+        Returns:
+            unicode: output text (e.g. IPA)
+        """
         for rule in self.rules:
             text = rule(text)
         return text
