@@ -4,7 +4,14 @@ from __future__ import print_function, unicode_literals, division, absolute_impo
 
 
 def ligaturize(text):
-    """Convert text to employ non-standard ligatures."""
+    """Convert text to employ non-standard ligatures
+
+    Args:
+        text (unicode): IPA text to Convert
+
+    Return:
+        unicode: non-standard IPA text with phonetic ligatures for affricates
+    """
     mapping = [(u't͡s', u'ʦ'),
                (u't͡ʃ', u'ʧ'),
                (u't͡ɕ', u'ʨ'),

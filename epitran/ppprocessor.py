@@ -13,6 +13,17 @@ logging.basicConfig(level=logging.DEBUG)
 
 class PrePostProcessor(object):
     def __init__(self, code, fix):
+        """Constructs a pre/post-processor for orthographic/IPA strings
+
+        This class reads processor files consisting of context-sensitive rules
+        and compiles them into regular expression objects that can then be used
+        to perform regex replacements in cascades that capture feeding and
+        bleeding.
+
+        Args:
+            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
+            fix (str): 'pre' for preprocessors, 'post' for postprocessors
+        """
         self.rules = self._read_file(code, fix)
 
     def _read_file(self, code, fix):
@@ -59,6 +70,14 @@ class PrePostProcessor(object):
         return lambda w: regexp.sub(rewrite, w, re.U)
 
     def process(self, word):
+        """Apply processor to an input string
+
+        Args:
+            word (unicode): input string (orthographic or IPA)
+
+        Returns:
+            unicode: output string with all rules applied in order
+        """
         word = unicodedata.normalize('NFC', word)
         word = '#{}#'.format(word)
         for rule in self.rules:

@@ -14,7 +14,8 @@ from epitran.xsampa import XSampa
 if sys.version_info[0] == 3:
     def unicode(x):
         return x
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+
 
 class Epitran(object):
     """Unified interface for IPA transliteration/transcription"""

@@ -21,7 +21,7 @@ class VectorsWithIPASpace(object):
         Args:
             code (str): ISO 639-3 code joined to ISO 15924 code with "-"
             space_names (list): list of space names consisting of ISO 639-3
-            codes joined to ISO 15924 codes with "-"
+                                codes joined to ISO 15924 codes with "-"
         """
         self.epi = Epitran(code)
         self.space = Space(code, space_names)

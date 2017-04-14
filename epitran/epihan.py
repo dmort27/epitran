@@ -29,6 +29,15 @@ class Epihan(object):
             ]
 
     def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):
+        """Construct epitran object for Chinese
+
+        Args:
+            ligatures (bool): if True, use ligatures instead of standard IPA
+            cedict_file (str): path to CC-CEDict dictionary file
+            rules_file (str): name of file with rules for converting pinyin to
+                              IPA
+        """
+        # If no cedict_file is specified, raise and error
         if not cedict_file:
             raise MissingData('Please specify a location for the CC-CEDict file.')
         rules_file = os.path.join('data', 'rules', rules_file)
@@ -37,11 +46,30 @@ class Epihan(object):
         self.rules = rules.Rules([rules_file])
 
     def normalize_punc(self, text):
+        """Normalize punctutation in a string
+
+        Args:
+            text (unicode): an orthographic string
+
+        Return:
+            unicode: an orthographic string with punctation normalized to
+                     Western equivalents
+        """
         for a, b in self.punc:
             text = text.replace(a, b)
         return text
 
     def transliterate(self, text, normpunc=False, ligatures=False):
+        """Transliterates/transcribes a word into IPA
+
+        Args:
+            word (str): word to transcribe; unicode string
+            normpunc (bool): normalize punctuation
+            ligatures (bool): use precomposed ligatures instead of standard IPA
+
+        Returns:
+            unicode: IPA string
+        """
         tokens = self.cedict.tokenize(text)
         ipa_tokens = []
         for token in tokens:
@@ -60,6 +88,14 @@ class Epihan(object):
 
 class EpihanTraditional(Epihan):
     def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):
+        """Construct epitran object for Traditional Chinese
+
+        Args:
+            ligatures (bool): if True, use ligatures instead of standard IPA
+            cedict_file (str): path to CC-CEDict dictionary file
+            rules_file (str): name of file with rules for converting pinyin to
+                              IPA
+        """
         if not cedict_file:
             raise MissingData('Please specify a location for the CC-CEDict file.')
         rules_file = os.path.join('data', 'rules', rules_file)
