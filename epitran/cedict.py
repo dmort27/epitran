@@ -10,16 +10,21 @@ import regex as re
 ASCII_CHARS = ''.join([chr(i) for i in range(128)])
 
 
-class CEDict(object):
+class CEDictTrie(object):
     def __init__(self, cedict_file, traditional=False):
-        self.hanzi = self._read_cedict(cedict_file, traditional=False)
+        """Construct a trie over CC-CEDict
+
+        Args:
+            cedict_file (str): path to the CC-CEDict dictionary
+            traditional (bool): if True, use traditional characters
+        """
+        self.hanzi = self._read_cedict(cedict_file, traditional=traditional)
+        self.trie = self._construct_trie(self.hanzi)
 
     def _read_cedict(self, cedict_file, traditional=False):
         comment_re = re.compile('\s*#')
         lemma_re = re.compile('(?P<hanzi>[^]]+) \[(?P<pinyin>[^]]+)\] /(?P<english>.+)/')
         cedict = {}
-        # cedict_file = os.path.join('data', cedict_file + '.txt')
-        # cedict_file = pkg_resources.resource_filename(__name__, cedict_file)
         with codecs.open(cedict_file, 'r', 'utf-8') as f:
             for line in f:
                 if comment_re.match(line):
@@ -36,12 +41,7 @@ class CEDict(object):
         return cedict
 
 
-class CEDictTrie(CEDict):
-    def __init__(self, dict_file, traditional=False):
-        self.hanzi = self._read_cedict(dict_file, traditional=traditional)
-        self.trie = self.construct_trie(self.hanzi)
-
-    def construct_trie(self, hanzi):
+    def _construct_trie(self, hanzi):
         pairs = []
         for hz, df in self.hanzi.items():
             py, en = df
