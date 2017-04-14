@@ -102,5 +102,4 @@ class Epitran(object):
         try:
             return self.epi.word_to_tuples(word, normpunc)
         except AttributeError:
-            print('Method word_to_tuples not yet implemented for this language-script pair!',
-                  file=sys.stderr)
+            raise AttributeError('Method word_to_tuples not yet implemented for this language-script pair!')
