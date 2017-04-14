@@ -12,6 +12,16 @@ import unicodecsv as csv
 
 class ReRomanizer(object):
     def __init__(self, code, table, decompose=False):
+        """Construct object for re-romanizing Epitran output
+
+        This class converts orthographic input, via Epitran, to a more
+        conventional romanization that should be more readable to most humans.
+
+        Args:
+            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
+            table (str): Name of re-romanization table
+            decompose (bool): apply decomposing normalization
+        """
         self.epi = epitran.Epitran(code)
         self.mapping = self._load_reromanizer(table, decompose)
 
@@ -44,5 +54,13 @@ class ReRomanizer(object):
         return re_rom_list
 
     def reromanize(self, text):
+        """Convert orthographic text to romanized text
+
+        Arg:
+            text (unicode): orthographic text
+
+        Returns:
+            unicode: romanized text
+        """
         tr_list = self.epi.trans_list(text)
         return ''.join(self.reromanize_ipa(tr_list))
