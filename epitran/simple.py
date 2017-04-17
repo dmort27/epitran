@@ -34,6 +34,15 @@ class DatafileError(Exception):
 
 class SimpleEpitran(object):
     def __init__(self, code, preproc=True, postproc=True, ligatures=False):
+        """Constructs the backend object epitran uses for most languages
+
+        Args:
+            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
+            preproc (bool): if True, apply preprocessor
+            postproc (bool): if True, apply postprocessors
+            ligatures (bool): if True, use phonetic ligatures for affricates
+                              instead of standard IPA
+        """
         self.g2p = self._load_g2p_map(code)
         self.regexp = self._construct_regex()
         self.puncnorm = PuncNorm()
@@ -143,6 +152,15 @@ class SimpleEpitran(object):
         return text
 
     def trans_delimiter(self, text, delimiter=str(' '), normpunc=False, ligatures=False):
+        """Return IPA transliteration with a delimiter between segments
+
+        Args:
+            text (unicode): orthographic text
+            delimiter (str): string to insert between segments
+            normpunc (bool): if True, normalize punctation down
+            ligatures (bool): if True, use phonetic ligatures for affricates
+                              instead of standard IPA
+        """
         return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
 
     def word_to_tuples(self, word, normpunc=False):
@@ -216,4 +234,13 @@ class SimpleEpitran(object):
         return tuples
 
     def ipa_segs(self, ipa):
+        """Given an IPA string, decompose it into a list of segments
+
+        Args:
+            ipa (unicode): a Unicode IPA string
+
+        Returns:
+            list: a list of unicode strings corresponding to segments
+                  (consonants and vowels) in the input string
+        """
         return self.ft.segs(ipa)
