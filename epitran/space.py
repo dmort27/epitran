@@ -17,6 +17,9 @@ class Space(object):
         integers, placing them in an integer space that can be translated into
         a one-hot vector.
 
+        The resulting object has a dictionary-like interface that supports
+        indexing and iteration over "keys".
+
         Args:
             code (str): ISO 639-3 code joined to ISO 15924 code with "-"
             space_names (list): list of space names consisting of ISO 639-3
