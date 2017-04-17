@@ -68,6 +68,18 @@ class Epitran(object):
         """
         return self.ft.segs(self.epi.transliterate(word, normpunc, ligatures))
 
+    def trans_delimiter(self, text, delimiter=str(' '), normpunc=False, ligatures=False):
+        """Return IPA transliteration with a delimiter between segments
+
+        Args:
+            text (unicode): orthographic text
+            delimiter (str): string to insert between segments
+            normpunc (bool): if True, normalize punctation down
+            ligatures (bool): if True, use phonetic ligatures for affricates
+                              instead of standard IPA
+        """
+        return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
+
     def xsampa_list(self, word, normpunc=False, ligaturize=False):
         """Transliterates/transcribes a word as X-SAMPA
 
