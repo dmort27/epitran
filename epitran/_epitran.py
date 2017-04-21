@@ -77,6 +77,8 @@ class Epitran(object):
             normpunc (bool): if True, normalize punctation down
             ligatures (bool): if True, use phonetic ligatures for affricates
                               instead of standard IPA
+        Returns:
+            unicode: transliteration with segments delimited by `delimiter`
         """
         return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
 
