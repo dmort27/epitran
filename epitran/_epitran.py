@@ -66,7 +66,7 @@ class Epitran(object):
         Returns:
             list: list of IPA strings, each corresponding to a segment
         """
-        return self.ft.segs(self.epi.transliterate(word, normpunc, ligatures))
+        return self.ft.segs_safe(self.epi.transliterate(word, normpunc, ligatures))
 
     def trans_delimiter(self, text, delimiter=str(' '), normpunc=False, ligatures=False):
         """Return IPA transliteration with a delimiter between segments
