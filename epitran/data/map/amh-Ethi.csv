@@ -13,7 +13,7 @@ Orth,Phon
 ሌ,le
 ል,lɨ
 ሎ,lo
-ሏ,lwa
+ሏ,lʷa
 ሐ,hə
 ሑ,hu
 ሒ,hi
@@ -21,7 +21,7 @@ Orth,Phon
 ሔ,he
 ሕ,hɨ
 ሖ,ho
-ሗ,hwa
+ሗ,hʷa
 መ,mə
 ሙ,mu
 ሚ,mi
@@ -29,7 +29,7 @@ Orth,Phon
 ሜ,me
 ም,mɨ
 ሞ,mo
-ሟ,mwa
+ሟ,mʷa
 ፙ,mjə
 ሠ,ʃə
 ሡ,ʃu
@@ -38,7 +38,7 @@ Orth,Phon
 ሤ,ʃe
 ሥ,ʃɨ
 ሦ,ʃo
-ሧ,ʃwa
+ሧ,ʃʷa
 ረ,rə
 ሩ,ru
 ሪ,ri
@@ -46,7 +46,7 @@ Orth,Phon
 ሬ,re
 ር,rɨ
 ሮ,ro
-ሯ,rwa
+ሯ,rʷa
 ፘ,rjə
 ሰ,sə
 ሱ,su
@@ -55,7 +55,7 @@ Orth,Phon
 ሴ,se
 ስ,sɨ
 ሶ,so
-ሷ,swa
+ሷ,sʷa
 ቀ,kʼə
 ቁ,kʼu
 ቂ,kʼi
@@ -63,7 +63,9 @@ Orth,Phon
 ቄ,kʼe
 ቅ,kʼɨ
 ቆ,kʼo
-ቋ,kʼwa
+ቋ,kʼʷa
+ቈ,kʼʷe
+ቍ,kʼʷɨ
 በ,bə
 ቡ,bu
 ቢ,bi
@@ -71,7 +73,7 @@ Orth,Phon
 ቤ,be
 ብ,bɨ
 ቦ,bo
-ቧ,bwa
+ቧ,bʷa
 ተ,tə
 ቱ,tu
 ቲ,ti
@@ -79,7 +81,7 @@ Orth,Phon
 ቴ,te
 ት,tɨ
 ቶ,to
-ቷ,twa
+ቷ,tʷa
 ኀ,hə
 ኁ,hu
 ኂ,hi
@@ -87,7 +89,8 @@ Orth,Phon
 ኄ,he
 ኅ,hɨ
 ኆ,ho
-ኋ,hwa
+ኋ,hʷa
+ኈ,hʷe
 ነ,nə
 ኑ,nu
 ኒ,ni
@@ -95,7 +98,7 @@ Orth,Phon
 ኔ,ne
 ን,nɨ
 ኖ,no
-ኗ,nwa
+ኗ,nʷa
 አ,ʔə
 ኡ,ʔu
 ኢ,ʔi
@@ -103,7 +106,7 @@ Orth,Phon
 ኤ,ʔe
 እ,ʔɨ
 ኦ,ʔo
-ኧ,ʔwa
+ኧ,ʔʷa
 ከ,kə
 ኩ,ku
 ኪ,ki
@@ -111,7 +114,9 @@ Orth,Phon
 ኬ,ke
 ክ,kɨ
 ኮ,ko
-ኳ,kwa
+ኳ,kʷa
+ኰ,kʷe
+ኵ,kʷɨ
 ወ,wə
 ዉ,wu
 ዊ,wi
@@ -133,7 +138,7 @@ Orth,Phon
 ዜ,ze
 ዝ,zɨ
 ዞ,zo
-ዟ,zwa
+ዟ,zʷa
 የ,jə
 ዩ,ju
 ዪ,ji
@@ -148,7 +153,7 @@ Orth,Phon
 ዴ,de
 ድ,dɨ
 ዶ,do
-ዷ,dwa
+ዷ,dʷa
 ገ,ɡə
 ጉ,ɡu
 ጊ,ɡi
@@ -156,7 +161,9 @@ Orth,Phon
 ጌ,ɡe
 ግ,ɡɨ
 ጎ,ɡo
-ጓ,ɡwa
+ጓ,ɡʷa
+ጒ,gʷi
+ጕ,gʷɨ
 ጠ,tʼə
 ጡ,tʼu
 ጢ,tʼi
@@ -164,7 +171,7 @@ Orth,Phon
 ጤ,tʼe
 ጥ,tʼɨ
 ጦ,tʼo
-ጧ,tʼwa
+ጧ,tʼʷa
 ጰ,pʼə
 ጱ,pʼu
 ጲ,pʼi
@@ -172,7 +179,7 @@ Orth,Phon
 ጴ,pʼe
 ጵ,pʼɨ
 ጶ,pʼo
-ጷ,pʼwa
+ጷ,pʼʷa
 ጸ,t͡sʼə
 ጹ,t͡sʼu
 ጺ,t͡sʼi
@@ -180,7 +187,7 @@ Orth,Phon
 ጼ,t͡sʼe
 ጽ,t͡sʼɨ
 ጾ,t͡sʼo
-ጿ,t͡sʼwa
+ጿ,t͡sʼʷa
 ፀ,t͡sʼə
 ፁ,t͡sʼu
 ፂ,t͡sʼi
@@ -195,7 +202,7 @@ Orth,Phon
 ፌ,fe
 ፍ,fɨ
 ፎ,fo
-ፏ,fwa
+ፏ,fʷa
 ፚ,fjə
 ፐ,pə
 ፑ,pu
@@ -204,7 +211,7 @@ Orth,Phon
 ፔ,pe
 ፕ,pɨ
 ፖ,po
-ፗ,pwa
+ፗ,pʷa
 ሸ,ʃə
 ሹ,ʃu
 ሺ,ʃi
@@ -212,7 +219,7 @@ Orth,Phon
 ሼ,ʃe
 ሽ,ʃɨ
 ሾ,ʃo
-ሿ,ʃwa
+ሿ,ʃʷa
 ቐ,qʰə
 ቑ,qʰu
 ቒ,qʰi
@@ -232,7 +239,7 @@ Orth,Phon
 ቬ,ve
 ቭ,vɨ
 ቮ,vo
-ቯ,vwa
+ቯ,vʷa
 ቸ,t͡ʃə
 ቹ,t͡ʃu
 ቺ,t͡ʃi
@@ -240,7 +247,7 @@ Orth,Phon
 ቼ,t͡ʃe
 ች,t͡ʃɨ
 ቾ,t͡ʃo
-ቿ,t͡ʃwa
+ቿ,t͡ʃʷa
 ⶓ,ŋʷə
 ⶔ,ŋʷi
 ⶕ,ŋʷe
@@ -252,7 +259,7 @@ Orth,Phon
 ኜ,ɲe
 ኝ,ɲɨ
 ኞ,ɲo
-ኟ,ɲwa
+ኟ,ɲʷa
 ኸ,xə
 ኹ,xu
 ኺ,xi
@@ -272,7 +279,7 @@ Orth,Phon
 ዤ,ʒe
 ዥ,ʒɨ
 ዦ,ʒo
-ዧ,ʒwa
+ዧ,ʒʷa
 ጀ,d͡ʒə
 ጁ,d͡ʒu
 ጂ,d͡ʒi
@@ -280,7 +287,7 @@ Orth,Phon
 ጄ,d͡ʒe
 ጅ,d͡ʒɨ
 ጆ,d͡ʒo
-ጇ,d͡ʒwa
+ጇ,d͡ʒʷa
 ጘ,ŋə
 ጙ,ŋu
 ጚ,ŋi
@@ -288,7 +295,7 @@ Orth,Phon
 ጜ,ŋe
 ጝ,ŋɨ
 ጞ,ŋo
-ጟ,ŋwa
+ጟ,ŋʷa
 ጨ,t͡ʃʼə
 ጩ,t͡ʃʼu
 ጪ,t͡ʃʼi
@@ -296,5 +303,5 @@ Orth,Phon
 ጬ,t͡ʃʼe
 ጭ,t͡ʃʼɨ
 ጮ,t͡ʃʼo
-ጯ,t͡ʃʼwa
+ጯ,t͡ʃʼʷa
 ጐ,gʷe
