@@ -5,21 +5,21 @@ if sys.version_info[0] > 2:
     install_requires = ['setuptools',
                         'unicodecsv',
                         'regex',
-                        'panphon>=0.5',
+                        'panphon>=0.7',
                         'marisa_trie']
 else:
     install_requires = ['setuptools',
                         'unicodecsv',
                         'regex',
                         'subprocess32',
-                        'panphon>=0.5',
+                        'panphon>=0.7',
                         'marisa_trie']
 
 setup(name='epitran',
-      version='0.11',
+      version='0.14',
       description='Tools for transcribing languages into IPA.',
       url='http://github.com/dmort27/epitran',
-      download_url='http://github.com/dmort27/epitran/tarball/0.11',
+      download_url='http://github.com/dmort27/epitran/tarball/0.14',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
       license='MIT',
