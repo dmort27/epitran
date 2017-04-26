@@ -85,6 +85,9 @@ class Epihan(object):
             ipa_tokens = map(ligaturize, ipa_tokens) if ligatures else ipa_tokens
         return u''.join(ipa_tokens)
 
+    def strict_trans(self, text, normpunc=False, ligatures=False):
+        return self.transliterate(text, normpunc, ligatures)
+
 
 class EpihanTraditional(Epihan):
     def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):

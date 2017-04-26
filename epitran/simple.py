@@ -112,13 +112,15 @@ class SimpleEpitran(object):
     def transliterate(self, text, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
 
+        Passes unmapped characters through to output unchanged.
+
         Args:
             word (str): word to transcribe; unicode string
             normpunc (bool): normalize punctuation
             ligatures (bool): use precomposed ligatures instead of standard IPA
 
         Returns:
-            unicode: IPA string
+            unicode: IPA string with unrecognized characters included
         """
         text = unicode(text)
         text = self.strip_diacritics.process(text)
@@ -151,17 +153,49 @@ class SimpleEpitran(object):
             text = self.puncnorm.norm(text)
         return text
 
-    def trans_delimiter(self, text, delimiter=str(' '), normpunc=False, ligatures=False):
-        """Return IPA transliteration with a delimiter between segments
+    def strict_trans(self, text, normpunc=False, ligatures=False):
+        """Transliterates/transcribes a word into IPA
+
+        Ignores umapped characters.
 
         Args:
-            text (unicode): orthographic text
-            delimiter (str): string to insert between segments
-            normpunc (bool): if True, normalize punctation down
-            ligatures (bool): if True, use phonetic ligatures for affricates
-                              instead of standard IPA
+            word (str): word to transcribe; unicode string
+            normpunc (bool): normalize punctuation
+            ligatures (bool): use precomposed ligatures instead of standard IPA
+
+        Returns:
+            unicode: IPA string
         """
-        return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
+        text = unicode(text)
+        text = self.strip_diacritics.process(text)
+        text = unicodedata.normalize('NFKD', text)
+        text = unicodedata.normalize('NFC', text.lower())
+        if self.preproc:
+            text = self.preprocessor.process(text)
+        tr_list = []
+        while text:
+            m = self.regexp.match(text)
+            if m:
+                from_seg = m.group(0)
+                try:
+                    to_seg = self.g2p[from_seg][0]
+                except:
+                    print("from_seg = {}".format(from_seg))
+                    print("self.g2p[from_seg] = {}".format(self.g2p[from_seg]))
+                tr_list.append(to_seg)
+                text = text[len(from_seg):]
+            else:
+                self.nils[text[0]] += 1
+                text = text[1:]
+        text = ''.join(tr_list)
+        if self.postproc:
+            text = self.postprocessor.process(text)
+        if ligatures or self.ligatures:
+            text = ligaturize(text)
+        if normpunc:
+            text = self.puncnorm.norm(text)
+        return text
+
 
     def word_to_tuples(self, word, normpunc=False):
         """Given a word, returns a list of tuples corresponding to IPA segments.

@@ -93,6 +93,9 @@ class Flite(object):
         text = ligaturize(text) if ligatures else text
         return text
 
+    def strict_trans(self, text, normpunc=False, ligatures=False):
+        return self.transliterate(text, normpunc, ligatures)
+
 
 class FliteT2P(Flite):
     """Flite G2P using t2p."""
