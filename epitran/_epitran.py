@@ -55,6 +55,9 @@ class Epitran(object):
         """
         return self.epi.transliterate(word, normpunc, ligatures)
 
+    def strict_trans(self, word, normpunc=False, ligatures=False):
+        return self.epi.strict_trans(word, normpunc, ligatures)
+
     def trans_list(self, word, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into list of IPA phonemes
 
@@ -93,7 +96,7 @@ class Epitran(object):
         Returns:
             list: X-SAMPA strings, each corresponding to a segment
         """
-        ipa_segs = self.trans_list(word, normpunc, ligaturize)
+        ipa_segs = self.ft.segs(self.epi.strict_trans(word, normpunc, ligaturize))
         return list(map(self.xsampa.ipa2xs, ipa_segs))
 
     def word_to_tuples(self, word, normpunc=False, ligaturize=False):
