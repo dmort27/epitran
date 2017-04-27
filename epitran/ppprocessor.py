@@ -49,6 +49,7 @@ class PrePostProcessor(object):
     def _fields_to_function(self, a, b, X, Y):
         logging.debug('rule-encoding: {} {} {} {}'.format(a, b, X, Y).encode('utf-8'))
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
+        logging.debug(left)
         try:
             regexp = re.compile(left)
         except:
