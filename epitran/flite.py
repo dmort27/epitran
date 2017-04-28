@@ -140,7 +140,7 @@ class Flite(object):
 
         tuples = []
         word = unicode(word)
-        word = self.strip_diacritics.process(word)
+        # word = self.strip_diacritics.process(word)
         word = unicodedata.normalize('NFKD', word)
         word = unicodedata.normalize('NFC', word)
         while word:
@@ -149,11 +149,22 @@ class Flite(object):
                 span = match.group(0)
                 cat, case = cat_and_cap(span[0])
                 phonword = self.transliterate(span)
-                phonsegs = ft.segs(phonword)
+                phonsegs = self.ft.segs(phonword)
                 maxlen = max(len(phonsegs), len(span))
                 orth = list(span) + [''] * (maxlen - len(span))
-                phonsegs += [''] + (maxlen - len(phonsegs))
+                phonsegs += [''] * (maxlen - len(phonsegs))
+                for p, o in zip(phonsegs, orth):
+                    tuples.append(('L', case, o, p, to_vectors(p)))
                 word = word[len(span):]
+            else:
+                span = word[0]
+                span = self.puncnorm.norm(span) if normpunc else span
+                cat, case = cat_and_cap(span)
+                cat = 'P' if normpunc and cat in self.puncnorm else cat
+                phon = ''
+                vecs = to_vectors(phon)
+                tuples.append((cat, case, span, phon, vecs))
+                word = word[1:]
         return tuples
 
 
