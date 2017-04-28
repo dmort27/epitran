@@ -8,9 +8,9 @@ import sys
 import panphon
 from epitran.epihan import Epihan, EpihanTraditional
 from epitran.flite import FliteLexLookup
+from epitran.puncnorm import PuncNorm
 from epitran.simple import SimpleEpitran
 from epitran.xsampa import XSampa
-from epitran.puncnorm import PuncNorm
 
 if sys.version_info[0] == 3:
     def unicode(x):
