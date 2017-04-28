@@ -31,10 +31,7 @@ def add_record_gen(epi, ft, orth):
             space[pref] += 1
             trans = trans[len(pref):]
         else:
-            if trans[0] in epi.puncnorm_vals:
-                space[trans[0]] += 1
-            else:
-                space[trans[0]] += 1
+            space[trans[0]] += 1
             trans = trans[1:]
     return space
 
