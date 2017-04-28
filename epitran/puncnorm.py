@@ -33,3 +33,9 @@ class PuncNorm(object):
             else:
                 new_text.append(c)
         return ''.join(new_text)
+
+    def __iter__(self):
+        return iter(self.puncnorm)
+
+    def __getitem__(self, key):
+        return self.puncnorm[key]
