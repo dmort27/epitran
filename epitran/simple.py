@@ -205,8 +205,8 @@ class SimpleEpitran(object):
             normpunc (bool): If True, normalizes punctuation to ASCII inventory
 
         Returns:
-        list: A list of (category, lettercase, orthographic_form, phonetic_form,
-              fecture_vectors) tuples.
+            list: A list of (category, lettercase, orthographic_form,
+                  phonetic_form, feature_vectors) tuples.
 
         The "feature vectors" form a list consisting of (segment, vector) pairs.
         For IPA segments, segment is a substring of phonetic_form such that the
