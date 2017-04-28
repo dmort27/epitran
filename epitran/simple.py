@@ -221,12 +221,10 @@ class SimpleEpitran(object):
             return unicode(cat), case
 
         def recode_ft(ft):
-            if ft == '+':
-                return 1
-            elif ft == '0':
-                return 0
-            elif ft == '-':
-                return -1
+            try:
+                return {'+': 1, '0': 0, '-': -1}[ft]
+            except KeyError:
+                return None
 
         def vec2bin(vec):
             return map(recode_ft, vec)
