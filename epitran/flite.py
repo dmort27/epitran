@@ -46,6 +46,7 @@ class Flite(object):
         self.chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
         self.puncnorm = PuncNorm()
         self.ligatures = ligatures
+        self.ft = panphon.FeatureTable()
 
     def _read_arpabet(self, arpabet):
         arpa_map = {}
@@ -95,6 +96,65 @@ class Flite(object):
 
     def strict_trans(self, text, normpunc=False, ligatures=False):
         return self.transliterate(text, normpunc, ligatures)
+
+    def word_to_tuples(self, word, normpunc=False):
+        """Given a word, returns a list of tuples corresponding to IPA segments.
+
+        Args:
+            word (unicode): word to transliterate
+            normpunc (bool): If True, normalizes punctuation to ASCII inventory
+
+        Returns:
+            list: A list of (category, lettercase, orthographic_form,
+                  phonetic_form, feature_vectors) tuples.
+
+        The "feature vectors" form a list consisting of (segment, vector) pairs.
+        For IPA segments, segment is a substring of phonetic_form such that the
+        concatenation of all segments in the list is equal to the phonetic_form.
+        The vectors are a sequence of integers drawn from the set {-1, 0, 1}
+        where -1 corresponds to '-', 0 corresponds to '0', and 1 corresponds to
+        '+'.
+        """
+        def cat_and_cap(c):
+            cat, case = tuple(unicodedata.category(c))
+            case = 1 if case == 'u' else 0
+            return unicode(cat), case
+
+        def recode_ft(ft):
+            try:
+                return {'+': 1, '0': 0, '-': -1}[ft]
+            except KeyError:
+                return None
+
+        def vec2bin(vec):
+            return map(recode_ft, vec)
+
+        def to_vector(seg):
+            return seg, vec2bin(self.ft.segment_to_vector(seg))
+
+        def to_vectors(phon):
+            if phon == '':
+                return [(-1, [0] * self.num_panphon_fts)]
+            else:
+                return [to_vector(seg) for seg in self.ft.segs(phon)]
+
+        tuples = []
+        word = unicode(word)
+        word = self.strip_diacritics.process(word)
+        word = unicodedata.normalize('NFKD', word)
+        word = unicodedata.normalize('NFC', word)
+        while word:
+            match = re.match('[A-Za-z]+', word)
+            if match:
+                span = match.group(0)
+                cat, case = cat_and_cap(span[0])
+                phonword = self.transliterate(span)
+                phonsegs = ft.segs(phonword)
+                maxlen = max(len(phonsegs), len(span))
+                orth = list(span) + [''] * (maxlen - len(span))
+                phonsegs += [''] + (maxlen - len(phonsegs))
+                word = word[len(span):]
+        return tuples
 
 
 class FliteT2P(Flite):
