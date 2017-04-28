@@ -10,6 +10,7 @@ from epitran.epihan import Epihan, EpihanTraditional
 from epitran.flite import FliteLexLookup
 from epitran.simple import SimpleEpitran
 from epitran.xsampa import XSampa
+from epitran.puncnorm import PuncNorm
 
 if sys.version_info[0] == 3:
     def unicode(x):
@@ -41,6 +42,7 @@ class Epitran(object):
             self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
         self.ft = panphon.FeatureTable()
         self.xsampa = XSampa()
+        self.puncnorm = PuncNorm()
 
     def transliterate(self, word, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
