@@ -3,9 +3,6 @@ from __future__ import print_function, unicode_literals, division, absolute_impo
 
 import unicodedata
 import codecs
-import os.path
-
-import pkg_resources
 
 import regex as re
 
@@ -30,7 +27,7 @@ class Rules(object):
         rules = []
         with codecs.open(rule_file, 'r', 'utf-8') as f:
             for line in f:
-                if not re.match('\s*!', line):
+                if not re.match('\s*%', line):
                     rules.append(self._read_rule(line))
         return [rule for rule in rules if rule is not None]
 
@@ -41,10 +38,26 @@ class Rules(object):
             line = unicodedata.normalize('NFC', line)
             a, b, X, Y = m.groups()
             X, Y = X.replace('#', '^'), Y.replace('#', '$')
+            a = a.replace('0', '')
             b = b.replace('0', '')
-            return self._fields_to_function(a, b, X, Y)
+            if re.search(r'[?]P[<]sw1[>].+[?]P[<]sw2[>]', a):
+                return self._fields_to_function_metathesis(a, X, Y)
+            else:
+                return self._fields_to_function(a, b, X, Y)
         else:
             print('Line "{}" contains an error.'.format(line))
+
+    def _fields_to_function_metathesis(self, a, X, Y):
+        left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
+        regexp = re.compile(left)
+
+        def rewrite(m):
+            return '{}{}{}{}'.format(m.group('X'),
+                                     m.group('sw2'),
+                                     m.group('sw1'),
+                                     m.group('Y'))
+
+        return lambda w: regexp.sub(rewrite, w, re.U)
 
     def _fields_to_function(self, a, b, X, Y):
         left = r'(?P<X>{})(?P<a>{})(?P<Y>{})'.format(X, a, Y)
