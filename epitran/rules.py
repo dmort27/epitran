@@ -7,6 +7,10 @@ import codecs
 import regex as re
 
 
+def none2str(x):
+    return x if x else ''
+
+
 class Rules(object):
     def __init__(self, rule_files):
         """Construct an object encoding context-sensitive rules
@@ -52,10 +56,8 @@ class Rules(object):
         regexp = re.compile(left)
 
         def rewrite(m):
-            return '{}{}{}{}'.format(m.group('X'),
-                                     m.group('sw2'),
-                                     m.group('sw1'),
-                                     m.group('Y'))
+            d = {k: none2str(v) for k, v in m.groupdict().items()}
+            return '{}{}{}{}'.format(d['X'], d['sw2'], d['sw1'], d['Y'])
 
         return lambda w: regexp.sub(rewrite, w, re.U)
 
@@ -64,7 +66,8 @@ class Rules(object):
         regexp = re.compile(left)
 
         def rewrite(m):
-            return '{}{}{}'.format(m.group('X'), b, m.group('Y'))
+            d = {k: none2str(v) for k, v in m.groupdict().items()}
+            return '{}{}{}'.format(d['X'], b, d['Y'])
 
         return lambda w: regexp.sub(rewrite, w, re.U)
 
