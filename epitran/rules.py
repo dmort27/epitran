@@ -37,8 +37,8 @@ class Rules(object):
         return [rule for rule in rules if rule is not None]
 
     def _sub_symbols(self, line):
-        while re.match('::\w+::', line):
-            s = re.match('::\w+::', line).group(0)
+        while re.search(r'::\w+::', line):
+            s = re.search(r'::\w+::', line).group(0)
             if s in self.symbols:
                 line = line.replace(s, self.symbols[s])
             else:
@@ -50,21 +50,21 @@ class Rules(object):
         if line:
             line = unicodedata.normalize('NFC', line)
             s = re.match(r'(?P<symbol>::\w+::)\s*=\s*(?P<value>.+)', line)
-            r = re.match(r'(?P<a>\S+)\s*->\s*(?P<b>\S+)\s*/\s*(?P<X>\S*)\s*[_]\s*(?P<Y>\S*)', line)
             if s:
                 self.symbols[s.group('symbol')] = s.group('value')
-            elif r:
-                a, b, X, Y = r.groups()
-                X, Y = X.replace('#', '^'), Y.replace('#', '$')
-                X, Y = self._sub_symbols(X), self._sub_symbols(Y)
-                a = a.replace('0', '')
-                b = b.replace('0', '')
-                if re.search(r'[?]P[<]sw1[>].+[?]P[<]sw2[>]', a):
-                    return self._fields_to_function_metathesis(a, X, Y)
-                else:
-                    return self._fields_to_function(a, b, X, Y)
             else:
-                print('Line "{}" contains an error.'.format(line))
+                line = self._sub_symbols(line)
+                r = re.match(r'(?P<a>\S+)\s*->\s*(?P<b>\S+)\s*/\s*(?P<X>\S*)\s*[_]\s*(?P<Y>\S*)', line)
+                if r:
+                    a, b, X, Y = r.groups()
+                    X, Y = X.replace('#', '^'), Y.replace('#', '$')
+                    a, b = a.replace('0', ''), b.replace('0', '')
+                    if re.search(r'[?]P[<]sw1[>].+[?]P[<]sw2[>]', a):
+                        return self._fields_to_function_metathesis(a, X, Y)
+                    else:
+                        return self._fields_to_function(a, b, X, Y)
+                else:
+                    print('Line "{}" contains an error.'.format(line))
 
     def _fields_to_function_metathesis(self, a, X, Y):
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
