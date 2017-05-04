@@ -1,0 +1,15 @@
+% Telugu postprocessor
+%
+% Virama
+ə్ -> 0 / _
+%
+% ə -> 0 / _V
+ə -> 0 / _ (a|e|ɪ|i|o|ʊ|u|ru|l̩)
+% high lax vowels tense word-finally
+ɪ -> i / _ #
+ʊ -> u / _ #
+% Homorganic nasal
+N -> ŋ / _ (k|kʰ|ɡ|ɡ̤|ŋ)
+N -> ɲ / _ (t͡ʃ|t͡ʃʰ|d͡ʒ|d͡ʒ̤|ɲ)
+N -> n / _ (t̪|t̪ʰ|d̪ə|d̪̤|n)
+N -> m / _
