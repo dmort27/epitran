@@ -13,4 +13,4 @@ class TestSwedish(unittest.TestCase):
 
     def test_rattstafning(self):
         tr = self.epi.transliterate('rättstafning')
-        self.assertEqual(tr, 'rɛttstɐfnɪŋ')
+        self.assertEqual(tr, 'rɛttstɐfniːŋ')
