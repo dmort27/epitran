@@ -11,18 +11,19 @@ def none2str(x):
     return x if x else ''
 
 
+class RuleFileError(Exception):
+    pass
+
+
 class Rules(object):
     def __init__(self, rule_files):
         """Construct an object encoding context-sensitive rules
-
-        This differs from PrePostProcessor in that the rules are written in
-        arrow notation rather than CSV. Eventually, processors for languages
-        other than Chinese should also be migrated to this format.
 
         Args:
             rule_files (list): list of names of rule files
         """
         self.rules = []
+        self.symbols = {}
         for rule_file in rule_files:
             rules = self._read_rule_file(rule_file)
             self.rules = self.rules + rules
@@ -35,21 +36,35 @@ class Rules(object):
                     rules.append(self._read_rule(line))
         return [rule for rule in rules if rule is not None]
 
+    def _sub_symbols(self, line):
+        while re.match('::\w+::', line):
+            s = re.match('::\w+::', line).group(0)
+            if s in self.symbols:
+                line = line.replace(s, self.symbols[s])
+            else:
+                raise RuleFileError('Undefined symbol: {}'.format(s))
+        return line
+
     def _read_rule(self, line):
         line = line.strip()
-        line = unicodedata.normalize('NFC', line)
-        m = re.match(r'(?P<a>\S+)\s*->\s*(?P<b>\S+)\s*/\s*(?P<X>\S*)\s*[_]\s*(?P<Y>\S*)', line)
-        if line and m:
-            a, b, X, Y = m.groups()
-            X, Y = X.replace('#', '^'), Y.replace('#', '$')
-            a = a.replace('0', '')
-            b = b.replace('0', '')
-            if re.search(r'[?]P[<]sw1[>].+[?]P[<]sw2[>]', a):
-                return self._fields_to_function_metathesis(a, X, Y)
+        if line:
+            line = unicodedata.normalize('NFC', line)
+            s = re.match(r'(?P<symbol>::\w+::)\s*=\s*(?P<value>.+)', line)
+            r = re.match(r'(?P<a>\S+)\s*->\s*(?P<b>\S+)\s*/\s*(?P<X>\S*)\s*[_]\s*(?P<Y>\S*)', line)
+            if s:
+                self.symbols[s.group('symbol')] = s.group('value')
+            elif r:
+                a, b, X, Y = r.groups()
+                X, Y = X.replace('#', '^'), Y.replace('#', '$')
+                X, Y = self._sub_symbols(X), self._sub_symbols(Y)
+                a = a.replace('0', '')
+                b = b.replace('0', '')
+                if re.search(r'[?]P[<]sw1[>].+[?]P[<]sw2[>]', a):
+                    return self._fields_to_function_metathesis(a, X, Y)
+                else:
+                    return self._fields_to_function(a, b, X, Y)
             else:
-                return self._fields_to_function(a, b, X, Y)
-        else:
-            print('Line "{}" contains an error.'.format(line))
+                print('Line "{}" contains an error.'.format(line))
 
     def _fields_to_function_metathesis(self, a, X, Y):
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
