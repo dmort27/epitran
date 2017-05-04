@@ -1,12 +1,13 @@
-from __future__ import print_function, unicode_literals, division, absolute_import
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import logging
 import os.path
 import unicodedata
 
 import pkg_resources
-import regex as re
-import unicodecsv as csv
+
+from epitran.rules import Rules
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -24,51 +25,19 @@ class PrePostProcessor(object):
             code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
             fix (str): 'pre' for preprocessors, 'post' for postprocessors
         """
-        self.rules = self._read_file(code, fix)
+        self.rules = self._read_rules(code, fix)
 
-    def _read_file(self, code, fix):
+    def _read_rules(self, code, fix):
         assert fix in ['pre', 'post']
-        rules = []
-        fn = os.path.join('data', fix, code + '.csv')
+        fn = os.path.join('data', fix, code + '.txt')
         try:
             abs_fn = pkg_resources.resource_filename(__name__, fn)
         except KeyError:
-            return []
+            return Rules([])
         if os.path.isfile(abs_fn):
-            with open(abs_fn, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
-                next(reader)
-                for record in reader:
-                    if not re.match(r'\s*%', record[0]):
-                        assert len(record) == 4
-                        record = map(lambda x: unicodedata.normalize('NFC', unicodedata.normalize('NFD', x)), record)
-                        a, b, X, Y = record
-                        rules.append(self._fields_to_function(a, b, X, Y))
-        return rules
-
-    def _fields_to_function(self, a, b, X, Y):
-        logging.debug('rule-encoding: {} {} {} {}'.format(a, b, X, Y).encode('utf-8'))
-        left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
-        logging.debug(left)
-        try:
-            regexp = re.compile(left)
-        except:
-            logging.error('"{}" is not a valid regexp.'.format(left))
-
-        def none2string(x):
-            if x is None:
-                return ''
-            else:
-                return x
-
-        def rewrite(m):
-            d = {k: none2string(v) for k, v in m.groupdict().items()}
-            if 'sw1' in d and 'sw2' in d:  # for metathesis
-                return r'{}{}{}{}'.format(d['X'], d['sw2'], d['sw1'], d['Y'])
-            else:  # for everything else
-                return r'{}{}{}'.format(d['X'], b, d['Y'])
-
-        return lambda w: regexp.sub(rewrite, w, re.U)
+            return Rules([abs_fn])
+        else:
+            return Rules([])
 
     def process(self, word):
         """Apply processor to an input string
@@ -80,7 +49,4 @@ class PrePostProcessor(object):
             unicode: output string with all rules applied in order
         """
         word = unicodedata.normalize('NFC', word)
-        word = '#{}#'.format(word)
-        for rule in self.rules:
-            word = rule(word)
-        return word[1:-1]  # Remove octothorps.
+        return self.rules.apply(word)
