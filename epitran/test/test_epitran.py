@@ -19,23 +19,6 @@ def assemble_ipa(xs):
     return ''.join([x[3] for x in xs])
 
 
-class TestNormalizePunc(unittest.TestCase):
-    def setUp(self):
-        self.epi = epitran.Epitran(u'tur-Latn')
-
-    def test_modifier_letter_apostrophe(self):
-        self.assertEqual(self.epi.normalize_punc(u'\u02bc'), "'")
-
-    def test_left_apostrophe(self):
-        self.assertEqual(self.epi.normalize_punc(u'\u2018'), "'")
-
-    def test_right_apostrophe(self):
-        self.assertEqual(self.epi.normalize_punc(u'\u2019'), "'")
-
-    def test_modifier_letter_turned_comma(self):
-        self.assertEqual(self.epi.normalize_punc(u'\u02bb'), "'")
-
-
 class TestTurkish(unittest.TestCase):
     def setUp(self):
         self.epi = epitran.Epitran(u'tur-Latn')
@@ -172,16 +155,13 @@ class TestGerman(unittest.TestCase):
         self._derivation(u'wasser', u'vasər')
 
     def test_geben(self):
-        self._derivation(u'geben', u'geːbən')
+        self._derivation(u'ɡeben', u'ɡeːbən')
 
     def test_scheisse(self):
         self._derivation(u'scheiẞe', u'ʃajsə')
 
     def test_nietzsche(self):
         self._derivation(u'Nietzsche', u'niːt͡ʃə')
-
-    def test_gefaelscht(self):
-        self._derivation(u'gefälscht', u'geːfelʃt')  # unavoidably wrong
 
     def test_immer(self):
         self._derivation(u'immer', u'imər')
@@ -193,7 +173,7 @@ class TestGerman(unittest.TestCase):
         self._derivation(u'abdanken', u'apdaŋkən')
 
     def test_rotgelb(self):
-        self._derivation(u'rotgelb', u'rotgelp')
+        self._derivation(u'rotɡelb', u'rotɡelp')
 
 
 class TestGermanNP(unittest.TestCase):
@@ -215,7 +195,7 @@ class TestGermanNP(unittest.TestCase):
         self._derivation(u'abdanken', u'abdaŋkən')
 
     def test_rotgelb(self):
-        self._derivation(u'rotgelb', u'rotgelb')
+        self._derivation(u'rotɡelb', u'rotɡelb')
 
 
 class TestSpanish(unittest.TestCase):
@@ -251,7 +231,7 @@ class TestFrench(unittest.TestCase):
         self.assertEqual(attempt, correct)
 
     def test_suggerer(self):
-        self._derivation(u'suggérer', u'sygʒere')
+        self._derivation(u'suɡɡérer', u'syɡʒere')
 
     def test_garcon(self):
         self._derivation(u'garçon', u'garsɔ̃')
