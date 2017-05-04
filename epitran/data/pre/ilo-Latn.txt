@@ -1,7 +1,9 @@
-ti -> t⁀ʃ / _ [aeiou]
-di -> d⁀ʒ / _ [aeiou]
-si -> ʃ / _ [aeiou]
-ni -> nj / _ [aeiou]
-li -> lj / _ [aeiou]
-u -> w / . _ [aeiou]
-i -> j / . _ [aeiou]
+::vowel:: = aeiou
+
+ti -> t⁀ʃ / _ [::vowel::]
+di -> d⁀ʒ / _ [::vowel::]
+si -> ʃ / _ [::vowel::]
+ni -> nj / _ [::vowel::]
+li -> lj / _ [::vowel::]
+u -> w / . _ [::vowel::]
+i -> j / . _ [::vowel::]
