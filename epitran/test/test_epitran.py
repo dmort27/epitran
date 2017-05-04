@@ -142,62 +142,6 @@ class TestDutch(unittest.TestCase):
     def test_random(self):
         self._derivation(u'ertogenbosch', u'ɛrtoːɣɛnbɔs')
 
-
-class TestGerman(unittest.TestCase):
-    def setUp(self):
-        self.epi = epitran.Epitran(u'deu-Latn')
-
-    def _derivation(self, orth, correct):
-        attempt = self.epi.transliterate(orth)
-        self.assertEqual(attempt, correct)
-
-    def test_wasser(self):
-        self._derivation(u'wasser', u'vasər')
-
-    def test_geben(self):
-        self._derivation(u'ɡeben', u'ɡeːbən')
-
-    def test_scheisse(self):
-        self._derivation(u'scheiẞe', u'ʃajsə')
-
-    def test_nietzsche(self):
-        self._derivation(u'Nietzsche', u'niːt͡ʃə')
-
-    def test_immer(self):
-        self._derivation(u'immer', u'imər')
-
-    def test_ahre(self):
-        self._derivation(u'Ähre', u'eːrə')
-
-    def test_abdanken(self):
-        self._derivation(u'abdanken', u'apdaŋkən')
-
-    def test_rotgelb(self):
-        self._derivation(u'rotɡelb', u'rotɡelp')
-
-
-class TestGermanNP(unittest.TestCase):
-    def setUp(self):
-        self.epi = epitran.Epitran(u'deu-Latn-np')
-
-    def _derivation(self, orth, correct):
-        attempt = assemble_ipa(self.epi.word_to_tuples(orth))
-        # logging.debug(u'{} ?= {}'.format(attempt, correct).encode('utf-8'))
-        self.assertEqual(attempt, correct)
-
-    def test_wasser(self):
-        self._derivation(u'wasser', u'vasər')
-
-    def test_ahre(self):
-        self._derivation(u'Ähre', u'eːrə')
-
-    def test_abdanken(self):
-        self._derivation(u'abdanken', u'abdaŋkən')
-
-    def test_rotgelb(self):
-        self._derivation(u'rotɡelb', u'rotɡelb')
-
-
 class TestSpanish(unittest.TestCase):
     def setUp(self):
         self.epi = epitran.Epitran(u'spa-Latn')
