@@ -1,15 +1,15 @@
 % Hoshonto
 o্ -> 0 / _
-%
+
 % Bishorgo
 ঃ -> ː / (k|kʰ|ɡ|ɡ̤|ŋ|ɦ|t͡ɕ|t͡ɕʰ|d͡ʑ|d͡ʑ̤|n|d͡z|ɕ|t|tʰ|d|d̤|n|r|ʂ|t̪|t̪ʰ|d̪|d̪̤|n̪|l̪|s̪|p|ɸ|b|b̤|m|w|ɽ|ɽ̤|e̯|t̪) _ [^#]
 ঃ -> ɦ / _ #
-%
+
 % o -> 0 / _V
 o -> 0 / _ (o|a|i|u|ɽi|ɽiː|li|liː|e|oj|ow)
-%
+
 % o -> 0 /VC+_#
 o -> 0 / (o|a|i|u|ɽi|ɽiː|li|liː|e|oj|ow)(k|kʰ|ɡ|ɡ̤|ŋ|ɦ|t͡ɕ|t͡ɕʰ|d͡ʑ|d͡ʑ̤|n|d͡z|ɕ|t|tʰ|d|d̤|n|r|ʂ|t̪|t̪ʰ|d̪|d̪̤|n̪|l̪|s̪|p|ɸ|b|b̤|m|w|ɽ|ɽ̤|e̯|t̪) _ #
-%
+
 % o -> 0 /VC_CV
 o -> 0 / (o|a|i|u|ɽi|ɽiː|li|liː|e|oj|ow)(k|kʰ|ɡ|ɡ̤|ŋ|ɦ|t͡ɕ|t͡ɕʰ|d͡ʑ|d͡ʑ̤|n|d͡z|ɕ|t|tʰ|d|d̤|n|r|ʂ|t̪|t̪ʰ|d̪|d̪̤|n̪|l̪|s̪|p|ɸ|b|b̤|m|w|ɽ|ɽ̤|e̯|t̪) _ (k|kʰ|ɡ|ɡ̤|ŋ|ɦ|t͡ɕ|t͡ɕʰ|d͡ʑ|d͡ʑ̤|n|d͡z|ɕ|t|tʰ|d|d̤|n|r|ʂ|t̪|t̪ʰ|d̪|d̪̤|n̪|l̪|s̪|p|ɸ|b|b̤|m|w|ɽ|ɽ̤|e̯|t̪)(o|a|i|u|ɽi|ɽiː|li|liː|e|oj|ow)
