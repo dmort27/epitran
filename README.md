@@ -238,6 +238,8 @@ To use `lex_lookup`, simply instantiate Epitran as usual, but with the `code` se
 
 ## Extending Epitran with map files, preprocessors and postprocessors
 
+[Note: Epitran has been updated to use a more readable file format for rule files. See `epitran/data/pre` and `epitran/data/post` for examples, pending updated documentation.] 
+
 Language support in Epitran is provided through map files, which define mappings between orthographic and phonetic units, preprocessors that run before the map is applied, and postprocessors that run after the map is applied. These are all defined in UTF8-encoded, comma-delimited value (CSV) files. The files are each named <iso639>-<iso15924>.csv where <iso639> is the (three letter, all lowercase) ISO 639-3 code for the language and <iso15924> is the (four letter, capitalized) ISO 15924 code for the script. These files reside in the `data` directory of the Epitran installation under the `map`, `pre`, and `post` subdirectories, respectively.
 
 ### Map files (mapping tables)
