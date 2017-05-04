@@ -1,54 +1,58 @@
+::vowel:: = aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ
+::front_vowel:: = eéèêëiîïyEÉÈÊËIÎÏY
+::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z
+
 j -> ʒ / _
 J -> Ʒ / _
-i -> j / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+i -> j / _ [::vowel::]
 % Rules to be completed (with tilde)
-a[mn] -> ẫ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-ai[mn] -> ễ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-e[mn] -> ẫ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-ein|im|in|ym|yn -> aî̃ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-eun|un -> œ̃ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-ien -> iễ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-om|on -> õ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-uin|um -> uẽ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-oin -> ouễ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
+ai[mn] -> ễ / _ #|x|(::consonant::)(::consonant::)
+e[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
+ein|im|in|ym|yn -> aî̃ / _ #|x|(::consonant::)(::consonant::)
+eun|un -> œ̃ / _ #|x|(::consonant::)(::consonant::)
+ien -> iễ / _ #|x|(::consonant::)(::consonant::)
+om|on -> õ / _ #|x|(::consonant::)(::consonant::)
+uin|um -> uẽ / _ #|x|(::consonant::)(::consonant::)
+oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
 % Treatment of <l>
-il -> j / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _
-ill -> j / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _
-e -> ɛ / _ x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
-x -> ks / _ p|t|k|f|s|ch
+il -> j / [::vowel::] _
+ill -> j / [::vowel::] _
+e -> ɛ / _ x|(::consonant::)(::consonant::)
+x -> ks / _ (p|t|k|f|s|ch)
 % Treatment of <c> and <s>
-sc -> s / _ [eéèêëiîïyEÉÈÊËIÎÏY]
-Sc -> S / _ [eéèêëiîïyEÉÈÊËIÎÏY]
-c -> s / _ [eéèêëiîïyEÉÈÊËIÎÏY]
-C -> S / _ [eéèêëiîïyEÉÈÊËIÎÏY]
+sc -> s / _ [::front_vowel::]
+Sc -> S / _ [::front_vowel::]
+c -> s / _ [::front_vowel::]
+C -> S / _ [::front_vowel::]
 % Intervocalic voicing of <s>
-s -> z / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+s -> z / [::vowel::] _ [::vowel::]
 % High vowels become glides before vowels
-ou -> w / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
-Ou -> W / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
-u -> ɥ / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+ou -> w / _ [::vowel::]
+Ou -> W / _ [::vowel::]
+u -> ɥ / _ [::vowel::]
 % Context where <y> is realized as a vowel
 y -> i / [^#] _
-y -> i / _ [^aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+y -> i / _ [^::vowel::]
 % "Deletion" of <ent> word finally
 ent -> 0 / _ #
 % "Deletion" of <es> word finally
 es -> 0 / _ #
 % Treatment of <er>
 er -> é / _
-g -> ʒ / _ [eéèêëiîïyEÉÈÊËIÎÏY]
-G -> Ʒ / _ [eéèêëiîïyEÉÈÊËIÎÏY]
-e -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ].+ _ #
+g -> ʒ / _ [::front_vowel::]
+G -> Ʒ / _ [::front_vowel::]
+e -> 0 / [::vowel::].+ _ #
 % A strange rule
 ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
 % These rules can be excised if we assume liason:
-d -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-dd -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-g -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-p -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-pp -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-t -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-tt -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-x -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
-s -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+d -> 0 / [::vowel::] _ #
+dd -> 0 / [::vowel::] _ #
+g -> 0 / [::vowel::] _ #
+p -> 0 / [::vowel::] _ #
+pp -> 0 / [::vowel::] _ #
+t -> 0 / [::vowel::] _ #
+tt -> 0 / [::vowel::] _ #
+x -> 0 / [::vowel::] _ #
+s -> 0 / [::vowel::] _ #
 ent -> 0 / . _ #
