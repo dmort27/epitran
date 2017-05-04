@@ -13,8 +13,8 @@ import unicodecsv
 def build_rule(fields):
     try:
         a, b, X, Y = fields
-        b = 0 if not b else b
-        a = 0 if not a else a
+        b = "0" if not b else b
+        a = "0" if not a else a
         return '{} -> {} / {} _ {}'.format(a, b, X, Y)
     except ValueError:
         print('Malformed rule: {}'.format(','.join(fields)))
