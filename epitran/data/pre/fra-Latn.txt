@@ -1,0 +1,54 @@
+j -> ʒ / _
+J -> Ʒ / _
+i -> j / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% Rules to be completed (with tilde)
+a[mn] -> ẫ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+ai[mn] -> ễ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+e[mn] -> ẫ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+ein|im|in|ym|yn -> aî̃ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+eun|un -> œ̃ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+ien -> iễ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+om|on -> õ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+uin|um -> uẽ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+oin -> ouễ / _ #|x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+% Treatment of <l>
+il -> j / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _
+ill -> j / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _
+e -> ɛ / _ x|(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)(b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z)
+x -> ks / _ p|t|k|f|s|ch
+% Treatment of <c> and <s>
+sc -> s / _ [eéèêëiîïyEÉÈÊËIÎÏY]
+Sc -> S / _ [eéèêëiîïyEÉÈÊËIÎÏY]
+c -> s / _ [eéèêëiîïyEÉÈÊËIÎÏY]
+C -> S / _ [eéèêëiîïyEÉÈÊËIÎÏY]
+% Intervocalic voicing of <s>
+s -> z / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% High vowels become glides before vowels
+ou -> w / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+Ou -> W / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+u -> ɥ / _ [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% Context where <y> is realized as a vowel
+y -> i / [^#] _
+y -> i / _ [^aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ]
+% "Deletion" of <ent> word finally
+ent -> 0 / _ #
+% "Deletion" of <es> word finally
+es -> 0 / _ #
+% Treatment of <er>
+er -> é / _
+g -> ʒ / _ [eéèêëiîïyEÉÈÊËIÎÏY]
+G -> Ʒ / _ [eéèêëiîïyEÉÈÊËIÎÏY]
+e -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ].+ _ #
+% A strange rule
+ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
+% These rules can be excised if we assume liason:
+d -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+dd -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+g -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+p -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+pp -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+t -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+tt -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+x -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+s -> 0 / [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ] _ #
+ent -> 0 / . _ #

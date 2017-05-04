@@ -1,0 +1,7 @@
+ti -> t⁀ʃ / _ [aeiou]
+di -> d⁀ʒ / _ [aeiou]
+si -> ʃ / _ [aeiou]
+ni -> nj / _ [aeiou]
+li -> lj / _ [aeiou]
+u -> w / . _ [aeiou]
+i -> j / . _ [aeiou]
