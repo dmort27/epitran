@@ -37,9 +37,9 @@ class Rules(object):
 
     def _read_rule(self, line):
         line = line.strip()
+        line = unicodedata.normalize('NFC', line)
         m = re.match(r'(?P<a>\S+)\s*->\s*(?P<b>\S+)\s*/\s*(?P<X>\S*)\s*[_]\s*(?P<Y>\S*)', line)
         if line and m:
-            line = unicodedata.normalize('NFC', line)
             a, b, X, Y = m.groups()
             X, Y = X.replace('#', '^'), Y.replace('#', '$')
             a = a.replace('0', '')
