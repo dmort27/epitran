@@ -32,7 +32,7 @@ class TestFrench(unittest.TestCase):
         self._derivation('suggérer', 'syɡʒere')
 
     def test_garcon(self):
-        self._derivation('garçon', 'garsɔ̃')
+        self._derivation('garçon', 'ɡarsɔ̃')
 
     def test_jeune(self):
         self._derivation('jeûne', 'ʒøn')
