@@ -3,7 +3,6 @@
 ::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z
 
 j -> ʒ / _
-J -> Ʒ / _
 i -> j / _ [::vowel::]
 % Rules to be completed (with tilde)
 a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
@@ -22,17 +21,14 @@ e -> ɛ / _ x|(::consonant::)(::consonant::)
 x -> ks / _ (p|t|k|f|s|ch)
 % Treatment of <c> and <s>
 sc -> s / _ [::front_vowel::]
-Sc -> S / _ [::front_vowel::]
 c -> s / _ [::front_vowel::]
-C -> S / _ [::front_vowel::]
 % Intervocalic voicing of <s>
 s -> z / [::vowel::] _ [::vowel::]
 % High vowels become glides before vowels
 ou -> w / _ [::vowel::]
-Ou -> W / _ [::vowel::]
 u -> ɥ / _ [::vowel::]
 % Context where <y> is realized as a vowel
-y -> i / [^#] _
+y -> i / . _
 y -> i / _ [^::vowel::]
 % "Deletion" of <ent> word finally
 ent -> 0 / _ #
@@ -41,7 +37,6 @@ es -> 0 / _ #
 % Treatment of <er>
 er -> é / _
 g -> ʒ / _ [::front_vowel::]
-G -> Ʒ / _ [::front_vowel::]
 e -> 0 / [::vowel::].+ _ #
 % A strange rule
 ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
