@@ -1,17 +1,23 @@
-::front_vowel:: = (e|i|y|ä|ö)
-::consonant:: = (b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ŋ|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z)
+::front_vowel:: = e|i|y|ä|ö
+::consonant:: = b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ŋ|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z
+
+% Velar nasals
 gn -> ŋn / . _
 ng -> ŋ / _
-c -> s / _ ::front_vowel::
-g -> j / _ ::front_vowel::
-k -> ɕ / _ ::front_vowel::
-a -> ɐ / _ ::consonant::::consonant::
-e -> ɛ / _ ::consonant::::consonant::
-i -> ɪ / _ ::consonant::::consonant::
-o -> ɔ / _ ::consonant::::consonant::
-u -> ɵ / _ ::consonant::::consonant::
-y -> ʏ / _ ::consonant::::consonant::
-å -> ɔ / _ ::consonant::::consonant::
-ä -> ɛ / _ ::consonant::::consonant::
-ö -> œ / _ ::consonant::::consonant::
+
+% "Palatalization"
+c -> s / _ (::front_vowel::)
+g -> j / _ (::front_vowel::)
+k -> ɕ / _ (::front_vowel::)
+
+% Shortening before double consonants
+a -> ɐ / _ (::consonant::)(::consonant::)
+e -> ɛ / _ (::consonant::)(::consonant::)
+i -> ɪ / _ (::consonant::)(::consonant::)
+o -> ɔ / _ (::consonant::)(::consonant::)
+u -> ɵ / _ (::consonant::)(::consonant::)
+y -> ʏ / _ (::consonant::)(::consonant::)
+å -> ɔ / _ (::consonant::)(::consonant::)
+ä -> ɛ / _ (::consonant::)(::consonant::)
+ö -> œ / _ (::consonant::)(::consonant::)
 é -> e / _

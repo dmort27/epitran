@@ -1,1 +1,2 @@
+% Delete letters that have outlived their usefulness
 ъ -> 0 / _

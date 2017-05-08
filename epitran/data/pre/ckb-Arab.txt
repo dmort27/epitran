@@ -1,3 +1,4 @@
+% Orthographic normalization
 ـ -> 0 / _
 ه‌ -> ە / _
 ک -> ك / _

@@ -1,18 +1,14 @@
 ::vowel:: = aäeioöuü
 ::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z
 
+% Final schwa
 e -> ə / _ #
-I -> Ie / _ #|(::consonant::)[::vowel::]
+
+% Open syllable lengthening
 i -> ie / _ #|(::consonant::)[::vowel::]
-E -> Ee / _ #|(::consonant::)[::vowel::]
 e -> ee / _ #|(::consonant::)[::vowel::]
-Ü -> Üh / _ #|(::consonant::)[::vowel::]
 ü -> üh / _ #|(::consonant::)[::vowel::]
-Ö -> Öo / _ #|(::consonant::)[::vowel::]
 ö -> öo / _ #|(::consonant::)[::vowel::]
-U -> Uh / _ #|(::consonant::)[::vowel::]
 u -> uh / _ #|(::consonant::)[::vowel::]
-O -> Oo / _ #|(::consonant::)[::vowel::]
 o -> oo / _ #|(::consonant::)[::vowel::]
-A -> Aa / _ #|(::consonant::)[::vowel::]
 a -> aa / _ #|(::consonant::)[::vowel::]

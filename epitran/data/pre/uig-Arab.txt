@@ -1,3 +1,4 @@
+% Orthographic normalization
 ـ -> 0 / _
 ‎ -> 0 / _
 ‏ -> 0 / _

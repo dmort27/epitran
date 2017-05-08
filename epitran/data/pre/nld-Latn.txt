@@ -1,21 +1,24 @@
 ::consonant:: = b|d|ch|f|g|h|j|k|l|m|n|p|r|s|t|th|v|w|z
 ::vowel:: = a|e|i|o|u
 
+% Realization of coda <g>/<gh>
 g -> ch / _ #|(::consonant::)
+gh -> ch / _ #|(::consonant::)
+
+% Final stop devoicing
 b -> p / _ #|(::consonant::)
 d -> t / _ #|(::consonant::)
+
+% Contextual pronunciation of <sch>
 sch -> s / _ #|(::consonant::)
+
+% Realization of <c>
 c -> k / _ #
-gh -> ch / _ #|(::consonant::)
 c -> s / _ [eiy]
-C -> S / _ [eiy]
+
+% Open syllable lengthening
 a -> aa / _ #|(::consonant::)(::vowel::)
 e -> ee / _ #|(::consonant::)(::vowel::)
 i -> ii / _ #|(::consonant::)(::vowel::)
 o -> oo / _ #|(::consonant::)(::vowel::)
 u -> uu / _ #|(::consonant::)(::vowel::)
-A -> Aa / _ #|(::consonant::)(::vowel::)
-E -> Ee / _ #|(::consonant::)(::vowel::)
-I -> Ii / _ #|(::consonant::)(::vowel::)
-O -> Oo / _ #|(::consonant::)(::vowel::)
-U -> Uu / _ #|(::consonant::)(::vowel::)
