@@ -1,13 +1,12 @@
-%
 % Reorder Vowel Symbols
 % (?P<sw1>[เแโไใไ])(?P<sw2>[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬฮ])
 (?P<sw1>[เแโไใไ])(?P<sw2>.) -> 0 / _
-%
+
 % Delete tone marks
 [่้๊๋] -> 0 / _
-%
+
 % Convert อ to glottal-stop before a vowel diacritic series
 อ -> ʔ / _ (า|ี|ู|เ|เ็|แ|ื-|ื|เอ|โ|อ|ะ|ิ|ุ|เะ|แะ|ึ|เอะ|โะ|เาะ|ไ|ใ|โ|ั)
-%
+
 % Thanthakhat (cp. Virama)
 .์ -> 0 / _
