@@ -43,14 +43,19 @@ because of licensing restrictions cannot be distributed with Epitran).
     >>> import epitran
     >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 
+It is now possible to use the Epitran class for English and Mandarin
+Chinese (Simplified and Traditional) G2P as well as the other langugages
+that use Epitran's "classic" model. For Chinese, it is necessary to
+point the constructor to a copy of the
+`CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary:
+
 ::
 
-    It is now possible to use the Epitran class for English and Mandarin Chinese (Simplified and Traditional) G2P as well as the other langugages that use Epitran's "classic" model. For Chinese, it is necessary to point the constructor to a copy of the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary:
+    >>> import epitran
+    >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
 
-            import epitran epi = epitran.Epitran('cmn-Hans',
-            cedict\_file='cedict\_1\_0\_ts\_utf-8\_mdbg.txt') The
-            ``Epitran`` class has only one "public" method right now,
-            ``transliterate``:
+The ``Epitran`` class has only one "public" method right now,
+``transliterate``:
 
 Epitran.\ **transliterate**\ (text, normpunc=False, ligatures=False).
 Convert ``text`` (in Unicode-encoded orthography of the language
@@ -108,8 +113,8 @@ Here is an example of an interaction with ``word_to_tuples``:
     >>> epi.word_to_tuples(u'Düğün')
     [(u'L', 1, u'D', u'd', [(u'd', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'g\u0306', u'\u0270', [(u'\u0270', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
 
-Preprocessors and Their Pitfalls
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Preprocessors, postprocessors, and their pitfalls
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In order to build a maintainable orthography to phoneme mapper, it is
 sometimes necessary to employ preprocessors that make contextual
@@ -118,14 +123,14 @@ mapping system that preserves relationships between input and output
 characters. This is particularly true of languages with a poor
 sound-symbols correspondence (like French and English). Languages like
 French are particularly good targets for this approach because the
-pronunication of a given string of letters is highly predictable even
+pronunciation of a given string of letters is highly predictable even
 though the individual symbols often do not map neatly into sounds.
 (Sound-symbol correspondence is so poor in English that effective
 English G2P systems rely heavily on pronouncing dictionaries.)
 
 Preprocessing the inputs words to allow for straightforward
 grapheme-to-phoneme mappings (as is done in the current version of
-``epitran`` for some languages) is advantaeous because the restricted
+``epitran`` for some languages) is advantageous because the restricted
 regular expression language used to write the preprocessing rules is
 more powerful than the language for the mapping rules and allows the
 equivalent of many mapping rules to be written with a single rule.
@@ -142,8 +147,8 @@ other methods that rely on ``Epitran.word_to_tuple`` such as
 ``VectorsWithIPASpace.word_to_segs`` from the ``epitran.vector`` module
 (deprecated).
 
-Using the ``epitran.vector`` Module (deprecated)
-------------------------------------------------
+Using the ``epitran.vector`` Module
+-----------------------------------
 
 The ``epitran.vector`` module is also very simple. It contains one
 class, ``VectorsWithIPASpace``, including one method of interest,
@@ -157,9 +162,10 @@ spaces are listed `below <#language-support>`__.
 
 Its principle method is ``word_to_segs``:
 
-VectorWithIPASpace.\ **word\_to\_segs**\ (word, normpunc=False) Word is
-a Unicode string. If the keyword argument *normpunc* is set to True,
-punctuation disovered in *word* is normalized to ASCII equivalents.
+VectorWithIPASpace.\ **word\_to\_segs**\ (word, normpunc=False).
+``word`` is a Unicode string. If the keyword argument *normpunc* is set
+to True, punctuation disovered in ``word`` is normalized to ASCII
+equivalents.
 
 A typical interaction with the ``VectorsWithIPASpace`` object via the
 ``word_to_segs`` method is illustrated here:
@@ -167,7 +173,7 @@ A typical interaction with the ``VectorsWithIPASpace`` object via the
 ::
 
     >>> import epitran.vector
-    >>> vwis = epitran.vector.VectorsWithIPASpace('uzb-Latn', 'uzb-with_attached_suffixes-space')
+    >>> vwis = epitran.vector.VectorsWithIPASpace('uzb-Latn', ['uzb-Latn'])
     >>> vwis.word_to_segs(u'darë')
     [(u'L', 0, u'd', u'd\u032a', u'40', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'a', u'a', u'37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'r', u'r', u'54', [-1, 1, 1, 1, 0, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 0, 0, 0, -1, 0, -1]), (u'L', 0, u'e\u0308', u'ja', u'46', [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, 1, -1, -1, -1, 0, -1]), (u'L', 0, u'e\u0308', u'ja', u'37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1])]
 
@@ -341,13 +347,17 @@ Language "Spaces"
 +------------------+------------+----------------------------------------+
 | Code             | Language   | Note                                   |
 +==================+============+========================================+
+| amh-Ethi         | Amharic    |                                        |
++------------------+------------+----------------------------------------+
 | deu-Latn         | German     |                                        |
++------------------+------------+----------------------------------------+
+| eng-Latn         | English    |                                        |
 +------------------+------------+----------------------------------------+
 | nld-Latn         | Dutch      |                                        |
 +------------------+------------+----------------------------------------+
 | spa-Latn         | Spanish    |                                        |
 +------------------+------------+----------------------------------------+
-| tur-Latn-suf     | Turkish    | Based on data with suffixes attached   |
+| tur-Latn         | Turkish    | Based on data with suffixes attached   |
 +------------------+------------+----------------------------------------+
 | tur-Latn-nosuf   | Turkish    | Based on data with suffixes removed    |
 +------------------+------------+----------------------------------------+
@@ -456,10 +466,11 @@ Map files (mapping tables)
 
 The map files are simple, two-column files where the first column
 contains the orthgraphic characters/sequences and the second column
-contains the phonetic characters/sequences. For many languages (most
-languages with unambiguous, phonemically adequate orthographies) just
-this easy-to-produce mapping file is adequate to produce a serviceable
-G2P system.
+contains the phonetic characters/sequences. The two columns are
+separated by a comma; each row is terminated by a newline. For many
+languages (most languages with unambiguous, phonemically adequate
+orthographies) just this easy-to-produce mapping file is adequate to
+produce a serviceable G2P system.
 
 The first row is a header and is discarded. For consistency, it should
 contain the fields "Orth" and "Phon". The following rows by consist of
@@ -492,62 +503,103 @@ easy-to-understand and easy-to-maintain mapping files carry most of the
 weight of conversion and reserve the more powerful context sensitive
 grammar formalism for pre- and post-processing.
 
-To make it easy to edit the files in a spreadsheet (like LibreOffice
-Calc), the files are formatted as CSV. Of course, they can be edited in
-text editor as well. The first row is a header, which should have the
-fields "a", "b", "X", and "Y", corresponding to the parts of "a → b / X
-\_ Y", which can be read as "a is rewritten as b in the context between
-X and Y". It is equivalent to XaY → XbY. Each subsequent row is a rule
-in this format. The symbol "#" matches a word-boundary (at the beginning
-and end of a word-length token). For example, a rule that changes "e" to
-"ə" at the end of a word, for use in a postprocessor, would have the
-following form:
+The preprocessor and postprocessor files have the same format. They
+consist of a sequence of lines, each consisting of one of four types:
+
+1. Symbol definitions
+2. Context-sensitive rewrite rules
+3. Comments
+4. Blank lines
+
+Symbol definitions
+^^^^^^^^^^^^^^^^^^
+
+Lines like the following
 
 ::
 
-    e,ə,,#
+    ::vowels:: = a|e|i|o|u
 
-Which corresponds to:
+define symbols that can be reused in writing rules. Symbols must consist
+of a prefix of two colons, a sequence of one or more lowercase letters
+and underscores, and a suffix of two colons. The are separated from
+their definitions by the equals sign (optionally set off with white
+space). The definition consists of a substring from a regular
+expression.
+
+Symbols must be defined before they are referenced.
+
+Rewrite rules
+^^^^^^^^^^^^^
+
+Context-sensitive rewrite rules in Epitran are written in a format
+familiar to phonologists but transparent to computer scientists. They
+can be schematized as
 
 ::
 
-    e → ə / _ #
+    a -> b / X _ Y
+
+which can be rewitten as
+
+::
+
+    XaY → XbY
+
+The arrow ``->`` can be read as "is rewritten by" and the slash ``/``
+can be read as "in the context". The underscore indicates the position
+of the symbol(s) being rewritten. Another special symbol is the
+octothorp ``#``, which indicates the beginning or end of a (word length)
+string (a word boundary). Consider the following rule:\ ```` e -> ə / \_
+#
+
+::
+
+    This rule can be read as "/e/ is rewritten as /ə/ in the context at the end of the word." A final special symbol is zero `0`, which represents the empty string. It is used in rules that insert or delete segments. Consider the following rule that deletes /ə/ between /k/ and /l/:
+
+ə　-> 0 / k \_ l
+
+::
+
+
+    All rules must include the arrow operator, the slash operator, and the underscore. A rule that applies in a context-free fashion can be written in the following way:
+
+ch -> x / \_
+
+::
+
+    The implementation of context-sensitive rules in Epitran pre- and post-processors uses regular expression replacement. Specifically, it employs the `regex` package, a drop-in replacement for `re`. Because of this, regular expression notation can be used in writing rules:
+
+c -> s / \_ [ie]
+
+::
+
+    of
+
+c -> s / \_ (i\|e)
+
+::
+
+    Fragments of regular expressions can be assigned to symbols and reused throughout a file. For example, symbol for the disjunction of vowels in a language can be used in a rule that changes /u/ into /w/ before vowels:
+
+::vowels:: = a\|e\|i\|o\|u ... u -> w / \_ (::vowels::)
+
+::
+
+    There is a special construct for handling cases of metathesis (where "AB" is replaced with "BA"). For example, the rule:
+
+(?P[เแโไใไ])(?P.) -> / \_ \`\`\` Will "swap" the positions of any
+character in "เแโไใไ" and any following character.
 
 The rules apply in order, so earlier rules may "feed" and "bleed" later
 rules. Therefore, their sequence is *very important* and can be
 leveraged in order to achieve valuable results.
 
-All of the fields are strings (of zero or more characters). If "a" is
-the empty string, the rule will insert "b" in the environment between
-"X" and "Y". If "b" is the empty string, the rule will delete "a" in the
-environment betwee "X" and "Y". It is sometimes useful to write rules
-that insert custom symbols that trigger (or prevent the triggering of)
-subsequent rules (and which are subsequently deleted). By convention,
-these symbols consist of lowercase characters enclosed in angle brackets
-("<" and ">").
+Comments and blank lines
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-The strings are combined to form a regular expression using the python
-``regex`` module (a drop-in replacement for the ``re`` module). Because
-of this, it is possible to use most regex notation in the strings. For
-example, to replace "a" with "aa" before "b", "d", or "g', one would use
-the following rule:
-
-::
-
-    a,aa,,(b|d|g)
-
-or, less optimally:
-
-::
-
-    a,aa,,[bdg]
-
-There is a special construct for handling cases of metathesis (where
-"AB" is replaced with "BA"). For example, the rule:
-
-::
-
-    (?P<sw1>[เแโไใไ])(?P<sw2>.),,,
-
-Will "swap" the positions of any character in "เแโไใไ" and any following
-character.
+Comments and blank lines (lines consisting only of white space) are
+allowed to make your code more readable. Any line in which the first
+non-whitespace character is a percent sign ``%`` is interpreted as
+comment. The rest of the line is ignored when the file is interpreted.
+Blank lines are also ignored.
