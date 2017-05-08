@@ -13,7 +13,7 @@ def map_slice(xs, start, end):
 class TestTurkish(unittest.TestCase):
     def setUp(self):
         self.vwis = vector.VectorsWithIPASpace('tur-Latn',
-                                               'tur-Latn')
+                                               ['tur-Latn'])
 
     def test_punc(self):
         punc_words = [u'"', u"'", u'.', u',', u':', u';', u"‘", u"’", u"”", u"“", u"，"]
@@ -81,7 +81,7 @@ class TestTurkish(unittest.TestCase):
 class TestUzbek(unittest.TestCase):
     def setUp(self):
         self.vwis = vector.VectorsWithIPASpace('uzb-Latn',
-                                               'uzb-Latn')
+                                               ['uzb-Latn'])
 
     def test_apostrophe_letter(self):
         target = [(u'L', 0, u'ʼ', u'ʔ')]
