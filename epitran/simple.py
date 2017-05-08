@@ -227,7 +227,7 @@ class SimpleEpitran(object):
                 return None
 
         def vec2bin(vec):
-            return map(recode_ft, vec)
+            return list(map(recode_ft, vec))
 
         def to_vector(seg):
             return seg, vec2bin(self.ft.segment_to_vector(seg))
