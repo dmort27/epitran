@@ -546,7 +546,7 @@ which can be rewitten as
 
     XaY → XbY
 
-The arrow ``->`` can be read as "is rewritten by" and the slash ``/``
+The arrow ``->`` can be read as "is rewritten as" and the slash ``/``
 can be read as "in the context". The underscore indicates the position
 of the symbol(s) being rewritten. Another special symbol is the
 octothorp ``#``, which indicates the beginning or end of a (word length)
@@ -580,6 +580,8 @@ c -> s / \_ (i\|e)
 
 ::
 
+    For a complete guide to `regex` regular expressions, see the documentation for [`re`](https://docs.python.org/2/library/re.html) and for [`regex`](https://pypi.python.org/pypi/regex), specifically.
+
     Fragments of regular expressions can be assigned to symbols and reused throughout a file. For example, symbol for the disjunction of vowels in a language can be used in a rule that changes /u/ into /w/ before vowels:
 
 ::vowels:: = a\|e\|i\|o\|u ... u -> w / \_ (::vowels::)
@@ -588,8 +590,10 @@ c -> s / \_ (i\|e)
 
     There is a special construct for handling cases of metathesis (where "AB" is replaced with "BA"). For example, the rule:
 
-(?P[เแโไใไ])(?P.) -> / \_ \`\`\` Will "swap" the positions of any
-character in "เแโไใไ" and any following character.
+(?P[เแโไใไ])(?P.) -> / \_
+\`\`\ ``Will "swap" the positions of any character in "เแโไใไ" and any following character. Left of the arrow, there should be two groups (surrounded by parentheses) with the names``\ sw1\ ``and``\ sw2\ ``(a name for a group is specified by``?P\ ``appearing immediately after the open parenthesis for a group. The substrings matched by the two groups,``\ sw1\ ``and``\ sw2\`
+will be "swapped" or metathesized. The item immediately right of the
+arrow is ignored, but the context is not.
 
 The rules apply in order, so earlier rules may "feed" and "bleed" later
 rules. Therefore, their sequence is *very important* and can be
