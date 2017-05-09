@@ -295,7 +295,7 @@ The implementation of context-sensitive rules in Epitran pre- and post-processor
 ```
 c -> s / _ [ie]
 ```
-of
+or
 ```
 c -> s / _ (i|e)
 ```
