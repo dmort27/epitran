@@ -199,6 +199,7 @@ A few notes are in order regarding this data structure:
 | zul-Latn    | Zulu                   |
 
 *These language preprocessors and maps naively assume a phonemic orthography.
+
 **English G2P requires the installation of the CMU Flite speech synthesis system.
 
 ### Language "Spaces"
