@@ -20,24 +20,36 @@ Its constructor takes one argument, `code`, the ISO 639-3 code of the language t
 * `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ".
 * `cedict_file` gives the path to the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary file (relevant only when working with Mandarin Chinese and which, because of licensing restrictions cannot be distributed with Epitran).
 
-```
+
+```python
 >>> import epitran
 >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 ```
+
+
+
 It is now possible to use the Epitran class for English and Mandarin Chinese (Simplified and Traditional) G2P as well as the other langugages that use Epitran's "classic" model. For Chinese, it is necessary to point the constructor to a copy of the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary:
-```
+
+
+```python
 >>> import epitran
 >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
 ```
+
+
 The `Epitran` class has only one "public" method right now, `transliterate`:
 
 Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned. `normpunc` enables punctuation normalization and `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below:
-```
+
+
+```python
 >>> epi.transliterate(u'Düğün')
 u'dy\u0270yn'
 >>> print(epi.transliterate(u'Düğün'))
 dyɰyn
 ```
+
+
 Epitran.**word_to_tuples**(word, normpunc=False):
 Takes a `word` (a Unicode string) in a supported orthography as input and returns a list of tuples with each tuple corresponding to an IPA segment of the word. The tuples have the following structure:
 ```
@@ -61,12 +73,15 @@ The codes for `character_category` are from the initial characters of the two ch
 ```
 
 Here is an example of an interaction with ```word_to_tuples```:
-```
+
+
+```python
 >>> import epitran
 >>> epi = epitran.Epitran('tur-Latn')
 >>> epi.word_to_tuples(u'Düğün')
 [(u'L', 1, u'D', u'd', [(u'd', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'g\u0306', u'\u0270', [(u'\u0270', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
 ```
+
 
 ### Preprocessors, postprocessors, and their pitfalls
 
@@ -88,12 +103,16 @@ VectorWithIPASpace.**word_to_segs**(word, normpunc=False). `word` is a Unicode s
 
 
 A typical interaction with the ```VectorsWithIPASpace``` object via the ```word_to_segs``` method is illustrated here:
-```
+
+
+```python
 >>> import epitran.vector
 >>> vwis = epitran.vector.VectorsWithIPASpace('uzb-Latn', ['uzb-Latn'])
 >>> vwis.word_to_segs(u'darë')
 [(u'L', 0, u'd', u'd\u032a', u'40', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'a', u'a', u'37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'r', u'r', u'54', [-1, 1, 1, 1, 0, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 0, 0, 0, -1, 0, -1]), (u'L', 0, u'e\u0308', u'ja', u'46', [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, 1, -1, -1, -1, 0, -1]), (u'L', 0, u'e\u0308', u'ja', u'37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1])]
 ```
+
+
 (It is important to note that, though the word that serves as input--*darë*--has four letters, the output contains four tuples because the last letter in *darë* actually corresponds to two IPA segments, /j/ and /a/.) The returned data structure is a list of tuples, each with the following structure:
 
 ```
@@ -203,7 +222,8 @@ For use with most languages, Epitran requires no special installation steps. It 
 
 The `epitran.flite` module shells out to the `flite` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. The `t2p` binary from `flite` is not installed by default and must be manually copied into the path. An illustration of how this can be done on a Unix-like system is given below. Note that GNU `gmake` is required and that, if you have another `make` installed, you may have to call `gmake` explicitly:
 
-```
+
+```bash
 $ tar xjf flite-2.0.0-release.tar.bz2
 $ cd flite-2.0.0-release/
 $ ./configure && make
@@ -211,12 +231,15 @@ $ sudo make install
 $ sudo cp bin/t2p /usr/local/bin
 ```
 
+
 You should adapt these instructions to local conditions. Installation on Windows is easiest when using Cygwin. You will have to use your discretion in deciding where to put `t2p.exe` on Windows, since this may depend on your python setup. Other platforms are likely workable but have not been tested.
 
 ### `lex_lookup`
 
 `t2p` does not behave as expected on letter sequences that are highly infrequent in English. In such cases, `t2p` gives the pronunciation of the English letters of the name, rather than an attempt at the pronunciation of the name. There is a different binary included in the most recent (pre-release) versions of Flite that behaves better in this regard, but takes some extra effort to install. To install, you need to obtain at least version [2.0.5](http://tts.speech.cs.cmu.edu/awb/flite-2.0.5-current.tar.bz2) of Flite. Untar and compile the source, following the steps below, adjusting where appropriate for your system:
-```
+
+
+```bash
 $ tar xjf flite-2.0.5-current.tar.bz2
 $ cd flite-2.0.5-current
 $ ./configure && make
@@ -226,16 +249,21 @@ $ make lex_lookup
 $ sudo cp lex_lookup /usr/local/bin
 ```
 
+
 When installing on MacOS and other systems that use a BSD version of `cp`, some modification to a Makefile must be made in order to install flite-2.0.5 (between steps 3 and 4). Edit `main/Makefile` and change both instances of `cp -pd` to `cp -pR`. Then resume the steps above at step 4.
 
 ### Usage
 
 To use `lex_lookup`, simply instantiate Epitran as usual, but with the `code` set to 'eng-Latn':
 
-    >>> import epitran
-    >>> epi = epitran.Epitran('eng-Latn')
-    >>> print epi.transliterate(u'Berkeley')
-    bɹ̩kli
+
+```python
+>>> import epitran
+>>> epi = epitran.Epitran('eng-Latn')
+>>> print epi.transliterate(u'Berkeley')
+bɹ̩kli
+```
+
 
 ## Extending Epitran with map files, preprocessors and postprocessors
 
@@ -261,9 +289,13 @@ The preprocessor and postprocessor files have the same format. They consist of a
 #### Symbol definitions
 
 Lines like the following
+
+
 ```
 ::vowels:: = a|e|i|o|u
 ```
+
+
 define symbols that can be reused in writing rules. Symbols must consist of a prefix of two colons, a sequence of one or more lowercase letters and underscores, and a suffix of two colons. The are separated from their definitions by the equals sign (optionally set off with white space). The definition consists of a substring from a regular expression.
 
 Symbols must be defined before they are referenced.
@@ -271,46 +303,81 @@ Symbols must be defined before they are referenced.
 #### Rewrite rules
 
 Context-sensitive rewrite rules in Epitran are written in a format familiar to phonologists but transparent to computer scientists. They can be schematized as
+
+
 ```
 a -> b / X _ Y
 ```
+
+
 which can be rewitten as
+
+
 ```
 XaY → XbY
 ```
-The arrow `->` can be read as "is rewritten as" and the slash `/` can be read as "in the context". The underscore indicates the position of the symbol(s) being rewritten. Another special symbol is the octothorp `#`, which indicates the beginning or end of a (word length) string (a word boundary). Consider the following rule:```
+
+
+The arrow `->` can be read as "is rewritten as" and the slash `/` can be read as "in the context". The underscore indicates the position of the symbol(s) being rewritten. Another special symbol is the octothorp `#`, which indicates the beginning or end of a (word length) string (a word boundary). Consider the following rule:
+
+
 ```
 e -> ə / _ #
 ```
+
+
 This rule can be read as "/e/ is rewritten as /ə/ in the context at the end of the word." A final special symbol is zero `0`, which represents the empty string. It is used in rules that insert or delete segments. Consider the following rule that deletes /ə/ between /k/ and /l/:
+
+
 ```
 ə　-> 0 / k _ l
 ```
 
+
 All rules must include the arrow operator, the slash operator, and the underscore. A rule that applies in a context-free fashion can be written in the following way:
+
+
 ```
 ch -> x / _
 ```
+
+
 The implementation of context-sensitive rules in Epitran pre- and post-processors uses regular expression replacement. Specifically, it employs the `regex` package, a drop-in replacement for `re`. Because of this, regular expression notation can be used in writing rules:
+
+
 ```
 c -> s / _ [ie]
 ```
+
+
 or
+
+
 ```
 c -> s / _ (i|e)
 ```
+
+
 For a complete guide to `regex` regular expressions, see the documentation for [`re`](https://docs.python.org/2/library/re.html) and for [`regex`](https://pypi.python.org/pypi/regex), specifically.
 
 Fragments of regular expressions can be assigned to symbols and reused throughout a file. For example, symbol for the disjunction of vowels in a language can be used in a rule that changes /u/ into /w/ before vowels:
+
+
 ```
 ::vowels:: = a|e|i|o|u
 ...
 u -> w / _ (::vowels::)
 ```
+
+
 There is a special construct for handling cases of metathesis (where "AB" is replaced with "BA"). For example, the rule:
+
+
 ```
 (?P<sw1>[เแโไใไ])(?P<sw2>.) -> / _
 ```
+
+
 Will "swap" the positions of any character in "เแโไใไ" and any following character. Left of the arrow, there should be two groups (surrounded by parentheses) with the names `sw1` and `sw2` (a name for a group is specified by `?P<name>` appearing immediately after the open parenthesis for a group. The substrings matched by the two groups, `sw1` and `sw2` will be "swapped" or metathesized. The item immediately right of the arrow is ignored, but the context is not.
 
 The rules apply in order, so earlier rules may "feed" and "bleed" later rules. Therefore, their sequence is *very important* and can be leveraged in order to achieve valuable results.
