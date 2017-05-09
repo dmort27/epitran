@@ -89,7 +89,7 @@ In order to build a maintainable orthography to phoneme mapper, it is sometimes 
 
 Preprocessing the inputs words to allow for straightforward grapheme-to-phoneme mappings (as is done in the current version of ```epitran``` for some languages) is advantageous because the restricted regular expression language used to write the preprocessing rules is more powerful than the language for the mapping rules and allows the equivalent of many mapping rules to be written with a single rule. Without them, providing ```epitran``` support for languages like French and German would not be practical. However, they do present some problems. Specifically, when using a language with a preprocessor, one **must** be aware that the input word will not always be identical to the concatenation of the orthographic strings (```orthographic_form```) output by ```Epitran.word_to_tuples```. Instead, the output of ```word_to_tuple``` will reflect the output of the preprocessor, which may delete, insert, and change letters in order to allow direct orthography-to-phoneme mapping at the next step. The same is true of other methods that rely on ```Epitran.word_to_tuple``` such as ```VectorsWithIPASpace.word_to_segs``` from the ```epitran.vector``` module.
 
-For information on writing new pre- and post-processors, see the section on "[Extending Epitran with map files, preprocessors and postprocessors](extending-epitran-with-map-files-preprocessors-and-postprocessors)", below.
+For information on writing new pre- and post-processors, see the section on "[Extending Epitran with map files, preprocessors and postprocessors](#extending-epitran)", below.
 
 ## Using the ```epitran.vector``` Module
 
@@ -267,7 +267,7 @@ bɹ̩kli
 ```
 
 
-## Extending Epitran with map files, preprocessors and postprocessors
+## <a name='extending-epitran'></a>Extending Epitran with map files, preprocessors and postprocessors
 
 Language support in Epitran is provided through map files, which define mappings between orthographic and phonetic units, preprocessors that run before the map is applied, and postprocessors that run after the map is applied. These are all defined in UTF8-encoded, comma-delimited value (CSV) files. The files are each named <iso639>-<iso15924>.csv where <iso639> is the (three letter, all lowercase) ISO 639-3 code for the language and <iso15924> is the (four letter, capitalized) ISO 15924 code for the script. These files reside in the `data` directory of the Epitran installation under the `map`, `pre`, and `post` subdirectories, respectively.
 
