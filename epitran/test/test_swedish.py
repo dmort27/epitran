@@ -13,4 +13,12 @@ class TestSwedish(unittest.TestCase):
 
     def test_rattstafning(self):
         tr = self.epi.transliterate('rättstafning')
-        self.assertEqual(tr, 'rɛttstɐfniːŋ')
+        self.assertEqual(tr, 'rɛttstɐfnɪŋ')
+
+    def test_stjarna(self):
+        tr = self.epi.transliterate('stjärna')
+        self.assertEqual(tr, 'ɧɛrnɑː')
+
+    def test_stjal(self):
+        tr = self.epi.transliterate('stjäl')
+        self.assertEqual(tr, 'ɧɛːl')

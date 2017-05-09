@@ -198,11 +198,11 @@ A few notes are in order regarding this data structure:
 | yor-Latn    | Yoruba                  |
 | zul-Latn    | Zulu                    |
 
-\*Chinese G2P requires the freely available CC-CEDict dictionary.
+\*Chinese G2P requires the freely available [CC-CEDict](https://cc-cedict.org/wiki/) dictionary.
 
 †These language preprocessors and maps naively assume a phonemic orthography.
 
-‡English G2P requires the installation of the CMU Flite speech synthesis system.
+‡English G2P requires the installation of the freely available [CMU Flite](http://tts.speech.cs.cmu.edu/awb/flite-2.0.5-current.tar.bz2) speech synthesis system.
 
 ### Language "Spaces"
 

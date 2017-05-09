@@ -1,9 +1,5 @@
 ::front_vowel:: = e|i|y|ä|ö
-::consonant:: = b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|ŋ|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z
-
-% Velar nasals
-gn -> ŋn / . _
-ng -> ŋ / _
+::consonant:: = b|c|ch|d|dj|f|g|gj|gn|h|hj|j|k|kj|l|lj|m|n|p|r|s|sj|sk|skj|stj|t|tj|v|w|x|z
 
 % "Palatalization"
 c -> s / _ (::front_vowel::)
@@ -21,3 +17,7 @@ y -> ʏ / _ (::consonant::)(::consonant::)
 ä -> ɛ / _ (::consonant::)(::consonant::)
 ö -> œ / _ (::consonant::)(::consonant::)
 é -> e / _
+
+% Velar nasals
+gn -> ŋn / . _
+ng -> ŋ / _
