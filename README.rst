@@ -38,7 +38,7 @@ the path to the `CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary
 file (relevant only when working with Mandarin Chinese and which,
 because of licensing restrictions cannot be distributed with Epitran).
 
-::
+.. code:: python
 
     >>> import epitran
     >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
@@ -49,7 +49,7 @@ that use Epitran's "classic" model. For Chinese, it is necessary to
 point the constructor to a copy of the
 `CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary:
 
-::
+.. code:: python
 
     >>> import epitran
     >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
@@ -61,9 +61,9 @@ Epitran.\ **transliterate**\ (text, normpunc=False, ligatures=False).
 Convert ``text`` (in Unicode-encoded orthography of the language
 specified in the constructor) to IPA, which is returned. ``normpunc``
 enables punctuation normalization and ``ligatures`` enables non-standard
-IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below:
+IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 3):
 
-::
+.. code:: python
 
     >>> epi.transliterate(u'Düğün')
     u'dy\u0270yn'
@@ -106,7 +106,7 @@ follows:
 
 Here is an example of an interaction with ``word_to_tuples``:
 
-::
+.. code:: python
 
     >>> import epitran
     >>> epi = epitran.Epitran('tur-Latn')
@@ -144,8 +144,12 @@ output by ``Epitran.word_to_tuples``. Instead, the output of
 delete, insert, and change letters in order to allow direct
 orthography-to-phoneme mapping at the next step. The same is true of
 other methods that rely on ``Epitran.word_to_tuple`` such as
-``VectorsWithIPASpace.word_to_segs`` from the ``epitran.vector`` module
-(deprecated).
+``VectorsWithIPASpace.word_to_segs`` from the ``epitran.vector`` module.
+
+For information on writing new pre- and post-processors, see the section
+on "`Extending Epitran with map files, preprocessors and
+postprocessors <extending-epitran-with-map-files-preprocessors-and-postprocessors>`__\ ",
+below.
 
 Using the ``epitran.vector`` Module
 -----------------------------------
@@ -170,7 +174,7 @@ equivalents.
 A typical interaction with the ``VectorsWithIPASpace`` object via the
 ``word_to_segs`` method is illustrated here:
 
-::
+.. code:: python
 
     >>> import epitran.vector
     >>> vwis = epitran.vector.VectorsWithIPASpace('uzb-Latn', ['uzb-Latn'])
@@ -391,7 +395,7 @@ illustration of how this can be done on a Unix-like system is given
 below. Note that GNU ``gmake`` is required and that, if you have another
 ``make`` installed, you may have to call ``gmake`` explicitly:
 
-::
+.. code:: bash
 
     $ tar xjf flite-2.0.0-release.tar.bz2
     $ cd flite-2.0.0-release/
@@ -419,7 +423,7 @@ obtain at least version
 of Flite. Untar and compile the source, following the steps below,
 adjusting where appropriate for your system:
 
-::
+.. code:: bash
 
     $ tar xjf flite-2.0.5-current.tar.bz2
     $ cd flite-2.0.5-current
@@ -441,7 +445,7 @@ Usage
 To use ``lex_lookup``, simply instantiate Epitran as usual, but with the
 ``code`` set to 'eng-Latn':
 
-::
+.. code:: python
 
     >>> import epitran
     >>> epi = epitran.Epitran('eng-Latn')
@@ -550,50 +554,74 @@ The arrow ``->`` can be read as "is rewritten as" and the slash ``/``
 can be read as "in the context". The underscore indicates the position
 of the symbol(s) being rewritten. Another special symbol is the
 octothorp ``#``, which indicates the beginning or end of a (word length)
-string (a word boundary). Consider the following rule:\ ```` e -> ə / \_
-#
+string (a word boundary). Consider the following rule:
 
 ::
 
-    This rule can be read as "/e/ is rewritten as /ə/ in the context at the end of the word." A final special symbol is zero `0`, which represents the empty string. It is used in rules that insert or delete segments. Consider the following rule that deletes /ə/ between /k/ and /l/:
+    e -> ə / _ #
 
-ə　-> 0 / k \_ l
-
-::
-
-
-    All rules must include the arrow operator, the slash operator, and the underscore. A rule that applies in a context-free fashion can be written in the following way:
-
-ch -> x / \_
+This rule can be read as "/e/ is rewritten as /ə/ in the context at the
+end of the word." A final special symbol is zero ``0``, which represents
+the empty string. It is used in rules that insert or delete segments.
+Consider the following rule that deletes /ə/ between /k/ and /l/:
 
 ::
 
-    The implementation of context-sensitive rules in Epitran pre- and post-processors uses regular expression replacement. Specifically, it employs the `regex` package, a drop-in replacement for `re`. Because of this, regular expression notation can be used in writing rules:
+    ə　-> 0 / k _ l
 
-c -> s / \_ [ie]
-
-::
-
-    or
-
-c -> s / \_ (i\|e)
+All rules must include the arrow operator, the slash operator, and the
+underscore. A rule that applies in a context-free fashion can be written
+in the following way:
 
 ::
 
-    For a complete guide to `regex` regular expressions, see the documentation for [`re`](https://docs.python.org/2/library/re.html) and for [`regex`](https://pypi.python.org/pypi/regex), specifically.
+    ch -> x / _
 
-    Fragments of regular expressions can be assigned to symbols and reused throughout a file. For example, symbol for the disjunction of vowels in a language can be used in a rule that changes /u/ into /w/ before vowels:
-
-::vowels:: = a\|e\|i\|o\|u ... u -> w / \_ (::vowels::)
+The implementation of context-sensitive rules in Epitran pre- and
+post-processors uses regular expression replacement. Specifically, it
+employs the ``regex`` package, a drop-in replacement for ``re``. Because
+of this, regular expression notation can be used in writing rules:
 
 ::
 
-    There is a special construct for handling cases of metathesis (where "AB" is replaced with "BA"). For example, the rule:
+    c -> s / _ [ie]
 
-(?P[เแโไใไ])(?P.) -> / \_
-\`\`\ ``Will "swap" the positions of any character in "เแโไใไ" and any following character. Left of the arrow, there should be two groups (surrounded by parentheses) with the names``\ sw1\ ``and``\ sw2\ ``(a name for a group is specified by``?P\ ``appearing immediately after the open parenthesis for a group. The substrings matched by the two groups,``\ sw1\ ``and``\ sw2\`
-will be "swapped" or metathesized. The item immediately right of the
-arrow is ignored, but the context is not.
+or
+
+::
+
+    c -> s / _ (i|e)
+
+For a complete guide to ``regex`` regular expressions, see the
+documentation for ```re`` <https://docs.python.org/2/library/re.html>`__
+and for ```regex`` <https://pypi.python.org/pypi/regex>`__,
+specifically.
+
+Fragments of regular expressions can be assigned to symbols and reused
+throughout a file. For example, symbol for the disjunction of vowels in
+a language can be used in a rule that changes /u/ into /w/ before
+vowels:
+
+::
+
+    ::vowels:: = a|e|i|o|u
+    ...
+    u -> w / _ (::vowels::)
+
+There is a special construct for handling cases of metathesis (where
+"AB" is replaced with "BA"). For example, the rule:
+
+::
+
+    (?P<sw1>[เแโไใไ])(?P<sw2>.) -> / _
+
+Will "swap" the positions of any character in "เแโไใไ" and any following
+character. Left of the arrow, there should be two groups (surrounded by
+parentheses) with the names ``sw1`` and ``sw2`` (a name for a group is
+specified by ``?P<name>`` appearing immediately after the open
+parenthesis for a group. The substrings matched by the two groups,
+``sw1`` and ``sw2`` will be "swapped" or metathesized. The item
+immediately right of the arrow is ignored, but the context is not.
 
 The rules apply in order, so earlier rules may "feed" and "bleed" later
 rules. Therefore, their sequence is *very important* and can be
