@@ -139,67 +139,70 @@ A few notes are in order regarding this data structure:
 
 ### Transliteration Language/Script Pairs
 
-| Code        | Language (Script)      |
-|-------------|------------------------|
-| aar-Latn    | Afar                   |
-| amh-Ethi    | Amharic                |
-| aze-Cyrl    | Azerbaijani (Cyrillic) |
-| aze-Latn    | Azerbaijani (Latin)    |
-| ben-Beng    | Bengali                |
-| ceb-Latn    | Cebuano                |
-| cmn-Hans    | Mandarin (Simplified)  |
-| cmn-Hant    | Mandarin (Traditional) |
-| ckb-Arab    | Sorani                 |
-| deu-Latn    | German                 |
-| deu-Latn-np | German*                |
-| eng-Latn    | English**              |
-| fas-Arab    | Farsi (Perso-Arabic)   |
-| fra-Latn    | French                 |
-| fra-Latn-np | French*                |
-| hau-Latn    | Hausa                  |
-| hin-Deva    | Hindi                  |
-| hun-Latn    | Hungarian              |
-| ilo-Latn    | Ilocano                |
-| ind-Latn    | Indonesian             |
-| ita-Latn    | Italian                |
-| jav-Latn    | Javanese               |
-| kaz-Cyrl    | Kazakh (Cyrillic)      |
-| kaz-Latn    | Kazakh (Latin)         |
-| kin-Latn    | Kinyarwanda            |
-| kir-Arab    | Kyrgyz (Perso-Arabic)  |
-| kir-Cyrl    | Kyrgyz (Cyrillic)      |
-| kir-Latn    | Kyrgyz (Latin)         |
-| krm-Latn    | Kurmanji               |
-| mar-Deva    | Marathi                |
-| nld-Latn    | Dutch                  |
-| nya-Latn    | Chichewa               |
-| orm-Latn    | Oromo                  |
-| pan-Guru    | Punjabi (Eastern)      |
-| rus-Cyrl    | Russian                |
-| sna-Latn    | Shona                  |
-| som-Latn    | Somali                 |
-| spa-Latn    | Spanish                |
-| swa-Latn    | Swahili                |
-| swe-Latn    | Swedish                |
-| tam-Taml    | Tamil                  |
-| tel-Telu    | Telugu                 |
-| tgk-Cyrl    | Tajik                  |
-| tgl-Latn    | Tagalog                |
-| tha-Thai    | Thai                   |
-| tir-Ethi    | Tigrinya               |
-| tuk-Cyrl    | Turkmen (Cyrillic)     |
-| tuk-Latn    | Turkmen (Latin)        |
-| tur-Latn    | Turkish (Latin)        |
-| uig-Arab    | Uyghur (Perso-Arabic)  |
-| uzb-Cyrl    | Uzbek (Cyrillic)       |
-| uzb-Latn    | Uzbek (Latin)          |
-| vie-Latn    | Vietnamese             |
-| xho-Latn    | Xhosa                  |
-| yor-Latn    | Yoruba                 |
-| zul-Latn    | Zulu                   |
+| Code        | Language (Script)       |
+|-------------|-------------------------|
+| aar-Latn    | Afar                    |
+| amh-Ethi    | Amharic                 |
+| aze-Cyrl    | Azerbaijani (Cyrillic)  |
+| aze-Latn    | Azerbaijani (Latin)     |
+| ben-Beng    | Bengali                 |
+| ceb-Latn    | Cebuano                 |
+| cmn-Hans    | Mandarin (Simplified)\* |
+| cmn-Hant    | Mandarin (Traditional)\*|
+| ckb-Arab    | Sorani                  |
+| deu-Latn    | German                  |
+| deu-Latn-np | German†                 |
+| eng-Latn    | English‡                |
+| fas-Arab    | Farsi (Perso-Arabic)    |
+| fra-Latn    | French                  |
+| fra-Latn-np | French†                 |
+| hau-Latn    | Hausa                   |
+| hin-Deva    | Hindi                   |
+| hun-Latn    | Hungarian               |
+| ilo-Latn    | Ilocano                 |
+| ind-Latn    | Indonesian              |
+| ita-Latn    | Italian                 |
+| jav-Latn    | Javanese                |
+| kaz-Cyrl    | Kazakh (Cyrillic)       |
+| kaz-Latn    | Kazakh (Latin)          |
+| kin-Latn    | Kinyarwanda             |
+| kir-Arab    | Kyrgyz (Perso-Arabic)   |
+| kir-Cyrl    | Kyrgyz (Cyrillic)       |
+| kir-Latn    | Kyrgyz (Latin)          |
+| krm-Latn    | Kurmanji                |
+| mar-Deva    | Marathi                 |
+| nld-Latn    | Dutch                   |
+| nya-Latn    | Chichewa                |
+| orm-Latn    | Oromo                   |
+| pan-Guru    | Punjabi (Eastern)       |
+| rus-Cyrl    | Russian                 |
+| sna-Latn    | Shona                   |
+| som-Latn    | Somali                  |
+| spa-Latn    | Spanish                 |
+| swa-Latn    | Swahili                 |
+| swe-Latn    | Swedish                 |
+| tam-Taml    | Tamil                   |
+| tel-Telu    | Telugu                  |
+| tgk-Cyrl    | Tajik                   |
+| tgl-Latn    | Tagalog                 |
+| tha-Thai    | Thai                    |
+| tir-Ethi    | Tigrinya                |
+| tuk-Cyrl    | Turkmen (Cyrillic)      |
+| tuk-Latn    | Turkmen (Latin)         |
+| tur-Latn    | Turkish (Latin)         |
+| uig-Arab    | Uyghur (Perso-Arabic)   |
+| uzb-Cyrl    | Uzbek (Cyrillic)        |
+| uzb-Latn    | Uzbek (Latin)           |
+| vie-Latn    | Vietnamese              |
+| xho-Latn    | Xhosa                   |
+| yor-Latn    | Yoruba                  |
+| zul-Latn    | Zulu                    |
 
-*These language preprocessors and maps naively assume a phonemic orthography.<br />
-**English G2P requires the installation of the CMU Flite speech synthesis system.
+\*Chinese G2P requires the freely available CC-CEDict dictionary.
+
+†These language preprocessors and maps naively assume a phonemic orthography.
+
+‡English G2P requires the installation of the CMU Flite speech synthesis system.
 
 ### Language "Spaces"
 
