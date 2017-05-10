@@ -340,13 +340,15 @@ Transliteration Language/Script Pairs
 | zul-Latn      | Zulu                       |
 +---------------+----------------------------+
 
-\*Chinese G2P requires the freely available CC-CEDict dictionary.
+\*Chinese G2P requires the freely available
+`CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary.
 
 †These language preprocessors and maps naively assume a phonemic
 orthography.
 
-‡English G2P requires the installation of the CMU Flite speech synthesis
-system.
+‡English G2P requires the installation of the freely available `CMU
+Flite <http://tts.speech.cs.cmu.edu/awb/flite-2.0.5-current.tar.bz2>`__
+speech synthesis system.
 
 Language "Spaces"
 ~~~~~~~~~~~~~~~~~
@@ -638,3 +640,56 @@ allowed to make your code more readable. Any line in which the first
 non-whitespace character is a percent sign ``%`` is interpreted as
 comment. The rest of the line is ignored when the file is interpreted.
 Blank lines are also ignored.
+
+A strategy for adding language support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Epitran uses a mapping-and-repairs approach to G2P. It is expected that
+there is a mapping between graphemes and phonemes that can do most of
+the work of converting orthographic representations to phonological
+representations. In phonemically adequate orthogrphies, this mapping can
+do *all* of the work. This mapping should be completed first. For many
+languages, a basis for this mapping table already exists on
+`Wikipedia <http://www.wikipedia.org>`__ and
+`Omniglot <http://www.omniglot.com>`__ (though the Omniglot tables are
+typically not machine readable).
+
+On the other hand, many writing systems deviate from the phonemically
+adequate idea. It is here that pre- and post-processors must be
+introduced. For example, in Swedish, the letter receives a different
+pronunciation before two consonants (/ɐ/) than elsewhere (/ɑː/). It
+makes sense to add a preprocessor rule that rewrites as /ɐ/ before two
+consonants (and similar rules for the other vowels, since they are
+affected by the same condition). Preprocessor rules should generally be
+employed whenever the orthographic representation must be adjusted (by
+contextual changes, deletions, etc.) prior to the mapping step.
+
+One common use for postprocessors is to eliminate characters that are
+needed by the preprocessors or maps, but which should not appear in the
+output. A classic example of this is the virama used in Indic scripts.
+In these scripts, in order to write a consonant *not followed* by a
+vowel, one uses the form of the consonant symbol with particular
+inherent vowel followed by a virama (which has various names in
+different Indic languages). An easy way of handling this is to allow the
+mapping to translate the consonant into an IPA consonant + an inherent
+vowel (which, for a given language, will always be the same), then use
+the postprocessor to delete the vowel + virama sequence (wherever it
+occurs).
+
+In fact, any situation where a character that is introduced by the map
+needs to be subsequently deleted is a good use-case for postprocessors.
+Another example from Indian languages includes so-called schwa deletion.
+Some vowels implied by a direct mapping between the orthography and the
+phonology are not actually pronounced; these vowels can generally be
+predicted. In most languages, they occur in the context after a
+vowel+consonant sequence and before a consonant+vowel sequence. In other
+words, the rule looks like the following:
+
+::
+
+    ə -> 0 / (::vowel::)(::consonant::) _ (::consonant::)(::vowel::)
+
+Perhaps the best way to learn how to structure language support for a
+new language is to consult the existing languages in Epitran. The French
+preprocessor ``fra-Latn.txt`` and the Thai postprocessors
+``tha-Thai.txt`` illustrate many of the use-cases for these rules.
