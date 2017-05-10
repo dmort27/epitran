@@ -5,7 +5,7 @@
 o্ -> 0 / _
 
 % Bishorgo
-ঃ -> ː / (::consonant::) _ [^#]
+ঃ -> ː / (::consonant::) _ .
 ঃ -> ɦ / _ #
 
 % o -> 0 / _V
