@@ -31,6 +31,6 @@ class TestSwedish(unittest.TestCase):
         tr = self.epi.transliterate('cigarett')
         self.assertEqual(tr, 'siːɡɑːrɛt')
 
-    def test_(self):
+    def test_kanna(self):
         tr = self.epi.transliterate('känna')
         self.assertEqual(tr, 'ɕɛnɑː')
