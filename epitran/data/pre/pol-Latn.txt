@@ -1,5 +1,6 @@
 ::nasal_vowel:: = ą|ę
 ::vowel:: = a|ą|e|ę|i|o|ó|u|y
+::vow_not_i:: = a|ą|e|ę|o|ó|u|y
 ::consonant:: = b|c|ć|cz|d|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|r|s|ś|sz|t|w|z|ź|ż|rz
 
 % After nasalized vowels
@@ -13,17 +14,22 @@ g|k -> ŋ　/ (::nasal_vowel::) _
 ę -> ɛ / _ #
 
 % Palatalized consonants
+ci -> t͡ɕ / _ (::vow_not_i::)
+dzi -> d͡ʑ / _ (::vow_not_i::)
+si -> ɕ / _ (::vow_not_i::)
+zi -> ʑ / _ (::vow_not_i::)
+ni -> ɲ / _ (::vow_not_i::)
 c -> t͡ɕ / _ i
 dz -> d͡ʑ / _ i
 s -> ɕ / _ i
 z -> ʑ / _ i
 n -> ɲ / _ i
-ci -> t͡ɕ / _ (::vowel::)
-dzi -> d͡ʑ / _ (::vowel::)
-si -> ɕ / _ (::vowel::)
-zi -> ʑ / _ (::vowel::)
-ni -> ɲ / _ (::vowel::)
+ki -> kʲ / _ e
+gi -> kʲ / _ e
+k -> kʲ / _ i
+g -> gʲ / _ i
 
 % Glide formation
 u -> w / (::vowel::) _
 i -> j / (::vowel::) _ (::consonant::)
+i -> j / _ (::vowel::)
