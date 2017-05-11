@@ -1,6 +1,6 @@
 ::vowel:: = a|á|â|ã|à|e|é|ê|í|i|o|ó|ô|õ|u|ú|y
 ::consonant:: = b|c|ch|ç|d|f|g|gu|h|j|k|l|lh|m|n|nh|p|q|qu|r|rr|s|ss|t|v|w|x|y|z
-::front_vowel:: = e|i|y
+::front_vowel:: = e|é|ê|í|i|y
 
 % Palatalization
 c -> s / _ (::front_vowel::)
@@ -22,8 +22,10 @@ z -> ʒ / _ #|(::consonant::)(::vowel::)
 
 % Realization of gu
 gu -> gʷ / _ (::front_vowel::)
+qu -> kʷ / _ (::front_vowel::)
 
 % Rhotics
+rr -> ʁ / _
 r -> ʁ / #|(::vowel::)(::consonant::)　_
 
 % Glide formation

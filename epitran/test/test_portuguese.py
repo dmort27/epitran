@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import unittest
+import unicodedata
 
 import epitran
 
@@ -25,4 +26,8 @@ class TestPortuguese(unittest.TestCase):
 
     def test_convem(self):
         tr = self.epi.transliterate('convêm')
-        self.assertEqual(tr, 'konvẽ')
+        self.assertEqual(tr, unicodedata.normalize('NFC', 'konvẽ'))
+
+    def test_guitarra(self):
+        tr = self.epi.transliterate('guitarra')
+        self.assertEqual(tr, 'ɡʷitɐʁɐ')
