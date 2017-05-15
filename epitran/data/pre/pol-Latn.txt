@@ -4,14 +4,10 @@
 ::consonant:: = b|c|ć|cz|d|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|r|s|ś|sz|t|w|z|ź|ż|rz
 
 % After nasalized vowels
-b|p -> m / (::nasal_vowel::) _
-d|t|c|dz -> n / (::nasal_vowel::) _
-g|k -> ŋ　/ (::nasal_vowel::) _
-
-% Denasalization
-ą -> ɔ / _ (l|ł)
-ę -> ɛ / _ (l|ł)
-ę -> ɛ / _ #
+0 -> m / (::nasal_vowel::) _ b|p
+0 -> n / (::nasal_vowel::) _ d|t|c|dz
+0 -> ɲ　/ (::nasal_vowel::) _ ć|dź
+0 -> ŋ　/ (::nasal_vowel::) _ g|k
 
 % Palatalized consonants
 ci -> t͡ɕ / _ (::vow_not_i::)
@@ -33,3 +29,9 @@ g -> gʲ / _ i
 u -> w / (::vowel::) _
 i -> j / (::vowel::) _ (::consonant::)
 i -> j / _ (::vowel::)
+
+% Denasalization
+ą -> ɔ / _ (l|ł|m|n|ɲ|ŋ)
+ę -> ɛ / _ (l|ł|m|n|ɲ|ŋ)
+ę -> ɛ / _ #
+

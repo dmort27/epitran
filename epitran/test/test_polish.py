@@ -35,3 +35,15 @@ class TestPolish(unittest.TestCase):
     def test_manii(self):
         tr = self.epi.transliterate('manii')
         self.assertEqual(tr, 'maɲji')
+
+    def test_kat(self):
+        tr = self.epi.transliterate('kąt')
+        self.assertEqual(tr, 'kɔnt')
+
+    def test_geba(self):
+        tr = self.epi.transliterate('gęba')
+        self.assertEqual(tr, 'ɡɛmba')
+        
+    def test_piec(self):
+        tr = self.epi.transliterate('pięć')
+        self.assertEqual(tr, 'pjɛɲt͡ɕ')
