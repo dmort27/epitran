@@ -1,3 +1,4 @@
+% Symbols
 ::nasal_vowel:: = ą|ę
 ::vowel:: = a|ą|e|ę|i|o|ó|u|y
 ::vow_not_i:: = a|ą|e|ę|o|ó|u|y
@@ -15,13 +16,13 @@ dzi -> d͡ʑ / _ (::vow_not_i::)
 si -> ɕ / _ (::vow_not_i::)
 zi -> ʑ / _ (::vow_not_i::)
 ni -> ɲ / _ (::vow_not_i::)
+ki -> kʲ / _ e
+gi -> kʲ / _ e
 c -> t͡ɕ / _ i
 dz -> d͡ʑ / _ i
 s -> ɕ / _ i
 z -> ʑ / _ i
 n -> ɲ / _ i
-ki -> kʲ / _ e
-gi -> kʲ / _ e
 k -> kʲ / _ i
 g -> gʲ / _ i
 
