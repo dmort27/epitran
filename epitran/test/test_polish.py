@@ -43,7 +43,27 @@ class TestPolish(unittest.TestCase):
     def test_geba(self):
         tr = self.epi.transliterate('gęba')
         self.assertEqual(tr, 'ɡɛmba')
-        
+
     def test_piec(self):
         tr = self.epi.transliterate('pięć')
         self.assertEqual(tr, 'pjɛɲt͡ɕ')
+
+    def test_nie(self):
+        tr = self.epi.transliterate('nie')
+        self.assertEqual(tr, 'ɲɛ')
+
+    def test_szybko(self):
+        tr = self.epi.transliterate('szybko')
+        self.assertEqual(tr, 'ʂɨbkɔ')
+
+    def test_dziadek(self):
+        tr = self.epi.transliterate('dziadek')
+        self.assertEqual(tr, 'd͡ʑadɛk')
+
+    def test_jas(self):
+        tr = self.epi.transliterate('Jaś')
+        self.assertEqual(tr, 'jaɕ')
+
+    def test_gienek(self):
+        tr = self.epi.transliterate('Gienek')
+        self.assertEqual(tr, 'ɡʲɛnɛk')
