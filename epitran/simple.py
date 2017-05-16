@@ -93,6 +93,8 @@ class SimpleEpitran(object):
             return g2p
         except IndexError:
             raise DatafileError('Add an appropriately-named mapping to the data/maps directory.')
+        except ValueError:
+            raise DatafileError('Map file is not well formed. Check for blank lines.')
 
     def _load_punc_norm_map(self):
         """Load the map table for normalizing 'down' punctuation."""
