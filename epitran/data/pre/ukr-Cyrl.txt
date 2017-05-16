@@ -1,0 +1,5 @@
+::pal_vowel:: = є|і|ю|я
+::pal_consonant:: = д|з|л|н|р|с|т|ц
+
+0 -> ʲ / (::pal_consonant::) _ (::pal_vowel::)
+0 -> j / # _ (є|ю|я)
