@@ -192,6 +192,7 @@ A few notes are in order regarding this data structure:
 | tuk-Cyrl    | Turkmen (Cyrillic)      |
 | tuk-Latn    | Turkmen (Latin)         |
 | tur-Latn    | Turkish (Latin)         |
+| ukr-Cyrl    | Ukranian                |
 | uig-Arab    | Uyghur (Perso-Arabic)   |
 | uzb-Cyrl    | Uzbek (Cyrillic)        |
 | uzb-Latn    | Uzbek (Latin)           |

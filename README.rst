@@ -329,6 +329,8 @@ Transliteration Language/Script Pairs
 +---------------+----------------------------+
 | tur-Latn      | Turkish (Latin)            |
 +---------------+----------------------------+
+| ukr-Cyrl      | Ukranian                   |
++---------------+----------------------------+
 | uig-Arab      | Uyghur (Perso-Arabic)      |
 +---------------+----------------------------+
 | uzb-Cyrl      | Uzbek (Cyrillic)           |
