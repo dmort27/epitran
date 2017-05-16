@@ -96,7 +96,8 @@ class SimpleEpitran(object):
 
     def _load_punc_norm_map(self):
         """Load the map table for normalizing 'down' punctuation."""
-        path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
+        path = os.path.join('data', 'puncnorm.csv')
+        path = pkg_resources.resource_filename(__name__, path)
         with open(path, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8', delimiter=str(','), quotechar=str('"'))
             next(reader)
