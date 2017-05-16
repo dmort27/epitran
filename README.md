@@ -175,6 +175,8 @@ A few notes are in order regarding this data structure:
 | nya-Latn    | Chichewa                |
 | orm-Latn    | Oromo                   |
 | pan-Guru    | Punjabi (Eastern)       |
+| pol-Latn    | Polish                  |
+| por-Latn    | Portuguese              |
 | rus-Cyrl    | Russian                 |
 | sna-Latn    | Shona                   |
 | som-Latn    | Somali                  |
