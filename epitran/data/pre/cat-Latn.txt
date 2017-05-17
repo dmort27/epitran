@@ -1,0 +1,8 @@
+c -> s / _ (i|e)
+g -> ʒ / _ (i|e)
+gu -> g / _ (i|e)
+qu -> k / _ (i|e)
+
+% Environment should actually be syllable-final
+ig -> it͡ʃ / _ #
+r -> ɾ / . _
