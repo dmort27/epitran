@@ -1,10 +1,21 @@
+::consonant:: = b|c|ç|d|f|g|gu|h|ig|ix|j|k|l|ll|l·l|m|n|ny|p|q|qu|r|rr|s|ss|t|tg|tj|ts|tx|tz|v|w|x|z
+::vowel:: = a|à|e|è|é|i|í|ï|o|ò|ó|u|ú|ü|y
+
 c -> s / _ (i|e)
 g -> ʒ / _ (i|e)
 gu -> g / _ (i|e)
 qu -> k / _ (i|e)
 
-% Environment should actually be syllable-final
-ig -> it͡ʃ / _ #
+% Environment should be syllable-final
+ig -> it͡ʃ / _ #|(::consonant::)(::vowel::)
 
 # Non-initial <r> is realized as /ɾ/
 r -> ɾ / . _
+
+# Final <r> is realized as /0/
+r -> 0 / _ #
+
+# Glide formation
+i -> j / (::vowel::) _
+y -> j / (::vowel::) _
+u -> w / (::vowel::) _
