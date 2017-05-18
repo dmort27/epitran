@@ -5,4 +5,6 @@ qu -> k / _ (i|e)
 
 % Environment should actually be syllable-final
 ig -> it͡ʃ / _ #
+
+# Non-initial <r> is realized as /ɾ/
 r -> ɾ / . _
