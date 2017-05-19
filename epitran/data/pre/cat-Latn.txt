@@ -9,13 +9,13 @@ qu -> k / _ (i|e)
 % Environment should be syllable-final
 ig -> it͡ʃ / _ #|(::consonant::)(::vowel::)
 
-# Non-initial <r> is realized as /ɾ/
+% Non-initial <r> is realized as /ɾ/
 r -> ɾ / . _
 
-# Final <r> is realized as /0/
+% Final <r> is realized as /0/
 r -> 0 / _ #
 
-# Glide formation
+% Glide formation
 i -> j / (::vowel::) _
 y -> j / (::vowel::) _
 u -> w / (::vowel::) _
