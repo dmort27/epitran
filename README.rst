@@ -358,6 +358,31 @@ orthography.
 Flite <http://tts.speech.cs.cmu.edu/awb/flite-2.0.5-current.tar.bz2>`__
 speech synthesis system.
 
+Languages with limited support due to highly ambiguous orthographies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some the languages listed above should be approached with caution. It is
+not possible to provide highly accurate support for these
+language-script pairs due to the high degree of ambiguity inherent in
+the orthographies. Eventually, we plan to support these languages with a
+different back end based on WFSTs or neural methods.
+
++---------------+------------------------+
+| Code          | Language (Script)      |
++===============+========================+
+| cat-Latn      | Catalan                |
++---------------+------------------------+
+| ckb-Arab      | Sorani                 |
++---------------+------------------------+
+| fas-Arab      | Farsi (Perso-Arabic)   |
++---------------+------------------------+
+| fra-Latn      | French                 |
++---------------+------------------------+
+| fra-Latn-np   | French†                |
++---------------+------------------------+
+| por-Latn      | Portuguese             |
++---------------+------------------------+
+
 Language "Spaces"
 ~~~~~~~~~~~~~~~~~
 
