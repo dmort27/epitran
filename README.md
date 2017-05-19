@@ -146,6 +146,7 @@ A few notes are in order regarding this data structure:
 | aze-Cyrl    | Azerbaijani (Cyrillic)  |
 | aze-Latn    | Azerbaijani (Latin)     |
 | ben-Beng    | Bengali                 |
+| cat-Latn    | Catalan                 |
 | ceb-Latn    | Cebuano                 |
 | cmn-Hans    | Mandarin (Simplified)\* |
 | cmn-Hant    | Mandarin (Traditional)\*|

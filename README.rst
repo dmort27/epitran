@@ -237,6 +237,8 @@ Transliteration Language/Script Pairs
 +---------------+----------------------------+
 | ben-Beng      | Bengali                    |
 +---------------+----------------------------+
+| cat-Latn      | Catalan                    |
++---------------+----------------------------+
 | ceb-Latn      | Cebuano                    |
 +---------------+----------------------------+
 | cmn-Hans      | Mandarin (Simplified)\*    |
