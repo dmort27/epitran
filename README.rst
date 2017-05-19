@@ -231,6 +231,8 @@ Transliteration Language/Script Pairs
 +---------------+----------------------------+
 | amh-Ethi      | Amharic                    |
 +---------------+----------------------------+
+| ara-Arab      | Arabic                     |
++---------------+----------------------------+
 | aze-Cyrl      | Azerbaijani (Cyrillic)     |
 +---------------+----------------------------+
 | aze-Latn      | Azerbaijani (Latin)        |
@@ -370,6 +372,8 @@ different back end based on WFSTs or neural methods.
 +---------------+------------------------+
 | Code          | Language (Script)      |
 +===============+========================+
+| ara-Arab      | Arabic                 |
++---------------+------------------------+
 | cat-Latn      | Catalan                |
 +---------------+------------------------+
 | ckb-Arab      | Sorani                 |

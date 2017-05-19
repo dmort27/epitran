@@ -143,6 +143,7 @@ A few notes are in order regarding this data structure:
 |-------------|-------------------------|
 | aar-Latn    | Afar                    |
 | amh-Ethi    | Amharic                 |
+| ara-Arab    | Arabic                  |
 | aze-Cyrl    | Azerbaijani (Cyrillic)  |
 | aze-Latn    | Azerbaijani (Latin)     |
 | ben-Beng    | Bengali                 |
@@ -214,6 +215,7 @@ Some the languages listed above should be approached with caution. It is not pos
 
 | Code        | Language (Script)       |
 |-------------|-------------------------|
+| ara-Arab    | Arabic                  |
 | cat-Latn    | Catalan                 |
 | ckb-Arab    | Sorani                  |
 | fas-Arab    | Farsi (Perso-Arabic)    |
