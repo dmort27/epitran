@@ -1,2 +1,3 @@
 % ɨ -> 0 / word-finally when preceded by a letter
-ɨ -> 0 / \p{Letter} _ (#|፠|፡|።|፣|፤|፥|፦|፧|፨| )
+ɨ -> 0 / \p{Letter} _ #
+ɨ -> 0 / \p{Letter} _ (፠|፡|።|፣|፤|፥|፦|፧|፨|\s)
