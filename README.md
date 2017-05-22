@@ -4,9 +4,16 @@ A library and tool for transliterating orthographic text as IPA (International P
 
 ## Usage
 
-The principle script for transliterating orthographic text as IPA is `epitranscriber.py`. It takes one argument, the ISO 639-3 code for the language of the orthographic text, takes orthographic text at standard in and writes Unicode IPA to standard out.
-    $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn" dyɰyn oluɾ bajɾam ɟeliɾ
-    $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
+The principle script for transliterating orthographic text as IPA is `epitranscribe.py`. It takes one argument, the ISO 639-3 code for the language of the orthographic text, takes orthographic text at standard in and writes Unicode IPA to standard out.
+
+
+```bash
+$ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn"
+dyɰyn oluɾ bajɾam ɟeliɾ
+$ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
+```
+
+
 Additionally, the small Python modules ```epitran``` and ```epitran.vector``` can be used to easily write more sophisticated Python programs for deploying the **Epitran** mapping tables. This is documented below.
 
 ## Using the `epitran` Module
@@ -143,7 +150,7 @@ A few notes are in order regarding this data structure:
 |-------------|-------------------------|
 | aar-Latn    | Afar                    |
 | amh-Ethi    | Amharic                 |
-| ara-Arab    | Arabic                  |
+| ara-Arab    | Literary Arabic         |
 | aze-Cyrl    | Azerbaijani (Cyrillic)  |
 | aze-Latn    | Azerbaijani (Latin)     |
 | ben-Beng    | Bengali                 |
