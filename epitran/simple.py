@@ -17,19 +17,12 @@ from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor
 from epitran.puncnorm import PuncNorm
 from epitran.stripdiacritics import StripDiacritics
+from epitran.exceptions import DatafileError, MappingError
 
 if sys.version_info[0] == 3:
     def unicode(x):
         return x
 logging.basicConfig(level=logging.DEBUG)
-
-
-class MappingError(Exception):
-    pass
-
-
-class DatafileError(Exception):
-    pass
 
 
 class SimpleEpitran(object):
@@ -80,21 +73,23 @@ class SimpleEpitran(object):
         try:
             path = os.path.join('data', 'map', code + '.csv')
             path = pkg_resources.resource_filename(__name__, path)
-            with open(path, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
-                next(reader)
-                for graph, phon in reader:
-                    graph = unicodedata.normalize('NFC', graph)
-                    phon = unicodedata.normalize('NFC', phon)
-                    g2p[graph].append(phon)
-            if self._one_to_many_g2p_map(g2p):
-                graph = self._one_to_many_g2p_map(g2p)
-                raise MappingError('One-to-many G2P mapping for "{}"'.format(graph).encode('utf-8'))
-            return g2p
         except IndexError:
             raise DatafileError('Add an appropriately-named mapping to the data/maps directory.')
-        except ValueError:
-            raise DatafileError('Map file is not well formed. Check for blank lines.')
+        with open(path, 'rb') as f:
+            reader = csv.reader(f, encoding='utf-8')
+            next(reader)
+            for (i, fields) in enumerate(reader):
+                try:
+                    graph, phon = fields
+                except ValueError:
+                    raise DatafileError('Map file is not well formed at line {}.'.format(i + 2))
+                graph = unicodedata.normalize('NFC', graph)
+                phon = unicodedata.normalize('NFC', phon)
+                g2p[graph].append(phon)
+        if self._one_to_many_g2p_map(g2p):
+            graph = self._one_to_many_g2p_map(g2p)
+            raise MappingError('One-to-many G2P mapping for "{}"'.format(graph).encode('utf-8'))
+        return g2p
 
     def _load_punc_norm_map(self):
         """Load the map table for normalizing 'down' punctuation."""
@@ -198,7 +193,6 @@ class SimpleEpitran(object):
         if normpunc:
             text = self.puncnorm.norm(text)
         return text
-
 
     def word_to_tuples(self, word, normpunc=False):
         """Given a word, returns a list of tuples corresponding to IPA segments.
