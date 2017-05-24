@@ -3,9 +3,10 @@ from __future__ import print_function, unicode_literals, division, absolute_impo
 
 import unicodedata
 import io
-import sys
 
 import regex as re
+
+from epitran.exceptions import DatafileError
 
 
 def none2str(x):
@@ -65,7 +66,7 @@ class Rules(object):
                     else:
                         return self._fields_to_function(a, b, X, Y)
                 except:
-                    print('Line {}: "{}" contains an error.'.format(i + 1, line), file=sys.stderr)
+                    raise DatafileError('Line {}: "{}" contains an error.'.format(i + 1, line))
 
     def _fields_to_function_metathesis(self, a, X, Y):
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
