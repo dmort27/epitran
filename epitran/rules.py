@@ -2,7 +2,8 @@
 from __future__ import print_function, unicode_literals, division, absolute_import
 
 import unicodedata
-import codecs
+import io
+import sys
 
 import regex as re
 
@@ -30,10 +31,10 @@ class Rules(object):
 
     def _read_rule_file(self, rule_file):
         rules = []
-        with codecs.open(rule_file, 'r', 'utf-8') as f:
-            for line in f:
+        with io.open(rule_file, 'r', encoding='utf-8') as f:
+            for i, line in enumerate(f):
                 if not re.match('\s*%', line):
-                    rules.append(self._read_rule(line))
+                    rules.append(self._read_rule(i, line))
         return [rule for rule in rules if rule is not None]
 
     def _sub_symbols(self, line):
@@ -45,17 +46,17 @@ class Rules(object):
                 raise RuleFileError('Undefined symbol: {}'.format(s))
         return line
 
-    def _read_rule(self, line):
+    def _read_rule(self, i, line):
         line = line.strip()
         if line:
-            line = unicodedata.normalize('NFC', line)
+            line = unicodedata.normalize('NFC', unicodedata.normalize('NFD', line))
             s = re.match(r'(?P<symbol>::\w+::)\s*=\s*(?P<value>.+)', line)
             if s:
                 self.symbols[s.group('symbol')] = s.group('value')
             else:
                 line = self._sub_symbols(line)
                 r = re.match(r'(?P<a>\S+)\s*->\s*(?P<b>\S+)\s*/\s*(?P<X>\S*)\s*[_]\s*(?P<Y>\S*)', line)
-                if r:
+                try:
                     a, b, X, Y = r.groups()
                     X, Y = X.replace('#', '^'), Y.replace('#', '$')
                     a, b = a.replace('0', ''), b.replace('0', '')
@@ -63,8 +64,8 @@ class Rules(object):
                         return self._fields_to_function_metathesis(a, X, Y)
                     else:
                         return self._fields_to_function(a, b, X, Y)
-                else:
-                    print('Line "{}" contains an error.'.format(line))
+                except:
+                    print('Line {}: "{}" contains an error.'.format(i + 1, line), file=sys.stderr)
 
     def _fields_to_function_metathesis(self, a, X, Y):
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
