@@ -56,17 +56,20 @@ class Rules(object):
                 self.symbols[s.group('symbol')] = s.group('value')
             else:
                 line = self._sub_symbols(line)
-                r = re.match(r'(?P<a>\S+)\s*->\s*(?P<b>\S+)\s*/\s*(?P<X>\S*)\s*[_]\s*(?P<Y>\S*)', line)
+                r = re.match(r'(\S+)\s*->\s*(\S+)\s*/\s*(\S*)\s*[_]\s*(\S*)', line)
                 try:
                     a, b, X, Y = r.groups()
-                    X, Y = X.replace('#', '^'), Y.replace('#', '$')
-                    a, b = a.replace('0', ''), b.replace('0', '')
+                except AttributeError:
+                    raise DatafileError('Line {}: "{}" cannot be parsed.'.format(i + 1, line))
+                X, Y = X.replace('#', '^'), Y.replace('#', '$')
+                a, b = a.replace('0', ''), b.replace('0', '')
+                try:
                     if re.search(r'[?]P[<]sw1[>].+[?]P[<]sw2[>]', a):
                         return self._fields_to_function_metathesis(a, X, Y)
                     else:
                         return self._fields_to_function(a, b, X, Y)
-                except:
-                    raise DatafileError('Line {}: "{}" contains an error.'.format(i + 1, line))
+                except Exception as e:
+                    raise DatafileError('Line {}: "{}" cannot be compiled as regex: ̪{}'.format(i + 1, line, e))
 
     def _fields_to_function_metathesis(self, a, X, Y):
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
