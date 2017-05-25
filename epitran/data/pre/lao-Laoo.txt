@@ -1,0 +1,15 @@
+::consonant:: = ກ|ຂ|ຄ|ງ|ຈ|ສ|ຊ|ຍ|ດ|ຕ|ຖ|ທ|ນ|ບ|ປ|ຜ|ຝ|ພ|ຟ|ມ|ຢ|ຣ|ລ|ວ|ຫ|ອ|ຮ|ຫງ|ຫຍ|ໜ|ຫນ|ໝ|ຫມ|ຫຼ|ຫຣ|ຫລ|ຫວ
+::vowel:: = ະ|ັ|ິ|ຶ|ຸ|ເະ|ເັ|ແະ|ແັ|ໂະ|ົ|ເາະ|ັອ|ເິ|ເັຍ|ັຽ|ເຶອ|ົວະ|ັວ|ໄ|ໃ|ັຍ|ເົາ|ຳ|າ|ີ|ື|ູ|ເ|ແ|ໂ|ໍ|ເີ|ເຍ|ຽ|ເືອ|ົວ|າຍ
+
+% Move prefixed vowels into phonetic order
+(?P<sw1>ເ|ແ|ໂ|ໄ)(?P<sw2>::consonant::) -> 0 / _
+
+% Realization of final consonants
+(ຂ|ຄ) -> k / _ #|(::consonant::)(::vowel::)
+(ຈ|ສ|ຊ|ດ|ຖ|ທ) -> t / _ #|(::consonant::)(::vowel::)
+(ບ|ພ|ຟ)-> p / _ #|(::consonant::)(::vowel::)
+(ຣ|ລ) -> n / _ #|(::consonant::)(::vowel::)
+
+% Symbols representing both vowels and consonants
+ອ -> ɔː / (::consonant::) _
+ວ -> uːə̯ / (::consonant::) _
