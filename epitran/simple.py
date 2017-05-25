@@ -122,7 +122,6 @@ class SimpleEpitran(object):
         """
         text = unicode(text)
         text = self.strip_diacritics.process(text)
-        text = unicodedata.normalize('NFKD', text)
         text = unicodedata.normalize('NFC', text.lower())
         if self.preproc:
             text = self.preprocessor.process(text)
@@ -166,7 +165,6 @@ class SimpleEpitran(object):
         """
         text = unicode(text)
         text = self.strip_diacritics.process(text)
-        text = unicodedata.normalize('NFKD', text)
         text = unicodedata.normalize('NFC', text.lower())
         if self.preproc:
             text = self.preprocessor.process(text)
@@ -238,7 +236,6 @@ class SimpleEpitran(object):
         tuples = []
         word = unicode(word)
         word = self.strip_diacritics.process(word)
-        word = unicodedata.normalize('NFKD', word)
         word = unicodedata.normalize('NFC', word)
         if self.preproc:
             word = self.preprocessor.process(word)
