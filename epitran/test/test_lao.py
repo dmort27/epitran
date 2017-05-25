@@ -62,5 +62,3 @@ class TestLao(unittest.TestCase):
     def test_kaw(self):
         tr = self.epi.transliterate('ເກ້ົາ')
         self.assertEqual(tr, 'kaw')
-
-
