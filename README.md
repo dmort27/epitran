@@ -179,6 +179,7 @@ A few notes are in order regarding this data structure:
 | kir-Cyrl    | Kyrgyz (Cyrillic)       |
 | kir-Latn    | Kyrgyz (Latin)          |
 | krm-Latn    | Kurmanji                |
+| lao-Laoo    | Lao                     |
 | mar-Deva    | Marathi                 |
 | nld-Latn    | Dutch                   |
 | nya-Latn    | Chichewa                |
