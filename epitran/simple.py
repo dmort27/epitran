@@ -56,10 +56,10 @@ class SimpleEpitran(object):
         for nil, count in self.nils.items():
             sys.stderr.write('Unknown character "{}" occured {} times.\n'.format(nil, count))
 
-    def _one_to_many_g2p_map(self, g2p):
-        for g, p in g2p.items():
-            if len(p) != 1:
-                return g
+    def _one_to_many_gr_by_line_map(self, gr_by_line):
+        for g, ls in gr_by_line.items():
+            if len(ls) != 1:
+                return (g, ls)
         return None
 
     def _load_g2p_map(self, code):
@@ -70,6 +70,7 @@ class SimpleEpitran(object):
                         language/script to be loaded
         """
         g2p = defaultdict(list)
+        gr_by_line = defaultdict(list)
         try:
             path = os.path.join('data', 'map', code + '.csv')
             path = pkg_resources.resource_filename(__name__, path)
@@ -86,9 +87,11 @@ class SimpleEpitran(object):
                 graph = unicodedata.normalize('NFC', graph)
                 phon = unicodedata.normalize('NFC', phon)
                 g2p[graph].append(phon)
-        if self._one_to_many_g2p_map(g2p):
-            graph = self._one_to_many_g2p_map(g2p)
-            raise MappingError('One-to-many G2P mapping for "{}"'.format(graph).encode('utf-8'))
+                gr_by_line[graph].append(i)
+        if self._one_to_many_gr_by_line_map(g2p):
+            graph, lines = self._one_to_many_gr_by_line_map(gr_by_line)
+            lines = [l + 2 for l in lines]
+            raise MappingError('One-to-many G2P mapping for "{}" on lines {}'.format(graph, ', '.join(map(str, lines))).encode('utf-8'))
         return g2p
 
     def _load_punc_norm_map(self):

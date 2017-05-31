@@ -1,0 +1,19 @@
+::vowel:: = a|e|ɛ|i|ɪ|o|ɔ|u|ʊ
+
+% Move medial consonants before inherent vowels
+(?P<sw1>a)(?P<sw2>ျ|ျှ|ျွ|ျွှ|ြ|ြှ|ြွ|ြွှ|ြွှ|ွ|ွှ) -> 0 / _
+
+% Insert medial consonants
+ျ -> j / _
+ျှ -> j / _
+ျွ -> w / _
+ျွှ -> w / _
+ြ -> j / _
+ြှ-> j / _
+ြွ -> w / _
+ြွှ -> w / _
+ွ -> w / _
+ွှ -> w / _
+
+ə -> 0 / _ (::vowel::)
+ə -> 0 / _ #
