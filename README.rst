@@ -298,6 +298,10 @@ Transliteration Language/Script Pairs
 +---------------+----------------------------+
 | mar-Deva      | Marathi                    |
 +---------------+----------------------------+
+| mya-Mymr      | Burmese                    |
++---------------+----------------------------+
+| msa-Latn      | Malay                      |
++---------------+----------------------------+
 | nld-Latn      | Dutch                      |
 +---------------+----------------------------+
 | nya-Latn      | Chichewa                   |
@@ -390,6 +394,8 @@ different back end based on WFSTs or neural methods.
 | fra-Latn      | French                 |
 +---------------+------------------------+
 | fra-Latn-np   | French†                |
++---------------+------------------------+
+| mya-Mymr      | Burmese                |
 +---------------+------------------------+
 | por-Latn      | Portuguese             |
 +---------------+------------------------+
@@ -735,5 +741,5 @@ words, the rule looks like the following:
 
 Perhaps the best way to learn how to structure language support for a
 new language is to consult the existing languages in Epitran. The French
-preprocessor ``fra-Latn.txt`` and the Thai postprocessors
+preprocessor ``fra-Latn.txt`` and the Thai postprocessor
 ``tha-Thai.txt`` illustrate many of the use-cases for these rules.
