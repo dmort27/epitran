@@ -181,6 +181,8 @@ A few notes are in order regarding this data structure:
 | krm-Latn    | Kurmanji                |
 | lao-Laoo    | Lao                     |
 | mar-Deva    | Marathi                 |
+| mya-Mymr    | Burmese                 |
+| msa-Latn    | Malay                   |
 | nld-Latn    | Dutch                   |
 | nya-Latn    | Chichewa                |
 | orm-Latn    | Oromo                   |
@@ -229,6 +231,7 @@ Some the languages listed above should be approached with caution. It is not pos
 | fas-Arab    | Farsi (Perso-Arabic)    |
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
+| mya-Mymr    | Burmese                 |
 | por-Latn    | Portuguese              |
 
 ### Language "Spaces"
@@ -434,4 +437,4 @@ In fact, any situation where a character that is introduced by the map needs to 
 ```
 
 
-Perhaps the best way to learn how to structure language support for a new language is to consult the existing languages in Epitran. The French preprocessor `fra-Latn.txt` and the Thai postprocessors `tha-Thai.txt` illustrate many of the use-cases for these rules.
+Perhaps the best way to learn how to structure language support for a new language is to consult the existing languages in Epitran. The French preprocessor `fra-Latn.txt` and the Thai postprocessor `tha-Thai.txt` illustrate many of the use-cases for these rules.
