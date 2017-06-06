@@ -668,7 +668,7 @@ There is a special construct for handling cases of metathesis (where
 
 ::
 
-    (?P<sw1>[เแโไใไ])(?P<sw2>.) -> / _
+    (?P<sw1>[เแโไใไ])(?P<sw2>.) -> 0 / _
 
 Will "swap" the positions of any character in "เแโไใไ" and any following
 character. Left of the arrow, there should be two groups (surrounded by

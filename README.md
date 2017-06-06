@@ -409,7 +409,7 @@ There is a special construct for handling cases of metathesis (where "AB" is rep
 
 
 ```
-(?P<sw1>[เแโไใไ])(?P<sw2>.) -> / _
+(?P<sw1>[เแโไใไ])(?P<sw2>.) -> 0 / _
 ```
 
 
