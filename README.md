@@ -178,7 +178,7 @@ A few notes are in order regarding this data structure:
 | kir-Arab    | Kyrgyz (Perso-Arabic)   |
 | kir-Cyrl    | Kyrgyz (Cyrillic)       |
 | kir-Latn    | Kyrgyz (Latin)          |
-| krm-Latn    | Kurmanji                |
+| kmr-Latn    | Kurmanji                |
 | lao-Laoo    | Lao                     |
 | mar-Deva    | Marathi                 |
 | mya-Mymr    | Burmese                 |
