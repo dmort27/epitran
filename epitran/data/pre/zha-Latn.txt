@@ -1,0 +1,6 @@
+% Delete tone markers
+z -> 8 / _
+j -> 8 / _
+x -> 8 / _
+q -> 8 / _
+h -> 8 / \p{Letter} _

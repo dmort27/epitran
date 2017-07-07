@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, unicode_literals, division, absolute_import
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
-import unicodedata
 import io
+import logging
+import unicodedata
 
 import regex as re
-
 from epitran.exceptions import DatafileError
 
+logging.basicConfig(level=logging.DEBUG)
 
 def none2str(x):
     return x if x else ''

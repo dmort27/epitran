@@ -1,0 +1,7 @@
+::palconsonant:: = p|pʰ|ɡ|t|tʰ|kʰ|x|ɮ|m|n|r|w
+
+% Palatalization
+J -> ʲ / (::palconsonant::) _
+
+% Delete hard sign
+ъ -> 0 / _
