@@ -16,10 +16,10 @@ else:
                         'marisa_trie']
 
 setup(name='epitran',
-      version='0.18',
+      version='0.19',
       description='Tools for transcribing languages into IPA.',
       url='http://github.com/dmort27/epitran',
-      download_url='http://github.com/dmort27/epitran/tarball/0.18',
+      download_url='http://github.com/dmort27/epitran/tarball/0.19',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
       license='MIT',
