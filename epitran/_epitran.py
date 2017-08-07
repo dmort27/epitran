@@ -5,7 +5,7 @@ from __future__ import (absolute_import, division, print_function,
 import logging
 import sys
 
-import panphon
+import panphon.featuretable
 from epitran.epihan import Epihan, EpihanTraditional
 from epitran.flite import FliteLexLookup
 from epitran.puncnorm import PuncNorm
@@ -40,7 +40,7 @@ class Epitran(object):
             self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file)
         else:
             self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
-        self.ft = panphon.FeatureTable()
+        self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
 
