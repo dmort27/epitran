@@ -234,7 +234,7 @@ class SimpleEpitran(object):
             if phon == '':
                 return [(-1, [0] * self.num_panphon_fts)]
             else:
-                return [to_vector(seg) for seg in self.ft.segs(phon)]
+                return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
         word = unicode(word)

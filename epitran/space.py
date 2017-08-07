@@ -45,7 +45,7 @@ class Space(object):
             with open(fn, 'rb') as f:
                 reader = csv.reader(f, encoding='utf-8')
                 for _, to_ in reader:
-                    for seg in self.epi.ft.segs(to_):
+                    for seg in self.epi.ft.ipa_segs(to_):
                         segs.add(seg)
         enum = enumerate(sorted(list(segs)))
         return {seg: num for num, seg in enum}

@@ -9,7 +9,7 @@ import epitran
 
 class TestBurmese(unittest.TestCase):
     def setUp(self):
-        self.epi = epitran.Epitran('bur-Mymr')
+        self.epi = epitran.Epitran('mya-Mymr')
 
     def test_(self):
         tr = self.epi.transliterate('ပန်း')
@@ -38,5 +38,3 @@ class TestBurmese(unittest.TestCase):
     def test_(self):
         tr = self.epi.transliterate('ဆိုင်')
         self.assertEqual(tr, 'sʰaɪɴ')
-
-

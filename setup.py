@@ -5,14 +5,14 @@ if sys.version_info[0] > 2:
     install_requires = ['setuptools',
                         'unicodecsv',
                         'regex',
-                        'panphon>=0.7',
+                        'panphon>=0.12',
                         'marisa_trie']
 else:
     install_requires = ['setuptools',
                         'unicodecsv',
                         'regex',
                         'subprocess32',
-                        'panphon>=0.7',
+                        'panphon>=0.12',
                         'marisa_trie']
 
 setup(name='epitran',
