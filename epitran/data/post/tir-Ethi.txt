@@ -1,2 +1,2 @@
 % ɨ -> 0 / between a letter and a final word boundary
-ɨ -> 0 / \p{Letter} _ (#| |፠|፡|።|፣|፤|፥|፦|፧|፨)
+ɨ -> 0 / \p{Letter} _ (#|\s|፠|፡|።|፣|፤|፥|፦|፧|፨)
