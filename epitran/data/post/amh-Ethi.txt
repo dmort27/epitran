@@ -1,3 +1,5 @@
-% ɨ -> 0 / word-finally when preceded by a letter
-ɨ -> 0 / \p{Letter} _ #
-ɨ -> 0 / \p{Letter} _ (፠|፡|።|፣|፤|፥|፦|፧|፨|\s)
+::consonant:: = b|bɨ|bʷ|d|dɨ|dʷ|d͡ʒ|d͡ʒɨ|d͡ʒʷ|f|fj|fɨ|fʷ|h|hɨ|hʷ|j|jɨ|k|kɨ|kʷ|kʷɨ|kʼ|kʼɨ|kʼʷ|kʼʷɨ|l|lɨ|lʷ|m|mj|mɨ|mʷ|n|nw|nɨ|p|pɨ|pʷ|pʼ|pʼɨ|pʼʷ|r|rj|rɨ|rʷ|s|sw|sɨ|sʷ|t|tɨ|tʷ|tʼ|tʼɨ|tʼʷ|t͡sʼ|t͡sʼɨ|t͡sʼʷ|t͡ʃ|t͡ʃɨ|t͡ʃʷ|t͡ʃʼ|t͡ʃʼɨ|t͡ʃʼʷ|v|vɨ|vʷ|w|wɨ|x|xɨ|xʷ|xʷɨ|z|zɨ|zʷ|ŋ|ŋɨ|ŋʷ|ŋʷɨ|ɡ|ɡɨ|ɡʷ|ɡʷɨ|ɨ|ɲ|ɲɨ|ɲʷ|ʃ|ʃw|ʃɨ|ʒ|ʒɨ|ʒʷ
+
+0 -> ɨ / #(::consonant::)_(::consonant::)
+0 -> ɨ / (::consonant::)_(::consonant::)#
+0 -> ɨ / (::consonant::)(::consonant::)_(::consonant::)
