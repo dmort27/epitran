@@ -1,0 +1,5 @@
+::consonant:: = b|bʷ|d|dʷ|d͡ʒ|d͡ʒʷ|f|fʲ|fʷ|h|hʷ|j|k|kʷ|l|lʷ|m|mʲ|mʷ|n|nʷ|p|pʷ|pʼ|pʼʷ|q|qʰ|qʰʷ|qʷ|r|rʲ|rʷ|s|sʷ|t|tʷ|tʼ|tʼʷ|t͡sʼ|t͡sʼʷ|t͡ʃ|t͡ʃʷ|t͡ʃʼ|t͡ʃʼʷ|v|vʷ|w|x|xʷ|z|zʷ|ħ|ħʷ|ŋ|ŋʷ|ɡ|ɡʷ|ɲ|ɲʷ|ʃ|ʃʷ|ʒ|ʒʷ|ʔ|ʔʷ|ʕ
+
+0 -> ɨ / #(::consonant::)_(::consonant::)
+0 -> ɨ / (::consonant::)_(::consonant::)#
+0 -> ɨ / (::consonant::)(::consonant::)_(::consonant::)

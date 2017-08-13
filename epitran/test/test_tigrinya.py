@@ -9,7 +9,7 @@ import epitran
 
 class TestTigrinya(unittest.TestCase):
     def setUp(self):
-        self.epi = epitran.Epitran('tir-Ethi')
+        self.epi = epitran.Epitran('tir-Ethi-pp')
 
     def test_bee(self):
         tr = self.epi.transliterate('ንህቢ')
