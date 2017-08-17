@@ -1,5 +1,4 @@
 from setuptools import setup
-import sys
 
 setup(name='epitran',
       version='0.28',
