@@ -1,29 +1,20 @@
 from setuptools import setup
 import sys
 
-if sys.version_info[0] > 2:
-    install_requires = ['setuptools',
-                        'unicodecsv',
-                        'regex',
-                        'panphon>=0.12',
-                        'marisa_trie']
-else:
-    install_requires = ['setuptools',
-                        'unicodecsv',
-                        'regex',
-                        'subprocess32',
-                        'panphon>=0.12',
-                        'marisa_trie']
-
 setup(name='epitran',
-      version='0.25',
+      version='0.26',
       description='Tools for transcribing languages into IPA.',
       url='http://github.com/dmort27/epitran',
-      download_url='http://github.com/dmort27/epitran/tarball/0.25',
+      download_url='http://github.com/dmort27/epitran/tarball/0.26',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
       license='MIT',
-      install_requires=install_requires,
+      install_requires=['setuptools',
+                        'unicodecsv',
+                        'regex',
+                        'subprocess32;python_version<"3.0"',
+                        'panphon>=0.12',
+                        'marisa_trie'],
       scripts=['epitran/bin/epitranscribe.py',
                'epitran/bin/uigtransliterate.py',
                'epitran/bin/detectcaps.py',
