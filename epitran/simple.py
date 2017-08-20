@@ -169,6 +169,8 @@ class SimpleEpitran(object):
             unicode: IPA string
         """
         text = unicode(text)
+        if not self.regexp.search(text):
+            return ''
         text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFC', text.lower())
         if self.preproc:
