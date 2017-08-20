@@ -110,7 +110,7 @@ class SimpleEpitran(object):
         graphemes = sorted(self.g2p.keys(), key=len, reverse=True)
         return re.compile(r'({})'.format(r'|'.join(graphemes)), re.I)
 
-    def transliterate(self, text, normpunc=False, ligatures=False):
+    def transliterate(self, text, normpunc=False, ligatures=False, safe=True):
         """Transliterates/transcribes a word into IPA
 
         Passes unmapped characters through to output unchanged.
@@ -124,6 +124,8 @@ class SimpleEpitran(object):
             unicode: IPA string with unrecognized characters included
         """
         text = unicode(text)
+        if safe and not self.regexp.search(text):
+            return text
         text = self.strip_diacritics.process(text)
         text = unicodedata.normalize('NFC', text.lower())
         if self.preproc:
