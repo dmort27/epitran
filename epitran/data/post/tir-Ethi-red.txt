@@ -3,4 +3,4 @@
 0 -> ɨ / #(::consonant::)_(::consonant::)
 0 -> ɨ / #(::consonant::)_#
 0 -> ɨ / (::consonant::)_(::consonant::)#
-0 -> ɨ / (::consonant::)(::consonant::)_(::consonant::)
+0 -> ɨ / (::consonant::)_(::consonant::)(::consonant::)
