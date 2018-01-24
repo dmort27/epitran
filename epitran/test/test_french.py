@@ -60,3 +60,44 @@ class TestFrench(unittest.TestCase):
 
     def test_ceins(self):
         self._derivation('ceins', 'sɛn')
+
+    def test_il_ils(self):
+        self._derivation('il', 'il')
+        self._derivation('ils', 'il')
+
+    def test_fusil(self):
+        self._derivation('fusil', 'fyzil')
+        self._derivation('fusils', 'fyzil')
+
+    def test_oef(self):
+        self._derivation('œuf', 'œf')
+        self._derivation('œufs', 'œf')
+
+    def test_decret(self):
+        self._derivation('décret', 'dekrɛ')
+        self._derivation('décrets', 'dekrɛ')
+
+    def test_loi(self):
+        self._derivation('loi', 'lwa')
+        self._derivation('lois', 'lwa')
+
+    def test_dame(self):
+        self._derivation('dame', 'dam')
+        self._derivation('dames', 'dam')
+
+    def test_garage(self):
+        self._derivation('garage', 'ɡaraʒ')
+        self._derivation('garages', 'ɡaraʒ')
+
+    def test_faite(self):
+        self._derivation('fait', 'fɛ')
+        self._derivation('faits', 'fɛ')
+        self._derivation('faites', 'fɛt')
+
+    def test_homme(self):
+        self._derivation('homme', 'ɔm')
+        self._derivation('hommes', 'ɔm')
+
+    def test_personne(self):
+        self._derivation('personne', 'pɛrsɔn')
+        self._derivation('personnes', 'pɛrsɔn')
