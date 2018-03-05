@@ -1,6 +1,6 @@
-::vowel:: = aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜ
-::front_vowel:: = eéèêëiîïyEÉÈÊËIÎÏY
-::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z
+::vowel:: = aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜɛ
+::front_vowel:: = eéèêëiîïyEÉÈÊËIÎÏYɛ
+::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
 
 j -> ʒ / _
 i -> j / _ [::vowel::]
@@ -20,7 +20,6 @@ oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
 il -> j / [::vowel::] _
 ill -> j / [::vowel::] _
 
-e -> ɛ / _ x|(::consonant::)(::consonant::)
 x -> ks / _ (p|t|k|f|s|ch)
 
 % Treatment of <c> and <s>
@@ -41,12 +40,13 @@ y -> i / _ [^::vowel::]
 % "Deletion" of <ent> word finally
 ent -> 0 / _ #
 
-% "Deletion" of <es> word finally
-es -> 0 / _ #
+% Palatalization and lenition of <g>
+g -> ʒ / _ [::front_vowel::]
 
 % Treatment of <er>
-er -> é / _
-g -> ʒ / _ [::front_vowel::]
+er -> é / _ #
+
+% Deletion of final <e>
 e -> 0 / [::vowel::].+ _ #
 
 % A strange rule
@@ -55,7 +55,11 @@ ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|
 % A less strange rule
 ng -> n / ei _ #
 
-% These rules can be excised if we assume liason:
+e -> ɛ / _ x|(::consonant::)(::consonant::)
+e -> ɛ / [::vowel::].+ _ (::consonant::) #
+
+s -> 0 / [^ɛ] _ #
+
 d -> 0 / [::vowel::n] _ #
 dd -> 0 / [::vowel::n] _ #
 g -> 0 / [::vowel::] _ #
@@ -64,5 +68,6 @@ pp -> 0 / [::vowel::m] _ #
 t -> 0 / [::vowel::n] _ #
 tt -> 0 / [::vowel::n] _ #
 x -> 0 / [::vowel::] _ #
-s -> 0 / [::vowel::n] _ #
-ent -> 0 / . _ #
+ent -> 0 / [::vowel::].+ _ #
+
+ɛs -> 0 / _ #

@@ -43,7 +43,8 @@ class Flite(object):
         """
         arpabet = pkg_resources.resource_filename(__name__, os.path.join('data', arpabet + '.csv'))
         self.arpa_map = self._read_arpabet(arpabet)
-        self.chunk_re = re.compile(r'(\p{L}+|[^\p{L}]+)', re.U)
+        self.chunk_re = re.compile(ur"([A-Za-z'’]+|[^A-Za-z'’]+)", re.U)
+        self.letter_re = re.compile(ur"[A-Za-z'’]+")
         self.puncnorm = PuncNorm()
         self.ligatures = ligatures
         self.ft = panphon.FeatureTable()
@@ -85,7 +86,7 @@ class Flite(object):
         text = unicodedata.normalize('NFC', text)
         acc = []
         for chunk in self.chunk_re.findall(text):
-            if unicodedata.category(chunk[0])[0] == 'L':
+            if self.letter_re.match(chunk):
                 acc.append(self.english_g2p(chunk))
             else:
                 acc.append(chunk)

@@ -33,8 +33,6 @@ Its constructor takes one argument, `code`, the ISO 639-3 code of the language t
 >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 ```
 
-
-
 It is now possible to use the Epitran class for English and Mandarin Chinese (Simplified and Traditional) G2P as well as the other langugages that use Epitran's "classic" model. For Chinese, it is necessary to point the constructor to a copy of the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary:
 
 
@@ -43,8 +41,7 @@ It is now possible to use the Epitran class for English and Mandarin Chinese (Si
 >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
 ```
 
-
-The `Epitran` class has only one "public" method right now, `transliterate`:
+The most useful public method of the Epitran class is `transliterate`:
 
 Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned. `normpunc` enables punctuation normalization and `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 3):
 
@@ -108,7 +105,7 @@ The constructor for ```VectorsWithIPASpace``` takes two arguments:
 
 Its principle method is ```word_to_segs```:
 
-VectorWithIPASpace.**word_to_segs**(word, normpunc=False). `word` is a Unicode string. If the keyword argument *normpunc* is set to True, punctuation disovered in `word` is normalized to ASCII equivalents.
+VectorWithIPASpace.**word_to_segs**(word, normpunc=False). `word` is a Unicode string. If the keyword argument *normpunc* is set to True, punctuation discovered in `word` is normalized to ASCII equivalents.
 
 
 A typical interaction with the ```VectorsWithIPASpace``` object via the ```word_to_segs``` method is illustrated here:
@@ -181,6 +178,7 @@ A few notes are in order regarding this data structure:
 | kmr-Latn    | Kurmanji                |
 | lao-Laoo    | Lao                     |
 | mar-Deva    | Marathi                 |
+| mlt-Latn    | Maltese                 |
 | mya-Mymr    | Burmese                 |
 | msa-Latn    | Malay                   |
 | nld-Latn    | Dutch                   |
@@ -189,6 +187,7 @@ A few notes are in order regarding this data structure:
 | pan-Guru    | Punjabi (Eastern)       |
 | pol-Latn    | Polish                  |
 | por-Latn    | Portuguese              |
+| ron-Latn    | Romanian                |
 | rus-Cyrl    | Russian                 |
 | sna-Latn    | Shona                   |
 | som-Latn    | Somali                  |

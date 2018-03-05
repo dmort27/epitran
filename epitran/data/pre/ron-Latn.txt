@@ -1,0 +1,6 @@
+::front_vowel::=i|e
+
+c -> t͡ʃ / _ (::front_vowel::)
+g -> d͡ʒ / _ (::front_vowel::)
+
+h -> 0 / (c|g) _ (::front_vowel::)

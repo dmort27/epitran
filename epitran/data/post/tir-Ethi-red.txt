@@ -1,4 +1,4 @@
-::consonant:: = b|bʷ|d|dʷ|d͡ʒ|d͡ʒʷ|f|fʲ|fʷ|h|hʷ|j|k|kʷ|l|lʷ|m|mʲ|mʷ|n|nʷ|p|pʷ|pʼ|pʼʷ|q|qʰ|qʰʷ|qʷ|r|rʲ|rʷ|s|sʷ|t|tʷ|tʼ|tʼʷ|t͡sʼ|t͡sʼʷ|t͡ʃ|t͡ʃʷ|t͡ʃʼ|t͡ʃʼʷ|v|vʷ|w|x|xʷ|z|zʷ|ħ|ħʷ|ŋ|ŋʷ|ɡ|ɡʷ|ɲ|ɲʷ|ʃ|ʃʷ|ʒ|ʒʷ|ʔ|ʔʷ|ʕ
+::consonant:: = b|bw|d|dw|d͡ʒ|d͡ʒw|f|fʲ|fw|h|hw|j|k|kʷ|l|lw|m|mʲ|mw|n|nw|p|pw|pʼ|pʼw|q|qʰ|qʰw|qʷ|r|rʲ|rw|s|sw|t|tw|tʼ|tʼw|t͡sʼ|t͡sʼw|t͡ʃ|t͡ʃw|t͡ʃʼ|t͡ʃʼw|v|vw|w|x|xʷ|z|zw|ħ|ħw|ŋ|ŋw|ɡ|ɡʷ|ɲ|ɲw|ʃ|ʃw|ʒ|ʒw|ʔ|ʔw|ʕ
 
 0 -> ɨ / #(::consonant::)_(::consonant::)
 0 -> ɨ / #(::consonant::)_#
