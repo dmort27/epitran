@@ -140,6 +140,7 @@ class SimpleEpitran(object):
                 except:
                     print("from_seg = {}".format(from_seg))
                     print("self.g2p[from_seg] = {}".format(self.g2p[from_seg]))
+                    to_seg = from_seg
                 tr_list.append(to_seg)
                 text = text[len(from_seg):]
             else:
