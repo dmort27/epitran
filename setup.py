@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='epitran',
-      version='0.40',
+      version='0.41',
       description='Tools for transcribing languages into IPA.',
       url='http://github.com/dmort27/epitran',
       download_url='http://github.com/dmort27/epitran/tarball/0.37',
