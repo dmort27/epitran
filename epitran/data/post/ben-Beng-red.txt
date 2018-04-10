@@ -1,18 +1,18 @@
-::consonant:: = k|kʰ|ɡ|ɡ̤|ŋ|ɦ|t͡ɕ|t͡ɕʰ|d͡ʑ|d͡ʑ̤|n|d͡z|ɕ|t|tʰ|d|d̤|n|r|ʂ|t̪|t̪ʰ|d̪|d̪̤|n̪|l̪|s̪|p|ɸ|b|b̤|m|w|ɽ|ɽ̤|e̯|t̪
-::vowel:: = o|a|i|u|ɽi|ɽiː|li|liː|e|oj|ow
+::consonant:: = k|kʰ|ɡ|ɡ̤|ŋ|ɦ|t͡ʃ|t͡ʃʰ|d͡ʒ|d͡ʒ|n|d͡z|ʃ|t|tʰ|d|d̤|n|r|ʂ|t|tʰ|d|d̤|n|l|s|p|ɸ|b|b̤|m|w|ɽ|ɽ̤|j|t
+::vowel:: = ə|a|i|u|ɽi|ɽiː|li|liː|e|oj|ow
 
 % Hoshonto
-o্ -> 0 / _
+ə্ -> 0 / _
 
 % Bishorgo
 ঃ -> ː / (::consonant::) _ .
 ঃ -> ɦ / _ #
 
-% o -> 0 / _V
-o -> 0 / _ (::vowel::)
+% ə -> 0 / _V
+ə -> 0 / _ (::vowel::)
 
-% o -> 0 /VC+_#
-o -> 0 / (::vowel::)(::consonant::) _ #
+% ə -> 0 /VC+_#
+ə -> 0 / (::vowel::)(::consonant::) _ #
 
-% o -> 0 /VC_CV
-o -> 0 / (::vowel::)(::consonant::) _ (::consonant::)(::vowel::)
+% ə -> 0 /VC_CV
+ə -> 0 / (::vowel::)(::consonant::) _ (::consonant::)(::vowel::)
