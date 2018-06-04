@@ -22,6 +22,8 @@ from epitran.exceptions import DatafileError, MappingError
 if sys.version_info[0] == 3:
     def unicode(x):
         return x
+
+
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -99,7 +101,9 @@ class SimpleEpitran(object):
         path = os.path.join('data', 'puncnorm.csv')
         path = pkg_resources.resource_filename(__name__, path)
         with open(path, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8', delimiter=str(','), quotechar=str('"'))
+            reader = csv.reader(f, encoding='utf-8',
+                                delimiter=str(','),
+                                quotechar=str('"'))
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 
@@ -110,7 +114,56 @@ class SimpleEpitran(object):
         graphemes = sorted(self.g2p.keys(), key=len, reverse=True)
         return re.compile(r'({})'.format(r'|'.join(graphemes)), re.I)
 
-    def transliterate(self, text, normpunc=False, ligatures=False, safe=True):
+    def general_trans(self, text, filter_func,
+                      normpunc=False, ligatures=False):
+        """Transliaterates a word into IPA, filtering with filter_func
+
+        Args:
+            text (str): word to transcribe; unicode strings
+            filter_func (function): function for filtering segments; takes
+                                    a <segment, is_ipa> tuple and returns a
+                                    boolean.
+            normpunc (bool): normalize punctuation
+            ligatures (bool): use precomposed ligatures instead of
+                              standard IPA
+
+        Returns:
+            unicode: IPA string, filtered by filter_func.
+        """
+        text = unicode(text)
+        text = self.strip_diacritics.process(text)
+        text = unicodedata.normalize('NFC', text.lower())
+        if self.preproc:
+            text = self.preprocessor.process(text)
+        tr_list = []
+        while text:
+            m = self.regexp.match(text)
+            if m:
+                source = m.group(0)
+                try:
+                    target = self.g2p[source][0]
+                except KeyError:
+                    logging.debug("source = '{}'".format(source))
+                    logging.debug("self.g2p[source] = '{}'"
+                                  .format(self.g2p[source]))
+                    target = source
+                tr_list.append((target, True))
+                text = text[len(source):]
+            else:
+                tr_list.append((text[0], False))
+                self.nils[text[0]] += 2
+                text = text[1:]
+        text = ''.join([s for (s, _) in filter(filter_func, tr_list)])
+        if self.postproc:
+            text = self.postprocessor.process(text)
+        if ligatures or self.ligatures:
+            text = ligaturize(text)
+        if normpunc:
+            text = self.puncnorm.norm(text)
+        return text
+
+
+    def transliterate(self, text, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
 
         Passes unmapped characters through to output unchanged.
@@ -123,38 +176,8 @@ class SimpleEpitran(object):
         Returns:
             unicode: IPA string with unrecognized characters included
         """
-        text = unicode(text)
-        if safe and not self.regexp.search(text):
-            return text
-        text = self.strip_diacritics.process(text)
-        text = unicodedata.normalize('NFC', text.lower())
-        if self.preproc:
-            text = self.preprocessor.process(text)
-        tr_list = []
-        while text:
-            m = self.regexp.match(text)
-            if m:
-                from_seg = m.group(0)
-                try:
-                    to_seg = self.g2p[from_seg][0]
-                except:
-                    print("from_seg = {}".format(from_seg))
-                    print("self.g2p[from_seg] = {}".format(self.g2p[from_seg]))
-                    to_seg = from_seg
-                tr_list.append(to_seg)
-                text = text[len(from_seg):]
-            else:
-                tr_list.append(text[0])
-                self.nils[text[0]] += 1
-                text = text[1:]
-        text = ''.join(tr_list)
-        if self.postproc:
-            text = self.postprocessor.process(text)
-        if ligatures or self.ligatures:
-            text = ligaturize(text)
-        if normpunc:
-            text = self.puncnorm.norm(text)
-        return text
+        return self.general_trans(text, lambda x: True,
+                                  normpunc, ligatures)
 
     def strict_trans(self, text, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
@@ -169,36 +192,8 @@ class SimpleEpitran(object):
         Returns:
             unicode: IPA string
         """
-        text = unicode(text)
-        if not self.regexp.search(text):
-            return ''
-        text = self.strip_diacritics.process(text)
-        text = unicodedata.normalize('NFC', text.lower())
-        if self.preproc:
-            text = self.preprocessor.process(text)
-        tr_list = []
-        while text:
-            m = self.regexp.match(text)
-            if m:
-                from_seg = m.group(0)
-                try:
-                    to_seg = self.g2p[from_seg][0]
-                except:
-                    print("from_seg = {}".format(from_seg))
-                    print("self.g2p[from_seg] = {}".format(self.g2p[from_seg]))
-                tr_list.append(to_seg)
-                text = text[len(from_seg):]
-            else:
-                self.nils[text[0]] += 1
-                text = text[1:]
-        text = ''.join(tr_list)
-        if self.postproc:
-            text = self.postprocessor.process(text)
-        if ligatures or self.ligatures:
-            text = ligaturize(text)
-        if normpunc:
-            text = self.puncnorm.norm(text)
-        return text
+        return self.general_trans(text, lambda x: x[1],
+                                  normpunc, ligatures)
 
     def word_to_tuples(self, word, normpunc=False):
         """Given a word, returns a list of tuples corresponding to IPA segments.

@@ -45,6 +45,7 @@ class Flite(object):
         self.arpa_map = self._read_arpabet(arpabet)
         self.chunk_re = re.compile(r"([A-Za-z'’]+|[^A-Za-z'’]+)", re.U)
         self.letter_re = re.compile(r"[A-Za-z'’]+")
+        self.regexp = re.compile(r'[A-Za-z]')
         self.puncnorm = PuncNorm()
         self.ligatures = ligatures
         self.ft = panphon.FeatureTable()

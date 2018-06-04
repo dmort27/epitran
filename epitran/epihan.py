@@ -4,6 +4,7 @@ from __future__ import print_function, unicode_literals, division, absolute_impo
 import os.path
 
 import pkg_resources
+import regex as re
 
 from . import cedict
 from . import rules
@@ -28,7 +29,8 @@ class Epihan(object):
             (u'\u3011', u']'),
             ]
 
-    def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):
+    def __init__(self, ligatures=False, cedict_file=None,
+                 rules_file='pinyin-to-ipa.txt'):
         """Construct epitran object for Chinese
 
         Args:
@@ -39,11 +41,13 @@ class Epihan(object):
         """
         # If no cedict_file is specified, raise and error
         if not cedict_file:
-            raise MissingData('Please specify a location for the CC-CEDict file.')
+            raise MissingData('Please specify a location ' +
+                              'for the CC-CEDict file.')
         rules_file = os.path.join('data', 'rules', rules_file)
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file)
         self.rules = rules.Rules([rules_file])
+        self.regexp = re.compile(r'\p{Han}')
 
     def normalize_punc(self, text):
         """Normalize punctutation in a string
@@ -82,7 +86,8 @@ class Epihan(object):
                 if normpunc:
                     token = self.normalize_punc(token)
                 ipa_tokens.append(token)
-            ipa_tokens = map(ligaturize, ipa_tokens) if ligatures else ipa_tokens
+            ipa_tokens = map(ligaturize, ipa_tokens)\
+                if ligatures else ipa_tokens
         return u''.join(ipa_tokens)
 
     def strict_trans(self, text, normpunc=False, ligatures=False):
