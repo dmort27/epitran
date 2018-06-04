@@ -162,7 +162,6 @@ class SimpleEpitran(object):
             text = self.puncnorm.norm(text)
         return text
 
-
     def transliterate(self, text, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
 
@@ -206,12 +205,12 @@ class SimpleEpitran(object):
             list: A list of (category, lettercase, orthographic_form,
                   phonetic_form, feature_vectors) tuples.
 
-        The "feature vectors" form a list consisting of (segment, vector) pairs.
-        For IPA segments, segment is a substring of phonetic_form such that the
-        concatenation of all segments in the list is equal to the phonetic_form.
-        The vectors are a sequence of integers drawn from the set {-1, 0, 1}
-        where -1 corresponds to '-', 0 corresponds to '0', and 1 corresponds to
-        '+'.
+        The "feature vectors" form a list consisting of (segment, vector)
+        pairs. For IPA segments, segment is a substring of phonetic_form such
+        that the concatenation of all segments in the list is equal to
+        the phonetic_form. The vectors are a sequence of integers drawn from
+        the set {-1, 0, 1} where -1 corresponds to '-', 0 corresponds to '0',
+        and 1 corresponds to '+'.
         """
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))
