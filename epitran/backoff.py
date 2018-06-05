@@ -10,9 +10,17 @@ from epitran.xsampa import XSampa
 
 
 class Backoff(object):
-    """Implements rudimentary language ID and backoff"""
+    """Implements rudimentary language ID and backoff."""
 
     def __init__(self, lang_script_codes, cedict_file=None):
+        """Construct a Backoff objectself.
+
+        Args:
+            lang_script_codes (list): codes for languages to try, starting
+            with the highest priority languages
+            cedict_file (str): path to the CC-CEdict dictionary file
+            (necessary only when cmn-Hans or cmn-Hant are used)
+        """
         self.langs = [_epitran.Epitran(c, cedict_file=cedict_file)
                       for c in lang_script_codes]
         self.num_re = re.compile(r'\p{Number}+')
@@ -21,7 +29,7 @@ class Backoff(object):
         self.puncnorm = PuncNorm()
 
     def transliterate(self, token):
-        """Return IPA transliteration given by first acceptable mode
+        """Return IPA transliteration given by first acceptable mode.
 
         Args:
             token (unicode): orthographic text
@@ -38,17 +46,25 @@ class Backoff(object):
             return ''
 
     def trans_list(self, token):
-        """Transliterates/transcribes a word into list of IPA phonemes
+        """Transliterate/transcribe a word into list of IPA phonemes.
 
         Args:
             token (unicode): word to transcribe; unicode string
 
         Returns:
-            list: list of IPA strings, each corresponding to a segment
+            list: list of IPA unicode strings, each corresponding to a segment
         """
         return self.ft.segs_safe(self.transliterate(token))
 
     def xsampa_list(self, token):
+        """Transcribe a word into a list of X-SAMPA phonemes.
+
+        Args:
+            token (unicode): word to transcribe; unicode strings
+
+        Returns:
+            list: list of X-SAMPA strings, each corresponding to a segment
+        """
         if re.match(r'^\p{Number}+$', token):
             return ''
         else:
