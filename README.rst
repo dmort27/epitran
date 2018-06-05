@@ -7,24 +7,16 @@ A library and tool for transliterating orthographic text as IPA
 Usage
 -----
 
-The principle script for transliterating orthographic text as IPA is
-``epitranscribe.py``. It takes one argument, the ISO 639-3 code for the
-language of the orthographic text, takes orthographic text at standard
-in and writes Unicode IPA to standard out.
-
-.. code:: bash
-
-    $ echo "Düğün olur bayram gelir" | epitranscribe.py "tur-Latn"
-    dyɰyn oluɾ bajɾam ɟeliɾ
-    $ epitranscribe.py "tur-Latn" < orthography.txt > phonetic.txt
-
-Additionally, the small Python modules ``epitran`` and
-``epitran.vector`` can be used to easily write more sophisticated Python
-programs for deploying the **Epitran** mapping tables. This is
+The Python modules ``epitran`` and ``epitran.vector`` can be used to
+easily write more sophisticated Python programs for deploying the
+**Epitran** mapping tables, preprocessors, and postprocessors. This is
 documented below.
 
 Using the ``epitran`` Module
 ----------------------------
+
+The Epitran class
+~~~~~~~~~~~~~~~~~
 
 The most general functionality in the ``epitran`` module is encapsulated
 in the very simple ``Epitran`` class:
@@ -36,12 +28,15 @@ Its constructor takes one argument, ``code``, the ISO 639-3 code of the
 language to be transliterated plus a hyphen plus a four letter code for
 the script (e.g. 'Latn' for Latin script, 'Cyrl' for Cyrillic script,
 and 'Arab' for a Perso-Arabic script). It also takes optional keyword
-arguments: \* ``preproc`` and ``postproc`` enable pre- and
-post-processors. These are enabled by default. \* ``ligatures`` enables
-non-standard IPA ligatures like "ʤ" and "ʨ". \* ``cedict_file`` gives
-the path to the `CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary
-file (relevant only when working with Mandarin Chinese and which,
-because of licensing restrictions cannot be distributed with Epitran).
+arguments:
+
+-  ``preproc`` and ``postproc`` enable pre- and post-processors. These
+   are enabled by default.
+-  ``ligatures`` enables non-standard IPA ligatures like "ʤ" and "ʨ".
+-  ``cedict_file`` gives the path to the
+   `CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary file (relevant
+   only when working with Mandarin Chinese and which, because of
+   licensing restrictions cannot be distributed with Epitran).
 
 .. code:: python
 
@@ -59,14 +54,13 @@ point the constructor to a copy of the
     >>> import epitran
     >>> epi = epitran.Epitran('cmn-Hans', cedict_file='cedict_1_0_ts_utf-8_mdbg.txt')
 
-The ``Epitran`` class has only one "public" method right now,
-``transliterate``:
+The most useful public method of the Epitran class is ``transliterate``:
 
 Epitran.\ **transliterate**\ (text, normpunc=False, ligatures=False).
 Convert ``text`` (in Unicode-encoded orthography of the language
 specified in the constructor) to IPA, which is returned. ``normpunc``
 enables punctuation normalization and ``ligatures`` enables non-standard
-IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 3):
+IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 2):
 
 .. code:: python
 
@@ -75,10 +69,10 @@ IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 3):
     >>> print(epi.transliterate(u'Düğün'))
     dyɰyn
 
-Epitran.\ **word\_to\_tuples**\ (word, normpunc=False): Takes a ``word``
-(a Unicode string) in a supported orthography as input and returns a
-list of tuples with each tuple corresponding to an IPA segment of the
-word. The tuples have the following structure:
+| Epitran.\ **word\_to\_tuples**\ (word, normpunc=False):
+| Takes a ``word`` (a Unicode string) in a supported orthography as
+input and returns a list of tuples with each tuple corresponding to an
+IPA segment of the word. The tuples have the following structure:
 
 ::
 
@@ -109,7 +103,7 @@ follows:
         vector :: List<Integer>
     )
 
-Here is an example of an interaction with ``word_to_tuples``:
+Here is an example of an interaction with ``word_to_tuples`` (Python 2):
 
 .. code:: python
 
@@ -117,6 +111,58 @@ Here is an example of an interaction with ``word_to_tuples``:
     >>> epi = epitran.Epitran('tur-Latn')
     >>> epi.word_to_tuples(u'Düğün')
     [(u'L', 1, u'D', u'd', [(u'd', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'g\u0306', u'\u0270', [(u'\u0270', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
+
+The Backoff class
+~~~~~~~~~~~~~~~~~
+
+Sometimes, when parsing text in more than one script, it is useful to
+employ a graceful backoff. This is provided by the Backoff class:
+
+Backoff(lang\_script\_codes, cedict\_file=None)
+
+Note that the Backoff class does not currently support parameterized
+preprocessor and postprocessor application and does not support
+non-standard ligatures. It also does not support punctuation
+normalization. ``lang_script_codes`` is a list of codes like
+``eng-Latn`` or ``hin-Deva``. For example, if one was transcribing a
+Hindi text with many English loanwords and some stray characters of
+Simplified Chinese, one might use the following code (Python 3):
+
+.. code:: python
+
+    from epitran.backoff import Backoff
+    >>> backoff = Backoff(['hin-Deva', 'eng-Latn', 'cmn-Hans'], cedict_file=‘cedict_1_0_ts_utf-8_mdbg.txt')
+    >>> backoff.transliterate('हिन्दी')
+    'ɦindiː'
+    >>> backoff.transliterate('English')
+    'ɪŋɡlɪʃ'
+    >>> backoff.transliterate('中文')
+    'ʈ͡ʂoŋwən'
+
+Backoff works on a token-by-token basis: tokens that contain mixed
+scripts will be returned as the empty string, since they cannot be fully
+converted by any of the modes.
+
+The Backoff class has the following public methods:
+
+-  **transliterate**: returns a unicode string of IPA phonemes
+-  **trans\_list**: returns a list of IPA unicode strings, each of which
+   is a
+    phoneme
+-  **xsampa\_list**: returns a list of X-SAMPA (ASCII) strings, each of
+   which is
+    phoneme
+
+Consider the following example (Python 3):
+
+.. code:: python
+
+    >>> backoff.transliterate('हिन्दी')
+    'ɦindiː'
+    >>> backoff.trans_list('हिन्दी')
+    ['ɦ', 'i', 'n', 'd', 'iː']
+    >>> backoff.xsampa_list('हिन्दी')
+    ['h\\', 'i', 'n', 'd', 'i:']
 
 Preprocessors, postprocessors, and their pitfalls
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -162,21 +208,22 @@ The ``epitran.vector`` module is also very simple. It contains one
 class, ``VectorsWithIPASpace``, including one method of interest,
 ``word_to_segs``:
 
-The constructor for ``VectorsWithIPASpace`` takes two arguments: -
-``code``: the language-script code for the language to be processed. -
-``spaces``: the codes for the punctuation/symbol/IPA space in which the
-characters/segments from the data are expected to reside. The available
-spaces are listed `below <#language-support>`__.
+The constructor for ``VectorsWithIPASpace`` takes two arguments:
+
+-  ``code``: the language-script code for the language to be processed.
+-  ``spaces``: the codes for the punctuation/symbol/IPA space in which
+   the characters/segments from the data are expected to reside. The
+   available spaces are listed `below <#language-support>`__.
 
 Its principle method is ``word_to_segs``:
 
 VectorWithIPASpace.\ **word\_to\_segs**\ (word, normpunc=False).
 ``word`` is a Unicode string. If the keyword argument *normpunc* is set
-to True, punctuation disovered in ``word`` is normalized to ASCII
+to True, punctuation discovered in ``word`` is normalized to ASCII
 equivalents.
 
 A typical interaction with the ``VectorsWithIPASpace`` object via the
-``word_to_segs`` method is illustrated here:
+``word_to_segs`` method is illustrated here (Python 2):
 
 .. code:: python
 
@@ -202,26 +249,29 @@ each with the following structure:
         phonological_feature_vector :: List<Integer>
     )
 
-A few notes are in order regarding this data structure: -
-``character_category`` is defined as part of the Unicode standard
-(`Chapter
-4 <http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153>`__).
-It consists of a single, uppercase letter from the set {'L', 'M', 'N',
-'P', 'S', 'Z', 'C'}.. The most frequent of these are 'L' (letter), 'N'
-(number), 'P' (punctuation), and 'Z' (separator [including separating
-white space]). - ``is_upper`` consists only of integers from the set {0,
-1}, with 0 indicating lowercase and 1 indicating uppercase. - The
-integer in ``in_ipa_punc_space`` is an index to a list of known
-characters/segments such that, barring degenerate cases, each character
-or segment is assignmed a unique and globally consistant number. In
-cases where a character is encountered which is not in the known space,
-this field has the value -1. - The length of the list
-``phonological_feature_vector`` should be constant for any instantiation
-of the class (it is based on the number of features defined in panphon)
-but is--in principles--variable. The integers in this list are drawn
-from the set {-1, 0, 1}, with -1 corresponding to '-', 0 corresponding
-to '0', and 1 corresponding to '+'. For characters with no IPA
-equivalent, all values in the list are 0.
+A few notes are in order regarding this data structure:
+
+-  ``character_category`` is defined as part of the Unicode standard
+   (`Chapter
+   4 <http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153>`__).
+   It consists of a single, uppercase letter from the set {'L', 'M',
+   'N', 'P', 'S', 'Z', 'C'}.. The most frequent of these are 'L'
+   (letter), 'N' (number), 'P' (punctuation), and 'Z' (separator
+   [including separating white space]).
+-  ``is_upper`` consists only of integers from the set {0, 1}, with 0
+   indicating lowercase and 1 indicating uppercase.
+-  The integer in ``in_ipa_punc_space`` is an index to a list of known
+   characters/segments such that, barring degenerate cases, each
+   character or segment is assignmed a unique and globally consistant
+   number. In cases where a character is encountered which is not in the
+   known space, this field has the value -1.
+-  The length of the list ``phonological_feature_vector`` should be
+   constant for any instantiation of the class (it is based on the
+   number of features defined in panphon) but is--in
+   principles--variable. The integers in this list are drawn from the
+   set {-1, 0, 1}, with -1 corresponding to '-', 0 corresponding to '0',
+   and 1 corresponding to '+'. For characters with no IPA equivalent,
+   all values in the list are 0.
 
 Language Support
 ----------------
@@ -229,137 +279,143 @@ Language Support
 Transliteration Language/Script Pairs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-+---------------+----------------------------+
-| Code          | Language (Script)          |
-+===============+============================+
-| aar-Latn      | Afar                       |
-+---------------+----------------------------+
-| amh-Ethi      | Amharic                    |
-+---------------+----------------------------+
-| ara-Arab      | Literary Arabic            |
-+---------------+----------------------------+
-| aze-Cyrl      | Azerbaijani (Cyrillic)     |
-+---------------+----------------------------+
-| aze-Latn      | Azerbaijani (Latin)        |
-+---------------+----------------------------+
-| ben-Beng      | Bengali                    |
-+---------------+----------------------------+
-| cat-Latn      | Catalan                    |
-+---------------+----------------------------+
-| ceb-Latn      | Cebuano                    |
-+---------------+----------------------------+
-| cmn-Hans      | Mandarin (Simplified)\*    |
-+---------------+----------------------------+
-| cmn-Hant      | Mandarin (Traditional)\*   |
-+---------------+----------------------------+
-| ckb-Arab      | Sorani                     |
-+---------------+----------------------------+
-| deu-Latn      | German                     |
-+---------------+----------------------------+
-| deu-Latn-np   | German†                    |
-+---------------+----------------------------+
-| eng-Latn      | English‡                   |
-+---------------+----------------------------+
-| fas-Arab      | Farsi (Perso-Arabic)       |
-+---------------+----------------------------+
-| fra-Latn      | French                     |
-+---------------+----------------------------+
-| fra-Latn-np   | French†                    |
-+---------------+----------------------------+
-| hau-Latn      | Hausa                      |
-+---------------+----------------------------+
-| hin-Deva      | Hindi                      |
-+---------------+----------------------------+
-| hun-Latn      | Hungarian                  |
-+---------------+----------------------------+
-| ilo-Latn      | Ilocano                    |
-+---------------+----------------------------+
-| ind-Latn      | Indonesian                 |
-+---------------+----------------------------+
-| ita-Latn      | Italian                    |
-+---------------+----------------------------+
-| jav-Latn      | Javanese                   |
-+---------------+----------------------------+
-| kaz-Cyrl      | Kazakh (Cyrillic)          |
-+---------------+----------------------------+
-| kaz-Latn      | Kazakh (Latin)             |
-+---------------+----------------------------+
-| kin-Latn      | Kinyarwanda                |
-+---------------+----------------------------+
-| kir-Arab      | Kyrgyz (Perso-Arabic)      |
-+---------------+----------------------------+
-| kir-Cyrl      | Kyrgyz (Cyrillic)          |
-+---------------+----------------------------+
-| kir-Latn      | Kyrgyz (Latin)             |
-+---------------+----------------------------+
-| krm-Latn      | Kurmanji                   |
-+---------------+----------------------------+
-| lao-Laoo      | Lao                        |
-+---------------+----------------------------+
-| mar-Deva      | Marathi                    |
-+---------------+----------------------------+
-| mya-Mymr      | Burmese                    |
-+---------------+----------------------------+
-| msa-Latn      | Malay                      |
-+---------------+----------------------------+
-| nld-Latn      | Dutch                      |
-+---------------+----------------------------+
-| nya-Latn      | Chichewa                   |
-+---------------+----------------------------+
-| orm-Latn      | Oromo                      |
-+---------------+----------------------------+
-| pan-Guru      | Punjabi (Eastern)          |
-+---------------+----------------------------+
-| pol-Latn      | Polish                     |
-+---------------+----------------------------+
-| por-Latn      | Portuguese                 |
-+---------------+----------------------------+
-| rus-Cyrl      | Russian                    |
-+---------------+----------------------------+
-| sna-Latn      | Shona                      |
-+---------------+----------------------------+
-| som-Latn      | Somali                     |
-+---------------+----------------------------+
-| spa-Latn      | Spanish                    |
-+---------------+----------------------------+
-| swa-Latn      | Swahili                    |
-+---------------+----------------------------+
-| swe-Latn      | Swedish                    |
-+---------------+----------------------------+
-| tam-Taml      | Tamil                      |
-+---------------+----------------------------+
-| tel-Telu      | Telugu                     |
-+---------------+----------------------------+
-| tgk-Cyrl      | Tajik                      |
-+---------------+----------------------------+
-| tgl-Latn      | Tagalog                    |
-+---------------+----------------------------+
-| tha-Thai      | Thai                       |
-+---------------+----------------------------+
-| tir-Ethi      | Tigrinya                   |
-+---------------+----------------------------+
-| tuk-Cyrl      | Turkmen (Cyrillic)         |
-+---------------+----------------------------+
-| tuk-Latn      | Turkmen (Latin)            |
-+---------------+----------------------------+
-| tur-Latn      | Turkish (Latin)            |
-+---------------+----------------------------+
-| ukr-Cyrl      | Ukranian                   |
-+---------------+----------------------------+
-| uig-Arab      | Uyghur (Perso-Arabic)      |
-+---------------+----------------------------+
-| uzb-Cyrl      | Uzbek (Cyrillic)           |
-+---------------+----------------------------+
-| uzb-Latn      | Uzbek (Latin)              |
-+---------------+----------------------------+
-| vie-Latn      | Vietnamese                 |
-+---------------+----------------------------+
-| xho-Latn      | Xhosa                      |
-+---------------+----------------------------+
-| yor-Latn      | Yoruba                     |
-+---------------+----------------------------+
-| zul-Latn      | Zulu                       |
-+---------------+----------------------------+
++----------------+----------------------------+
+| Code           | Language (Script)          |
++================+============================+
+| aar-Latn       | Afar                       |
++----------------+----------------------------+
+| amh-Ethi       | Amharic                    |
++----------------+----------------------------+
+| ara-Arab       | Literary Arabic            |
++----------------+----------------------------+
+| aze-Cyrl       | Azerbaijani (Cyrillic)     |
++----------------+----------------------------+
+| aze-Latn       | Azerbaijani (Latin)        |
++----------------+----------------------------+
+| ben-Beng       | Bengali                    |
++----------------+----------------------------+
+| ben-Beng-red   | Bengali (reduced)          |
++----------------+----------------------------+
+| cat-Latn       | Catalan                    |
++----------------+----------------------------+
+| ceb-Latn       | Cebuano                    |
++----------------+----------------------------+
+| cmn-Hans       | Mandarin (Simplified)\*    |
++----------------+----------------------------+
+| cmn-Hant       | Mandarin (Traditional)\*   |
++----------------+----------------------------+
+| ckb-Arab       | Sorani                     |
++----------------+----------------------------+
+| deu-Latn       | German                     |
++----------------+----------------------------+
+| deu-Latn-np    | German†                    |
++----------------+----------------------------+
+| eng-Latn       | English‡                   |
++----------------+----------------------------+
+| fas-Arab       | Farsi (Perso-Arabic)       |
++----------------+----------------------------+
+| fra-Latn       | French                     |
++----------------+----------------------------+
+| fra-Latn-np    | French†                    |
++----------------+----------------------------+
+| hau-Latn       | Hausa                      |
++----------------+----------------------------+
+| hin-Deva       | Hindi                      |
++----------------+----------------------------+
+| hun-Latn       | Hungarian                  |
++----------------+----------------------------+
+| ilo-Latn       | Ilocano                    |
++----------------+----------------------------+
+| ind-Latn       | Indonesian                 |
++----------------+----------------------------+
+| ita-Latn       | Italian                    |
++----------------+----------------------------+
+| jav-Latn       | Javanese                   |
++----------------+----------------------------+
+| kaz-Cyrl       | Kazakh (Cyrillic)          |
++----------------+----------------------------+
+| kaz-Latn       | Kazakh (Latin)             |
++----------------+----------------------------+
+| kin-Latn       | Kinyarwanda                |
++----------------+----------------------------+
+| kir-Arab       | Kyrgyz (Perso-Arabic)      |
++----------------+----------------------------+
+| kir-Cyrl       | Kyrgyz (Cyrillic)          |
++----------------+----------------------------+
+| kir-Latn       | Kyrgyz (Latin)             |
++----------------+----------------------------+
+| kmr-Latn       | Kurmanji                   |
++----------------+----------------------------+
+| lao-Laoo       | Lao                        |
++----------------+----------------------------+
+| mar-Deva       | Marathi                    |
++----------------+----------------------------+
+| mlt-Latn       | Maltese                    |
++----------------+----------------------------+
+| mya-Mymr       | Burmese                    |
++----------------+----------------------------+
+| msa-Latn       | Malay                      |
++----------------+----------------------------+
+| nld-Latn       | Dutch                      |
++----------------+----------------------------+
+| nya-Latn       | Chichewa                   |
++----------------+----------------------------+
+| orm-Latn       | Oromo                      |
++----------------+----------------------------+
+| pan-Guru       | Punjabi (Eastern)          |
++----------------+----------------------------+
+| pol-Latn       | Polish                     |
++----------------+----------------------------+
+| por-Latn       | Portuguese                 |
++----------------+----------------------------+
+| ron-Latn       | Romanian                   |
++----------------+----------------------------+
+| rus-Cyrl       | Russian                    |
++----------------+----------------------------+
+| sna-Latn       | Shona                      |
++----------------+----------------------------+
+| som-Latn       | Somali                     |
++----------------+----------------------------+
+| spa-Latn       | Spanish                    |
++----------------+----------------------------+
+| swa-Latn       | Swahili                    |
++----------------+----------------------------+
+| swe-Latn       | Swedish                    |
++----------------+----------------------------+
+| tam-Taml       | Tamil                      |
++----------------+----------------------------+
+| tel-Telu       | Telugu                     |
++----------------+----------------------------+
+| tgk-Cyrl       | Tajik                      |
++----------------+----------------------------+
+| tgl-Latn       | Tagalog                    |
++----------------+----------------------------+
+| tha-Thai       | Thai                       |
++----------------+----------------------------+
+| tir-Ethi       | Tigrinya                   |
++----------------+----------------------------+
+| tuk-Cyrl       | Turkmen (Cyrillic)         |
++----------------+----------------------------+
+| tuk-Latn       | Turkmen (Latin)            |
++----------------+----------------------------+
+| tur-Latn       | Turkish (Latin)            |
++----------------+----------------------------+
+| ukr-Cyrl       | Ukranian                   |
++----------------+----------------------------+
+| uig-Arab       | Uyghur (Perso-Arabic)      |
++----------------+----------------------------+
+| uzb-Cyrl       | Uzbek (Cyrillic)           |
++----------------+----------------------------+
+| uzb-Latn       | Uzbek (Latin)              |
++----------------+----------------------------+
+| vie-Latn       | Vietnamese                 |
++----------------+----------------------------+
+| xho-Latn       | Xhosa                      |
++----------------+----------------------------+
+| yor-Latn       | Yoruba                     |
++----------------+----------------------------+
+| zul-Latn       | Zulu                       |
++----------------+----------------------------+
 
 \*Chinese G2P requires the freely available
 `CC-CEDict <https://cc-cedict.org/wiki/>`__ dictionary.
@@ -565,10 +621,10 @@ grammar formalism for pre- and post-processing.
 The preprocessor and postprocessor files have the same format. They
 consist of a sequence of lines, each consisting of one of four types:
 
-1. Symbol definitions
-2. Context-sensitive rewrite rules
-3. Comments
-4. Blank lines
+#. Symbol definitions
+#. Context-sensitive rewrite rules
+#. Comments
+#. Blank lines
 
 Symbol definitions
 ^^^^^^^^^^^^^^^^^^
@@ -743,3 +799,17 @@ Perhaps the best way to learn how to structure language support for a
 new language is to consult the existing languages in Epitran. The French
 preprocessor ``fra-Latn.txt`` and the Thai postprocessor
 ``tha-Thai.txt`` illustrate many of the use-cases for these rules.
+
+Citing Epitran
+==============
+
+If you use Epitran in published work, or in other research, please use
+the following citation:
+
+David R. Mortensen, Siddharth Dalmia, and Patrick Littell. 2018.
+Epitran: Precision G2P for many languages. In *Proceedings of the
+Eleventh International Conference on Language Resources and Evaluation
+(LREC 2018)*, Paris, France. European Language Resources Association
+(ELRA).
+
+``@InProceedings{Mortensen-et-al:2018,   author = {Mortensen, David R.  and Dalmia, Siddharth and Littell, Patrick},   title = {Epitran: Precision {G2P} for Many Languages},   booktitle = {Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)},   year = {2018},   month = {May},   date = {7--12},   location = {Miyazaki, Japan},   editor = {Nicoletta Calzolari (Conference chair) and Khalid Choukri and Christopher Cieri and Thierry Declerck and Sara Goggi and Koiti Hasida and Hitoshi Isahara and Bente Maegaard and Joseph Mariani and H\'el\`ene Mazo and Asuncion Moreno and Jan Odijk and Stelios Piperidis and Takenobu Tokunaga},   publisher = {European Language Resources Association (ELRA)},   address = {Paris, France},   isbn = {979-10-95546-00-9},   language = {english}   }``
