@@ -8,6 +8,8 @@ The Python modules ```epitran``` and ```epitran.vector``` can be used to easily 
 
 ## Using the `epitran` Module
 
+### The Epitran class
+
 The most general functionality in the `epitran` module is encapsulated in the very simple `Epitran` class:
 
 Epitran(code, preproc=True, postproc=True, ligatures=False, cedict_file=None).
@@ -33,7 +35,7 @@ It is now possible to use the Epitran class for English and Mandarin Chinese (Si
 
 The most useful public method of the Epitran class is `transliterate`:
 
-Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned. `normpunc` enables punctuation normalization and `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 3):
+Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned. `normpunc` enables punctuation normalization and `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 2):
 
 
 ```python
@@ -66,7 +68,7 @@ The codes for `character_category` are from the initial characters of the two ch
 )
 ```
 
-Here is an example of an interaction with ```word_to_tuples```:
+Here is an example of an interaction with ```word_to_tuples``` (Python 2):
 
 
 ```python
@@ -76,6 +78,44 @@ Here is an example of an interaction with ```word_to_tuples```:
 [(u'L', 1, u'D', u'd', [(u'd', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'g\u0306', u'\u0270', [(u'\u0270', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
 ```
 
+### The Backoff class
+
+Sometimes, when parsing text in more than one script, it is useful to employ a graceful backoff. This is provided by the Backoff class:
+
+Backoff(lang_script_codes, cedict_file=None)
+
+Note that the Backoff class does not currently support parameterized preprocessor and postprocessor application and does not support non-standard ligatures. It also does not support punctuation normalization. `lang_script_codes` is a list of codes like `eng-Latn` or `hin-Deva`. For example, if one was transcribing a Hindi text with many English loanwords and some stray characters of Simplified Chinese, one might use the following code (Python 3):
+
+```python
+from epitran.backoff import Backoff
+>>> backoff = Backoff(['hin-Deva', 'eng-Latn', 'cmn-Hans'], cedict_file=‘cedict_1_0_ts_utf-8_mdbg.txt')
+>>> backoff.transliterate('हिन्दी')
+'ɦindiː'
+>>> backoff.transliterate('English')
+'ɪŋɡlɪʃ'
+>>> backoff.transliterate('中文')
+'ʈ͡ʂoŋwən'
+```
+
+Backoff works on a token-by-token basis: tokens that contain mixed scripts will be returned as the empty string, since they cannot be fully converted by any of the modes.
+
+The Backoff class has the following public methods:
+* **transliterate**: returns a unicode string of IPA phonemes
+* **trans_list**: returns a list of IPA unicode strings, each of which is a
+  phoneme
+* **xsampa_list**: returns a list of X-SAMPA (ASCII) strings, each of which is
+  phoneme
+
+Consider the following example (Python 3):
+
+```python
+>>> backoff.transliterate('हिन्दी')
+'ɦindiː'
+>>> backoff.trans_list('हिन्दी')
+['ɦ', 'i', 'n', 'd', 'iː']
+>>> backoff.xsampa_list('हिन्दी')
+['h\\', 'i', 'n', 'd', 'i:']
+```
 
 ### Preprocessors, postprocessors, and their pitfalls
 
@@ -98,8 +138,7 @@ Its principle method is ```word_to_segs```:
 VectorWithIPASpace.**word_to_segs**(word, normpunc=False). `word` is a Unicode string. If the keyword argument *normpunc* is set to True, punctuation discovered in `word` is normalized to ASCII equivalents.
 
 
-A typical interaction with the ```VectorsWithIPASpace``` object via the ```word_to_segs``` method is illustrated here:
-
+A typical interaction with the ```VectorsWithIPASpace``` object via the ```word_to_segs``` method is illustrated here (Python 2):
 
 ```python
 >>> import epitran.vector
