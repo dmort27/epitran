@@ -40,7 +40,7 @@ class Backoff(object):
         for lang in self.langs:
             if ''.join(lang.epi.regexp.findall(token)) == token:
                 return lang.transliterate(token)
-        if re.match(r'^\p{Number}+$'):
+        if re.match(r'^\p{Number}+$', token):
             return token
         else:
             return ''
