@@ -28,7 +28,7 @@ class Backoff(object):
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
 
-        
+
     def transliterate(self,token):
         """Return IPA transliteration given by first acceptable mode.
         Args:
@@ -38,30 +38,30 @@ class Backoff(object):
         """
         tr_list = []
         while token:
-            isOutsideLang=True
+            is_outside_lang=True
             for lang in self.langs:
-                source=''
+                source = ''
                 while True:
-                    m = lang.epi.regexp.match(temp_t)
+                    m = lang.epi.regexp.match(token)
                     if not m:
                         break
                     s = m.group()
                     token = token[len(s):]
                     source += s
-                    isOutsideLang=False
+                    is_outside_lang = False
                 tr_list.append(lang.transliterate(source))
-            if isOutsideLang:
-                m = re.match(r'^\p{Number}+', token)
+            if is_outside_lang:
+                m = re.match(r'\p{Number}+', token)
                 if m:
                     source = m.group()
                     tr_list.append(source)
                     token = token[len(source):]
                 else:
-                    if(token[0]==' '):
+                    if(token[0] == ' '):
                         tr_list.append(token[0])
                     token = token[1:]
         return ''.join(tr_list)
-      
+
     def trans_list(self, token):
         """Transliterate/transcribe a word into list of IPA phonemes.
 
