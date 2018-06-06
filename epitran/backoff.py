@@ -7,6 +7,7 @@ from . import _epitran
 import panphon.featuretable
 from epitran.puncnorm import PuncNorm
 from epitran.xsampa import XSampa
+from epitran.stripdiacritics import StripDiacritics
 
 
 class Backoff(object):
@@ -27,13 +28,9 @@ class Backoff(object):
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
-<<<<<<< HEAD
+        self.dias = [StripDiacritics(c) for c in lang_script_codes]
 
-
-=======
-
->>>>>>> 7145ec2cc084448c928786ddad2c10851172e944
-    def transliterate(self,token):
+    def transliterate(self, token):
         """Return IPA transliteration given by first acceptable mode.
         Args:
             token (unicode): orthographic text
@@ -42,11 +39,11 @@ class Backoff(object):
         """
         tr_list = []
         while token:
-            is_outside_lang=True
-            for lang in self.langs:
+            is_outside_lang = True
+            for dia, lang in zip(self.dias, self.langs):
                 source = ''
                 while True:
-                    m = lang.epi.regexp.match(token)
+                    m = lang.epi.regexp.match(dia.process(token))
                     if not m:
                         break
                     s = m.group()
@@ -61,9 +58,9 @@ class Backoff(object):
                     tr_list.append(source)
                     token = token[len(source):]
                 else:
-                    if(token[0] == ' '):
+                    if (token[0] == ' '):
                         tr_list.append(token[0])
-                    if(token[0]=='#'):
+                    if (token[0] == '#'):
                         tr_list.append(token[0])
                         token = token[1:]
         return ''.join(tr_list)
