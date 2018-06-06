@@ -50,7 +50,7 @@ class Backoff(object):
                     isOutsideLang=False
                 tr_list.append(lang.transliterate(source))
             if isOutsideLang:
-                m = re.match(r'^\p{Number}+', token)
+                m = re.match(r'\p{Number}+', token)
                 if m:
                     source = m.group()
                     tr_list.append(source)
