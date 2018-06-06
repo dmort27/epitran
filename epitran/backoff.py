@@ -7,6 +7,7 @@ from . import _epitran
 import panphon.featuretable
 from epitran.puncnorm import PuncNorm
 from epitran.xsampa import XSampa
+from epitran.stripdiacritics import StripDiacritics
 
 
 class Backoff(object):
@@ -27,23 +28,42 @@ class Backoff(object):
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
+        self.dias = [StripDiacritics(c) for c in lang_script_codes]
 
     def transliterate(self, token):
         """Return IPA transliteration given by first acceptable mode.
-
         Args:
             token (unicode): orthographic text
-
         Returns:
             unicode: transliteration as Unicode IPA string
         """
-        for lang in self.langs:
-            if ''.join(lang.epi.regexp.findall(token)) == token:
-                return lang.transliterate(token)
-        if re.match(r'^\p{Number}+$', token):
-            return token
-        else:
-            return ''
+        tr_list = []
+        while token:
+            is_outside_lang = True
+            for dia, lang in zip(self.dias, self.langs):
+                source = ''
+                while True:
+                    m = lang.epi.regexp.match(dia.process(token))
+                    if not m:
+                        break
+                    s = m.group()
+                    token = token[len(s):]
+                    source += s
+                    is_outside_lang = False
+                tr_list.append(lang.transliterate(source))
+            if is_outside_lang:
+                m = re.match(r'\p{Number}+', token)
+                if m:
+                    source = m.group()
+                    tr_list.append(source)
+                    token = token[len(source):]
+                else:
+                    if (token[0] == ' '):
+                        tr_list.append(token[0])
+                    if (token[0] == '#'):
+                        tr_list.append(token[0])
+                        token = token[1:]
+        return ''.join(tr_list)
 
     def trans_list(self, token):
         """Transliterate/transcribe a word into list of IPA phonemes.

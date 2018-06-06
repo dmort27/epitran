@@ -85,7 +85,8 @@ class Epitran(object):
         Returns:
             unicode: transliteration with segments delimited by `delimiter`
         """
-        return delimiter.join(self.trans_list(text, normpunc=normpunc, ligatures=ligatures))
+        return delimiter.join(self.trans_list(text, normpunc=normpunc,
+                                              ligatures=ligatures))
 
     def xsampa_list(self, word, normpunc=False, ligaturize=False):
         """Transliterates/transcribes a word as X-SAMPA
@@ -98,7 +99,8 @@ class Epitran(object):
         Returns:
             list: X-SAMPA strings, each corresponding to a segment
         """
-        ipa_segs = self.ft.ipa_segs(self.epi.strict_trans(word, normpunc, ligaturize))
+        ipa_segs = self.ft.ipa_segs(self.epi.strict_trans(word, normpunc,
+                                                          ligaturize))
         return list(map(self.xsampa.ipa2xs, ipa_segs))
 
     def word_to_tuples(self, word, normpunc=False, ligaturize=False):
