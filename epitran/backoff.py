@@ -27,8 +27,12 @@ class Backoff(object):
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
+<<<<<<< HEAD
 
 
+=======
+
+>>>>>>> 7145ec2cc084448c928786ddad2c10851172e944
     def transliterate(self,token):
         """Return IPA transliteration given by first acceptable mode.
         Args:
@@ -59,7 +63,9 @@ class Backoff(object):
                 else:
                     if(token[0] == ' '):
                         tr_list.append(token[0])
-                    token = token[1:]
+                    if(token[0]=='#'):
+                        tr_list.append(token[0])
+                        token = token[1:]
         return ''.join(tr_list)
 
     def trans_list(self, token):
