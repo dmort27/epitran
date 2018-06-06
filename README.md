@@ -470,7 +470,7 @@ Perhaps the best way to learn how to structure language support for a new langua
 
 # Citing Epitran
 
-If you use Epitran in published work, or in other research, please use the following citation:
+If you use Epitran in published work, or in other research, please cite [this paper](http://www.lrec-conf.org/proceedings/lrec2018/pdf/890.pdf):
 
 David R. Mortensen, Siddharth Dalmia, and Patrick Littell. 2018. Epitran: Precision G2P for many languages. In *Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)*, Paris, France. European Language Resources Association (ELRA).
 
