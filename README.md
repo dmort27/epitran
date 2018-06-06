@@ -2,7 +2,7 @@
 
 A library and tool for transliterating orthographic text as IPA (International Phonetic Alphabet).
 
-# Citing Epitran
+## Citing Epitran
 
 If you use Epitran in published work, or in other research, please cite [this paper](http://www.lrec-conf.org/proceedings/lrec2018/pdf/890.pdf):
 
