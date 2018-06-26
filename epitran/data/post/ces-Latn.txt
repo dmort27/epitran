@@ -1,0 +1,34 @@
+::palvow:: = i|ɪ|jɛ
+::vlesscons:: = t͡s|t͡ʃ|f|x|k|p|s|ʃ|t|c|ks
+::vdcons:: = b|d|ɟ|ɡ|ɦ|j|l|m|n|ɲ|r|z|ʒ
+
+% Palatalization
+d -> ɟ / _ (::palvow::)
+t -> c / _ (::palvow::)
+n -> ɲ / _ (::palvow::)
+j -> ɲ / m _ e
+
+% Devoicing
+b -> p / _ (#|::vlesscons::)
+d -> t / _ (#|::vlesscons::)
+ɟ -> c / _ (#|::vlesscons::)
+ɡ -> k / _ (#|::vlesscons::)
+v -> f / _ (#|::vlesscons::)
+z -> s / _ (#|::vlesscons::)
+ʒ -> ʃ / _ (#|::vlesscons::)
+ɦ -> x / _ (#|::vlesscons::)
+
+% Voicing
+p -> b / _ (::vdcons::)
+t -> d / _ (::vdcons::)
+c -> ɟ / _ (::vdcons::)
+k -> ɡ / _ (::vdcons::)
+f -> v / _ (::vdcons::)
+s -> z / _ (::vdcons::)
+ʃ -> ʒ / _ (::vdcons::)
+x -> ɦ / _ (::vdcons::)
+ks -> gz / _ (::vdcons::)
+
+% Hard y
+ʏ -> ɪ / _
+yː -> iː / _
