@@ -2,6 +2,29 @@
 
 A library and tool for transliterating orthographic text as IPA (International Phonetic Alphabet).
 
+## Citing Epitran
+
+If you use Epitran in published work, or in other research, please cite [this paper](http://www.lrec-conf.org/proceedings/lrec2018/pdf/890.pdf):
+
+David R. Mortensen, Siddharth Dalmia, and Patrick Littell. 2018. Epitran: Precision G2P for many languages. In *Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)*, Paris, France. European Language Resources Association (ELRA).
+
+```
+@InProceedings{Mortensen-et-al:2018,
+  author = {Mortensen, David R.  and Dalmia, Siddharth and Littell, Patrick},
+  title = {Epitran: Precision {G2P} for Many Languages},
+  booktitle = {Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)},
+  year = {2018},
+  month = {May},
+  date = {7--12},
+  location = {Miyazaki, Japan},
+  editor = {Nicoletta Calzolari (Conference chair) and Khalid Choukri and Christopher Cieri and Thierry Declerck and Sara Goggi and Koiti Hasida and Hitoshi Isahara and Bente Maegaard and Joseph Mariani and H\'el\`ene Mazo and Asuncion Moreno and Jan Odijk and Stelios Piperidis and Takenobu Tokunaga},
+  publisher = {European Language Resources Association (ELRA)},
+  address = {Paris, France},
+  isbn = {979-10-95546-00-9},
+  language = {english}
+  }
+  ```
+
 ## Usage
 
 The Python modules ```epitran``` and ```epitran.vector``` can be used to easily write more sophisticated Python programs for deploying the **Epitran** mapping tables, preprocessors, and postprocessors. This is documented below.
@@ -454,7 +477,7 @@ Comments and blank lines (lines consisting only of white space) are allowed to m
 
 Epitran uses a mapping-and-repairs approach to G2P. It is expected that there is a mapping between graphemes and phonemes that can do most of the work of converting orthographic representations to phonological representations. In phonemically adequate orthogrphies, this mapping can do *all* of the work. This mapping should be completed first. For many languages, a basis for this mapping table already exists on [Wikipedia](http://www.wikipedia.org) and [Omniglot](http://www.omniglot.com) (though the Omniglot tables are typically not machine readable).
 
-On the other hand, many writing systems deviate from the phonemically adequate idea. It is here that pre- and post-processors must be introduced. For example, in Swedish, the letter <a> receives a different pronunciation before two consonants (/ɐ/) than elsewhere (/ɑː/). It makes sense to add a preprocessor rule that rewrites <a> as /ɐ/ before two consonants (and similar rules for the other vowels, since they are affected by the same condition). Preprocessor rules should generally be employed whenever the orthographic representation must be adjusted (by contextual changes, deletions, etc.) prior to the mapping step.
+On the other hand, many writing systems deviate from the phonemically adequate idea. It is here that pre- and post-processors must be introduced. For example, in Swedish, the letter 〈a〉receives a different pronunciation before two consonants (/ɐ/) than elsewhere (/ɑː/). It makes sense to add a preprocessor rule that rewrites 〈a〉 as /ɐ/ before two consonants (and similar rules for the other vowels, since they are affected by the same condition). Preprocessor rules should generally be employed whenever the orthographic representation must be adjusted (by contextual changes, deletions, etc.) prior to the mapping step.
 
 One common use for postprocessors is to eliminate characters that are needed by the preprocessors or maps, but which should not appear in the output. A classic example of this is the virama used in Indic scripts. In these scripts, in order to write a consonant *not followed* by a vowel, one uses the form of the consonant symbol with particular inherent vowel followed by a virama (which has various names in different Indic languages). An easy way of handling this is to allow the mapping to translate the consonant into an IPA consonant + an inherent vowel (which, for a given language, will always be the same), then use the postprocessor to delete the vowel + virama sequence (wherever it occurs).
 
@@ -467,26 +490,3 @@ In fact, any situation where a character that is introduced by the map needs to 
 
 
 Perhaps the best way to learn how to structure language support for a new language is to consult the existing languages in Epitran. The French preprocessor `fra-Latn.txt` and the Thai postprocessor `tha-Thai.txt` illustrate many of the use-cases for these rules.
-
-# Citing Epitran
-
-If you use Epitran in published work, or in other research, please use the following citation:
-
-David R. Mortensen, Siddharth Dalmia, and Patrick Littell. 2018. Epitran: Precision G2P for many languages. In *Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)*, Paris, France. European Language Resources Association (ELRA).
-
-```
-@InProceedings{Mortensen-et-al:2018,
-  author = {Mortensen, David R.  and Dalmia, Siddharth and Littell, Patrick},
-  title = {Epitran: Precision {G2P} for Many Languages},
-  booktitle = {Proceedings of the Eleventh International Conference on Language Resources and Evaluation (LREC 2018)},
-  year = {2018},
-  month = {May},
-  date = {7--12},
-  location = {Miyazaki, Japan},
-  editor = {Nicoletta Calzolari (Conference chair) and Khalid Choukri and Christopher Cieri and Thierry Declerck and Sara Goggi and Koiti Hasida and Hitoshi Isahara and Bente Maegaard and Joseph Mariani and H\'el\`ene Mazo and Asuncion Moreno and Jan Odijk and Stelios Piperidis and Takenobu Tokunaga},
-  publisher = {European Language Resources Association (ELRA)},
-  address = {Paris, France},
-  isbn = {979-10-95546-00-9},
-  language = {english}
-  }
-  ```

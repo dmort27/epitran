@@ -11,8 +11,10 @@ import unicodecsv as csv
 
 
 class ReRomanizer(object):
-    def __init__(self, code, table, decompose=False):
-        """Construct object for re-romanizing Epitran output
+    """Converts IPA representations to a readable roman form."""
+
+    def __init__(self, code, table, decompose=False, cedict_file=None):
+        """Construct object for re-romanizing Epitran output.
 
         This class converts orthographic input, via Epitran, to a more
         conventional romanization that should be more readable to most humans.
@@ -22,15 +24,12 @@ class ReRomanizer(object):
             table (str): Name of re-romanization table
             decompose (bool): apply decomposing normalization
         """
-        self.epi = epitran.Epitran(code)
+        self.epi = epitran.Epitran(code, cedict_file=cedict_file)
         self.mapping = self._load_reromanizer(table, decompose)
 
     def _load_reromanizer(self, table, decompose):
         path = os.path.join('data', 'reromanize', table + '.csv')
-        try:
-            path = pkg_resources.resource_filename(__name__, path)
-        except:
-            print('Could not locate {}.'.format(path), file=sys.stderr)
+        path = pkg_resources.resource_filename(__name__, path)
         if os.path.isfile(path):
             mapping = {}
             with open(path, 'rb') as f:
