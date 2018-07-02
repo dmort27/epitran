@@ -20,5 +20,8 @@ class TestSinhalaGeneral(unittest.TestCase):
     def test_alapila(self):
         self._assert_trans('ඇලපිල්ල', 'ælapilla')
 
-    def test_(self):
+    def test_kombuva(self):
         self._assert_trans('කොම්බුව', 'kombuva')
+
+    def test_deka(self):
+        self._assert_trans('දෙක', 'deka')
