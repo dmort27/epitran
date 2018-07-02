@@ -6,3 +6,5 @@ V -> 0 / _ ්
 
 # Vowel diacritics
 V -> 0 / _ (::vowel::)
+
+V -> a / _
