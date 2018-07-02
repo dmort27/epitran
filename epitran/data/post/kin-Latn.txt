@@ -1,0 +1,6 @@
+% Kinyarwanda postprocessor
+
+% K rules
+k->kh/ _a
+k->kw/_o
+k->kw/_u
