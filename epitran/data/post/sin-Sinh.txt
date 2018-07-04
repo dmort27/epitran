@@ -1,10 +1,11 @@
 ::vowel:: = a|æ|i|u|e|o|aː|æː|iː|uː|eː|oː|ruː|li|liː
 
 % Virama
-V -> 0 / _ X
-X -> 0 / _
+V -> 0 / _ ්
+් -> 0 / _
 
 % Vowel diacritics
 V -> 0 / _ (::vowel::)
 
-V -> a / _
+% Inherent vowels
+V -> a / _ 
