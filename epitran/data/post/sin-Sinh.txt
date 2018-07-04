@@ -8,4 +8,4 @@ V -> 0 / _ ්
 V -> 0 / _ (::vowel::)
 
 % Inherent vowels
-V -> a / _ 
+V -> a / _
