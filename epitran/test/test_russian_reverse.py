@@ -15,6 +15,8 @@ class TestRussian(unittest.TestCase):
         tr = self.epi.reverse_transliterate(ipa)
         self.assertEqual(tr, text)
 
+    # Test Russian words
+
     def test_vzglat(self):
         self._assert_reverse('vzɡlʲad', 'взгляд')
 
@@ -41,3 +43,18 @@ class TestRussian(unittest.TestCase):
 
     def test_izyavit(self):
         self._assert_reverse('izʲjavʲitʲ', 'изъявить')
+
+    def test_zhena(self):
+        self._assert_reverse('ʒena', 'жена')
+
+    def test_shest(self):
+        self._assert_reverse('ʂest', 'шест')
+
+    def test_chem(self):
+        self._assert_reverse('t͡ɕem', 'чем')
+
+    def test_shchel(self):
+        self._assert_reverse('ɕɕelʲ', 'щель')
+
+    def test_tsel(self):
+        self._assert_reverse('t͡selʲ', 'цель')
