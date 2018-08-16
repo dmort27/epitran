@@ -63,3 +63,6 @@ target/
 
 # LibreOffice Locks
 .~lock.*#
+
+# JetBrains 
+.idea/

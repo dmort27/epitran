@@ -13,11 +13,11 @@ class TestRussian(unittest.TestCase):
 
     def test_straitilstva(self):
         tr = self.epi.transliterate('строительство')
-        self.assertEqual(tr, 'strɐitʲelʲstvɐ')
+        self.assertEqual(tr, 'stroitʲelʲstvo')
 
     def test_gasurdarstva(self):
         tr = self.epi.transliterate('государство')
-        self.assertEqual(tr, 'ɡɐsudarstvɐ')
+        self.assertEqual(tr, 'ɡosudarstvo')
 
     def test_vzglat(self):
         tr = self.epi.transliterate('взгляд')

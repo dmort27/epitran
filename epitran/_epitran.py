@@ -24,7 +24,8 @@ class Epitran(object):
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional}
 
-    def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict_file=None):
+    def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict_file=None,
+                 rev=False, rev_preproc=True, rev_postproc=True):
         """Construct Epitran transliteration/transcription object
 
         Args:
@@ -35,11 +36,14 @@ class Epitran(object):
             ligatures (bool): use precomposed ligatures instead of standard IPA
             cedict_filename (str): path to file containing the CC-CEDict
                                    dictionary; relevant only for Chinese
+            rev (boolean): if True, load reverse transliteration
+            rev_preproc (bool): if True, apply preprocessor when reverse transliterating
+            rev_postproc (bool): if True, apply postprocessor when reverse transliterating
         """
         if code in self.special:
             self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file)
         else:
-            self.epi = SimpleEpitran(code, preproc, postproc, ligatures)
+            self.epi = SimpleEpitran(code, preproc, postproc, ligatures, rev, rev_preproc, rev_postproc)
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
@@ -56,6 +60,17 @@ class Epitran(object):
             unicode: IPA string
         """
         return self.epi.transliterate(word, normpunc, ligatures)
+
+    def reverse_transliterate(self, ipa):
+        """Reconstructs word from IPA. Does the reverse of transliterate()
+
+        Args:
+            ipa (str): word transcription in ipa; unicode string
+
+        Returns:
+            unicode: reconstructed word
+        """
+        return self.epi.reverse_transliterate(ipa)
 
     def strict_trans(self, word, normpunc=False, ligatures=False):
         return self.epi.strict_trans(word, normpunc, ligatures)

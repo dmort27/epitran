@@ -28,7 +28,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class SimpleEpitran(object):
-    def __init__(self, code, preproc=True, postproc=True, ligatures=False):
+    def __init__(self, code, preproc=True, postproc=True, ligatures=False,
+                 rev=False, rev_preproc=True, rev_postproc=True):
         """Constructs the backend object epitran uses for most languages
 
         Args:
@@ -37,18 +38,30 @@ class SimpleEpitran(object):
             postproc (bool): if True, apply postprocessors
             ligatures (bool): if True, use phonetic ligatures for affricates
                               instead of standard IPA
+            rev (bool): if True, load reverse transliteration
+            rev_preproc (bool): if True, apply preprocessor when reverse transliterating
+            rev_postproc (bool): if True, apply postprocessor when reverse transliterating
         """
-        self.g2p = self._load_g2p_map(code)
-        self.regexp = self._construct_regex()
+        self.rev = rev
+        self.g2p = self._load_g2p_map(code, False)
+        self.regexp = self._construct_regex(self.g2p.keys())
         self.puncnorm = PuncNorm()
         self.ft = panphon.FeatureTable()
         self.num_panphon_fts = len(self.ft.names)
-        self.preprocessor = PrePostProcessor(code, 'pre')
-        self.postprocessor = PrePostProcessor(code, 'post')
+        self.preprocessor = PrePostProcessor(code, 'pre', False)
+        self.postprocessor = PrePostProcessor(code, 'post', False)
         self.strip_diacritics = StripDiacritics(code)
         self.preproc = preproc
         self.postproc = postproc
         self.ligatures = ligatures
+        self.rev_preproc = rev_preproc
+        self.rev_postproc = rev_postproc
+        if rev:
+            self.rev_g2p = self._load_g2p_map(code, True)
+            self.rev_regexp = self._construct_regex(self.rev_g2p.keys())
+            self.rev_preprocessor = PrePostProcessor(code, 'pre', True)
+            self.rev_postprocessor = PrePostProcessor(code, 'post', True)
+
         self.nils = defaultdict(int)
 
     def __enter__(self):
@@ -64,15 +77,17 @@ class SimpleEpitran(object):
                 return (g, ls)
         return None
 
-    def _load_g2p_map(self, code):
+    def _load_g2p_map(self, code, rev):
         """Load the code table for the specified language.
 
         Args:
             code (str): ISO 639-3 code plus "-" plus ISO 15924 code for the
                         language/script to be loaded
+            rev (boolean): True for reversing the table (for reverse transliterating)
         """
         g2p = defaultdict(list)
         gr_by_line = defaultdict(list)
+        code += '_rev' if rev else ''
         try:
             path = os.path.join('data', 'map', code + '.csv')
             path = pkg_resources.resource_filename(__name__, path)
@@ -107,11 +122,11 @@ class SimpleEpitran(object):
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 
-    def _construct_regex(self):
+    def _construct_regex(self, g2p_keys):
         """Build a regular expression that will greadily match segments from
            the mapping table.
         """
-        graphemes = sorted(self.g2p.keys(), key=len, reverse=True)
+        graphemes = sorted(g2p_keys, key=len, reverse=True)
         return re.compile(r'({})'.format(r'|'.join(graphemes)), re.I)
 
     def general_trans(self, text, filter_func,
@@ -177,6 +192,55 @@ class SimpleEpitran(object):
         """
         return self.general_trans(text, lambda x: True,
                                   normpunc, ligatures)
+
+    def general_reverse_trans(self, ipa):
+        """Reconstructs word from IPA. Does the reverse of transliterate().
+        Ignores unmapped characters.
+
+            Args:
+                ipa (str): word transcription in ipa; unicode string
+
+            Returns:
+                unicode: reconstructed word
+        """
+        text = unicode(ipa)
+        if self.rev_preproc:
+            text = self.rev_preprocessor.process(text)
+        tr_list = []
+        while text:
+            m = self.rev_regexp.match(text)
+            if m:
+                source = m.group(0)
+                try:
+                    target = self.rev_g2p[source][0]
+                except KeyError:
+                    logging.debug("source = '{}'".format(source))
+                    logging.debug("self.rev_g2p[source] = '{}'"
+                                  .format(self.g2p[source]))
+                    target = source
+                tr_list.append((target, True))
+                text = text[len(source):]
+            else:
+                tr_list.append((text[0], False))
+                self.nils[text[0]] += 2
+                text = text[1:]
+        text = ''.join([s for (s, _) in tr_list])
+        if self.rev_postproc:
+            text = self.rev_postprocessor.process(text)
+        return text
+
+    def reverse_transliterate(self, ipa):
+        """Reconstructs word from IPA. Does the reverse of transliterate()
+
+        Args:
+            ipa (str): word transcription in ipa; unicode string
+
+        Returns:
+            unicode: reconstructed word
+        """
+        if not self.rev:
+            raise ValueError('This Epitran object was initialized with no reverse transliteration loaded')
+        return self.general_reverse_trans(ipa)
 
     def strict_trans(self, text, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
