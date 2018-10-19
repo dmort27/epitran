@@ -1,2 +1,5 @@
 % <i> represents a glide before vowels
 i -> j / # _ [êeươâaăuôo]
+
+ch -> jk / _ #
+nh -> jŋ / _ #
