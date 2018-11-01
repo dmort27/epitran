@@ -41,7 +41,7 @@ z,z,vd alveolar fricative
 x,x,vl velar fricative
 ɣ,G,vd velar fricative
 χ,X,vl uvular fricative
-ʁ,R\,vd uvular fricative
+ʁ,R,vd uvular fricative
 ħ,X\,vl pharyngeal fricative
 ʕ,?\,vd pharyngeal fricative
 h,h,vl glottal fricative
@@ -117,7 +117,6 @@ a,a,open front unrounded
 ̴,_e,velarized or pharyngealized
 ̝,_r,raised
 ̞,_o,lowered
-ˀ,_k,glottalized
 ̃,~,nasalized
 ⁿ,_n,nasal release
 ˡ,_l,lateral release
@@ -134,7 +133,7 @@ a,a,open front unrounded
 ː,:,length mark
 ˑ,:\,half-length
 ̆,_X,extra-short
-0,none,syllable break
+.,.,syllable break
 ʍ,W,vl labial-velar fricative
 w,w,vd labio-velar approximant
 ɥ,H,labial-palatal approximant
@@ -157,14 +156,12 @@ w,w,vd labio-velar approximant
 ɫ,5,velarized vl alveolar lateral
 ʄ,J\_<,vl palatal implosive
 ʼ,_>,ejective
-ʤ,dZ,vd postalveolar affricate
-ʴ,none,rhotacized
 ɝ,3`,rhotacized open-mid central
-t͡ʃ,tS,
-d͡ʒ,dZ,
-t͡ɕ,ts\,
-d͡ʑ,dz\,
-t͡ɬ,tK,
-k͡p,kp,
-g͡b,gb,
-ŋ͡m,Nm,
+t͡ʃ,tS,vl postalveolar affricate
+d͡ʒ,dZ,vd postalveolar affricate
+t͡ɕ,ts\,vl alveolo-palatal affricate
+d͡ʑ,dz\,vd alveolo-palatal affricate
+t͡ɬ,tK,vl alveolar lateral affricate 
+k͡p,kp,vl labial-velar plosive
+g͡b,gb,vd labial-velar plosive
+ŋ͡m,Nm,labial-velar nasal stop
