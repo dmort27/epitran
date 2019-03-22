@@ -14,7 +14,7 @@ class Backoff(object):
     """Implements rudimentary language ID and backoff."""
 
     def __init__(self, lang_script_codes, cedict_file=None):
-        """Construct a Backoff objectself.
+        """Construct a Backoff object.
 
         Args:
             lang_script_codes (list): codes for languages to try, starting
@@ -58,11 +58,8 @@ class Backoff(object):
                     tr_list.append(source)
                     token = token[len(source):]
                 else:
-                    if (token[0] == ' '):
-                        tr_list.append(token[0])
-                    if (token[0] == '#'):
-                        tr_list.append(token[0])
-                        token = token[1:]
+                    tr_list.append(token[0])
+                    token = token[1:]
         return ''.join(tr_list)
 
     def trans_list(self, token):
