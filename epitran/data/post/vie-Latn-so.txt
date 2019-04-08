@@ -1,0 +1,5 @@
+% <ch> is realized as /t/ word-finally
+c -> t / _ #
+
+% <nh> is realized as /n/ word-finally
+ɲ -> n / _ #

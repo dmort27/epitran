@@ -1,0 +1,2 @@
+% <ch> is realized as /k/ word-finally
+c -> k / _ #
