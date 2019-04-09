@@ -1,0 +1,2 @@
+% Insert glottal stop before word initial vowels
+0 -> ʔ / # _ (a|e|i|o|u)

@@ -1,2 +1,12 @@
 % Delete letters that have outlived their usefulness
 ъ -> 0 / _
+
+% Get rid of palatalization on ɕ and ʒ
+ɕʲ -> ɕ / _
+ʒʲ -> ʒ / _
+
+% palatalize
+ t͡ɕ -> t͡ɕʲ / _
+
+% Lengthen palatalized ʂ
+ʂʲ -> ʂʲː / _
