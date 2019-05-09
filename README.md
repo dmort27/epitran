@@ -276,7 +276,7 @@ Some the languages listed above should be approached with caution. It is not pos
 | tur-Latn-nosuf  | Turkish  | Based on data with suffixes removed  |
 | uzb-Latn-suf    | Uzbek    | Based on data with suffixes attached |
 
-Note that major languages, including **French**, are missing from this table to to a lack of appropriate text data.
+Note that major languages, including **French**, are missing from this table due to a lack of appropriate text data.
 
 ## Installation of Flite (for English G2P)
 
@@ -337,7 +337,7 @@ Language support in Epitran is provided through map files, which define mappings
 
 The map files are simple, two-column files where the first column contains the orthgraphic characters/sequences and the second column contains the phonetic characters/sequences. The two columns are separated by a comma; each row is terminated by a newline. For many languages (most languages with unambiguous, phonemically adequate orthographies) just this easy-to-produce mapping file is adequate to produce a serviceable G2P system.
 
-The first row is a header and is discarded. For consistency, it should contain the fields "Orth" and "Phon". The following rows by consist of fields of any length, separated by a comma. The same phonetic form (the second field) may occur any number of times but an orthographic form may only occur once. Where one orthograrphic form is a prefix of another form, the longer form has priority in mapping. In other words, matching between orthographic units and orthographic strings is greedy. Mapping works by finding the longest prefix of the orthographic form and adding the corresponding phonetic string to the end of the phonetic form, then removing the prefix from the orthographic form and continuing, in the same manner, until the orthographic form is consumed. If no non-empty prefix of the orthographic form is present in the mapping table, the first character in the orthographic form is removed and appended to the phonetic form. The normal sequence then resumes. This means that non-phonetic characters may end up in the "phonetic" form, which we judge to be better than loosing information through an inadequate mapping table.
+The first row is a header and is discarded. For consistency, it should contain the fields "Orth" and "Phon". The following rows by consist of fields of any length, separated by a comma. The same phonetic form (the second field) may occur any number of times but an orthographic form may only occur once. Where one orthograrphic form is a prefix of another form, the longer form has priority in mapping. In other words, matching between orthographic units and orthographic strings is greedy. Mapping works by finding the longest prefix of the orthographic form and adding the corresponding phonetic string to the end of the phonetic form, then removing the prefix from the orthographic form and continuing, in the same manner, until the orthographic form is consumed. If no non-empty prefix of the orthographic form is present in the mapping table, the first character in the orthographic form is removed and appended to the phonetic form. The normal sequence then resumes. This means that non-phonetic characters may end up in the "phonetic" form, which we judge to be better than losing information through an inadequate mapping table.
 
 ### Preprocesssors and postprocessors
 
@@ -442,7 +442,7 @@ There is a special construct for handling cases of metathesis (where "AB" is rep
 ```
 
 
-Will "swap" the positions of any character in "เแโไใไ" and any following character. Left of the arrow, there should be two groups (surrounded by parentheses) with the names `sw1` and `sw2` (a name for a group is specified by `?P<name>` appearing immediately after the open parenthesis for a group. The substrings matched by the two groups, `sw1` and `sw2` will be "swapped" or metathesized. The item immediately right of the arrow is ignored, but the context is not.
+Will "swap" the positions of any character in "เแโไใไ" and any following character. Left of the arrow, there should be two groups (surrounded by parentheses) with the names `sw1` and `sw2` (a name for a group is specified by `?P<name>` appearing immediately after the open parenthesis for a group). The substrings matched by the two groups, `sw1` and `sw2` will be "swapped" or metathesized. The item immediately right of the arrow is ignored, but the context is not.
 
 The rules apply in order, so earlier rules may "feed" and "bleed" later rules. Therefore, their sequence is *very important* and can be leveraged in order to achieve valuable results.
 
