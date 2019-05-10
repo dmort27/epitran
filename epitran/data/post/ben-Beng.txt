@@ -2,7 +2,7 @@
 ::vowel:: = ɔ|o|a|i|u|ɽi|ɽiː|li|liː|e|oj|ow
 
 % Hoshonto
-o্ -> 0 / _
+V্ -> 0 / _
 
 % Bishorgo
 ঃ -> ː / (::consonant::) _ .
