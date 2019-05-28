@@ -93,7 +93,7 @@ class Flite(object):
                 acc.append(chunk)
         text = ''.join(acc)
         text = self.puncnorm.norm(text) if normpunc else text
-        text = ligaturize(text) if ligatures else text
+        text = ligaturize(text) if (ligatures or self.ligatures) else text
         return text
 
     def strict_trans(self, text, normpunc=False, ligatures=False):
