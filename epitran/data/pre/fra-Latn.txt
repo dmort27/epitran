@@ -21,6 +21,7 @@ il -> j / [::vowel::] _
 ill -> j / [::vowel::] _
 
 x -> ks / _ (p|t|k|f|s|ch)
+x -> ks / # _ [::vowel::]
 
 % Treatment of <c> and <s>
 sc -> s / _ [::front_vowel::]
