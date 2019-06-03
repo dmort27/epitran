@@ -69,5 +69,6 @@ t -> 0 / [::vowel::n] _ #
 tt -> 0 / [::vowel::n] _ #
 x -> 0 / [::vowel::] _ #
 ent -> 0 / [::vowel::].+ _ #
+ent -> 0 / [::vowel::].+ _ #
 
 ɛs -> 0 / _ #
