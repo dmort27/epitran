@@ -1,5 +1,5 @@
-::vowel:: = aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜɛ
-::front_vowel:: = eéèêëiîïyEÉÈÊËIÎÏYɛ
+::vowel:: = [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜɛ]
+::front_vowel:: = [eéèêëiîïyEÉÈÊËIÎÏYɛ]
 ::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
 
 j -> ʒ / _
@@ -70,6 +70,5 @@ t -> 0 / [::vowel::n] _ #
 tt -> 0 / [::vowel::n] _ #
 x -> 0 / [::vowel::] _ #
 ent -> 0 / [::vowel::].+ _ #
-œx -> ø / _ #
 
 ɛs -> 0 / _ #
