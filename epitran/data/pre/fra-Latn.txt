@@ -1,74 +1,174 @@
-::vowel:: = [aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜɛ]
-::front_vowel:: = [eéèêëiîïyEÉÈÊËIÎÏYɛ]
+::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ
+::front_vowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ
 ::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
 
+qu -> k / _
 j -> ʒ / _
-i -> j / _ [::vowel::]
+i -> j / _ (::vowel::)
+
+c -> 0 / n _ \s|\W|#
 
 % Rules to be completed (with tilde)
-a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
-ai[mn] -> ễ / _ #|x|(::consonant::)(::consonant::)
-e[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
-ein|im|in|ym|yn -> aî̃ / _ #|x|(::consonant::)(::consonant::)
-eun|un -> œ̃ / _ #|x|(::consonant::)(::consonant::)
-ien -> iễ / _ #|x|(::consonant::)(::consonant::)
-om|on -> õ / _ #|x|(::consonant::)(::consonant::)
-uin|um -> uẽ / _ #|x|(::consonant::)(::consonant::)
-oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
+mm[ae]nt -> mẫ / _ \s|\W|(::consonant::)|#
+
+% a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
+a[mn] -> ẫ / _ \s|\W|(::consonant::)|#
+
+% ai[mn] -> ễ / _ #|x|(::consonant::)(::consonant::)
+ai[mn] -> ễ / _ \s|\W|(::consonant::)|#
+
+% e[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
+e[mn] -> ẫ / _ \s|\W|(::consonant::)|#
+
+% ein|im|in|ym|yn -> aî̃ / _ #|x|(::consonant::)(::consonant::)
+ein|im|in|ym|yn -> aî̃ / _ \s|\W|(::consonant::)|#
+
+% eun|un -> œ̃ / _ #|x|(::consonant::)(::consonant::)
+eun|un -> œ̃ / _ \s|\W|(::consonant::)|#
+
+% ien -> iễ / _ #|x|(::consonant::)(::consonant::)
+ien -> iễ / _ \s|\W|(::consonant::)|#
+
+% om|on -> õ / _ #|x|(::consonant::)(::consonant::)
+o[mn] -> õ / _ \s|\W|(::consonant::)|#
+
+% uin|um -> uẽ / _ #|x|(::consonant::)(::consonant::)
+uin -> uẽ / _ \s|\W|(::consonant::)|#
+
+% oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
+oin -> ouễ / _ \s|\W|(::consonant::)|#
+
+ez -> é / _ \s|\W|#
 
 % Treatment of <l>
-il -> j / [::vowel::] _
-ill -> j / [::vowel::] _
+ill -> j / (::vowel::) _
+il -> j / (::vowel::) _
 
 x -> ks / _ (p|t|k|f|s|ch)
-x -> ks / # _ [::vowel::]
+x -> ks / # _ (::vowel::)
 
 % Treatment of <c> and <s>
-sc -> s / _ [::front_vowel::]
-c -> s / _ [::front_vowel::]
+sc -> s / _ (::front_vowel::)
+c -> s / _ (::front_vowel::)
 
 % Intervocalic voicing of <s>
-s -> z / [::vowel::] _ [::vowel::]
+s -> z / (::vowel::) _ (::vowel::)
 
 % High vowels become glides before vowels
-ou -> w / _ [::vowel::]
-u -> ɥ / _ [::vowel::]
+ou -> w / _ (::vowel::)
+% u -> ɥ / _ (::vowel::)
 
 % Context where <y> is realized as a vowel
 y -> i / . _
-y -> i / _ [^::vowel::]
+y -> i / _ (^::vowel::)
 
 % "Deletion" of <ent> word finally
-ent -> 0 / _ #
+ent -> 0 / _ \s|\W|#
 
 % Palatalization and lenition of <g>
-g -> ʒ / _ [::front_vowel::]
+g -> ʒ / _ (::front_vowel::)
 
 % Treatment of <er>
-er -> é / _ #
+er -> é / _ \s|\W|#
 
 % Deletion of final <e>
-e -> 0 / [::vowel::].+ _ #
+% e -> 0 / (::vowel::).+ _ \s|\W|#
 
 % A strange rule
 ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
 
 % A less strange rule
-ng -> n / ei _ #
+ng -> n / ei _ \s|\W|#
 
 e -> ɛ / _ x|(::consonant::)(::consonant::)
-e -> ɛ / [::vowel::].+ _ (::consonant::) #
+e -> ɛ / (::vowel::).+ _ (::consonant::) #
 
-s -> 0 / [^ɛ] _ #
+s -> 0 / [^ɛ] _ \s|\W|#
 
-d -> 0 / [::vowel::n] _ #
-dd -> 0 / [::vowel::n] _ #
-g -> 0 / [::vowel::] _ #
-p -> 0 / [::vowel::m] _ #
-pp -> 0 / [::vowel::m] _ #
-t -> 0 / [::vowel::n] _ #
-tt -> 0 / [::vowel::n] _ #
-x -> 0 / [::vowel::] _ #
-ent -> 0 / [::vowel::].+ _ #
+d -> 0 / (::vowel::)|r _ \s|\W|#
+dd -> 0 / (::vowel::) _ \s|\W|#
+g -> 0 / (::vowel::) _ \s|\W|#
+p -> 0 / (::vowel::) _ \s|\W|#
+pp -> 0 / (::vowel::) _ \s|\W|#
+t -> 0 / (::vowel::) _ \s|\W|#
+tt -> 0 / (::vowel::) _ \s|\W|#
+x -> 0 / (::vowel::) _ \s|\W|#
+ent -> 0 / (::vowel::)\w+ _ \s|\W|#
 
-ɛs -> 0 / _ #
+ɛs -> 0 / _ \s|\W|#
+
+% aspirated H
+hâbl -> wowâbl / \s|# _
+hache -> wowache / \s|# _
+hachisch -> wowachisch / \s|# _
+haddock -> wowaddock / \s|# _
+ha[iï] -> wowa[iï] / \s|# _
+halal -> wowalal / \s|# _
+hâle -> wowâle / \s|# _
+halet -> wowalet / \s|# _
+hall -> wowall / \s|# _
+halo -> wowalo / \s|# _
+halte -> wowalte / \s|# _
+hamac -> wowamac / \s|# _
+hamburger -> wowamburger / \s|# _
+hameau -> wowameau / \s|# _
+hammam -> wowammam / \s|# _
+hampe -> wowampe / \s|# _
+hamster -> wowamster / \s|# _
+hanche -> wowanche / \s|# _
+handicap -> wowandicap / \s|# _
+hangar -> wowangar / \s|# _
+hant -> wowant / \s|# _
+happ -> wowapp / \s|# _
+harangue -> wowarangue / \s|# _
+harass -> wowarass / \s|# _
+harc -> wowarc / \s|# _
+hard -> woward / \s|# _
+hardi -> wowardi / \s|# _
+hareng -> wowareng / \s|# _
+hargne -> wowargne / \s|# _
+haricot -> wowaricot / \s|# _
+harnach -> wowarnach / \s|# _
+harp -> wowarp / \s|# _
+hasard -> wowasard / \s|# _
+hâte -> wowâte / \s|# _
+haut -> wowaut / \s|# _
+havre -> wowavre / \s|# _
+herch -> wowerch / \s|# _
+hère -> wowère / \s|# _
+hérisson -> wowérisson / \s|# _
+hernie -> wowernie / \s|# _
+héron -> wowéron / \s|# _
+héros -> wowéros / \s|# _
+herse -> wowerse / \s|# _
+hêtre -> wowêtre / \s|# _
+heurt -> woweurt / \s|# _
+hiatus -> wowiatus / \s|# _
+hibou -> wowibou / \s|# _
+hic -> wowic / \s|# _
+hideu -> wowideu / \s|# _
+hiérarchie -> wowiérarchie / \s|# _
+hiéroglyphe -> wowiéroglyphe / \s|# _
+hippie -> wowippie / \s|# _
+hiss -> wowiss / \s|# _
+hobby -> wowobby / \s|# _
+hoch -> wowoch / \s|# _
+hockey -> wowockey / \s|# _
+hollande -> wowollande / \s|# _
+homard -> wowomard / \s|# _
+hong -> wowong / \s|# _
+honte -> wowonte / \s|# _
+hoquet -> wowoquet / \s|# _
+hors -> wowors / \s|# _
+hou -> wowou / \s|# _
+hooligan -> wowooligan / \s|# _
+hublot -> wowublot / \s|# _
+huche -> wowuche / \s|# _
+huer -> wowuer / \s|# _
+huguenot -> wowuguenot / \s|# _
+huit -> wowuit / \s|# _
+hulul -> wowulul / \s|# _
+humer -> wowumer / \s|# _
+hurl -> wowurl / \s|# _
+
+h -> 0 / \s|# _ [^h]
