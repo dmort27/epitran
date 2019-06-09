@@ -14,7 +14,7 @@ g -> k / _ #|(::consonant::)[::vowel::]
 
 % Handling of r
 r -> 0 / e _ #
-r -> ə / [äeioöuü] _ #|(::consonant::)
+r -> ə / [äeioöuü]h? _ #|(::consonant::)
 r -> 0 / a _ #|(::consonant::)
 r -> ʁ / # _
 r -> ʀ / [::vowel::]h? _ [::vowel::]
