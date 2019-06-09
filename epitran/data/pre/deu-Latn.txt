@@ -12,17 +12,19 @@ b -> p / _ #|(::consonant::)[::vowel::]
 d -> t / _ #|(::consonant::)[::vowel::]
 g -> k / _ #|(::consonant::)[::vowel::]
 
-% Final schwa
-e -> ə / _ #
-
 % Handling of r
+r -> 0 / e _ #
 r -> ə / [äeioöuü] _ #|(::consonant::)
 r -> 0 / a _ #|(::consonant::)
 r -> ʁ / # _
 r -> ʁ / (::consonant::) _ [::vowel::]
 r -> ʀ / [::vowel::] _ [::vowel::]
 
+% r should never appear between consonants but just in case... we also don't want r showing up ever
+r -> 0 / _
 
+% Final schwa
+e -> ə / _ #
 
 % Open syllable lengthening
 i -> ie / _ #|(::consonant::)[::vowel::]
