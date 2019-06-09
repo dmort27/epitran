@@ -12,6 +12,15 @@ g -> k / _ #|(::consonant::)[::vowel::]
 % Final schwa
 e -> ə / _ #
 
+% Handling of r
+r -> ə / [äeioöuü] _ #|(::consonant::)
+r -> 0 / a _ #|(::consonant::)
+r -> ʁ / # _
+r -> ʁ / (::consonant::) _ [::vowel::]
+r -> ʀ / [::vowel::] _ [::vowel::]
+
+
+
 % Open syllable lengthening
 i -> ie / _ #|(::consonant::)[::vowel::]
 e -> ee / _ #|(::consonant::)[::vowel::]
