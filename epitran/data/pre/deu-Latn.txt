@@ -17,8 +17,8 @@ r -> 0 / e _ #
 r -> ə / [äeioöuü] _ #|(::consonant::)
 r -> 0 / a _ #|(::consonant::)
 r -> ʁ / # _
+r -> ʀ / [::vowel::]h? _ [::vowel::]
 r -> ʁ / (::consonant::) _ [::vowel::]
-r -> ʀ / [::vowel::] _ [::vowel::]
 
 % r should never appear between consonants but just in case... we also don't want r showing up ever
 r -> 0 / _
