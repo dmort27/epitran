@@ -27,10 +27,10 @@ r -> 0 / _
 e -> ə / _ #
 
 % Open syllable lengthening
-i -> ie / _ #|(::consonant::)[::vowel::]
-e -> ee / _ #|(::consonant::)[::vowel::]
-ü -> üh / _ #|(::consonant::)[::vowel::]
-ö -> öo / _ #|(::consonant::)[::vowel::]
-u -> uh / _ #|(::consonant::)[::vowel::]
-o -> oo / _ #|(::consonant::)[::vowel::]
-a -> aa / _ #|(::consonant::)[::vowel::]
+i -> ie / [^i] _ #|(::consonant::)[::vowel::]
+e -> ee / [^e] _ #|(::consonant::)[::vowel::]
+ü -> üh / [^ü] _ #|(::consonant::)[::vowel::]
+ö -> öo / [^ö] _ #|(::consonant::)[::vowel::]
+u -> uh / [^u] _ #|(::consonant::)[::vowel::]
+o -> oo / [^o] _ #|(::consonant::)[::vowel::]
+a -> aa / [^a] _ #|(::consonant::)[::vowel::]
