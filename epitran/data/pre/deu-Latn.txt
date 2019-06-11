@@ -16,12 +16,6 @@ g -> k / _ #|(::consonant::)[::vowel::]
 r -> 0 / e _ #
 r -> ə / [äeioöuü]h? _ #|(::consonant::)
 r -> 0 / a _ #|(::consonant::)
-r -> ʁ / # _
-r -> ʀ / [::vowel::]h? _ [::vowel::]
-r -> ʁ / (::consonant::) _ [::vowel::]
-
-% r should never appear between consonants but just in case... we also don't want r showing up ever
-r -> 0 / _
 
 % Final schwa
 e -> ə / _ #
