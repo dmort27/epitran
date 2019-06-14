@@ -1,0 +1,116 @@
+::vowel:: = a|á|à|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|À|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ
+::front_vowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ|œ|Œ|æ|Æ
+::back_vowel:: = a|á|â|o|ô|u|ù|û|ü|A|Á|Â|O|Ô|U|Ù|Û|Ü
+::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
+
+% Some consonants
+qu -> k / _
+q -> k / _
+j -> ʒ / _
+c -> 0 / n _ \W|#
+
+% Palatalization and lenition of <g>
+ge -> ʒ / _ (::back_vowel::)
+g -> ʒ / _ (::front_vowel::)
+
+% The words <et> and <eh>
+e[ht] -> ɛ / \W|# _ \W|#
+
+% determiners
+les -> lé / \W|# _ \W|#
+des -> dé / \W|# _ \W|#
+mes -> mé / \W|# _ \W|#
+tes -> té / \W|# _ \W|#
+ses -> sé / \W|# _ \W|#
+
+% Treatment of <l>
+mille -> mil / \W|# _ \W|#
+ville -> vil / \W|# _ \W|#
+ille -> ij / _ \W|#
+il+e* -> j / (::vowel::) _
+ll -> l / _
+
+% Rules for vowels
+mm[ae]nt -> mẫ / _ \W|#
+ement -> emẫ / _ \W|#
+femme -> fame / \W|# _ \W|#
+mme -> me / (::vowel::) _ \W|#
+a[mn] -> ẫ / _ \W|(::consonant::)|#
+ait\-il -> ɛtil / _ \W|#
+aient\-ils -> ɛtil / _ \W|#
+ait\-elle -> ɛtɛl / _ \W|#
+aient\-elles -> ɛtɛl / _ \W|#
+ait\-on -> ɛtõ / _ \W|#
+t\-on -> tõ / eu _ \W|#
+aient -> ɛ / _ \W|#
+ait -> ɛ / _  \W|#
+ais -> ɛ / _  \W|#
+ai[mn] -> ễ / _ \W|(::consonant::)|#
+e[mn] -> ẫ / _ \W|b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|v|w|z|ʒ|#
+en -> ẫ / _ (::consonant::)(::vowel::)
+ents* -> ẫ / acc|cid _ \W|#
+ent -> e / r _ \W|#
+eun|un -> œ̃ / _ \W|(::consonant::)|#
+ien -> iễ / _ \W|(::consonant::)|#
+ieu -> jeu / _
+o[mn]p* -> õ / _ \W|(::consonant::)|#
+ù -> u / o _ \W|#
+uin -> uẽ / _ \W|(::consonant::)|#
+oin -> ouễ / _ \W|(::consonant::)|#
+ein|im|in|ym|yn -> aî̃ / _ \W|(::consonant::)|#
+e[uû]t* -> u / \W|# _ \W|#
+
+œu -> eu / _
+oeu -> eu / _
+
+% Treatment of <er> and <ez>
+er -> é / _ \W|#
+ez -> é / _ \W|#
+
+x -> ks / _ (p|t|k|f|s|ch)
+x -> ks / # _ (::vowel::)
+cc -> ks / (::vowel::) _ (::vowel::)|ẫ
+
+% kludge for dealing with aspirated H
+h -> wow / \W|# _ (âbl|asar|ach|addock|a[iï]|alal|âle|alet|all|alo|alte|amac|amburger|ameau|ammam|ampe|amster|anche|andicap|angar|ant|app|arangue|arass|arc|ar|areng|argne|aricot|arnach|arp|asar|âte|aut|avr|erch|èr|érisson|ernie|éron|éros|erse|être|eurt|iatus|ibou|ic|ideu|i|i|ippie|iss|obby|och|ockey|ollande|omard|ong|onte|oquet|ors|ou|ooligan|ublot|uche|uer|uguenot|uit|ulul|umer|url)
+
+% Treatment of <c> and <s>
+sc -> s / _ (::front_vowel::)
+c -> s / #|\s|(::vowel::)|ẫ|ễ|õ _ (::front_vowel::)
+s -> z / (::vowel::) _ (::vowel::)
+c -> s / a|á|à|â|e|é|è|ê|ë|i|î|ï|A|Á|À|Â|E|É|È|Ê|Ë|I|Î|Ï|u|ù|û|ü|U|Ù|Û|Ü|ɛ _ [ei]
+
+% High vowels become glides before vowels
+ou -> w / _ (::vowel::)
+u -> w / g _ a
+u -> ɥ / [^g] _ y|(::vowel::)
+
+% Context where <y> is realized as a vowel
+y -> i / . _
+y -> i / _ (^::vowel::)
+
+% A strange rule
+ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
+
+% A less strange rule
+ng -> n / ei _ \W|#
+
+e -> ɛ / _ x|(::consonant::)(::consonant::)
+e -> ɛ / (::vowel::).+ _ (::consonant::) #
+
+s -> 0 / [^ɛ] _ \W|#
+
+% Deletion of final <e>
+% nt -> 0 / _ \W|#
+
+[dp] -> 0 / (::vowel::)|r _ \W|#
+dd -> 0 / (::vowel::) _ \W|#
+g -> 0 / (::vowel::)|ẫ _ \W|#
+pp -> 0 / (::vowel::) _ \W|#
+t+ -> 0 / (::back_vowel::)|(::consonant::) _ \W|#
+t -> 0 / n|ễ _ \W|#
+% tt -> 0 / (::back_vowel::) _ \W|#
+x -> 0 / (::vowel::) _ \W|#
+% c -> ss / i _ e(?!\w)
+
+ɛs -> 0 / _ \W|#
