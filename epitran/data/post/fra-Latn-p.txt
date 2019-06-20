@@ -1,0 +1,38 @@
+::vowel:: = i|y|ɨ|ʉ|ɯ|u|ɪ|ʏ|ʊ|e|ø|ɘ|ɵ|ɤ|o|ə|ɛ|œ|ɜ|ɞ|ʌ|ɔ|æ|ɐ|a|ɶ|ɑ|ɒ|ɑ̃|ɛ̃|ɔ̃|œ̃
+::punc:: = \.|,|:|;|\'|\"|«|»|\u00BB|\?|\!|\(|\)\[|\]
+::consonant:: = b|ʃ|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
+
+% remove silent H
+h -> 0 / _
+
+% add silent schwa to end of words like <riche>
+ʃ -> ʃə / _ \W|#
+
+% remove schwa before initial vowel or at end of line (verse)
+ə -> 0 / _ \s+(::vowel::)|\s*(::punc::)|\s*#
+
+% kludge for dealing with aspirated H
+wɔw -> 0 / _
+
+% eliminate <e> which should not be pronounced before future, conditional endings
+(?<=(::vowel::)(::consonant::))[əɛ]rie -> rie / _ \W|#
+(?<=(::vowel::)(::consonant::))[əɛ]rɛ -> rɛ / _ \W|#
+(?<=(::vowel::)(::consonant::))[əɛ]ra -> ra / _ \W|#
+(?<=(::vowel::)(::consonant::))[əɛ]re -> re / _ \W|#
+(?<=(::vowel::)(::consonant::))[əɛ]riɔ̃ -> riɔ̃ / _ \W|#
+
+% restore <y> between <g> and <s>
+s -> ys / g _
+
+% a common word
+pœ\-ɛtr -> pœtɛtr / _
+
+% remove hyphens
+\- -> 0 / _
+
+% replace <j> with <i> between consonants
+j -> i / (::consonant::) _ (::consonant::)
+
+% inversion
+% il -> til / r[ɛa]\W _
+% ɛl -> tɛl / r[ɛa]\W _
