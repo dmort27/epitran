@@ -30,8 +30,9 @@ pp,p
 pf,p͡f
 ph,f
 qu,kv
-r,r
-rr,r
+r,ʁ
+rr,ʁ
+ʀ,ʀ
 s,s
 sch,ʃ
 ss,s
@@ -72,7 +73,6 @@ a,a
 ah,aː
 aa,aː
 en,ən
-er,ər
 au,au
 eu,oy
 äu,oy
@@ -81,3 +81,4 @@ ai,ai
 ey,ai
 ay,ai
 ə,ə
+ɐ,ɐ

@@ -1,5 +1,5 @@
 ::vowel:: = aäeioöuü
-::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z
+::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z|ʀ
 
 % -tion for Latin loanwords
 t -> ts / _ ion
@@ -13,9 +13,10 @@ d -> t / _ #|(::consonant::)[::vowel::]
 g -> k / _ #|(::consonant::)[::vowel::]
 
 % Handling of r
-r -> 0 / e _ #
-r -> ə / [äeioöuü]h? _ #|(::consonant::)
+er -> ɐ / _ #
+r -> ɐ / [äeioöuü]h? _ #|(::consonant::)
 r -> 0 / a _ #|(::consonant::)
+r -> ʀ / [::vowel::]h? _ [::vowel::]
 
 % Final schwa
 e -> ə / _ #
