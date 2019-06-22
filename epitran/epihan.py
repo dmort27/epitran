@@ -110,3 +110,4 @@ class EpihanTraditional(Epihan):
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
+        self.regexp = re.compile(r'\p{Han}')
