@@ -23,7 +23,7 @@ class TestGerman(unittest.TestCase):
         self.assertEqual(attempt, correct)
 
     def test_wasser(self):
-        self._derivation('wasser', 'vasər')
+        self._derivation('wasser', 'vasə')
 
     def test_geben(self):
         self._derivation('ɡeben', 'ɡeːbən')
@@ -35,7 +35,7 @@ class TestGerman(unittest.TestCase):
         self._derivation('Nietzsche', 'niːt͡ʃə')
 
     def test_immer(self):
-        self._derivation('immer', 'imər')
+        self._derivation('immer', 'imə')
 
     def test_ahre(self):
         self._derivation('Ähre', 'eːrə')
@@ -45,6 +45,31 @@ class TestGerman(unittest.TestCase):
 
     def test_rotgelb(self):
         self._derivation('rotɡelb', 'rotɡelp')
+
+    def test_haar(self):
+        self._derivation('Haar', 'haː')
+
+    def test_trinken(self):
+        self._derivation('trinken', 'triŋkən')
+
+    def test_horen(self):
+        self._derivation('hören', 'høːrən')
+
+    def test_wehr(self):
+        self._derivation('Wehr', 'veːə')
+
+    def test_futur(self):
+        self._derivation('futur', 'futuːə')
+
+    def test_kurs(self):
+        self._derivation('Kurs', 'kuəs')
+
+    def test_markt(self):
+        self._derivation('Markt', 'makt')
+
+    def test_intentional(self):
+        self._derivation('intentional', 'ɪntɛntsɪo:nal')
+
 
 
 class TestGermanNP(unittest.TestCase):
@@ -66,3 +91,57 @@ class TestGermanNP(unittest.TestCase):
 
     def test_rotgelb(self):
         self._derivation('rotɡelb', 'rotɡelb')
+
+
+class TestGermanNarrow(unittest.TestCase):
+    def setUp(self):
+        self.epi = epitran.Epitran('deu-Latn-nar')
+
+    def _derivation(self, orth, correct):
+        attempt = self.epi.transliterate(orth)
+        self.assertEqual(attempt, correct)
+
+    def test_wasser(self):
+        self._derivation('wasser', 'vasɐ')
+
+    def test_geben(self):
+        self._derivation('ɡeben', 'ɡeːbən')
+
+    def test_nietzsche(self):
+        self._derivation('Nietzsche', 'niːt͡ʃə')
+
+    def test_immer(self):
+        self._derivation('immer', 'imɐ')
+
+    def test_ahre(self):
+        self._derivation('Ähre', 'eːʀə')
+
+    def test_abdanken(self):
+        self._derivation('abdanken', 'apdaŋkən')
+
+    def test_rotgelb(self):
+        self._derivation('rotɡelb', 'ʁotɡelp')
+
+    def test_haar(self):
+        self._derivation('Haar', 'haː')
+
+    def test_trinken(self):
+        self._derivation('trinken', 'tʁiŋkən')
+
+    def test_horen(self):
+        self._derivation('hören', 'høːʀən')
+
+    def test_intentional(self):
+        self._derivation('intentional', 'ɪntɛntsɪo:nal')
+
+    def test_wehr(self):
+        self._derivation('Wehr', 'veːɐ')
+
+    def test_futur(self):
+        self._derivation('futur', 'futuːə')
+
+    def test_kurs(self):
+        self._derivation('Kurs', 'kuɐs')
+
+    def test_markt(self):
+        self._derivation('Markt', 'makt')
