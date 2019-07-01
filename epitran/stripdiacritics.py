@@ -41,4 +41,6 @@ class StripDiacritics(object):
             unicode: Unicode IPA string with specified diacritics
             removed
         """
-        return ''.join(filter(lambda x: x not in self.diacritics, word))
+        word = unicodedata.normalize('NFD', word)
+        word = ''.join(filter(lambda x: x not in self.diacritics, word))
+        return unicodedata.normalize('NFC', word)
