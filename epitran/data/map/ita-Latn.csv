@@ -19,7 +19,7 @@ gg,ɡː
 gh,ɡ
 gli,ʎ
 gn,ɲ
-h,h
+h,
 hh,hː
 i,i
 í,i
@@ -53,4 +53,7 @@ v,v
 vv,vː
 z,s
 zz,t͡s
-ci,t͡ʃ
+<tS>,t͡ʃ
+<ttS>,t͡ʃː
+<dZ>,d͡ʒ
+<ddZ>,d͡ʒː
