@@ -188,6 +188,7 @@ A few notes are in order regarding this data structure:
 | ckb-Arab    | Sorani                  |
 | deu-Latn    | German                  |
 | deu-Latn-np | German†                 |
+| deu-Latn-nar| German (more phonetic)  |
 | eng-Latn    | English‡                |
 | fas-Arab    | Farsi (Perso-Arabic)    |
 | fra-Latn    | French                  |
