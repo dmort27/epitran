@@ -204,4 +204,7 @@ class FliteLexLookup(Flite):
         except subprocess.CalledProcessError:
             logging.warning('Non-zero exit status from lex_lookup.')
             arpa_text = ''
+        # Split on newlines and take the first element (in case lex_lookup
+        # returns multiple lines).
+        arpa_text = arpa_text.split('\n')[0]
         return self.arpa_to_ipa(arpa_text)
