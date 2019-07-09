@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup(name='epitran',
-      version='0.58',
+      version='0.60',
       description='Tools for transcribing languages into IPA.',
       url='http://github.com/dmort27/epitran',
-      download_url='http://github.com/dmort27/epitran/tarball/0.51',
+      download_url='https://github.com/dmort27/epitran/archive/0.60.tar.gz',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
       license='MIT',
