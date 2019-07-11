@@ -1,0 +1,53 @@
+::rounded:: = u|o|ɔ
+::front:: = i|e|ɛ
+::nuc:: = i|e|ɛ|ɯ|ɤ|ɤ̆|a|ă|u|o|ɔ
+::coda:: = p|t|c|k|m|n|ɲ|ŋ
+::onset:: = m|n|ɲ|ŋ|ŋ|p|t|c|k|kw|b|d|tʰ|x|f|v|z|s|ɣ|l|j|w
+
+% Rewrite <GI> and <QUY> symbols
+<GI> -> ɣi / # _ #
+<GI> -> zi / _ (::coda::)
+<GI> -> z / _
+
+% Handle <Y>
+% <Y> -> j / # _ (::nuc::)
+% <Y> -> i / _
+
+% Labiovelar codas
+% k -> k͡p / (::rounded::) _ #
+% ŋ -> ŋ͡m / (::rounded::) _ #
+
+% Fronting
+a -> ɛ / _ (ɲ|c) #
+
+% Palatalization
+k -> c / (::front::) _
+
+% High vowels
+j -> i / # _ #
+j -> i / _ (::coda::)
+
+% Glides
+% ɔ -> w / _ (::nuc::)
+% u -> w / _ (::nuc::)
+% i -> j / (::nuc::) _ #
+
+% Rhymes
+% <EO> -> eo / _
+% <EO> -> ew / _
+% <UA> -> uə / _
+% <UA> -> wa / _
+% <UOH> -> uə / _
+% <UOH> -> wɤ / _
+% <UY> -> uj / (::onset::) _
+% <UY> -> wi / _
+% <OE> -> we / _
+% <OE> -> ej / _
+
+% Rhyme time
+ew -> eo / _ #
+% wa -> uə / _ #
+ie -> iɛ / _ (n|t)
+
+% Default glottal stop
+0 -> ʔ / # _ (::nuc::)
