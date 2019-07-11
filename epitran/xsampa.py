@@ -3,6 +3,7 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import os.path
+import unicodedata
 
 import pkg_resources
 
@@ -54,6 +55,7 @@ class XSampa(object):
             Non-IPA segments are skipped.
         """
         xsampa = []
+        ipa = unicodedata.normalize('NFD', ipa)
         while ipa:
             token = self.longest_prefix(ipa)
             if token:
