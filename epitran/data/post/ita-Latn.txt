@@ -1,0 +1,5 @@
+::voicedcons:: = b|d|g|m|n|ŋ|d͡z|d͡ʒ|v|z|j|w|l|ʎ|r
+
+% [z] allophone of /s/
+
+s -> z / _ (::voicedcons::)
