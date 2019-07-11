@@ -90,6 +90,7 @@ o,o,close-mid back rounded
 æ,{,mid-open front unrounded vowel
 ɐ,6,open-mid schwa
 a,a,open front unrounded
+ă,a_X,extra short open front unrounded
 ɶ,&,front open rounded
 ɑ,A,open back unrounded
 ɒ,Q,open back rounded
@@ -161,7 +162,9 @@ t͡ʃ,tS,vl postalveolar affricate
 d͡ʒ,dZ,vd postalveolar affricate
 t͡ɕ,ts\,vl alveolo-palatal affricate
 d͡ʑ,dz\,vd alveolo-palatal affricate
-t͡ɬ,tK,vl alveolar lateral affricate 
+t͡ɬ,tK,vl alveolar lateral affricate
 k͡p,kp,vl labial-velar plosive
 g͡b,gb,vd labial-velar plosive
 ŋ͡m,Nm,labial-velar nasal stop
+ʈ͡ʂ,ts`,vl retroflex affricate
+ɖ͡ʐ,tz`,vd retroflex affricate
