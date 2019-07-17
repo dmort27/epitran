@@ -162,6 +162,9 @@ class SimpleEpitran(object):
                     logging.debug("self.g2p[source] = '{}'"
                                   .format(self.g2p[source]))
                     target = source
+                except IndexError:
+                    logging.debug("self.g2p[source]={}".format(self.g2p[source]))
+                    target = source
                 tr_list.append((target, True))
                 text = text[len(source):]
             else:
