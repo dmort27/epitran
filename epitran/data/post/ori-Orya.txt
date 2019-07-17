@@ -1,6 +1,14 @@
 ::consonant:: = k|kʰ|g|g̤|ŋ|t͡ʃ|t͡ʃʰ|d͡ʒ|d͡ʒ̤|ɲ|ʈ|ʈʰ|ɖ|ɖ̤|ɳ|t|tʰ|d|d̤|n|p|pʰ|b|b̤|m|r|ɭ|w|ʃ|ʂ|s|h|kʰj|j|l
 ::vowel:: = ɔ|a|i|u|r̩|l̩|e|ai|o|au
 
+% Anusvara
+
+<N> -> m / _ (p|pʰ|b|b̤|m)
+<N> -> n / _ (t|tʰ|d|d̤|n|l|r|s)
+<N> -> ɳ / _ (ʈ|ʈʰ|ɖ|ɖ̤|ɳ|ɭ|ʂ)
+<N> -> ɲ / _ (t͡ʃ|t͡ʃʰ|d͡ʒ|d͡ʒ̤|ʃ)
+<N> -> ŋ / _
+
 % Halanta
 V୍ -> 0 / _
 
