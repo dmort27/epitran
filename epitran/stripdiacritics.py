@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, unicode_literals, division, absolute_import
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import os.path
 import unicodedata
 
+import pkg_resources
+
 import unicodecsv as csv
 
-import pkg_resources
 
 class StripDiacritics(object):
     def __init__(self, code):
@@ -41,6 +43,7 @@ class StripDiacritics(object):
             unicode: Unicode IPA string with specified diacritics
             removed
         """
-        word = unicodedata.normalize('NFD', word)
+        # word = unicodedata.normalize('NFD', word)
         word = ''.join(filter(lambda x: x not in self.diacritics, word))
-        return unicodedata.normalize('NFC', word)
+        # return unicodedata.normalize('NFC', word)
+        return word

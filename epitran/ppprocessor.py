@@ -50,5 +50,4 @@ class PrePostProcessor(object):
         Returns:
             unicode: output string with all rules applied in order
         """
-        word = unicodedata.normalize('NFC', word)
         return self.rules.apply(word)

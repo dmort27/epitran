@@ -9,23 +9,19 @@ import unicodedata
 from collections import defaultdict
 
 import pkg_resources
+import regex as re
 
 import panphon
-import regex as re
 import unicodecsv as csv
+from epitran.exceptions import DatafileError, MappingError
 from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor
 from epitran.puncnorm import PuncNorm
 from epitran.stripdiacritics import StripDiacritics
-from epitran.exceptions import DatafileError, MappingError
 
 if sys.version_info[0] == 3:
     def unicode(x):
         return x
-
-
-logging.basicConfig(level=logging.DEBUG)
-
 
 class SimpleEpitran(object):
     def __init__(self, code, preproc=True, postproc=True, ligatures=False,
@@ -101,8 +97,8 @@ class SimpleEpitran(object):
                     graph, phon = fields
                 except ValueError:
                     raise DatafileError('Map file is not well formed at line {}.'.format(i + 2))
-                graph = unicodedata.normalize('NFC', graph)
-                phon = unicodedata.normalize('NFC', phon)
+                graph = unicodedata.normalize('NFD', graph)
+                phon = unicodedata.normalize('NFD', phon)
                 g2p[graph].append(phon)
                 gr_by_line[graph].append(i)
         if self._one_to_many_gr_by_line_map(g2p):
@@ -146,12 +142,16 @@ class SimpleEpitran(object):
             unicode: IPA string, filtered by filter_func.
         """
         text = unicode(text)
+        text = unicodedata.normalize('NFD', text.lower())
+        logging.debug('(after norm) text=' + repr(list(text)))
         text = self.strip_diacritics.process(text)
-        text = unicodedata.normalize('NFC', text.lower())
+        logging.debug('(after strip) text=' + repr(list(text)))
         if self.preproc:
             text = self.preprocessor.process(text)
+        logging.debug('(after preproc) text=' + repr(list(text)))
         tr_list = []
         while text:
+            logging.debug('text=' + repr(list(text)))
             m = self.regexp.match(text)
             if m:
                 source = m.group(0)
@@ -178,7 +178,7 @@ class SimpleEpitran(object):
             text = ligaturize(text)
         if normpunc:
             text = self.puncnorm.norm(text)
-        return text
+        return unicodedata.normalize('NFC', text)
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         """Transliterates/transcribes a word into IPA
@@ -230,7 +230,7 @@ class SimpleEpitran(object):
         text = ''.join([s for (s, _) in tr_list])
         if self.rev_postproc:
             text = self.rev_postprocessor.process(text)
-        return text
+        return unicodedata.normalize('NFC', text)
 
     def reverse_transliterate(self, ipa):
         """Reconstructs word from IPA. Does the reverse of transliterate()
@@ -305,7 +305,7 @@ class SimpleEpitran(object):
         tuples = []
         word = unicode(word)
         word = self.strip_diacritics.process(word)
-        word = unicodedata.normalize('NFC', word)
+        word = unicodedata.normalize('NFD', word)
         if self.preproc:
             word = self.preprocessor.process(word)
         while word:

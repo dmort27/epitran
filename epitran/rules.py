@@ -7,6 +7,7 @@ import logging
 import unicodedata
 
 import regex as re
+
 from epitran.exceptions import DatafileError
 
 logging.basicConfig(level=logging.DEBUG)
@@ -36,6 +37,8 @@ class Rules(object):
         rules = []
         with io.open(rule_file, 'r', encoding='utf-8') as f:
             for i, line in enumerate(f):
+                # Normalize the line to decomposed form
+                line = unicodedata.normalize('NFD', line)
                 if not re.match('\s*%', line):
                     rules.append(self._read_rule(i, line))
         return [rule for rule in rules if rule is not None]
@@ -52,7 +55,7 @@ class Rules(object):
     def _read_rule(self, i, line):
         line = line.strip()
         if line:
-            line = unicodedata.normalize('NFC', unicodedata.normalize('NFD', line))
+            line = unicodedata.normalize('NFD', line)
             s = re.match(r'(?P<symbol>::\w+::)\s*=\s*(?P<value>.+)', line)
             if s:
                 self.symbols[s.group('symbol')] = s.group('value')
@@ -104,4 +107,5 @@ class Rules(object):
         """
         for rule in self.rules:
             text = rule(text)
+        # return unicodedata.normalize('NFD', text)
         return text
