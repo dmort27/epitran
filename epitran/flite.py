@@ -1,27 +1,28 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, unicode_literals, division, absolute_import
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import logging
 import os.path
 import string
+import sys
 import unicodedata
 
 import pkg_resources
+import regex as re
 
 import panphon
-import regex as re
 import unicodecsv as csv
-from epitran.puncnorm import PuncNorm
 from epitran.ligaturize import ligaturize
+from epitran.puncnorm import PuncNorm
 
-import sys
 if os.name == 'posix' and sys.version_info[0] < 3:
     import subprocess32 as subprocess
 else:
     import subprocess
 
 logging.basicConfig(level=logging.CRITICAL)
-logging.disable(logging.DEBUG)
+#logging.disable(logging.DEBUG)
 
 
 if sys.version_info[0] == 3:
