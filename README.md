@@ -117,6 +117,22 @@ Consider the following example (Python 3):
 ['h\\', 'i', 'n', 'd', 'i:']
 ```
 
+### DictFirst
+
+The `DictFirst` class provides a simple alternative to the `Backoff` class. It
+requires a dictionary of words known to be of Language A, one word per line in a
+UTF-8 encoded text file. It accepts three arguments: the language-script code
+for Language A, that for Language B, and a path to the dictionary file. It has one public method, `transliteration`, which works like `Epitran.transliterate` except that it returns the transliteration for Language A if the input token is in the dictionary; otherwise, it returns the Language B transliteration of the token:
+
+```python
+>>> import dictfirst
+>>> df = dictfirst.DictFirst('tpi-Latn', 'eng-Latn', '../sample-dict.txt')
+>>> df.transliterate('pela')
+'pela'
+>>> df.transliterate('pelo')
+'pɛlow'
+```
+
 ### Preprocessors, postprocessors, and their pitfalls
 
 In order to build a maintainable orthography to phoneme mapper, it is sometimes necessary to employ preprocessors that make contextual substitutions of symbols before text is passed to a orthography-to-IPA mapping system that preserves relationships between input and output characters. This is particularly true of languages with a poor sound-symbols correspondence (like French and English). Languages like French are particularly good targets for this approach because the pronunciation of a given string of letters is highly predictable even though the individual symbols often do not map neatly into sounds. (Sound-symbol correspondence is so poor in English that effective English G2P systems rely heavily on pronouncing dictionaries.)
