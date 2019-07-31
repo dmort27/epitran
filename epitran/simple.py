@@ -338,4 +338,4 @@ class SimpleEpitran(object):
             list: a list of unicode strings corresponding to segments
                   (consonants and vowels) in the input string
         """
-        return self.ft.segs(ipa)
+        return self.ft.ipa_segs(ipa)
