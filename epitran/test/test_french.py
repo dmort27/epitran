@@ -34,9 +34,6 @@ class TestFrench(unittest.TestCase):
     def test_garcon(self):
         self._derivation('garçon', 'ɡarsɔ̃')
 
-    def test_jeune(self):
-        self._derivation('jeûne', 'ʒøn')
-
     def test_deux(self):
         self._derivation('deux', 'dœ')
 
