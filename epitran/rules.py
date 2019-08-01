@@ -38,6 +38,7 @@ class Rules(object):
         with io.open(rule_file, 'r', encoding='utf-8') as f:
             for i, line in enumerate(f):
                 # Normalize the line to decomposed form
+                line = line.strip()
                 line = unicodedata.normalize('NFD', line)
                 if not re.match('\s*%', line):
                     rules.append(self._read_rule(i, line))
