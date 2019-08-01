@@ -20,7 +20,7 @@ class TestBengaliGeneral(unittest.TestCase):
         self.assertEqual(trans, tar)
 
     def test_somosto(self):
-        self._assert_trans('সমস্ত', 's̪omos̪t̪o')
+        self._assert_trans('সমস্ত', 's̪ɔmɔs̪t̪ɔ')
 
     def test_manush(self):
         self._assert_trans('মানুষ', 'man̪uʂ')
@@ -29,19 +29,16 @@ class TestBengaliGeneral(unittest.TestCase):
         self._assert_trans('স্বাধীনভাবে', 's̪bad̪̤in̪b̤abe')
 
     def test_shoman(self):
-        self._assert_trans('সমান', 's̪oman̪')
+        self._assert_trans('সমান', 's̪ɔman̪')
 
     def test_morjada(self):
-        self._assert_trans('মর্যাদা', 'mord͡zad̪a')
+        self._assert_trans('মর্যাদা', 'mɔrd͡zad̪a')
 
     def test_ebong(self):
-        self._assert_trans('এবং', 'eboŋ')
+        self._assert_trans('এবং', 'ebɔŋ')
 
     def test_odikar(self):
         self._assert_trans('অধিকার', 'od̪̤ikar')
 
     def test_niye(self):
         self._assert_trans('নিয়ে', 'n̪ie̯e')
-
-    def test_dzonmorgrohon(self):
-        self._assert_trans('জন্মগ্রহণ', 'd͡ʑon̪moɡroɦon')
