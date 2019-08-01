@@ -91,7 +91,9 @@ class SimpleEpitran(object):
             raise DatafileError('Add an appropriately-named mapping to the data/maps directory.')
         with open(path, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
-            next(reader)
+            orth, phon = next(reader)
+            if orth != 'Orth' or phon != 'Phon':
+                raise DatafileError('Header is ["{}", "{}"] instead of ["Orth", "Phon"].'.format(orth, phon))
             for (i, fields) in enumerate(reader):
                 try:
                     graph, phon = fields
