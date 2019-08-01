@@ -1,14 +1,13 @@
-% Symbols
 ::nasal_vowel:: = ą|ę
 ::vowel:: = a|ą|e|ę|i|o|ó|u|y
 ::vow_not_i:: = a|ą|e|ę|o|ó|u|y
 ::consonant:: = b|c|ć|cz|d|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|r|s|ś|sz|t|w|z|ź|ż|rz
 
 % After nasalized vowels
-0 -> m / (::nasal_vowel::) _ b|p
-0 -> n / (::nasal_vowel::) _ d|t|c|dz
-0 -> ɲ　/ (::nasal_vowel::) _ ć|dź
-0 -> ŋ　/ (::nasal_vowel::) _ g|k
+0 -> m / (::nasal_vowel::) _ (b|p)
+0 -> ɲ　/ (::nasal_vowel::) _ (ć|dź)
+0 -> n / (::nasal_vowel::) _ (d|t|c|dz)
+0 -> ŋ　/ (::nasal_vowel::) _ (g|k)
 
 % Palatalized consonants
 ci -> t͡ɕ / _ (::vow_not_i::)
