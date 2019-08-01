@@ -29,7 +29,7 @@ class TestGerman(unittest.TestCase):
         self._derivation('ɡeben', 'ɡeːbən')
 
     def test_scheisse(self):
-        self._derivation('scheiẞe', 'ʃajsə')
+        self._derivation('scheiẞe', 'ʃaisə')
 
     def test_nietzsche(self):
         self._derivation('Nietzsche', 'niːt͡ʃə')
@@ -47,7 +47,7 @@ class TestGerman(unittest.TestCase):
         self._derivation('rotɡelb', 'rotɡelp')
 
     def test_haar(self):
-        self._derivation('Haar', 'haː')
+        self._derivation('Haar', 'haːə')
 
     def test_trinken(self):
         self._derivation('trinken', 'triŋkən')
@@ -59,17 +59,13 @@ class TestGerman(unittest.TestCase):
         self._derivation('Wehr', 'veːə')
 
     def test_futur(self):
-        self._derivation('futur', 'futuːə')
+        self._derivation('futur', 'fuːtuə')
 
     def test_kurs(self):
         self._derivation('Kurs', 'kuəs')
 
     def test_markt(self):
-        self._derivation('Markt', 'makt')
-
-    def test_intentional(self):
-        self._derivation('intentional', 'ɪntɛntsɪo:nal')
-
+        self._derivation('Markt', 'maəkt')
 
 
 class TestGermanNP(unittest.TestCase):
@@ -123,7 +119,7 @@ class TestGermanNarrow(unittest.TestCase):
         self._derivation('rotɡelb', 'ʁotɡelp')
 
     def test_haar(self):
-        self._derivation('Haar', 'haː')
+        self._derivation('Haar', 'haːɐ')
 
     def test_trinken(self):
         self._derivation('trinken', 'tʁiŋkən')
@@ -131,17 +127,14 @@ class TestGermanNarrow(unittest.TestCase):
     def test_horen(self):
         self._derivation('hören', 'høːʀən')
 
-    def test_intentional(self):
-        self._derivation('intentional', 'ɪntɛntsɪo:nal')
-
     def test_wehr(self):
         self._derivation('Wehr', 'veːɐ')
 
     def test_futur(self):
-        self._derivation('futur', 'futuːə')
+        self._derivation('futur', 'fuːtuɐ')
 
     def test_kurs(self):
         self._derivation('Kurs', 'kuɐs')
 
     def test_markt(self):
-        self._derivation('Markt', 'makt')
+        self._derivation('Markt', 'maɐkt')
