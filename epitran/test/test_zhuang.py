@@ -21,7 +21,7 @@ class TestZhuang(unittest.TestCase):
 
     def test_lajmbwn(self):
         tr = self.epi.transliterate('lajmbwn')
-        self.assertEqual(tr, 'laɓɯn')
+        self.assertEqual(tr, 'laːɓɯn')
 
     def test_cinhyenz(self):
         tr = self.epi.transliterate('cinhyenz')
