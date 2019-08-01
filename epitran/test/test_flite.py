@@ -3,12 +3,13 @@
 from __future__ import unicode_literals, print_function
 
 import unittest
+import epitran
 from epitran import flite
 
 
 class TestFlite(unittest.TestCase):
     def setUp(self):
-        self.flite = flite.FliteT2P()
+        self.flite = epitran.Epitran('eng-Latn')
 
     def test_san_leandro(self):
         self.assertEqual(self.flite.transliterate('San Leandro'), 'sæn liɑndɹow')
