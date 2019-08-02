@@ -247,6 +247,7 @@ A few notes are in order regarding this data structure:
 | tgl-Latn    | Tagalog                 |
 | tha-Thai    | Thai                    |
 | tir-Ethi    | Tigrinya                |
+| tpi-Latn    | Tok Pisin               |
 | tuk-Cyrl    | Turkmen (Cyrillic)      |
 | tuk-Latn    | Turkmen (Latin)         |
 | tur-Latn    | Turkish (Latin)         |
@@ -364,7 +365,7 @@ bɹ̩kli
 
 ## <a name='extending-epitran'></a>Extending Epitran with map files, preprocessors and postprocessors
 
-Language support in Epitran is provided through map files, which define mappings between orthographic and phonetic units, preprocessors that run before the map is applied, and postprocessors that run after the map is applied. These are all defined in UTF8-encoded, comma-delimited value (CSV) files. The files are each named <iso639>-<iso15924>.csv where <iso639> is the (three letter, all lowercase) ISO 639-3 code for the language and <iso15924> is the (four letter, capitalized) ISO 15924 code for the script. These files reside in the `data` directory of the Epitran installation under the `map`, `pre`, and `post` subdirectories, respectively.
+Language support in Epitran is provided through map files, which define mappings between orthographic and phonetic units, preprocessors that run before the map is applied, and postprocessors that run after the map is applied. Maps are defined in UTF8-encoded, comma-delimited value (CSV) files. The files are each named `<iso639>-<iso15924>.csv` where `<iso639>` is the (three letter, all lowercase) ISO 639-3 code for the language and `<iso15924>` is the (four letter, capitalized) ISO 15924 code for the script. These files reside in the `data` directory of the Epitran installation under the `map`, `pre`, and `post` subdirectories, respectively. The pre- and post-processor files are text files whose format is described belown. They follow the same naming conventions except that they have the file extensions `.txt`.
 
 ### Map files (mapping tables)
 
@@ -487,7 +488,7 @@ Comments and blank lines (lines consisting only of white space) are allowed to m
 
 Epitran uses a mapping-and-repairs approach to G2P. It is expected that there is a mapping between graphemes and phonemes that can do most of the work of converting orthographic representations to phonological representations. In phonemically adequate orthogrphies, this mapping can do *all* of the work. This mapping should be completed first. For many languages, a basis for this mapping table already exists on [Wikipedia](http://www.wikipedia.org) and [Omniglot](http://www.omniglot.com) (though the Omniglot tables are typically not machine readable).
 
-On the other hand, many writing systems deviate from the phonemically adequate idea. It is here that pre- and post-processors must be introduced. For example, in Swedish, the letter <a> receives a different pronunciation before two consonants (/ɐ/) than elsewhere (/ɑː/). It makes sense to add a preprocessor rule that rewrites <a> as /ɐ/ before two consonants (and similar rules for the other vowels, since they are affected by the same condition). Preprocessor rules should generally be employed whenever the orthographic representation must be adjusted (by contextual changes, deletions, etc.) prior to the mapping step.
+On the other hand, many writing systems deviate from the phonemically adequate idea. It is here that pre- and post-processors must be introduced. For example, in Swedish, the letter `<a>` receives a different pronunciation before two consonants (/ɐ/) than elsewhere (/ɑː/). It makes sense to add a preprocessor rule that rewrites `<a>` as /ɐ/ before two consonants (and similar rules for the other vowels, since they are affected by the same condition). Preprocessor rules should generally be employed whenever the orthographic representation must be adjusted (by contextual changes, deletions, etc.) prior to the mapping step.
 
 One common use for postprocessors is to eliminate characters that are needed by the preprocessors or maps, but which should not appear in the output. A classic example of this is the virama used in Indic scripts. In these scripts, in order to write a consonant *not followed* by a vowel, one uses the form of the consonant symbol with particular inherent vowel followed by a virama (which has various names in different Indic languages). An easy way of handling this is to allow the mapping to translate the consonant into an IPA consonant + an inherent vowel (which, for a given language, will always be the same), then use the postprocessor to delete the vowel + virama sequence (wherever it occurs).
 
