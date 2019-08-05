@@ -13,7 +13,7 @@ import unicodecsv as csv
 class ReRomanizer(object):
     """Converts IPA representations to a readable roman form."""
 
-    def __init__(self, code, table, decompose=False, cedict_file=None):
+    def __init__(self, code, table, decompose=True, cedict_file=None):
         """Construct object for re-romanizing Epitran output.
 
         This class converts orthographic input, via Epitran, to a more
