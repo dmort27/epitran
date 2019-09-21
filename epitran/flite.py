@@ -209,6 +209,5 @@ class FliteLexLookup(Flite):
             arpa_text = ''
         # Split on newlines and take the first element (in case lex_lookup
         # returns multiple lines).
-        arpa_text = arpa_text.replace('\r\n', '\n').replace('\r', '\n')
-        arpa_text = arpa_text.split('\n')[0]
+        arpa_text = arpa_text.splitlines()[0]
         return self.arpa_to_ipa(arpa_text)
