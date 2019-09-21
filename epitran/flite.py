@@ -50,6 +50,8 @@ class Flite(object):
         self.puncnorm = PuncNorm()
         self.ligatures = ligatures
         self.ft = panphon.FeatureTable()
+        self.num_panphon_fts = len(self.ft.names)
+
 
     def _read_arpabet(self, arpabet):
         arpa_map = {}
@@ -71,7 +73,7 @@ class Flite(object):
     def arpa_to_ipa(self, arpa_text, ligatures=False):
         arpa_text = arpa_text.strip()
         arpa_list = self.arpa_text_to_list(arpa_text)
-        arpa_list = map(lambda d: re.sub('\d', '', d), arpa_list)
+        arpa_list = map(lambda d: re.sub(r'\d', '', d), arpa_list)
         ipa_list = map(lambda d: self.arpa_map[d], arpa_list)
         text = ''.join(ipa_list)
         return text
@@ -139,7 +141,7 @@ class Flite(object):
             if phon == '':
                 return [(-1, [0] * self.num_panphon_fts)]
             else:
-                return [to_vector(seg) for seg in self.ft.segs(phon)]
+                return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
         word = unicode(word)
@@ -152,7 +154,7 @@ class Flite(object):
                 span = match.group(0)
                 cat, case = cat_and_cap(span[0])
                 phonword = self.transliterate(span)
-                phonsegs = self.ft.segs(phonword)
+                phonsegs = self.ft.ipa_segs(phonword)
                 maxlen = max(len(phonsegs), len(span))
                 orth = list(span) + [''] * (maxlen - len(span))
                 phonsegs += [''] * (maxlen - len(phonsegs))
@@ -207,5 +209,6 @@ class FliteLexLookup(Flite):
             arpa_text = ''
         # Split on newlines and take the first element (in case lex_lookup
         # returns multiple lines).
+        arpa_text = arpa_text.replace('\r\n', '\n').replace('\r', '\n')
         arpa_text = arpa_text.split('\n')[0]
         return self.arpa_to_ipa(arpa_text)
