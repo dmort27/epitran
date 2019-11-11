@@ -1,30 +1,30 @@
-::vowel:: = aäeioöuü
+::vowel:: = a|ä|e|i|o|ö|u|ü
 ::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z
 
 % -tion for Latin loanwords
 t -> ts / _ ion
 
 % Initial voicing of <s>
-s -> z / # _ [::vowel::]
+s -> z / # _ (::vowel::)
 
 % Final obstruent devoicing
-b -> p / _ #|(::consonant::)[::vowel::]
-d -> t / _ #|(::consonant::)[::vowel::]
-g -> k / _ #|(::consonant::)[::vowel::]
+b -> p / _ #|(::consonant::)(::vowel::)
+d -> t / _ #|(::consonant::)(::vowel::)
+g -> k / _ #|(::consonant::)(::vowel::)
 
 % Handling of r
 r -> 0 / e _ #
-r -> ə / [äeioöuü]h? _ #|(::consonant::)
+r -> ə / [äeioöuü]h? _ #|(::consonant::)
 r -> 0 / a _ #|(::consonant::)
 
 % Final schwa
 e -> ə / _ #
 
 % Open syllable lengthening
-i -> ie /  _ #|(::consonant::)[::vowel::]
-e -> ee / [^ei] _ #|(::consonant::)[::vowel::]
-ü -> üh /  _ #|(::consonant::)[::vowel::]
-ö -> öo /  _ #|(::consonant::)[::vowel::]
-u -> uh /  _ #|(::consonant::)[::vowel::]
-o -> oo / [^oö] _ #|(::consonant::)[::vowel::]
-a -> aa / [^a] _ #|(::consonant::)[::vowel::]
+i -> ie /  _ #|(::consonant::)(::vowel::)
+e -> ee / [^ei] _ #|(::consonant::)(::vowel::)
+ü -> üh /  _ #|(::consonant::)(::vowel::)
+ö -> öo /  _ #|(::consonant::)(::vowel::)
+u -> uh /  _ #|(::consonant::)(::vowel::)
+o -> oo / [^oö] _ #|(::consonant::)(::vowel::)
+a -> aa / [^a] _ #|(::consonant::)(::vowel::)
