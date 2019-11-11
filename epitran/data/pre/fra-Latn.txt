@@ -1,24 +1,24 @@
-::vowel:: = aáâæeéèêëiîïoôœuùûüAÁÂÆEÉÈÊËIÎÏOÔŒUÙÛÜɛ
-::front_vowel:: = eéèêëiîïyEÉÈÊËIÎÏYɛ
-::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
+::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ
+::front_vowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ
+::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
 
 j -> ʒ / _
-i -> j / _ [::vowel::]
+i -> j / _ (::vowel::)
 
 % Rules to be completed (with tilde)
-a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
-ai[mn] -> ễ / _ #|x|(::consonant::)(::consonant::)
-e[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
-ein|im|in|ym|yn -> aî̃ / _ #|x|(::consonant::)(::consonant::)
+a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
+ai[mn] -> ễ / _ #|x|(::consonant::)(::consonant::)
+e[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
+ein|im|in|ym|yn -> aî̃ / _ #|x|(::consonant::)(::consonant::)
 eun|un -> œ̃ / _ #|x|(::consonant::)(::consonant::)
-ien -> iễ / _ #|x|(::consonant::)(::consonant::)
+ien -> iễ / _ #|x|(::consonant::)(::consonant::)
 om|on -> õ / _ #|x|(::consonant::)(::consonant::)
 uin|um -> uẽ / _ #|x|(::consonant::)(::consonant::)
-oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
+oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
 
 % Treatment of <l>
-il -> j / [::vowel::] _
-ill -> j / [::vowel::] _
+il -> j / (::vowel::) _
+ill -> j / (::vowel::) _
 
 x -> ks / _ (p|t|k|f|s|ch)
 
@@ -27,11 +27,11 @@ sc -> s / _ [::front_vowel::]
 c -> s / _ [::front_vowel::]
 
 % Intervocalic voicing of <s>
-s -> z / [::vowel::] _ [::vowel::]
+s -> z / (::vowel::) _ (::vowel::)
 
 % High vowels become glides before vowels
-ou -> w / _ [::vowel::]
-u -> ɥ / _ [::vowel::]
+ou -> w / _ (::vowel::)
+u -> ɥ / _ (::vowel::)
 
 % Context where <y> is realized as a vowel
 y -> i / . _
@@ -44,10 +44,10 @@ ent -> 0 / _ #
 g -> ʒ / _ [::front_vowel::]
 
 % Treatment of <er>
-er -> é / _ #
+er -> é / _ #
 
 % Deletion of final <e>
-e -> 0 / [::vowel::].+ _ #
+e -> 0 / (::vowel::).+ _ #
 
 % A strange rule
 ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
@@ -56,18 +56,18 @@ ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|
 ng -> n / ei _ #
 
 e -> ɛ / _ x|(::consonant::)(::consonant::)
-e -> ɛ / [::vowel::].+ _ (::consonant::) #
+e -> ɛ / (::vowel::).+ _ (::consonant::) #
 
 s -> 0 / [^ɛ] _ #
 
 d -> 0 / [::vowel::n] _ #
 dd -> 0 / [::vowel::n] _ #
-g -> 0 / [::vowel::] _ #
+g -> 0 / (::vowel::) _ #
 p -> 0 / [::vowel::m] _ #
 pp -> 0 / [::vowel::m] _ #
 t -> 0 / [::vowel::n] _ #
 tt -> 0 / [::vowel::n] _ #
-x -> 0 / [::vowel::] _ #
-ent -> 0 / [::vowel::].+ _ #
+x -> 0 / (::vowel::) _ #
+ent -> 0 / (::vowel::).+ _ #
 
 ɛs -> 0 / _ #
