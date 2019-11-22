@@ -36,6 +36,7 @@ w,w
 x,ks
 z,z
 a,a
+á,a
 à,a
 â,ɑ
 ai,ɛ
@@ -53,6 +54,7 @@ é,e
 ée,e
 è,ɛ
 ê,ɛ
+ë,ɛ
 ɛ,ɛ
 eau,o
 ei,ɛ
@@ -60,10 +62,13 @@ eî,ɛ
 eu,œ
 eû,ø
 i,i
+ì,i
+í,i
 î,i
 ï,j
 ie,i
 o,ɔ
+ö,ɔ
 ô,o
 œ,œ
 oe,oe
@@ -78,6 +83,7 @@ oû,u
 oue,u
 oy,way
 u,y
+ù,y
 û,y
 ue,ɥɛ
 ɥ,ɥ
