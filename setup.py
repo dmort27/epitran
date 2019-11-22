@@ -2,12 +2,12 @@ from setuptools import setup
 from io import open
 
 setup(name='epitran',
-      version='1.5',
+      version='1.6',
       description='Tools for transcribing languages into IPA.',
       long_description=open('README.md', encoding='utf-8').read(),
       long_description_content_type='text/markdown',
       url='http://github.com/dmort27/epitran',
-      download_url='https://github.com/dmort27/epitran/archive/1.5.tar.gz',
+      download_url='https://github.com/dmort27/epitran/archive/1.6.tar.gz',
       author='David R. Mortensen',
       author_email='dmortens@cs.cmu.edu',
       license='MIT',
