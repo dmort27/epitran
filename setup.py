@@ -2,7 +2,7 @@ from setuptools import setup
 from io import open
 
 setup(name='epitran',
-      version='1.7',
+      version='1.8',
       description='Tools for transcribing languages into IPA.',
       long_description=open('README.md', encoding='utf-8').read(),
       long_description_content_type='text/markdown',
