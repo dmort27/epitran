@@ -16,6 +16,9 @@ om|on -> õ / _ #|x|(::consonant::)(::consonant::)
 uin|um -> uẽ / _ #|x|(::consonant::)(::consonant::)
 oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
 
+% Treatment of <qu>
+qu -> k / _
+
 % Treatment of <l>
 il -> j / (::vowel::) _
 ill -> j / (::vowel::) _
