@@ -1,0 +1,4 @@
+% Saxton and Saxton Writing System Preprocessor
+% This preprocessor adds an apostrophe before word-initial vowels. The apostrophe is then mapped to /ʔ/.
+::vowels:: a|e|i|o|u
+0 -> ‘ / # _ (::vowels::)
