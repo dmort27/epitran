@@ -30,7 +30,7 @@ class Epihan(object):
             ]
 
     def __init__(self, ligatures=False, cedict_file=None,
-                 rules_file='pinyin-to-ipa.txt'):
+                 rules_file='pinyin-to-ipa.txt', tones=False):
         """Construct epitran object for Chinese
 
         Args:
@@ -38,6 +38,7 @@ class Epihan(object):
             cedict_file (str): path to CC-CEDict dictionary file
             rules_file (str): name of file with rules for converting pinyin to
                               IPA
+            tones (bool): if True, output tones as Chao tone numbers
         """
         # If no cedict_file is specified, raise and error
         if not cedict_file:
@@ -67,12 +68,12 @@ class Epihan(object):
         """Transliterates/transcribes a word into IPA
 
         Args:
-            word (str): word to transcribe; unicode string
+            word (str): word to transcribe; Unicode string
             normpunc (bool): normalize punctuation
             ligatures (bool): use precomposed ligatures instead of standard IPA
 
         Returns:
-            unicode: IPA string
+            str: Unicode IPA string
         """
         tokens = self.cedict.tokenize(text)
         ipa_tokens = []
