@@ -1,0 +1,35 @@
+::shortVowel:: =  ܸ|ܲ
+::westernVowel:: =  ܰ|ܱ|ܳ|ܴ|ܶ|ܷ|ܺ|ܻ|ܽ|ܾ
+::easternVowel:: =  ܲ|ܵ|ܸ|ܼ|ܿ|ܹ 
+::vowel:: = ::westernVowel::|::easternVowel::
+::consonant:: =  ܐ|ܒ|ܓ|ܕ|ܗ|ܘ|ܙ|ܚ|ܛ|ܝ|ܟ|ܠ|ܡ|ܢ|ܣ|ܥ|ܦ|ܨ|ܩ|ܪ|ܫ|ܬ|ܤ|ܖ
+::talqana:: =   ݇
+::consonantMod:: = '݀|݁|݂|݃|݄|݅|݆|݇|݈|݉|݊'
+
+% Glottal stop (Allap or ܐ) at the ends of words is not pronounced
+ܐ -> 0 / (::vowel::) _ #
+% ܗ -> 0 / _ #
+
+% Delete "lost" letters
+%(ܐ|ܒ|ܓ|ܕ|ܗ|ܘ|ܙ|ܚ|ܛ|ܝ|ܟ|ܠ|ܡ|ܢ|ܣ|ܥ|ܦ|ܩ|ܪ|ܫ|ܬ|ܨ|ܤ)݇  -> 0 / _
+%݇ -> 0 / _
+%(::consonant::)::talqana:: -> 0 / _
+(::consonant::)(::consonantMod::|0)::talqana:: -> 0 / _
+
+% Consonants usually geminate after short vowels
+%	This also probably needs to take into account stress information
+%	in order to be accurate
+% The rule is written twice here because the first one will double every other occurence
+%	in a repeated string of these
+0 -> ː / (::shortVowel::)(::consonant::) _ (::vowel::)
+0 -> ː / (::shortVowel::)(::consonant::) _ (::vowel::)
+
+% Historical Spellings where the initial consonant became a vowel preceded by a glottal stop
+ܝܼ -> ʔi / # _
+ܘܼ -> ʔu / # _
+ܘܿ -> ʔo / # _
+
+% Might be better in the map file
+% Need to add similar rules for kul + suffixes
+ܗ̇ܘ -> haw / # _
+ܗ̇ܝ-> hay / # _
