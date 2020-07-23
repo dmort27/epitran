@@ -25,7 +25,7 @@ if sys.version_info[0] == 3:
 
 class SimpleEpitran(object):
     def __init__(self, code, preproc=True, postproc=True, ligatures=False,
-                 rev=False, rev_preproc=True, rev_postproc=True):
+                 rev=False, rev_preproc=True, rev_postproc=True, tones=False):
         """Constructs the backend object epitran uses for most languages
 
         Args:
@@ -39,6 +39,7 @@ class SimpleEpitran(object):
             rev_postproc (bool): if True, apply postprocessor when reverse transliterating
         """
         self.rev = rev
+        self.tones = tones
         self.g2p = self._load_g2p_map(code, False)
         self.regexp = self._construct_regex(self.g2p.keys())
         self.puncnorm = PuncNorm()
@@ -59,6 +60,9 @@ class SimpleEpitran(object):
             self.rev_postprocessor = PrePostProcessor(code, 'post', True)
 
         self.nils = defaultdict(int)
+
+    def get_tones(self):
+        return self.tones
 
     def __enter__(self):
         return self
@@ -101,6 +105,8 @@ class SimpleEpitran(object):
                     raise DatafileError('Map file is not well formed at line {}.'.format(i + 2))
                 graph = unicodedata.normalize('NFD', graph)
                 phon = unicodedata.normalize('NFD', phon)
+                if not self.tones:
+                    phon = re.sub('[˩˨˧˦˥]', '', phon)
                 g2p[graph].append(phon)
                 gr_by_line[graph].append(i)
         if self._one_to_many_gr_by_line_map(g2p):
