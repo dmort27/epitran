@@ -32,15 +32,13 @@ if sys.version_info[0] == 3:
 
 class Flite(object):
     """English G2P using the Flite speech synthesis system."""
-    def __init__(self, arpabet='arpabet', ligatures=False, cedict_file=None):
+    def __init__(self, arpabet='arpabet', ligatures=False, **kwargs):
         """Construct a Flite "wrapper"
 
         Args:
             arpabet (str): file containing ARPAbet to IPA mapping
             ligatures (bool): if True, use non-standard ligatures instead of
                               standard IPA
-            cedict_filename (str): path to CC-CEDict dictionary (included for
-                                   compatibility)
         """
         arpabet = pkg_resources.resource_filename(__name__, os.path.join('data', arpabet + '.csv'))
         self.arpa_map = self._read_arpabet(arpabet)
@@ -77,6 +75,10 @@ class Flite(object):
         ipa_list = map(lambda d: self.arpa_map[d], arpa_list)
         text = ''.join(ipa_list)
         return text
+
+    def english_g2p(self, english):
+        """Stub for English G2P function to be overwritten by subclasses"""
+        return ""
 
     def transliterate(self, text, normpunc=False, ligatures=False):
         """Convert English text to IPA transcription
