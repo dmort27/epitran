@@ -25,7 +25,7 @@ class Epitran(object):
                'cmn-Hant': EpihanTraditional}
 
     def __init__(self, code, preproc=True, postproc=True, ligatures=False, cedict_file=None,
-                 rev=False, rev_preproc=True, rev_postproc=True):
+                 rev=False, rev_preproc=True, rev_postproc=True, tones=False):
         """Construct Epitran transliteration/transcription object
 
         Args:
@@ -41,9 +41,9 @@ class Epitran(object):
             rev_postproc (bool): if True, apply postprocessor when reverse transliterating
         """
         if code in self.special:
-            self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file)
+            self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file, tones=tones)
         else:
-            self.epi = SimpleEpitran(code, preproc, postproc, ligatures, rev, rev_preproc, rev_postproc)
+            self.epi = SimpleEpitran(code, preproc, postproc, ligatures, rev, rev_preproc, rev_postproc, tones=tones)
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
