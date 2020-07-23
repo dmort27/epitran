@@ -38,13 +38,17 @@ class Epihan(object):
             cedict_file (str): path to CC-CEDict dictionary file
             rules_file (str): name of file with rules for converting pinyin to
                               IPA
-            tones (bool): if True, output tones as Chao tone numbers
+            tones (bool): if True, output tones as Chao tone numbers; overrides
+                          `rules_file`
         """
         # If no cedict_file is specified, raise and error
         if not cedict_file:
             raise MissingData('Please specify a location ' +
                               'for the CC-CEDict file.')
-        rules_file = os.path.join('data', 'rules', rules_file)
+        if tones:
+            rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
+        else:
+            rules_file = os.path.join('data', 'rules', rules_file)
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file)
         self.rules = rules.Rules([rules_file])
