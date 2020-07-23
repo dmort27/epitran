@@ -51,3 +51,6 @@ ie -> iɛ / _ (n|t)
 
 % Default glottal stop
 0 -> ʔ / # _ (::nuc::)
+
+% Move tones to end of word
+(?P<sw1>[˩˨˧˦˥]+)(?P<sw2>\w+) -> 0 / _\b
