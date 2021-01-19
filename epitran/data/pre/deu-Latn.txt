@@ -1,11 +1,15 @@
-::vowel:: = a|ä|e|i|o|ö|u|ü
-::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z
+::vowel:: = a|ä|e|i|o|ö|u|ü
+::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z|ʀ
 
 % -tion for Latin loanwords
-t -> ts / _ ion
+t -> z / _ ion
+
+% Retraction of initial <s> before plosives
+s -> sch / # _ (p|t)
 
 % Initial voicing of <s>
-s -> z / # _ (::vowel::)
+s -> <zed> / # _ (::vowel::)
+
 
 % Final obstruent devoicing
 b -> p / _ #|(::consonant::)(::vowel::)
