@@ -164,7 +164,7 @@ A typical interaction with the ```VectorsWithIPASpace``` object via the ```word_
 ```
 
 
-(It is important to note that, though the word that serves as input--*darë*--has four letters, the output contains four tuples because the last letter in *darë* actually corresponds to two IPA segments, /j/ and /a/.) The returned data structure is a list of tuples, each with the following structure:
+(It is important to note that, though the word that serves as input--*darë*--has four letters, the output contains five tuples because the last letter in *darë* actually corresponds to two IPA segments, /j/ and /a/.) The returned data structure is a list of tuples, each with the following structure:
 
 ```
 (
@@ -181,7 +181,7 @@ A few notes are in order regarding this data structure:
 - ```character_category``` is defined as part of the Unicode standard ([Chapter 4](http://www.unicode.org/versions/Unicode8.0.0/ch04.pdf#G134153)). It consists of a single, uppercase letter from the set {'L', 'M', 'N', 'P', 'S', 'Z', 'C'}.. The most frequent of these are 'L' (letter), 'N' (number), 'P' (punctuation), and 'Z' (separator [including separating white space]).
 - ```is_upper``` consists only of integers from the set {0, 1}, with 0 indicating lowercase and 1 indicating uppercase.
 - The integer in ```in_ipa_punc_space``` is an index to a list of known characters/segments such that, barring degenerate cases, each character or segment is assignmed a unique and globally consistant number. In cases where a character is encountered which is not in the known space, this field has the value -1.
-- The length of the list ```phonological_feature_vector``` should be constant for any instantiation of the class (it is based on the number of features defined in panphon) but is--in principles--variable. The integers in this list are drawn from the set {-1, 0, 1}, with -1 corresponding to '-', 0 corresponding to '0', and 1 corresponding to '+'. For characters with no IPA equivalent, all values in the list are 0.
+- The length of the list ```phonological_feature_vector``` should be constant for any instantiation of the class (it is based on the number of features defined in panphon) but is--in principle--variable. The integers in this list are drawn from the set {-1, 0, 1}, with -1 corresponding to '-', 0 corresponding to '0', and 1 corresponding to '+'. For characters with no IPA equivalent, all values in the list are 0.
 
 
 ## <a name='language-support'></a>Language Support
