@@ -47,7 +47,7 @@ class CEDictTrie(object):
             py, en = df
             py = str(''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py))))
             pairs.append((hz, (py.encode('utf-8'),)))
-        trie = _trie_m.RecordTrie(str('@s'), pairs)
+        trie = marisa_trie.RecordTrie(str('@s'), pairs)
         return trie
 
     def has_key(self, key):

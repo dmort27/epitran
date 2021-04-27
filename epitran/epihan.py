@@ -8,6 +8,7 @@ import regex as re
 
 from . import cedict
 from . import rules
+from . import download
 from epitran.ligaturize import ligaturize
 
 
@@ -43,8 +44,10 @@ class Epihan(object):
         """
         # If no cedict_file is specified, raise and error
         if not cedict_file:
-            raise MissingData('Please specify a location ' +
-                              'for the CC-CEDict file.')
+            if download.cedict_exists():
+                cedict_file = download.get_cedict_file()
+            else:
+                raise MissingData('Download CC-CEDICT with "epitran.download.cedict()')
         if tones:
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
@@ -110,7 +113,10 @@ class EpihanTraditional(Epihan):
                               IPA
         """
         if not cedict_file:
-            raise MissingData('Please specify a location for the CC-CEDict file.')
+            if download.cedict_exists():
+                cedict_file = download.get_cedict_file()
+            else:
+                raise MissingData('Download CC-CEDICT with "epitran.download.cedict().')
         rules_file = os.path.join('data', 'rules', rules_file)
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
