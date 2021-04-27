@@ -100,7 +100,7 @@ class Epihan(object):
 
 
 class EpihanTraditional(Epihan):
-    def __init__(self, ligatures=False, cedict_file=None, rules_file='pinyin-to-ipa.txt'):
+    def __init__(self, ligatures=False, cedict_file=None, tones=False, rules_file='pinyin-to-ipa.txt'):
         """Construct epitran object for Traditional Chinese
 
         Args:
