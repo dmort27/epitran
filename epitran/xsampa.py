@@ -7,7 +7,7 @@ import unicodedata
 
 import pkg_resources
 
-import marisa_trie_m
+import marisa_trie
 import panphon
 import unicodecsv as csv
 
@@ -30,7 +30,7 @@ class XSampa(object):
             next(reader)
             for ipa, xs, _ in reader:
                 pairs.append((ipa, xs.encode('utf-8'),))
-        trie = marisa_trie_m.BytesTrie(pairs)
+        trie = marisa_trie.BytesTrie(pairs)
         return trie
 
     def prefixes(self, s):
