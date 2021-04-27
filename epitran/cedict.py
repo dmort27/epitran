@@ -4,7 +4,7 @@ from __future__ import (absolute_import, division, print_function,
 
 import codecs
 
-import marisa_trie_m
+import marisa_trie
 import regex as re
 
 ASCII_CHARS = ''.join([chr(i) for i in range(128)])
@@ -47,7 +47,7 @@ class CEDictTrie(object):
             py, en = df
             py = str(''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py))))
             pairs.append((hz, (py.encode('utf-8'),)))
-        trie = marisa_trie_m.RecordTrie(str('@s'), pairs)
+        trie = _trie_m.RecordTrie(str('@s'), pairs)
         return trie
 
     def has_key(self, key):
