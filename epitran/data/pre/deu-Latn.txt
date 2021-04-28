@@ -1,5 +1,8 @@
 ::vowel:: = a|ä|e|i|o|ö|u|ü
-::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z|ʀ
+::consonant:: = b|c|ch|ck|d|dt|f|g|h|j|k|l|m|n|p|pf|r|s|sch|t|tsch|tz|tzsch|v|w|z
+
+% Convert vowel-length indicating <h> to H
+h -> H / (::vowel::) _
 
 % -tion for Latin loanwords
 t -> z / _ ion
@@ -10,25 +13,33 @@ s -> sch / # _ (p|t)
 % Initial voicing of <s>
 s -> <zed> / # _ (::vowel::)
 
-
 % Final obstruent devoicing
 b -> p / _ #|(::consonant::)(::vowel::)
 d -> t / _ #|(::consonant::)(::vowel::)
 g -> k / _ #|(::consonant::)(::vowel::)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Not sure where this came from
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Handling of r
-r -> 0 / e _ #
-r -> ə / [äeioöuü]h? _ #|(::consonant::)
-r -> 0 / a _ #|(::consonant::)
+% r -> 0 / e _ #
+% r -> ə / [äeioöuü]h? _ #|(::consonant::)
+% r -> 0 / a _ #|(::consonant::)
 
 % Final schwa
 e -> ə / _ #
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This was a mistake. Now we have laxing before CC
+% implemented in post-prc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Open syllable lengthening
-i -> ie /  _ #|(::consonant::)(::vowel::)
-e -> ee / [^ei] _ #|(::consonant::)(::vowel::)
-ü -> üh /  _ #|(::consonant::)(::vowel::)
-ö -> öo /  _ #|(::consonant::)(::vowel::)
-u -> uh /  [^e]_ #|(::consonant::)(::vowel::)
-o -> oo / [^oö] _ #|(::consonant::)(::vowel::)
-a -> aa / [^a] _ #|(::consonant::)(::vowel::)
+% i -> ie /  _ #|(::consonant::)(::vowel::)
+% e -> ee / [^ei] _ #|(::consonant::)(::vowel::)
+% ü -> üh /  _ #|(::consonant::)(::vowel::)
+% ö -> öo /  _ #|(::consonant::)(::vowel::)
+% u -> uh /  [^e]_ #|(::consonant::)(::vowel::)
+% o -> oo / [^oö] _ #|(::consonant::)(::vowel::)
+% a -> aa / [^a] _ #|(::consonant::)(::vowel::)
