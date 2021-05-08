@@ -26,8 +26,8 @@ ill -> j / (::vowel::) _
 x -> ks / _ (p|t|k|f|s|ch)
 
 % Treatment of <c> and <s>
-sc -> s / _ [::front_vowel::]
-c -> s / _ [::front_vowel::]
+sc -> s / _ (::front_vowel::)
+c -> s / _ (::front_vowel::)
 
 % Intervocalic voicing of <s>
 s -> z / (::vowel::) _ (::vowel::)
@@ -44,7 +44,7 @@ y -> i / _ [^::vowel::]
 ent -> 0 / _ #
 
 % Palatalization and lenition of <g>
-g -> ʒ / _ [::front_vowel::]
+g -> ʒ / _ (::front_vowel::)
 
 % Treatment of <er>
 er -> é / _ #
@@ -63,13 +63,13 @@ e -> ɛ / (::vowel::).+ _ (::consonant::) #
 
 s -> 0 / [^ɛ] _ #
 
-d -> 0 / [::vowel::n] _ #
-dd -> 0 / [::vowel::n] _ #
+d -> 0 / (::vowel::|n) _ #
+dd -> 0 / ()::vowel::|n) _ #
 g -> 0 / (::vowel::) _ #
-p -> 0 / [::vowel::m] _ #
-pp -> 0 / [::vowel::m] _ #
-t -> 0 / [::vowel::n] _ #
-tt -> 0 / [::vowel::n] _ #
+p -> 0 / (::vowel::|m) _ #
+pp -> 0 / (::vowel::|m) _ #
+t -> 0 / (::vowel::|n) _ #
+tt -> 0 / (::vowel::|n) _ #
 x -> 0 / (::vowel::) _ #
 ent -> 0 / (::vowel::).+ _ #
 
