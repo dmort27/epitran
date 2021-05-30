@@ -24,11 +24,17 @@ z -> ʑ / _ i
 n -> ɲ / _ i
 k -> kʲ / _ i
 g -> ɡʲ / _ i
+% Voicing assimilation (także)
+k -> ɡ/ _ ż
 
 % Glide formation
 u -> w / (::vowel::) _
 i -> j / (::vowel::) _ (::consonant::)
 i -> j / _ (::vowel::)
+% Mostly surnames
+y -> j / (::vowel::) _ #
+y -> j / (::vowel::) _ (::consonant::)
+y -> j / _ (::vowel::)
 
 % Denasalization
 ą -> ɔ / _ (l|ł|m|n|ɲ|ŋ)
