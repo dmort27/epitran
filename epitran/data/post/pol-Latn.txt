@@ -10,3 +10,5 @@ d͡ʑ -> t͡ɕ / _ (#|::vlesscons::)
 d͡ʐ -> t͡ʂ / _ (#|::vlesscons::)
 ʑ -> ɕ / _ (#|::vlesscons::)
 ʐ -> ʂ / _ (#|::vlesscons::)
+
+v -> f / (::vlesscons::) _
