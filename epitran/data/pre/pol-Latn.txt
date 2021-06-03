@@ -2,6 +2,7 @@
 ::vowel:: = a|ą|e|ę|i|o|ó|u|y
 ::vow_not_i:: = a|ą|e|ę|o|ó|u|y
 ::consonant:: = b|c|ć|cz|d|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|r|s|ś|sz|t|w|z|ź|ż|rz
+::voiceless:: = c|ć|h|ch|k|p|sz|ś|s|t
 
 % After nasalized vowels
 0 -> m / (::nasal_vowel::) _ (b|p)
@@ -25,8 +26,15 @@ n -> ɲ / _ i
 k -> kʲ / _ i
 g -> ɡʲ / _ i
 
-% Voicing assimilation (także)
+% Voicing assimilation
+% the main difference between ż and rz is:
+% - preceding voiceless consonants assimilate to ż
+% - rz assimilates to preceding voiceless consonants
 k -> ɡ / _ ż
+p -> b / _ ż
+% this is purely allophonic
+% ch -> ɣ / _ ż
+rz -> ʂ / (::voiceless::) _
 
 % Simplification: sześćset -> szejset (etc.)
 ść -> j / sze _ s
