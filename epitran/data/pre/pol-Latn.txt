@@ -24,8 +24,12 @@ z -> ʑ / _ i
 n -> ɲ / _ i
 k -> kʲ / _ i
 g -> ɡʲ / _ i
+
 % Voicing assimilation (także)
-k -> ɡ/ _ ż
+k -> ɡ / _ ż
+
+% Simplification: sześćset -> szejset (etc.)
+ść -> j / sze _ s
 
 % Glide formation
 u -> w / (::vowel::) _
