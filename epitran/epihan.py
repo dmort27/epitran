@@ -94,7 +94,7 @@ class Epihan(object):
                 if normpunc:
                     token = self.normalize_punc(token)
                 ipa_tokens.append(token)
-            ipa_tokens = map(ligaturize, ipa_tokens)\
+        ipa_tokens = map(ligaturize, ipa_tokens)\
                 if ligatures else ipa_tokens
         return u''.join(ipa_tokens)
 
