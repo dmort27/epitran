@@ -1,0 +1,14 @@
+::vlesscons:: = t͡ɕ|t͡ʂ|ʂ|ɕ|f|x|k|p|s|t
+
+% Devoicing
+b -> p / _ (#|::vlesscons::)
+d -> t / _ (#|::vlesscons::)
+ɡ -> k / _ (#|::vlesscons::)
+v -> f / _ (#|::vlesscons::)
+z -> s / _ (#|::vlesscons::)
+d͡ʑ -> t͡ɕ / _ (#|::vlesscons::)
+d͡ʐ -> t͡ʂ / _ (#|::vlesscons::)
+ʑ -> ɕ / _ (#|::vlesscons::)
+ʐ -> ʂ / _ (#|::vlesscons::)
+
+v -> f / (::vlesscons::) _
