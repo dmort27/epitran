@@ -1,0 +1,10 @@
+::rhyme:: = i|e|a|o|u|w|ee|aa|oo|ai|aw|au|ia|ua
+::onset:: = f|v|xy|x|s|z|y|h|n?(?:dl|pl|tx|ts|p|t|r|c|k|q)h?|h|d|dh|h?(?:ny|n|ml|m|l)
+
+b -> ˥ / (::rhyme::) _
+s -> ˨ / (::rhyme::) _
+j -> ˥˨ / (::rhyme::) _
+v -> ˧˥ / (::rhyme::) _
+m -> ˨˩ / (::rhyme::) _
+g -> ˧˩ / (::rhyme::) _
+0 -> ˧ / (::rhyme::)+ _ (::onset::)|#
