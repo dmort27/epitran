@@ -64,7 +64,7 @@ e -> ɛ / (::vowel::).+ _ (::consonant::) #
 s -> 0 / [^ɛ] _ #
 
 d -> 0 / (::vowel::|n) _ #
-dd -> 0 / ()::vowel::|n) _ #
+dd -> 0 / (::vowel::|n) _ #
 g -> 0 / (::vowel::) _ #
 p -> 0 / (::vowel::|m) _ #
 pp -> 0 / (::vowel::|m) _ #
