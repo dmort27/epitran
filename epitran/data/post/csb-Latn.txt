@@ -1,5 +1,5 @@
-::vlesscons:: = ts|tʃ|f|x|k|p|s|ʃ|t|c|ks
-::vdcons:: = b|d|ɡ|j|l|m|n|ɲ|r|z|ʒ
+::vlesscons:: = ts|tʃ|f|x|k|p|s|ʃ|t|ks
+::vdcons:: = b|d|dz|dʒ|ɡ|ɡz|z|ʒ
 
 % Devoicing
 b -> p / _ (#|::vlesscons::)
