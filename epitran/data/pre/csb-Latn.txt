@@ -1,0 +1,13 @@
+::vowel:: = a|ą|ã|e|é|ë|i|o|ò|ó|ù|u|y
+::vow_not_i:: = a|ą|ã|e|é|ë|o|ò|ó|ù|u|y
+
+é -> ɨ / _ #
+
+% palatals
+
+bi -> bʲ / _ (::vow_not_i::)
+fi -> fʲ / _ (::vow_not_i::)
+mi -> mʲ / _ (::vow_not_i::)
+ni -> ɲ / _ (::vow_not_i::)
+pi -> pʲ / _ (::vow_not_i::)
+wi -> vʲ / _ (::vow_not_i::)

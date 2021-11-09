@@ -1,0 +1,25 @@
+::vlesscons:: = ts|tʃ|f|x|k|p|s|ʃ|t|ks
+::vdcons:: = b|d|dz|dʒ|ɡ|ɡz|z|ʒ
+
+% Devoicing
+b -> p / _ (#|::vlesscons::)
+d -> t / _ (#|::vlesscons::)
+dz -> ts / _ (#|::vlesscons::)
+dʒ -> tʃ / _ (#|::vlesscons::)
+ɡ -> k / _ (#|::vlesscons::)
+ɡz -> ks / _ (#|::vlesscons::)
+v -> f / _ (#|::vlesscons::)
+z -> s / _ (#|::vlesscons::)
+ʒ -> ʃ / _ (#|::vlesscons::)
+
+% Voicing
+p -> b / _ (::vdcons::)
+t -> d / _ (::vdcons::)
+ts -> dz / _ (::vdcons::)
+tʃ -> dʒ / _ (::vdcons::)
+k -> ɡ / _ (::vdcons::)
+f -> v / _ (::vdcons::)
+s -> z / _ (::vdcons::)
+ʃ -> ʒ / _ (::vdcons::)
+ks -> gz / _ (::vdcons::)
+
