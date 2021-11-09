@@ -1,0 +1,2 @@
+% Palatal nasal realization of <y>
+j -> ɲ / i _ #
