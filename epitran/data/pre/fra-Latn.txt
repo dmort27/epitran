@@ -49,7 +49,7 @@ ou -> w / _ (::vowel::)
 u -> ɥ / _ (::vowel::)
 
 % Context where <y> is realized as a vowel
-y -> j / [::vowel]]
+y -> j / [::vowel]
 y -> i / _
 
 % "Deletion" of <ent> word finally
