@@ -1,6 +1,10 @@
 ::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ
 ::front_vowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ
 ::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
+::silent_final:: = d|s|t|x|z
+
+% Treatment of <qu>
+qu -> k / _
 
 % Treatment of <c> and <s>
 sc -> s / _ (::front_vowel::)
@@ -9,7 +13,17 @@ c -> s / _ (::front_vowel::)
 g -> ʒ / _ (::front_vowel::)
 
 j -> ʒ / _
+ie -> i / _ #
 i -> j / _ (::vowel::)
+
+% Context where <y> is realized as a vowel
+y -> j / [::vowel]
+y -> i / _
+
+% Treatment of <l>
+il -> j / (::vowel::) _
+ill -> j / (::vowel::) _
+ill -> ij / _
 
 % Rules to be completed (with tilde) (old)
 % a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
@@ -22,65 +36,71 @@ i -> j / _ (::vowel::)
 % uin -> uẽ / _ #|x|(::consonant::)(::consonant::)
 % oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
 
-a[mn] -> ẫ / _ #|x|(::consonant::)
-ai[mn] -> ễ / _ #|x|(::consonant::)
-ien -> iễ / _ #|x|(::consonant::)
-e[mn] -> ẫ / _ #|x|(::consonant::)
-ein|im|in|ym|yn -> aî̃ / _ #|x|(::consonant::)
-eun|un|um -> œ̃ / _ #|x|(::consonant::)
+ail -> aj / _ #
+aill -> aj / _
+eil -> ɛj / _ #
+eill -> ɛj / _ 
+ai -> e / _ #|(::front_vowel::)
+ai -> ɛ / _ (::consonant::)|x
+eu -> ø / _ #|(::front_vowel::)
+eu -> œ / _ (::consonant::)|x
+il -> i / _ #
+
+% Treatment of <o>
+o -> ô / _ (::silent_final::){0,1} #
+
+% Treatment of <e>
+jen -> jɛ̃ / _ #|x|(::consonant::)
+e[mn] -> ɑ̃ / _ #|x|(::consonant::)
+e -> ə / _ s{0,1} #
+e -> é / _ (::silent_final::){0,1} #
+e -> ɛ / _ r|l|x|(::consonant::){2,}
+e -> ə / (::vowel::).* _
+e -> ə / _ .*(::vowel::)
+ə -> 0 / (::vowel::) _
+
+% Rest of nasal vowels
+uin -> ɥɛ̃ / _ #|x|(::consonant::)
+oin -> wɛ̃ / _ #|x|(::consonant::)
+a[mn] -> ɑ̃ / _ #|x|(::consonant::)
+ai[mn] -> ɛ̃ / _ #|x|(::consonant::)
+ein|im|in|ym|yn -> ɛ̃ / _ #|x|(::consonant::)
+un|um -> œ̃ / #|x|(::consonant::) _ #|x|(::consonant::)
 om|on -> õ / _ #|x|(::consonant::)
-uin -> uẽ / _ #|x|(::consonant::)
-oin -> ouễ / _ #|x|(::consonant::)
-
-% Treatment of <qu>
-qu -> k / _
-
-% Treatment of <l>
-il -> j / (::vowel::) _
-ill -> j / (::vowel::) _
-
-x -> ks / _ (p|t|k|f|s|ch)
 
 % Intervocalic voicing of <s>
 s -> z / (::vowel::) _ (::vowel::)
+
+x -> ks / _ (p|t|k|f|s|ch)
+x -> gz / _ (::vowel::)
 
 % High vowels become glides before vowels
 ou -> w / _ (::vowel::)
 u -> ɥ / _ (::vowel::)
 
-% Context where <y> is realized as a vowel
-y -> j / [::vowel]]
-y -> i / _
-
-% "Deletion" of <ent> word finally
+% "Deletion" of <ent> word finally - only for verbs
 % This rule is sensitive to part of speech
 % ent -> 0 / _ #
 
-% Treatment of <er>
+% Treatment of <er> - only for verbs
 % er -> é / _ #
 
-% Deletion of final <e>
-e -> 0 / (::vowel::).+ _ #
+% Deletion of final letters
+əs|ə|(::silent_final::) -> 0 / (::vowel::).+ _ #
 
-% A strange rule
+% A strange rule - not sure about this?
 % ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
 
-% A less strange rule
-ng -> n / ei _ #
+% A less strange rule - not sure where this came from?
+% ng -> n / ei _ #
 
-e -> ɛ / _ x|(::consonant::)(::consonant::)
-e -> ɛ / (::vowel::).+ _ (::consonant::) #
+% s -> 0 / [^ɛ] _ #
 
-s -> 0 / [^ɛ] _ #
-
-d -> 0 / (::vowel::|n) _ #
-dd -> 0 / (::vowel::|n) _ #
-g -> 0 / (::vowel::) _ #
-p -> 0 / (::vowel::|m) _ #
-pp -> 0 / (::vowel::|m) _ #
-t -> 0 / (::vowel::|n) _ #
-tt -> 0 / (::vowel::|n) _ #
-x -> 0 / (::vowel::) _ #
-ent -> 0 / (::vowel::).+ _ #
-
-ɛs -> 0 / _ #
+% d -> 0 / (::vowel::|n) _ #
+% dd -> 0 / (::vowel::|n) _ #
+% g -> 0 / (::vowel::) _ #
+% p -> 0 / (::vowel::|m) _ #
+% pp -> 0 / (::vowel::|m) _ #
+% t -> 0 / (::vowel::|n) _ #
+% tt -> 0 / (::vowel::|n) _ #
+% x -> 0 / (::vowel::) _ #
