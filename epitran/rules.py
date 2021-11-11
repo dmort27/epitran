@@ -106,7 +106,7 @@ class Rules(object):
         Returns:
             unicode: output text (e.g. IPA)
         """
-        for rule in self.rules:
+        for i, rule in enumerate(self.rules):
             text = rule(text)
         # return unicodedata.normalize('NFD', text)
         return text

@@ -12,3 +12,7 @@
 
 % Virama
 (::vowel::)੍ -> 0 / _
+
+% Addak
+(?P<sw1><GEM>)(?P<sw2>(::consonant::)) -> 0 / _
+<GEM> -> ː / _
