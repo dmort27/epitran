@@ -55,6 +55,9 @@ e[mn] -> ɑ̃ / _ #|x|(::consonant::)
 e -> ə / _ s{0,1} #
 e -> é / _ (::silent_final::){0,1} #
 e -> ɛ / _ r|l|x|(::consonant::){2,}
+e -> ə / (::vowel::).* _
+e -> ə / _ .*(::vowel::)
+ə -> 0 / (::vowel::) _
 
 % Rest of nasal vowels
 uin -> ɥɛ̃ / _ #|x|(::consonant::)
@@ -83,9 +86,7 @@ u -> ɥ / _ (::vowel::)
 % er -> é / _ #
 
 % Deletion of final letters
-əs -> 0 / _ #
-ə|(::silent_final::) -> 0 / (::vowel::).+ _ #
-ə -> 0 / (::vowel::) _
+əs|ə|(::silent_final::) -> 0 / (::vowel::).+ _ #
 
 % A strange rule - not sure about this?
 % ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
