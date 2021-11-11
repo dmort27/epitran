@@ -48,8 +48,8 @@ oue,we
 oui,wi
 eau,o
 au,o
-aye,ej
-ay,e
+aje,ej
+aj,e
 aou,au
 aoû,au
 aï,ai
@@ -63,7 +63,7 @@ oi,wa
 oï,oi
 ou,u
 oû,u
-oy,waj
+oj,waj
 uẽ,ɥɛ̃
 uɛ,ɥɛ
 ue,ɥe
@@ -74,7 +74,8 @@ à,a
 â,a
 ei,ɛ
 eî,ɛ
-e,ə
+e,ɛ
+ə,ə
 é,e
 è,ɛ
 ê,ɛ
@@ -94,14 +95,6 @@ ù,y
 û,y
 u,y
 aə,a
-ɛə,ɛ
-eə,e
-iə,i
-ɔə,ɔ
-oə,o
-uə,u
-yə,y
-œə,œ
 ɥ,ɥ
 q,k
 ẫ,â
@@ -113,3 +106,5 @@ õ,ɔ̃
 ɛ̃,ɛ̃
 ouễ,wɛ̃
 ÿ,i
+oeu,œ
+œu,œ
