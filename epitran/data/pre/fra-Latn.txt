@@ -17,7 +17,7 @@ ie -> i / _ #
 i -> j / _ (::vowel::)
 
 % Context where <y> is realized as a vowel
-y -> j / [::vowel]
+y -> j / [::vowel] _
 y -> i / _
 
 % Treatment of <l>
