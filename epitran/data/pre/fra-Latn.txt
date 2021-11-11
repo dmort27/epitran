@@ -85,6 +85,7 @@ u -> ɥ / _ (::vowel::)
 % Deletion of final letters
 əs -> 0 / _ #
 ə|(::silent_final::) -> 0 / (::vowel::).+ _ #
+ə -> 0 / (::vowel::) _
 
 % A strange rule - not sure about this?
 % ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
