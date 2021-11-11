@@ -1,7 +1,7 @@
-::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ|ə|y|Y
+::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ|ə|y|Y|œ|ø
 ::frontvowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ
 ::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
-::silentfinal:: = d|s|t|x|z
+::silentfinal:: = d|t|x|z|p
 
 % Treatment of <qu>
 qu -> k / _
@@ -37,6 +37,7 @@ ill -> ij / _
 % oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
 
 ai[mn] -> ɛ̃ / _ #|x|(::consonant::)
+ein|im|in|ym|yn -> ɛ̃ / _ #|(x|::consonant::)
 ail -> aj / _ #
 aill -> aj / _
 eil -> ɛj / _ #
@@ -45,7 +46,7 @@ ai -> e / _ #|(::frontvowel::)
 ai -> ɛ / _ (::consonant::)|x
 eu -> ø / _ #|(::frontvowel::)
 eu -> œ / _ (::consonant::)|x
-il -> i / _ #
+il -> i / (::vowel::).+ _ #
 eau -> ô / _ #
 
 % Treatment of <o>
@@ -66,15 +67,14 @@ uin -> ɥɛ̃ / _ #|(x|::consonant::)
 oin -> wɛ̃ / _ #|(x|::consonant::)
 a[mn] -> ɑ̃ / _ #|(x|::consonant::)
 ai[mn] -> ɛ̃ / _ #|(x|::consonant::)
-ein|im|in|ym|yn -> ɛ̃ / _ #|(x|::consonant::)
 un|um -> œ̃ / #|(x|::consonant::) _ #|(x|::consonant::)
 om|on -> õ / _ #|(x|::consonant::)
 
 % Intervocalic voicing of <s>
-% s -> z / (::vowel::) _ (::vowel::)
+s -> z / (::vowel::) _ (::vowel::)
 
 x -> ks / _ (p|t|k|f|s|ch)
-x -> gz / _ (::vowel::)
+x -> gz / (::vowel::) _ (::vowel::)
 
 % High vowels become glides before vowels
 ou -> w / _ (::vowel::)
@@ -89,4 +89,4 @@ u -> ɥ / _ (::vowel::)
 
 % Deletion of final letters
 s -> 0 / (::vowel::).+ _ #
-(::silentfinal::) -> 0 / (::vowel::).+ _ #
+ə|(::silentfinal::) -> 0 / (::vowel::).+ _ #
