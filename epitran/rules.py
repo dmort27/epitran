@@ -57,6 +57,7 @@ class Rules(object):
         line = line.strip()
         if line:
             line = unicodedata.normalize('NFD', line)
+            print(line)
             s = re.match(r'(?P<symbol>::\w+::)\s*=\s*(?P<value>.+)', line)
             if s:
                 self.symbols[s.group('symbol')] = s.group('value')
@@ -65,6 +66,7 @@ class Rules(object):
                 r = re.match(r'(\S+)\s*->\s*(\S+)\s*/\s*(\S*)\s*[_]\s*(\S*)', line)
                 try:
                     a, b, X, Y = r.groups()
+                    print(f'{a} -> {b} / {X} _ {Y}')
                 except AttributeError:
                     raise DatafileError('Line {}: "{}" cannot be parsed.'.format(i + 1, line))
                 X, Y = X.replace('#', '^'), Y.replace('#', '$')
@@ -106,7 +108,8 @@ class Rules(object):
         Returns:
             unicode: output text (e.g. IPA)
         """
-        for rule in self.rules:
+        for i, rule in enumerate(self.rules):
             text = rule(text)
+            print(i, text)
         # return unicodedata.normalize('NFD', text)
         return text
