@@ -1,16 +1,16 @@
 ::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ
-::front_vowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ
+::frontvowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ
 ::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
-::silent_final:: = d|s|t|x|z
+::silentfinal:: = d|s|t|x|z
 
 % Treatment of <qu>
 qu -> k / _
 
 % Treatment of <c> and <s>
-sc -> s / _ (::front_vowel::)
-c -> s / _ (::front_vowel::)
+sc -> s / _ (::frontvowel::)
+c -> s / _ (::frontvowel::)
 % Palatalization and lenition of <g>
-g -> ʒ / _ (::front_vowel::)
+g -> ʒ / _ (::frontvowel::)
 
 j -> ʒ / _
 ie -> i / _ #
@@ -40,36 +40,36 @@ ail -> aj / _ #
 aill -> aj / _
 eil -> ɛj / _ #
 eill -> ɛj / _ 
-ai -> e / _ #|(::front_vowel::)
+ai -> e / _ #|(::frontvowel::)
 ai -> ɛ / _ (::consonant::)|x
-eu -> ø / _ #|(::front_vowel::)
+eu -> ø / _ #|(::frontvowel::)
 eu -> œ / _ (::consonant::)|x
 il -> i / _ #
 
 % Treatment of <o>
-o -> ô / _ (::silent_final::){0,1} #
+o -> ô / _ (::silentfinal::)?#
 
 % Treatment of <e>
-jen -> jɛ̃ / _ #|x|(::consonant::)
-e[mn] -> ɑ̃ / _ #|x|(::consonant::)
-e -> ə / _ s{0,1} #
-e -> é / _ (::silent_final::){0,1} #
-e -> ɛ / _ r|l|x|(::consonant::){2,}
+jen -> jɛ̃ / _ #|(x|::consonant::)
+e[mn] -> ɑ̃ / _ #|(x|::consonant::)
+e -> ə / _ s?#
+e -> é / _ (::silentfinal::)?#
+e -> ɛ / _ (r|l|x|::consonant::){2,}
 e -> ə / (::vowel::).* _
 e -> ə / _ .*(::vowel::)
 ə -> 0 / (::vowel::) _
 
 % Rest of nasal vowels
-uin -> ɥɛ̃ / _ #|x|(::consonant::)
-oin -> wɛ̃ / _ #|x|(::consonant::)
-a[mn] -> ɑ̃ / _ #|x|(::consonant::)
-ai[mn] -> ɛ̃ / _ #|x|(::consonant::)
-ein|im|in|ym|yn -> ɛ̃ / _ #|x|(::consonant::)
-un|um -> œ̃ / #|x|(::consonant::) _ #|x|(::consonant::)
-om|on -> õ / _ #|x|(::consonant::)
+uin -> ɥɛ̃ / _ #|(x|::consonant::)
+oin -> wɛ̃ / _ #|(x|::consonant::)
+a[mn] -> ɑ̃ / _ #|(x|::consonant::)
+ai[mn] -> ɛ̃ / _ #|(x|::consonant::)
+ein|im|in|ym|yn -> ɛ̃ / _ #|(x|::consonant::)
+un|um -> œ̃ / #|(x|::consonant::) _ #|(x|::consonant::)
+om|on -> õ / _ #|(x|::consonant::)
 
 % Intervocalic voicing of <s>
-s -> z / (::vowel::) _ (::vowel::)
+% s -> z / (::vowel::) _ (::vowel::)
 
 x -> ks / _ (p|t|k|f|s|ch)
 x -> gz / _ (::vowel::)
@@ -86,7 +86,7 @@ u -> ɥ / _ (::vowel::)
 % er -> é / _ #
 
 % Deletion of final letters
-əs|ə|(::silent_final::) -> 0 / (::vowel::).+ _ #
+əs|ə|(::silentfinal::) -> 0 / (::vowel::).+ _ #
 
 % A strange rule - not sure about this?
 % ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
