@@ -1,7 +1,7 @@
-::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ
+::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ|y|Y
 ::front_vowel:: = e|é|è|ê|ë|i|î|ï|y|E|É|È|Ê|Ë|I|Î|Ï|Y|ɛ
 ::consonant:: = b|ç|c|ch|d|f|g|j|k|l|m|n|p|r|s|t|v|w|z|ʒ
-::silent_final:: = d|s|t|x|z
+::silent_final:: = d|t|x|z|p
 
 % Treatment of <qu>
 qu -> k / _
@@ -36,6 +36,7 @@ ill -> ij / _
 % uin -> uẽ / _ #|x|(::consonant::)(::consonant::)
 % oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
 
+ai[mn] -> ɛ̃ / _ #|x|(::consonant::)
 ail -> aj / _ #
 aill -> aj / _
 eil -> ɛj / _ #
@@ -45,15 +46,16 @@ ai -> ɛ / _ (::consonant::)|x
 eu -> ø / _ #|(::front_vowel::)
 eu -> œ / _ (::consonant::)|x
 il -> i / _ #
+eau -> ô / _ #
 
 % Treatment of <o>
-o -> ô / _ (::silent_final::){0,1} #
+o -> ô / _ (s|(::silent_final::)){0,1} #
 
 % Treatment of <e>
 jen -> jɛ̃ / _ #|x|(::consonant::)
 e[mn] -> ɑ̃ / _ #|x|(::consonant::)
 e -> ə / _ s{0,1} #
-e -> é / _ (::silent_final::){0,1} #
+e -> é / _ (s|(::silent_final::)){0,1} #
 e -> ɛ / _ r|l|x|(::consonant::){2,}
 e -> ə / (::vowel::).* _
 e -> ə / _ .*(::vowel::)
@@ -63,7 +65,6 @@ e -> ə / _ .*(::vowel::)
 uin -> ɥɛ̃ / _ #|x|(::consonant::)
 oin -> wɛ̃ / _ #|x|(::consonant::)
 a[mn] -> ɑ̃ / _ #|x|(::consonant::)
-ai[mn] -> ɛ̃ / _ #|x|(::consonant::)
 ein|im|in|ym|yn -> ɛ̃ / _ #|x|(::consonant::)
 un|um -> œ̃ / #|x|(::consonant::) _ #|x|(::consonant::)
 om|on -> õ / _ #|x|(::consonant::)
@@ -86,7 +87,8 @@ u -> ɥ / _ (::vowel::)
 % er -> é / _ #
 
 % Deletion of final letters
-əs|ə|(::silent_final::) -> 0 / (::vowel::).+ _ #
+s -> 0 / (::vowel::).+ _ #
+(::silent_final::) -> 0 / (::vowel::).+ _ #
 
 % A strange rule - not sure about this?
 % ct -> 0 / _ (am|an|aen|aim|ain|aon|em|en|ein|eun|ien|im|in|oin|om|on|uin|uin|um|un|ym|yn)#
