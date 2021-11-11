@@ -71,7 +71,7 @@ un|um -> œ̃ / #|(x|::consonant::) _ #|(x|::consonant::)
 om|on -> õ / _ #|(x|::consonant::)
 
 % Intervocalic voicing of <s>
-% s -> z / (::vowel::) _ (::vowel::)
+s -> z / (::vowel::) _ (::vowel::)
 
 x -> ks / _ (p|t|k|f|s|ch)
 x -> gz / _ (::vowel::)
