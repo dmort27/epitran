@@ -44,7 +44,7 @@ class TestFrench(unittest.TestCase):
         self._derivation('oui', 'wi')
 
     def test_xylophone(self):
-        self._derivation('xylophone', 'gzilɔfɔn')
+        self._derivation('xylophone', 'ɡzilɔfɔn')
 
     def test_expansion(self):
         self._derivation('expansion', 'ɛkspɑ̃sjɔ̃')
@@ -71,8 +71,8 @@ class TestFrench(unittest.TestCase):
         self._derivation('œufs', 'œf')
 
     def test_decret(self):
-        self._derivation('décret', 'dekrɛ')
-        self._derivation('décrets', 'dekrɛ')
+        self._derivation('décret', 'dekʀɛ')
+        self._derivation('décrets', 'dekʀɛ')
 
     def test_loi(self):
         self._derivation('loi', 'lwa')
