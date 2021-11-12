@@ -108,5 +108,6 @@ class Rules(object):
         """
         for i, rule in enumerate(self.rules):
             text = rule(text)
+            # print(i, text)
         # return unicodedata.normalize('NFD', text)
         return text

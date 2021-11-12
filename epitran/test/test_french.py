@@ -29,10 +29,10 @@ class TestFrench(unittest.TestCase):
         self.assertEqual(attempt, correct)
 
     def test_suggerer(self):
-        self._derivation('suggérer', 'syɡʒere')
+        self._derivation('suggérer', 'syɡʒeʀe')
 
     def test_garcon(self):
-        self._derivation('garçon', 'ɡarsɔ̃')
+        self._derivation('garçon', 'ɡaʀsɔ̃')
 
     def test_deux(self):
         self._derivation('deux', 'dœ')
@@ -44,27 +44,27 @@ class TestFrench(unittest.TestCase):
         self._derivation('oui', 'wi')
 
     def test_xylophone(self):
-        self._derivation('xylophone', 'ksilɔfɔn')
+        self._derivation('xylophone', 'gzilɔfɔn')
 
     def test_expansion(self):
         self._derivation('expansion', 'ɛkspɑ̃sjɔ̃')
 
     def test_saint(self):
-        self._derivation('saint', 'sɛn')
+        self._derivation('saint', 'sɛ̃')
 
     def test_seing(self):
-        self._derivation('seing', 'sɛn')
+        self._derivation('seing', 'sɛ̃')
 
     def test_ceins(self):
-        self._derivation('ceins', 'sɛn')
+        self._derivation('ceins', 'sɛ̃')
 
     def test_il_ils(self):
         self._derivation('il', 'il')
         self._derivation('ils', 'il')
 
     def test_fusil(self):
-        self._derivation('fusil', 'fyzil')
-        self._derivation('fusils', 'fyzil')
+        self._derivation('fusil', 'fyzi')
+        self._derivation('fusils', 'fyzi')
 
     def test_oef(self):
         self._derivation('œuf', 'œf')
@@ -82,10 +82,6 @@ class TestFrench(unittest.TestCase):
         self._derivation('dame', 'dam')
         self._derivation('dames', 'dam')
 
-    def test_garage(self):
-        self._derivation('garage', 'ɡaraʒ')
-        self._derivation('garages', 'ɡaraʒ')
-
     def test_faite(self):
         self._derivation('fait', 'fɛ')
         self._derivation('faits', 'fɛ')
@@ -96,5 +92,5 @@ class TestFrench(unittest.TestCase):
         self._derivation('hommes', 'ɔm')
 
     def test_personne(self):
-        self._derivation('personne', 'pɛrsɔn')
-        self._derivation('personnes', 'pɛrsɔn')
+        self._derivation('personne', 'pɛʀsɔn')
+        self._derivation('personnes', 'pɛʀsɔn')

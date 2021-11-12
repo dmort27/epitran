@@ -25,19 +25,8 @@ il -> j / (::vowel::) _
 ill -> j / (::vowel::) _
 ill -> ij / _
 
-% Rules to be completed (with tilde) (old)
-% a[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
-% ai[mn] -> ễ / _ #|x|(::consonant::)(::consonant::)
-% ien -> iễ / _ #|x|(::consonant::)(::consonant::)
-% e[mn] -> ẫ / _ #|x|(::consonant::)(::consonant::)
-% ein|im|in|ym|yn -> aî̃ / _ #|x|(::consonant::)(::consonant::)
-% eun|un|um -> œ̃ / _ #|x|(::consonant::)(::consonant::)
-% om|on -> õ / _ #|x|(::consonant::)(::consonant::)
-% uin -> uẽ / _ #|x|(::consonant::)(::consonant::)
-% oin -> ouễ / _ #|x|(::consonant::)(::consonant::)
-
 ai[mn] -> ɛ̃ / _ #|x|(::consonant::)
-ein|im|in|ym|yn -> ɛ̃ / _ #|(x|::consonant::)
+ein|im|in|ym|yn -> ɛ̃ / _ #|x|(::consonant::)
 ail -> aj / _ #
 aill -> aj / _
 eil -> ɛj / _ #
@@ -89,4 +78,4 @@ u -> ɥ / _ (::vowel::)
 
 % Deletion of final letters
 s -> 0 / (::vowel::).+ _ #
-ə|(::silentfinal::) -> 0 / (::vowel::).+ _ #
+ə|(::silentfinal::) -> 0 / (::vowel::).* _ #
