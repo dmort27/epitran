@@ -35,21 +35,27 @@ ai -> e / _ #|(::frontvowel::)
 ai -> ɛ / _ (::consonant::)|x
 eu -> ø / _ #|(::frontvowel::)
 eu -> œ / _ (::consonant::)|x
-il -> i / (::vowel::).+ _ #
+l -> 0 / (::vowel::).*i _ s?#
 eau -> ô / _ #
 
 % Treatment of <o>
 o -> ô / _ (s|::silentfinal::)?#
 
+% Make é into E
+é -> E / _
+
 % Treatment of <e>
 jen -> jɛ̃ / _ #|(x|::consonant::)
 e[mn] -> ɑ̃ / _ #|(x|::consonant::)
 e -> ə / _ s?#
-e -> é / _ (s|::silentfinal::)?#
+e -> ɛ / _ (s|::silentfinal::)?#
 e -> ɛ / _ (r|l|x|::consonant::){2,}
 e -> ə / (::vowel::).* _
 e -> ə / _ .*(::vowel::)
 ə -> 0 / (::vowel::) _
+
+% Make E back into é
+E -> é / _
 
 % Rest of nasal vowels
 uin -> ɥɛ̃ / _ #|(x|::consonant::)
@@ -63,7 +69,7 @@ om|on -> õ / _ #|(x|::consonant::)
 s -> z / (::vowel::) _ (::vowel::)
 
 x -> ks / _ (p|t|k|f|s|ch)
-x -> gz / (::vowel::) _ (::vowel::)
+x -> ɡz / _ (::vowel::)
 
 % High vowels become glides before vowels
 ou -> w / _ (::vowel::)
@@ -79,3 +85,6 @@ u -> ɥ / _ (::vowel::)
 % Deletion of final letters
 s -> 0 / (::vowel::).+ _ #
 ə|(::silentfinal::) -> 0 / (::vowel::).* _ #
+
+% Delete tilde before nasals
+ ̃ -> 0 / _ [mn]
