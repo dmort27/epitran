@@ -42,6 +42,24 @@ class TestMalayalamFaDisambiguation(unittest.TestCase):
     def test_phalam(self):
         self._assert_trans('ഫലം', 'pʰalam')
 
-
-    def test_phalam(self):
+    def test_fan(self):
         self._assert_trans('ഫാൻ', 'faːn')
+
+class TestMalayalamDentalAlveolarNasalDisambiguation(unittest.TestCase):
+    def setUp(self):
+        self.epi = epitran.Epitran('mal-Mlym')
+
+    def _assert_trans(self, src, tar):
+        trans = self.epi.transliterate(src)
+        trans = unicodedata.normalize('NFD', trans)
+        src = unicodedata.normalize('NFD', trans)
+        self.assertEqual(trans, tar)
+
+    def test_nannayi(self):
+        self._assert_trans('നന്നായി', 'n̪an̪n̪aːji')
+
+    def test_nanavu(self):
+        self._assert_trans('നനവ്', 'n̪anaʋə')
+
+    def test_sneham(self):
+        self._assert_trans('സ്നേഹം', 'sneːɦam')
