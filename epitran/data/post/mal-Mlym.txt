@@ -16,3 +16,11 @@ a് -> 0 / _(::consonant::)
 % (a|u)് -> ə / _#  Virama at word end is samvruthokaram(schwa)
 % എന്ത് and എന്തു് should have schwa at word end
 (a|u)് -> ə / _#
+
+% Alveolar and Dental nasal disambiguation
+% പനി, ആന n̪ -> n / V_V
+n̪ -> n / (::vowel::)_(::vowel::)
+% Example: പ്രശ്നം, ക്നാനായ, സ്നേഹം, വിഘ്നം, സ്വപ്നം, നിമ്നം
+n̪ -> n / (k|ɡʱ|p|m|ʃ|s)_
+% Example:ന്യൂനം, അന്വേഷണം, മേന്മ
+n̪ -> n / _(j|ʋ|m)
