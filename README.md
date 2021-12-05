@@ -224,6 +224,7 @@ A few notes are in order regarding this data structure:
 | kir-Latn    | Kyrgyz (Latin)          |
 | kmr-Latn    | Kurmanji                |
 | lao-Laoo    | Lao                     |
+| mal-Mlym    | Malayalam               |
 | mar-Deva    | Marathi                 |
 | mlt-Latn    | Maltese                 |
 | mya-Mymr    | Burmese                 |
