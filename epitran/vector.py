@@ -6,7 +6,7 @@ import logging
 from epitran import Epitran
 from epitran.space import Space
 
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('epitran')
 
 
 class VectorsWithIPASpace(object):

@@ -10,7 +10,8 @@ import regex as re
 
 from epitran.exceptions import DatafileError
 
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('epitran')
+
 
 def none2str(x):
     return x if x else ''

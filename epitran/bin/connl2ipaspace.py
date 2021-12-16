@@ -9,7 +9,7 @@ import epitran
 import panphon
 import unicodecsv as csv
 
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('epitran')
 
 
 def normpunc(epi, s):
@@ -44,7 +44,7 @@ def add_file_gen(epi, ft, fn):
             if len(fields) > 0:
                 orth = fields[0]
                 space.update(add_record_gen(epi, ft, orth))
-    logging.debug(u'Length of counter:\t{}'.format(len(space)))
+    logger.debug(u'Length of counter:\t{}'.format(len(space)))
     return space
 
 
@@ -67,7 +67,7 @@ def add_file_op(epi, ft, fn):
                         else:
                             space[trans[0]] += 1
                         trans = trans[1:]
-    logging.debug(u'Length of counter:\t{}'.format(len(space)))
+    logger.debug(u'Length of counter:\t{}'.format(len(space)))
     return space
 
 
@@ -84,7 +84,7 @@ def main(code, op, infiles, output):
     ft = panphon.FeatureTable()
     space = Counter()
     for fn in infiles:
-        logging.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
+        logger.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
         add_file = add_file_op if op else add_file_gen
         space.update(add_file(epi, ft, fn))
     print_space(output, space)
