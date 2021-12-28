@@ -11,7 +11,7 @@ import epitran
 import epitran.flite
 import panphon
 
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('epitran')
 
 
 def normpunc(flite, s):
@@ -49,7 +49,7 @@ def add_file(flite, ft, fn):
             if len(fields) > 0:
                 orth = fields[0]
                 space.update(add_record(flite, ft, orth))
-    logging.debug(u'Length of counter:\t{}'.format(len(space)))
+    logger.debug(u'Length of counter:\t{}'.format(len(space)))
     return space
 
 
@@ -66,7 +66,7 @@ def main(infiles, output):
     ft = panphon.FeatureTable()
     space = Counter()
     for fn in infiles:
-        logging.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
+        logger.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
         space.update(add_file(flite, ft, fn))
     print_space(output, space)
 

@@ -16,7 +16,8 @@ if sys.version_info[0] == 3:
     def unicode(x):
         return x
 
-logging.disable(logging.DEBUG)
+logger = logging.getLogger('epitran')
+logger.setLevel(logging.WARNING)
 
 class Epitran(object):
     """Unified interface for IPA transliteration/transcription"""
