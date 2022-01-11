@@ -6,8 +6,8 @@
 ɣ -> ɡ / # _ 
 
 % restore <b>, <d> as geminates (sic)
-ββ -> bb / _
-ðð -> dd / _
+ββ -> bː / _
+ðð -> dː / _
 
 % restore <b>, <d>, <g> before consonants
 β -> b / (::consonant::) _
