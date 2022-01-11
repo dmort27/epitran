@@ -5,7 +5,7 @@
 ð -> d / # _
 ɣ -> ɡ / # _ 
 
-% restore <b>, <d> as geminates
+% restore <b>, <d> as geminates (sic)
 ββ -> bb / _
 ðð -> dd / _
 
@@ -16,7 +16,7 @@
 
 % mark syllabic <l>, <m>, <n>, <r> between consonants
 
-l -> l̥ / (::consonant::) _ (::consonant::)
-m -> m̥ / (::consonant::) _ (::consonant::)
-n -> n̥ / (::consonant::) _ (::consonant::)
-r -> r̥ / (::consonant::) _ (::consonant::)
+l -> l̥ / (::consonant::) _ (s|#)
+m -> m̥ / (::consonant::) _ (s|#)
+n -> n̥ / (::consonant::) _ (s|#)
+r -> r̥ / (::consonant::) _ (s|#)
