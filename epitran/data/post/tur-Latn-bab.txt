@@ -1,7 +1,7 @@
 ::consonant:: = b|d͡ʒ|t͡ʃ|d|f|ɟ|ɣ|h|ʒ|k|l|m|n|p|ɾ|s|ʃ|t|v|j|z
 ::vowel:: = a|e|ɯ|i|o|ø|u|y|aː|eː|ɯː|iː|oː|øː|uː|yː
 
-％　Allophonic variants
+%　Allophonic variants
 n -> ŋ / _ (k|ɡ)
 l -> ɫ / _ (#|::consonant::::vowel::)
 
