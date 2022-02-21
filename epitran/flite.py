@@ -22,7 +22,7 @@ else:
     import subprocess
 
 logging.basicConfig(level=logging.CRITICAL)
-#logging.disable(logging.DEBUG)
+logger = logging.getLogger('epitran')
 
 
 if sys.version_info[0] == 3:
@@ -184,10 +184,10 @@ class FliteT2P(Flite):
             arpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
             arpa_text = arpa_text.decode('utf-8')
         except OSError:
-            logging.warning('t2p (from flite) is not installed.')
+            logger.warning('t2p (from flite) is not installed.')
             arpa_text = ''
         except subprocess.CalledProcessError:
-            logging.warning('Non-zero exit status from t2p.')
+            logger.warning('Non-zero exit status from t2p.')
             arpa_text = ''
         return self.arpa_to_ipa(arpa_text)
 
@@ -204,10 +204,10 @@ class FliteLexLookup(Flite):
             arpa_text = subprocess.check_output(['lex_lookup', text])
             arpa_text = arpa_text.decode('utf-8')
         except OSError:
-            logging.warning('lex_lookup (from flite) is not installed.')
+            logger.warning('lex_lookup (from flite) is not installed.')
             arpa_text = ''
         except subprocess.CalledProcessError:
-            logging.warning('Non-zero exit status from lex_lookup.')
+            logger.warning('Non-zero exit status from lex_lookup.')
             arpa_text = ''
         # Split on newlines and take the first element (in case lex_lookup
         # returns multiple lines).

@@ -7,7 +7,7 @@ import unittest
 
 import epitran
 
-logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger('epitran')
 
 
 def assemble_ipa(xs):

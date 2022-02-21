@@ -1,0 +1,26 @@
+::vowel:: = a|aː|i|iː|u|uː|rɨ|rɨː|lɨ|lɨː|e|eː|ai̯|o|oː|au̯
+::consonant:: = k|kʰ|ɡ|ɡʱ|ŋ|t͡ʃ|t͡ʃʰ|ɟa|ɟʱɦ|ɲ|ʈ|ʈʰ|ɖ|ɖʱ|ɳ|ṯ|n|t̪|t̪ʰ|d̪|ɖʱa|n̪|p|f|b|bʱ|m|j|ɾ|l|ʋ|ʃ|ʂ|s|ɦ|ɭ|ɻ|r
+
+% a -> 0 / _V    Inherent vowel deletion, if followed by vowel signs
+a -> 0 / _ (::vowel::)
+
+% Reinsert a in 'ai̯' and 'au̯' deleted in above step when in word beginnings,
+% where it occurs from independent vowels ഐ and ഔ respectively
+i̯ -> ai̯ / #_
+u̯ -> au̯ /#_
+
+
+% a് -> 0 / _C Inherent vowel deletion, if followed by virama and a consonant
+a് -> 0 / _(::consonant::)
+
+% (a|u)് -> ə / _#  Virama at word end is samvruthokaram(schwa)
+% എന്ത് and എന്തു് should have schwa at word end
+(a|u)് -> ə / _#
+
+% Alveolar and Dental nasal disambiguation of the grapheme ന. TODO: More rules needed to handle gemination.
+% പനി, ആന n̪ -> n / V_V
+n̪ -> n / (::vowel::)_(::vowel::)
+% Example: പ്രശ്നം, ക്നാനായ, സ്നേഹം, വിഘ്നം, സ്വപ്നം, നിമ്നം
+n̪ -> n / (k|ɡʱ|p|m|ʃ|s)_
+% Example:ന്യൂനം, അന്വേഷണം, മേന്മ
+n̪ -> n / _(j|ʋ|m)

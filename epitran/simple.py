@@ -19,6 +19,10 @@ from epitran.ppprocessor import PrePostProcessor
 from epitran.puncnorm import PuncNorm
 from epitran.stripdiacritics import StripDiacritics
 
+
+logger = logging.getLogger('epitran')
+
+
 if sys.version_info[0] == 3:
     def unicode(x):
         return x
@@ -151,27 +155,27 @@ class SimpleEpitran(object):
         """
         text = unicode(text)
         text = unicodedata.normalize('NFD', text.lower())
-        logging.debug('(after norm) text=' + repr(list(text)))
+        logger.debug('(after norm) text=' + repr(list(text)))
         text = self.strip_diacritics.process(text)
-        logging.debug('(after strip) text=' + repr(list(text)))
+        logger.debug('(after strip) text=' + repr(list(text)))
         if self.preproc:
             text = self.preprocessor.process(text)
-        logging.debug('(after preproc) text=' + repr(list(text)))
+        logger.debug('(after preproc) text=' + repr(list(text)))
         tr_list = []
         while text:
-            logging.debug('text=' + repr(list(text)))
+            logger.debug('text=' + repr(list(text)))
             m = self.regexp.match(text)
             if m:
                 source = m.group(0)
                 try:
                     target = self.g2p[source][0]
                 except KeyError:
-                    logging.debug("source = '{}'".format(source))
-                    logging.debug("self.g2p[source] = '{}'"
+                    logger.debug("source = '{}'".format(source))
+                    logger.debug("self.g2p[source] = '{}'"
                                   .format(self.g2p[source]))
                     target = source
                 except IndexError:
-                    logging.debug("self.g2p[source]={}".format(self.g2p[source]))
+                    logger.debug("self.g2p[source]={}".format(self.g2p[source]))
                     target = source
                 tr_list.append((target, True))
                 text = text[len(source):]
@@ -225,8 +229,8 @@ class SimpleEpitran(object):
                 try:
                     target = self.rev_g2p[source][0]
                 except KeyError:
-                    logging.debug("source = '{}'".format(source))
-                    logging.debug("self.rev_g2p[source] = '{}'"
+                    logger.debug("source = '{}'".format(source))
+                    logger.debug("self.rev_g2p[source] = '{}'"
                                   .format(self.g2p[source]))
                     target = source
                 tr_list.append((target, True))

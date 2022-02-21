@@ -1,0 +1,27 @@
+::consonant:: = n|z|ɣ|k|s|ɸ|c|m|v|b|w|d|r|l|t|β|ð|j|p|ŋ|θ|ɡ|x|h
+
+% restore final <b>, <d>, <ɡ> 
+β -> b / (::consonant::) _ (#|s#)
+ð -> d / (::consonant::) _ (#|s#)
+ɣ -> ɡ / (::consonant::) _ (#|s#)
+
+% restore initial <b>, <d>, <ɡ> 
+β -> b / # _
+ð -> d / # _
+ɣ -> ɡ / # _ 
+
+% restore <b>, <d> as geminates (sic)
+ββ -> bː / _
+ðð -> dː / _
+
+% restore <b>, <d>, <g> before consonants
+β -> b / (::consonant::) _
+ð -> d / (::consonant::) _
+ɣ -> ɡ / (::consonant::) _ 
+
+% mark syllabic <l>, <m>, <n>, <r> between consonants
+
+l -> l̥ / (::consonant::) _ (s|#)
+m -> m̥ / (::consonant::) _ (s|#)
+n -> n̥ / (::consonant::) _ (s|#)
+r -> r̥ / (::consonant::) _ (s|#)

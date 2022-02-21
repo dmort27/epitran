@@ -7,7 +7,7 @@ import unittest
 
 import epitran
 
-logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger('epitran')
 
 
 def map_slice(xs, start, end):
@@ -23,9 +23,9 @@ class TestFrench(unittest.TestCase):
         self.epi = epitran.Epitran('fra-Latn')
 
     def _derivation(self, orth, correct):
-        logging.debug(orth.encode('utf-8'))
+        logger.debug(orth.encode('utf-8'))
         attempt = self.epi.transliterate(orth)
-        logging.debug('{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        logger.debug('{} ?= {}'.format(attempt, correct).encode('utf-8'))
         self.assertEqual(attempt, correct)
 
     def test_suggerer(self):
