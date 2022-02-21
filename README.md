@@ -6,6 +6,8 @@ A library and tool for transliterating orthographic text as IPA (International P
 
 The Python modules ```epitran``` and ```epitran.vector``` can be used to easily write more sophisticated Python programs for deploying the **Epitran** mapping tables, preprocessors, and postprocessors. This is documented below.
 
+If you wish to use Epitran to convert **English** to IPA, **you must install the Flite (including `lex_lookup`) as detailed below.**
+
 ## Using the `epitran` Module
 
 ### The Epitran class
@@ -191,17 +193,24 @@ A few notes are in order regarding this data structure:
 | Code        | Language (Script)       |
 |-------------|-------------------------|
 | aar-Latn    | Afar                    |
+| aii-Syrc    | Assyrian Neo-Aramaic    |
 | amh-Ethi    | Amharic                 |
+| amh-Ethi-pp | Amharic (more phonetic) |
+| amh-Ethi-red| Amharic (reduced)       |
 | ara-Arab    | Literary Arabic         |
+| ava-Cyrl    | Avaric                  |
 | aze-Cyrl    | Azerbaijani (Cyrillic)  |
 | aze-Latn    | Azerbaijani (Latin)     |
 | ben-Beng    | Bengali                 |
 | ben-Beng-red| Bengali (reduced)       |
+| bxk-Latn    | Bukusu                  |
 | cat-Latn    | Catalan                 |
 | ceb-Latn    | Cebuano                 |
+| ces-Latn    | Czech                   |
 | cmn-Hans    | Mandarin (Simplified)\* |
 | cmn-Hant    | Mandarin (Traditional)\*|
 | ckb-Arab    | Sorani                  |
+| csb-Latn    | Kashubian               |
 | deu-Latn    | German                  |
 | deu-Latn-np | German†                 |
 | deu-Latn-nar| German (more phonetic)  |
@@ -209,56 +218,86 @@ A few notes are in order regarding this data structure:
 | fas-Arab    | Farsi (Perso-Arabic)    |
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
+| fra-Latn-p  | French (more phonetic)  |
+| ful-Latn    | Fulah                   |
+| got-Latn    | Gothic                  |
 | hau-Latn    | Hausa                   |
 | hin-Deva    | Hindi                   |
+| hmn-Latn    | Hmong                   |
+| hrv-Latn    | Croatian                |
 | hun-Latn    | Hungarian               |
 | ilo-Latn    | Ilocano                 |
 | ind-Latn    | Indonesian              |
 | ita-Latn    | Italian                 |
+| jam-Latn    | Jamaican                |
 | jav-Latn    | Javanese                |
 | kaz-Cyrl    | Kazakh (Cyrillic)       |
+| kaz-Cyrl-bab| Kazakh (Cyrillic—Babel) |
 | kaz-Latn    | Kazakh (Latin)          |
+| kbd-Cyrl    | Kabardian               |
+| khm-Khmr    | Khmer                   |
 | kin-Latn    | Kinyarwanda             |
 | kir-Arab    | Kyrgyz (Perso-Arabic)   |
 | kir-Cyrl    | Kyrgyz (Cyrillic)       |
 | kir-Latn    | Kyrgyz (Latin)          |
 | kmr-Latn    | Kurmanji                |
+| kmr-Latn-red| Kurmanji (reduced)      |
 | lao-Laoo    | Lao                     |
+| lsm-Latn    | Saamia                  |
 | mal-Mlym    | Malayalam               |
 | mar-Deva    | Marathi                 |
 | mlt-Latn    | Maltese                 |
-| mya-Mymr    | Burmese                 |
+| mon-Cyrl    | Mongolian (Cyrillic)    |
+| mri-Latn    | Maori                   |
 | msa-Latn    | Malay                   |
+| mya-Mymr    | Burmese                 |
 | nld-Latn    | Dutch                   |
 | nya-Latn    | Chichewa                |
+| ood-Lat-alv | Tohono O'odham          |
+| ood-Latn-sax| Tohono O'odham          |
+| ori-Orya    | Odia                    |
 | orm-Latn    | Oromo                   |
 | pan-Guru    | Punjabi (Eastern)       |
 | pol-Latn    | Polish                  |
 | por-Latn    | Portuguese              |
 | ron-Latn    | Romanian                |
+| run-Latn    | Rundi                   |
 | rus-Cyrl    | Russian                 |
+| sag-Latn    | Sango                   |
+| sin-Sinh    | Sinhala                 |
 | sna-Latn    | Shona                   |
 | som-Latn    | Somali                  |
 | spa-Latn    | Spanish                 |
+| spa-Latn-eu | Spanish (Iberian)       |
+| sqi-Latn    | Albanian                |
 | swa-Latn    | Swahili                 |
+| swa-Latn-red| Swahili (reduced)       |
 | swe-Latn    | Swedish                 |
 | tam-Taml    | Tamil                   |
+| tam-Taml-red| Tamil (reduced)         |
 | tel-Telu    | Telugu                  |
 | tgk-Cyrl    | Tajik                   |
 | tgl-Latn    | Tagalog                 |
+| tgl-Latn-red| Tagalog (reduced)       |
 | tha-Thai    | Thai                    |
 | tir-Ethi    | Tigrinya                |
+| tir-Ethi-pp | Tigrinya (more phonemic)|
+| tir-Ethi-red| Tigrinya (reduced)      |
 | tpi-Latn    | Tok Pisin               |
 | tuk-Cyrl    | Turkmen (Cyrillic)      |
 | tuk-Latn    | Turkmen (Latin)         |
 | tur-Latn    | Turkish (Latin)         |
+| tur-Latn-bab| Turkish (Latin—Babel)   |
+| tur-Latn-red| Turkish (reduced)       |
 | ukr-Cyrl    | Ukranian                |
+| urd-Arab    | Urdu                    |
 | uig-Arab    | Uyghur (Perso-Arabic)   |
 | uzb-Cyrl    | Uzbek (Cyrillic)        |
 | uzb-Latn    | Uzbek (Latin)           |
 | vie-Latn    | Vietnamese              |
 | xho-Latn    | Xhosa                   |
 | yor-Latn    | Yoruba                  |
+| zha-Latn    | Zhuang                  |
 | zul-Latn    | Zulu                    |
 
 \*Chinese G2P requires the freely available [CC-CEDict](https://cc-cedict.org/wiki/) dictionary.
@@ -303,21 +342,7 @@ For use with most languages, Epitran requires no special installation steps. It 
 
 ### `t2p`
 
-**Not recommended**
-
-The `epitran.flite` module shells out to the `flite` speech synthesis system to do English G2P. [Flite](http://www.speech.cs.cmu.edu/flite/) must be installed in order for this module to function. The `t2p` binary from `flite` is not installed by default and must be manually copied into the path. An illustration of how this can be done on a Unix-like system is given below. Note that GNU `gmake` is required and that, if you have another `make` installed, you may have to call `gmake` explicitly:
-
-
-```bash
-$ tar xjf flite-2.0.0-release.tar.bz2
-$ cd flite-2.0.0-release/
-$ ./configure && make
-$ sudo make install
-$ sudo cp bin/t2p /usr/local/bin
-```
-
-
-You should adapt these instructions to local conditions. Installation on Windows is easiest when using Cygwin. You will have to use your discretion in deciding where to put `t2p.exe` on Windows, since this may depend on your python setup. Other platforms are likely workable but have not been tested.
+**Not recommended** This interface to Flite is now deprecated; Use `lex_lookup`.
 
 ### `lex_lookup`
 
