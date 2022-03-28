@@ -251,6 +251,7 @@ A few notes are in order regarding this data structure:
 | mri-Latn    | Maori                   |
 | msa-Latn    | Malay                   |
 | mya-Mymr    | Burmese                 |
+| nan-Latn    | Hokkien (Tâi-lô)        |
 | nld-Latn    | Dutch                   |
 | nya-Latn    | Chichewa                |
 | ood-Lat-alv | Tohono O'odham          |
