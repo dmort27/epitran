@@ -1,0 +1,26 @@
+% the consonants that are allowed to precede a syllabic consonant
+::consonant:: = p|ph|b|m|t|th|n|l|ts|tsh|s|k|kh|g|h
+
+% add extra i because the i should not be lost as a vowel but is also used to condition the consonant in the map
+tsi -> tsii / # _
+tshi -> tshii / # _
+si -> sii / # _
+ji -> jii / # _
+
+% distinguish syllabic consonants by adding artificial B token
+ng -> Bng / # _ #
+ńg -> Bńg / # _ #
+ǹg -> Bǹg / # _ #
+n̂g -> Bn̂g / # _ #
+m -> Bm / # _ #
+ḿ -> Bḿ / # _ #
+m̀ -> Bm̀ / # _ #
+m̂ -> Bm̂ / # _ #
+m̄ -> Bm / # _ #
+
+% consonant preceding syllabic consonant
+ng -> Bng / (::consonant::) _ #
+ńg -> Bńg / (::consonant::) _ #
+ǹg -> Bǹg / (::consonant::) _ #
+n̂g -> Bn̂g / (::consonant::) _ #
+n̄g -> Bn̄g / (::consonant::) _ #
