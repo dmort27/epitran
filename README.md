@@ -20,7 +20,8 @@ Its constructor takes one argument, `code`, the ISO 639-3 code of the language t
 * `preproc` and `postproc` enable pre- and post-processors. These are enabled by default.
 * `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ".
 * `cedict_file` gives the path to the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary file (relevant only when working with Mandarin Chinese and which, because of licensing restrictions cannot be distributed with Epitran).
-
+* `tones` allows IPA tones (˩˨˧˦˥) to be included and is needed for tonal languages like Vietnamese and Hokkien. By default, this value is false and will remove IPA tones from the transcription. 
+* For more options, type ```help(epitran.Epitran.__init__)``` into a Python terminal session
 
 ```python
 >>> import epitran
@@ -503,6 +504,13 @@ There is a special construct for handling cases of metathesis (where "AB" is rep
 
 
 Will "swap" the positions of any character in "เแโไใไ" and any following character. Left of the arrow, there should be two groups (surrounded by parentheses) with the names `sw1` and `sw2` (a name for a group is specified by `?P<name>` appearing immediately after the open parenthesis for a group). The substrings matched by the two groups, `sw1` and `sw2` will be "swapped" or metathesized. The item immediately right of the arrow is ignored, but the context is not.
+
+
+To move IPA tones to the end of the word, first ensure that tones=True in the instantiated Epitran object and use the following rule:
+```
+(?P<sw1>[˩˨˧˦˥]+)(?P<sw2>\w+) -> 0 / _\b
+```
+
 
 The rules apply in order, so earlier rules may "feed" and "bleed" later rules. Therefore, their sequence is *very important* and can be leveraged in order to achieve valuable results.
 
