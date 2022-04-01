@@ -1,0 +1,9 @@
+% Deaspirate word-finally
+
+ʰ -> 0 / _ #
+
+% Make isolated nasals syllabic
+
+m -> m̩ / # _ #
+ŋ -> ŋ̩ / # _ #
+
