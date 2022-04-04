@@ -222,6 +222,7 @@ A few notes are in order regarding this data structure:
 | fra-Latn-p  | French (more phonetic)  |
 | ful-Latn    | Fulah                   |
 | got-Latn    | Gothic                  |
+| hak-Latn    | Hakka (pha̍k-fa-sṳ)      |
 | hau-Latn    | Hausa                   |
 | hin-Deva    | Hindi                   |
 | hmn-Latn    | Hmong                   |
