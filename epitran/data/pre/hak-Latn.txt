@@ -1,0 +1,26 @@
+% distinguish syllabic consonants by adding artificial B token
+ng -> Bng / # _ #
+ńg -> Bńg / # _ #
+ǹg -> Bǹg / # _ #
+n̂g -> Bn̂g / # _ #
+
+n -> Bn / # _ #
+ń -> Bń / # _ #
+ǹ -> Bǹ / # _ #
+n̂ -> Bn̂ / # _ #
+
+m -> Bm / # _ #
+ḿ -> Bḿ / # _ #
+m̀ -> Bm̀ / # _ #
+m̂ -> Bm̂ / # _ #
+
+% move the PFS tone diacritic to the end because it may split a dipthong
+(?P<sw1>[̂̀́̍]+)(?P<sw2>\w+) -> 0 / _\b
+
+y -> i / # _
+
+% add extra i because the i should not be lost as a vowel but is also used to condition the consonant in the map
+chi -> chii / # _
+chhi -> chii / # _
+si -> sii / # _
+ngi -> ngii / # _

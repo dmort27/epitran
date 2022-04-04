@@ -1,0 +1,9 @@
+% Move tones to end of word
+(?P<sw1>[˩˨˧˦˥]+)(?P<sw2>\w+) -> 0 / _\b
+
+% ends in p,t,k (does not have a tone diacritic) - 5th tone
+0 -> ˨ / [ptk] _ #
+
+% the following 2 rules rely on the tone already being moved to the end of the word
+% if no tone diacritic, it's the 4th tone
+0 -> ˥ / ([^˩˨˧˦˥]) _ #
