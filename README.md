@@ -221,6 +221,7 @@ A few notes are in order regarding this data structure:
 | fra-Latn-np | French†                 |
 | fra-Latn-p  | French (more phonetic)  |
 | ful-Latn    | Fulah                   |
+| gan-Latn    | Gan (Wiktionary)        |
 | got-Latn    | Gothic                  |
 | hau-Latn    | Hausa                   |
 | hin-Deva    | Hindi                   |
