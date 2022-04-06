@@ -1,0 +1,4 @@
+% distinguish syllabic consonants by adding artificial B token
+ng -> Bng / # _ #
+m -> Bm / # _ #
+n -> Bn / # _ #
