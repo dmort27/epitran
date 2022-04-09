@@ -227,6 +227,7 @@ A few notes are in order regarding this data structure:
 | hin-Deva    | Hindi                   |
 | hmn-Latn    | Hmong                   |
 | hrv-Latn    | Croatian                |
+| hsn-Latn    | Xiang (Wiktionary)      |
 | hun-Latn    | Hungarian               |
 | ilo-Latn    | Ilocano                 |
 | ind-Latn    | Indonesian              |
