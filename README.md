@@ -208,6 +208,7 @@ A few notes are in order regarding this data structure:
 | cat-Latn    | Catalan                 |
 | ceb-Latn    | Cebuano                 |
 | ces-Latn    | Czech                   |
+| cjy-Latn    | Jin (Wiktionary)        |
 | cmn-Hans    | Mandarin (Simplified)\* |
 | cmn-Hant    | Mandarin (Traditional)\*|
 | ckb-Arab    | Sorani                  |
