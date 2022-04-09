@@ -1,0 +1,2 @@
+% Move tones to end of word
+(?P<sw1>[˩˨˧˦˥]+)(?P<sw2>\w+) -> 0 / _\b
