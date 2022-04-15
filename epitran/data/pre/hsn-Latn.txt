@@ -1,0 +1,6 @@
+% the consonants that are allowed to precede a syllabic consonant
+::tone:: = 1|2|3|4|5|6
+
+% syllabic consonant
+n -> Bn / # _ (::tone::) #
+m -> Bm / # _ (::tone::) #
