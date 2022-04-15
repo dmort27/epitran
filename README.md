@@ -302,6 +302,7 @@ A few notes are in order regarding this data structure:
 | uzb-Cyrl    | Uzbek (Cyrillic)        |
 | uzb-Latn    | Uzbek (Latin)           |
 | vie-Latn    | Vietnamese              |
+| wuu-Latn    | Shanghainese Wu (Wiktionary) |
 | xho-Latn    | Xhosa                   |
 | yor-Latn    | Yoruba                  |
 | zha-Latn    | Zhuang                  |
