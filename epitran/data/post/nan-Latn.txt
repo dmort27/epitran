@@ -1,8 +1,13 @@
 % Move tones to end of word
 (?P<sw1>[˩˨˧˦˥]+)(?P<sw2>\w+) -> 0 / _\b
 
-% glottal stop
+% glottal stop - could already in end in 8th tone
 h -> ʔ / _ #
-iat -> i̯ɛt / _ #
-iŋ -> iəŋ̯ / _ #
-ik -> iə̯k / _ #
+h -> ʔ / _ ˥ #
+
+% the following rules rely on the tone already being moved to the end of the word
+% ends in h,p,t,k and does not have a tone diacritic - 4th tone
+0 -> ˧ / [ʔptk] _ #
+
+% if no tone diacritic and does not end in a stop - 1st tone
+0 -> ˥ / ([^˩˨˧˦˥]) _ #

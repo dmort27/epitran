@@ -1,0 +1,8 @@
+% Move tones to end of word
+(?P<sw1>[˩˨˧˦˥]+)(?P<sw2>\w+) -> 0 / _\b
+
+% glottal stop
+h -> ʔ / _ #
+iat -> i̯ɛt / _ #
+iŋ -> iəŋ̯ / _ #
+ik -> iə̯k / _ #
