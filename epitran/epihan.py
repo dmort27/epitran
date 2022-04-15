@@ -117,7 +117,10 @@ class EpihanTraditional(Epihan):
                 cedict_file = download.get_cedict_file()
             else:
                 raise MissingData('Download CC-CEDICT with "epitran.download.cedict().')
-        rules_file = os.path.join('data', 'rules', rules_file)
+        if tones:
+            rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
+        else:
+            rules_file = os.path.join('data', 'rules', rules_file)
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
