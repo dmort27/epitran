@@ -4,6 +4,5 @@
 
 % Make isolated nasals syllabic
 
-m -> m̩ / # _ #
-ŋ -> ŋ̩ / # _ #
-
+m -> m̩ / # _ [˩˨˧˦˥]+ #
+ŋ -> ŋ̩ / # _ [˩˨˧˦˥]+ #
