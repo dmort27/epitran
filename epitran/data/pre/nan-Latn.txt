@@ -1,0 +1,29 @@
+% the consonants that are allowed to precede a syllabic consonant
+::consonant:: = p|ph|b|m|t|th|n|l|ch|chh|s|k|kh|g|h
+
+% Move tones to end of word because they break diphthongs
+(?P<sw1>[́̀̂̌̍̄̋]+)(?P<sw2>\w+) -> 0 / _\b
+
+% add extra i or e because the i should not be lost as a vowel but is also used to condition the consonant in the map
+% the first i is used to distinguish the consonant
+% the second vowel is an actual vowel, part of the coda of the syllable
+chi -> chii / # _
+cheng -> chieng / # _
+chek -> chiek / # _
+chhi -> chhii / # _
+chheng -> chhieng / # _
+chhek -> chhiek / # _
+si -> sii / # _
+seng -> sieng / # _
+sek -> siek / # _
+ji -> jii / # _
+
+% distinguish syllabic consonants by adding artificial B token
+ng -> Bng / # _ #
+m -> Bm / # _ #
+ng -> Bng / # _ ([́̀̂̌̍̄̋]) #
+m -> Bm / # _ ([́̀̂̌̍̄̋]) #
+
+% consonant preceding syllabic consonant
+ng -> Bng / (::consonant::) _ #
+ng -> Bng / (::consonant::) _ ([́̀̂̌̍̄̋]) #
