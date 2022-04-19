@@ -1,0 +1,3 @@
+% the following rule relies on the tone already being moved to the end of the word
+% if no tone diacritic, it's the neutral tone
+0 -> ˧ / ([^˩˨˧˦˥]) _ #
