@@ -1,6 +1,9 @@
+% note: any word-final rules need to
+%   account for the tones already being word-final in Jyutping
+
 % Deaspirate word-finally
 
-ʰ -> 0 / _ #
+ʰ -> 0 / _ [˩˨˧˦˥]+ #
 
 % Make isolated nasals syllabic
 
