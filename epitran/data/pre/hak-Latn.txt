@@ -21,6 +21,6 @@ y -> i / # _
 
 % add extra i because the i should not be lost as a vowel but is also used to condition the consonant in the map
 chi -> chii / # _
-chhi -> chii / # _
+chhi -> chhii / # _
 si -> sii / # _
 ngi -> ngii / # _
