@@ -211,6 +211,7 @@ A few notes are in order regarding this data structure:
 | cjy-Latn    | Jin (Wiktionary)        |
 | cmn-Hans    | Mandarin (Simplified)\* |
 | cmn-Hant    | Mandarin (Traditional)\*|
+| cmn-Latn    | Mandarin (Pinyin)\*     |
 | ckb-Arab    | Sorani                  |
 | csb-Latn    | Kashubian               |
 | deu-Latn    | German                  |
