@@ -12,35 +12,37 @@
 .์ -> 0 / _
 
 % Delete numerals
-๐ -> 0 / _ % THAI DIGIT ZERO
-๑ -> 0 / _ % THAI DIGIT ONE
-๒ -> 0 / _ % THAI DIGIT TWO
-๓ -> 0 / _ % THAI DIGIT THREE
-๔ -> 0 / _ % THAI DIGIT FOUR
-๕ -> 0 / _ % THAI DIGIT FIVE
-๖ -> 0 / _ % THAI DIGIT SIX
-๗ -> 0 / _ % THAI DIGIT SEVEN
-๘ -> 0 / _ % THAI DIGIT EIGHT
-๙ -> 0 / _ % THAI DIGIT NINE
+๐ -> 0 / _
+๑ -> 0 / _
+๒ -> 0 / _
+๓ -> 0 / _
+๔ -> 0 / _
+๕ -> 0 / _
+๖ -> 0 / _
+๗ -> 0 / _
+๘ -> 0 / _
+๙ -> 0 / _
 
 % Delete pintu
-ฺ -> 0 / _ % THAI CHARACTER PHINTHU
+ฺ -> 0 / _ 
 
 % Delete tones
-่ -> 0 / _ % THAI CHARACTER MAI EK
-๋ -> 0 / _ % THAI CHARACTER MAI CHATTAWA
-๊ -> 0 / _ % THAI CHARACTER MAI TRI
+่ -> 0 / _ 
+๋ -> 0 / _ 
+๊ -> 0 / _ 
+้ -> 0 / _ 
+่ -> 0 / _ 
 
 % Delete archaic and exceptional
-ํ -> 0 / _ % THAI CHARACTER NIKHAHIT
-์ -> 0 / _ % THAI CHARACTER THANTHAKHAT
+ํ -> 0 / _ 
+์ -> 0 / _ 
 
 
 % Delete reduplication mark
-ๆ -> 0 / _ % THAI CHARACTER MAIYAMOK
+ๆ -> 0 / _ 
 
 % Delete abbreviation marker
-ฯ -> 0 / _ % THAI CHARACTER PAIYANNOI
+ฯ -> 0 / _ 
 
 % Delete short mark (should be handled differently)
-็ -> 0 / _ % THAI CHARACTER MAITAIKHU
+็ -> 0 / _ 
