@@ -10,3 +10,37 @@
 
 % Thanthakhat (cp. Virama)
 .์ -> 0 / _
+
+% Delete numerals
+๐ -> 0 / _ % THAI DIGIT ZERO
+๑ -> 0 / _ % THAI DIGIT ONE
+๒ -> 0 / _ % THAI DIGIT TWO
+๓ -> 0 / _ % THAI DIGIT THREE
+๔ -> 0 / _ % THAI DIGIT FOUR
+๕ -> 0 / _ % THAI DIGIT FIVE
+๖ -> 0 / _ % THAI DIGIT SIX
+๗ -> 0 / _ % THAI DIGIT SEVEN
+๘ -> 0 / _ % THAI DIGIT EIGHT
+๙ -> 0 / _ % THAI DIGIT NINE
+
+% Delete pintu
+ฺ -> 0 / _ % THAI CHARACTER PHINTHU
+
+% Delete tones
+่ -> 0 / _ % THAI CHARACTER MAI EK
+๋ -> 0 / _ % THAI CHARACTER MAI CHATTAWA
+๊ -> 0 / _ % THAI CHARACTER MAI TRI
+
+% Delete archaic and exceptional
+ํ -> 0 / _ % THAI CHARACTER NIKHAHIT
+์ -> 0 / _ % THAI CHARACTER THANTHAKHAT
+
+
+% Delete reduplication mark
+ๆ -> 0 / _ % THAI CHARACTER MAIYAMOK
+
+% Delete abbreviation marker
+ฯ -> 0 / _ % THAI CHARACTER PAIYANNOI
+
+% Delete short mark (should be handled differently)
+็ -> 0 / _ % THAI CHARACTER MAITAIKHU
