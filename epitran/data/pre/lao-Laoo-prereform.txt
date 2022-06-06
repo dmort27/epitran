@@ -16,3 +16,22 @@
 % Symbols representing both vowels and consonants
 ອ -> ɔː / (::consonant::) _
 ວ -> uːə̯ / (::consonant::) _
+
+% Delete reduplication mark
+ໆ -> 0 / _
+
+% Interpret common numerals
+໒ -> soŋ / _ 
+໓ -> saːm / _ 
+
+% Delete tones, etc.
+້ -> 0 / _ 
+໋ -> 0 / _ 
+ຼ -> 0 / _
+່ -> 0 / _
+໊ -> 0 / _
+່ -> 0 / _ 
+້ -> 0 / _ 
+
+% Delete kill mark
+໌ -> 0 / _ 
