@@ -1,0 +1,54 @@
+::front:: = i|e|ɛ
+::voiceless:: = p|t|k|s|f|ʃ
+::oral:: = i|e|ɛ|ɛː|a|ɑ|y|ø|œ|u|o|ɔ
+::vowel:: = i|e|ɛ|ɛː|a|ɑ|y|ø|œ|u|o|ɔ|ɛ̃|ɑ̃|õ|œ̃
+
+% Glide formation before vowels
+i -> j / _ (::vowel::)
+y -> ɥ / _ (::vowel::)
+u -> w / _ (::vowel::)
+
+% before non-low front vowels
+k -> s / _ (::front::)
+CC -> ks / _ (::front::)
+GG -> gʒ / _ (::front::)
+ksk ->  ks / _ (::front::)
+sk -> s / _ (::front::)
+
+% Devoicing of obstruents
+b -> p / _ (::voiceless::)
+d -> t / _ (::voiceless::)
+ɡ -> k / _ (::voiceless::)
+ɡʒ -> ks / # _
+
+% Intervocalic voicing
+s -> z / _ (::oral::) _ (::vowel::)
+
+% Delete final obstruents
+(p|t|k|b|d|g|s|z) -> 0 / _ #
+
+% Transphonologization of nasality
+am -> ɑ̃ / _ (p|b|f)
+an -> ɑ̃ / _ (t|d|s|#)
+
+% Restore non-deleting/palatalizing consonants
+P -> p / _ 
+T -> t / _
+K -> k / _
+CC -> k / _
+GG -> g / _
+M -> m / _
+N -> n / _
+
+% Final vowel changes
+ɛj -> ɛ / _ #
+ɔ -> o / _ #
+
+% Assorted changes (after all deletions)
+ɔ -> o / _ z
+EU -> ø / # _
+EU -> ø / _ #
+EU -> ø / _ z
+EU -> œ / _ 
+ŒU -> ø / # _
+ŒU -> œ / _ 

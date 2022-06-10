@@ -1,0 +1,37 @@
+::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ|ə|y|Y|œ|ø
+::consonant:: = p|t|c|k|q|qu|b|d|g|h|f|ph|s|ç|ch|sch|j|v|x|z|l|r|w|m|n|gn
+
+% Realizations of <e>
+(ea|ee) -> i / _
+(é|ée) -> e / _
+(è|ê) -> ɛ / _
+ê -> ɛː / _
+e -> ɛ / _ ((::consonant::)(::consonant)|(::consonant::)#|x)
+e -> 0 / (::vowel::).* _ #
+
+% Realizations of <VN>
+am -> aM / _ #
+am -> ɑ̃ / _ (::consonant::)
+aan -> ɑ̃ / _
+an -> aN / _ (::vowel::)
+an -> ɑ̃ / _
+(em|en) -> ɛ̃ / _ ((::consonant::)(é|i|y)#)
+(em|en) -> ɑ̃ / _ (::consonant::|#)
+(aen|aën|aon) -> ɑ̃ / _ (::consonant::|#)
+(aim|ain|eim|ein|im|in|în|ym|yn) -> ɛ̃ / _ (::consonant::|#)
+(ent|es) -> 0 / _ #
+(eun|um|un) -> œ̃ / (::consonant::|#)
+(oin|oën) -> wɛ̃ / (::consonant::|#)
+(om|on) -> ɔ̃ / (::consonant::|#)
+er -> e / _ #
+
+% Initial <g>s
+ge -> ʒ / _ (a|o|u)
+gu -> ɡ / _ (e|i|y)
+
+% Realizations of <il>
+(il|ill) -> j / _ (a|e|u)
+ilh -> j / _ (a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|ɛ|ə|y|Y|œ|ø)
+ill -> il / _ 
+ti -> tj / (#|s|x) _ (::vowel::)
+ti -> sj / _
