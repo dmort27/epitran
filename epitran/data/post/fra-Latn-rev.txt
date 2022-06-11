@@ -19,10 +19,12 @@ sk -> s / _ (::front::)
 b -> p / _ (::voiceless::)
 d -> t / _ (::voiceless::)
 ɡ -> k / _ (::voiceless::)
+ɡz -> ks / (#|::voiceless::) _
+gz -> ks / _ (#|::voiceless::)
 ɡʒ -> ks / # _
 
 % Intervocalic voicing
-s -> z / _ (::oral::) _ (::vowel::)
+s -> z / (::oral::) _ (::vowel::)
 
 % Delete final obstruents
 (p|t|k|b|d|g|s|z) -> 0 / _ #
@@ -37,6 +39,8 @@ T -> t / _
 K -> k / _
 CC -> k / _
 GG -> g / _
+S -> s / _ 
+Z -> z / _ 
 M -> m / _
 N -> n / _
 
@@ -45,10 +49,12 @@ N -> n / _
 ɔ -> o / _ #
 
 % Assorted changes (after all deletions)
-ɔ -> o / _ z
 EU -> ø / # _
 EU -> ø / _ #
 EU -> ø / _ z
 EU -> œ / _ 
 ŒU -> ø / # _
 ŒU -> œ / _ 
+EE -> e / _
+E -> ə / _
+ɔ -> o / _ z

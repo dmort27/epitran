@@ -1,7 +1,22 @@
 ::vowel:: = a|á|â|æ|e|é|è|ê|ë|i|î|ï|o|ô|œ|u|ù|û|ü|A|Á|Â|Æ|E|É|È|Ê|Ë|I|Î|Ï|O|Ô|Œ|U|Ù|Û|Ü|ɛ|ə|y|Y|œ|ø
 ::consonant:: = p|t|c|k|q|qu|b|d|g|h|f|ph|s|ç|ch|sch|j|v|x|z|l|r|w|m|n|gn
 
+% Special cases
+emme -> aM / _ #
+ome -> oM / _ #
+ier -> iɛʀ / _ #
+uet -> ɥɛ / _ #
+et -> ɛT / _ #
+arc -> aʀK / _ #
+ars -> aʀS / _ #
+az -> aZ / _ #
+oc -> oK / _ #
+onc -> ɔ̃K / _ #
+us -> uS / (::consonant::) _ #
+
 % Realizations of <e>
+ez -> EE / _ #
+er -> EE / _ #
 (ea|ee) -> i / _
 (é|ée) -> e / _
 (è|ê) -> ɛ / _
@@ -12,6 +27,7 @@ e -> 0 / (::vowel::).* _ #
 % Realizations of <VN>
 am -> aM / _ #
 am -> ɑ̃ / _ (::consonant::)
+ang -> ɑ̃ / _ (::consonant::|#)
 aan -> ɑ̃ / _
 an -> aN / _ (::vowel::)
 an -> ɑ̃ / _
@@ -20,10 +36,9 @@ an -> ɑ̃ / _
 (aen|aën|aon) -> ɑ̃ / _ (::consonant::|#)
 (aim|ain|eim|ein|im|in|în|ym|yn) -> ɛ̃ / _ (::consonant::|#)
 (ent|es) -> 0 / _ #
-(eun|um|un) -> œ̃ / (::consonant::|#)
-(oin|oën) -> wɛ̃ / (::consonant::|#)
-(om|on) -> ɔ̃ / (::consonant::|#)
-er -> e / _ #
+(eun|um|un) -> œ̃ / _ (::consonant::|#)
+(oin|oën) -> wɛ̃ / _ (::consonant::|#)
+(ong|unch|om|on) -> ɔ̃ / _ (::consonant::|#)
 
 % Initial <g>s
 ge -> ʒ / _ (a|o|u)
