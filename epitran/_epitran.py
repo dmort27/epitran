@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-import sys
 from typing import Union
 
 import panphon.featuretable
@@ -109,7 +108,7 @@ class Epitran(object):
                                                           ligaturize))
         return list(map(self.xsampa.ipa2xs, ipa_segs))
 
-    def word_to_tuples(self, word: str, normpunc: bool=False, ligaturize: bool=False):
+    def word_to_tuples(self, word: str, normpunc: bool=False, _ligaturize: bool=False):
         """Given a word, returns a list of tuples corresponding to IPA segments. The "feature
         vectors" form a list consisting of (segment, vector) pairs.
         For IPA segments, segment is a substring of phonetic_form such that the
@@ -127,4 +126,4 @@ class Epitran(object):
         try:
             return self.epi.word_to_tuples(word, normpunc)
         except AttributeError:
-            raise AttributeError('Method word_to_tuples not yet implemented for this language-script pair!')
+            raise AttributeError('Method word_to_tuples not yet implemented for this language-script pair!') from AttributeError
