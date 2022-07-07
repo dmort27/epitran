@@ -79,7 +79,7 @@ class SimpleEpitran(object):
     #     return ("", [])
 
     def _non_deterministic_mappings(self, gr_by_line: "dict[str, list[int]]") -> "list[tuple[str, list[int]]]":
-        return [(g, ls) for (g, ls) in gr_by_line.items() if len(ls) > 0]
+        return [(g, ls) for (g, ls) in gr_by_line.items() if len(ls) > 1]
 
     def _load_g2p_map(self, code: str, rev: bool) -> "DefaultDict[str, list[str]]":
         """Load the code table for the specified language.
@@ -119,7 +119,7 @@ class SimpleEpitran(object):
                 lines = [l + 2 for l in lines]
                 delim = ', '
                 message += '\n' + f'One-to-many G2P mapping for "{graph}" on lines {delim.join(map(str, lines))}'
-            raise MappingError(message)
+            raise MappingError(f'Invalid mapping for {code}:\n{message}')
         return g2p
 
     def _load_punc_norm_map(self):
