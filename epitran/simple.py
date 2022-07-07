@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
-
+"""Basic Epitran class for G2P in most languages."""
 import logging
 import os.path
 import sys
 import unicodedata
 from collections import defaultdict
+from typing import DefaultDict # pylint: disable=unused-import
 
 import pkg_resources
-import regex as re
+import regex
 
 import panphon
 import unicodecsv as csv
@@ -19,29 +17,23 @@ from epitran.ppprocessor import PrePostProcessor
 from epitran.puncnorm import PuncNorm
 from epitran.stripdiacritics import StripDiacritics
 
-
 logger = logging.getLogger('epitran')
 
-
-if sys.version_info[0] == 3:
-    def unicode(x):
-        return x
-
 class SimpleEpitran(object):
-    def __init__(self, code, preproc=True, postproc=True, ligatures=False,
-                 rev=False, rev_preproc=True, rev_postproc=True, tones=False):
-        """Constructs the backend object epitran uses for most languages
+    """The backend object epitran uses for most languages
 
-        Args:
-            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
-            preproc (bool): if True, apply preprocessor
-            postproc (bool): if True, apply postprocessors
-            ligatures (bool): if True, use phonetic ligatures for affricates
-                              instead of standard IPA
-            rev (bool): if True, load reverse transliteration
-            rev_preproc (bool): if True, apply preprocessor when reverse transliterating
-            rev_postproc (bool): if True, apply postprocessor when reverse transliterating
-        """
+    :param code str: ISO 639-3 code and ISO 15924 code joined with a hyphen
+    :param preproc bool, optional: if True, apply preprocessor
+    :param postproc bool, optional: if True, apply postprocessors
+    :param ligatures bool, optional: if True, use phonetic ligatures for affricates instead of
+                                     standard IPA
+    :param rev bool, optional: if True, load reverse transliteration
+    :param rev_preproc bool, optional: if True, applyy preprocessor when reverse transliterating
+    :param rev_postproc bool, optional: if True, applyy postprocessor when reverse transliterating
+    """
+    def __init__(self, code: str, preproc: bool=True, postproc: bool=True, ligatures: bool=False,
+                 rev: bool=False, rev_preproc: bool=True, rev_postproc: bool=True, tones: bool=False):
+        """Constructor"""
         self.rev = rev
         self.tones = tones
         self.g2p = self._load_g2p_map(code, False)
@@ -65,29 +57,37 @@ class SimpleEpitran(object):
 
         self.nils = defaultdict(int)
 
-    def get_tones(self):
+    def get_tones(self) -> bool:
+        """Returns True if support for tones is turned on.
+        
+        :return: True if tone support is activated
+        :rtype: bool
+        """
         return self.tones
 
     def __enter__(self):
         return self
 
-    def __exit__(self, type_, val, tb):
+    def __exit__(self, _type_, _val, _trace_back):
         for nil, count in self.nils.items():
-            sys.stderr.write('Unknown character "{}" occured {} times.\n'.format(nil, count))
+            sys.stderr.write(f'Unknown character "{nil}" occured {count} times.\n')
 
-    def _one_to_many_gr_by_line_map(self, gr_by_line):
-        for g, ls in gr_by_line.items():
-            if len(ls) != 1:
-                return (g, ls)
-        return None
+    # def _one_to_many_gr_by_line_map(self, gr_by_line: "dict[str, list[int]]") -> "tuple[str, list[int]]":
+    #     for g, ls in gr_by_line.items():
+    #         if len(ls) > 0:
+    #             return (g, ls)
+    #     return ("", [])
 
-    def _load_g2p_map(self, code, rev):
+    def _non_deterministic_mappings(self, gr_by_line: "dict[str, list[int]]") -> "list[tuple[str, list[int]]]":
+        return [(g, ls) for (g, ls) in gr_by_line.items() if len(ls) > 0]
+
+    def _load_g2p_map(self, code: str, rev: bool) -> "DefaultDict[str, list[str]]":
         """Load the code table for the specified language.
 
-        Args:
-            code (str): ISO 639-3 code plus "-" plus ISO 15924 code for the
-                        language/script to be loaded
-            rev (boolean): True for reversing the table (for reverse transliterating)
+        :param code str: ISO 639-3 code plus "-" plus ISO 15924 code for the language/script to be loaded 
+        :param rev bool: If True, reverse the table (for reverse transliterating)
+        :return: A mapping from graphemes to phonemes
+        :rtype: DefaultDict[str, list[str]]
         """
         g2p = defaultdict(list)
         gr_by_line = defaultdict(list)
@@ -95,28 +95,31 @@ class SimpleEpitran(object):
         try:
             path = os.path.join('data', 'map', code + '.csv')
             path = pkg_resources.resource_filename(__name__, path)
-        except IndexError:
-            raise DatafileError('Add an appropriately-named mapping to the data/maps directory.')
+        except IndexError as malformed_data_file:
+            raise DatafileError('Add an appropriately-named mapping to the data/maps directory.') from malformed_data_file
         with open(path, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             orth, phon = next(reader)
             if orth != 'Orth' or phon != 'Phon':
-                raise DatafileError('Header is ["{}", "{}"] instead of ["Orth", "Phon"].'.format(orth, phon))
+                raise DatafileError(f'Header is ["{orth}", "{phon}"] instead of ["Orth", "Phon"].')
             for (i, fields) in enumerate(reader):
                 try:
                     graph, phon = fields
-                except ValueError:
-                    raise DatafileError('Map file is not well formed at line {}.'.format(i + 2))
+                except ValueError as malformed_data_file:
+                    raise DatafileError(f'Map file is not well formed at line {i + 2}.') from malformed_data_file
                 graph = unicodedata.normalize('NFD', graph)
                 phon = unicodedata.normalize('NFD', phon)
                 if not self.tones:
-                    phon = re.sub('[˩˨˧˦˥]', '', phon)
+                    phon = regex.sub('[˩˨˧˦˥]', '', phon)
                 g2p[graph].append(phon)
                 gr_by_line[graph].append(i)
-        if self._one_to_many_gr_by_line_map(g2p):
-            graph, lines = self._one_to_many_gr_by_line_map(gr_by_line)
-            lines = [l + 2 for l in lines]
-            raise MappingError('One-to-many G2P mapping for "{}" on lines {}'.format(graph, ', '.join(map(str, lines))).encode('utf-8'))
+        if nondeterminisms := self._non_deterministic_mappings(gr_by_line):
+            message = ""
+            for graph, lines in nondeterminisms:
+                lines = [l + 2 for l in lines]
+                delim = ', '
+                message += '\n' + f'One-to-many G2P mapping for "{graph}" on lines {delim.join(map(str, lines))}'
+            raise MappingError(message)
         return g2p
 
     def _load_punc_norm_map(self):
@@ -135,7 +138,7 @@ class SimpleEpitran(object):
            the mapping table.
         """
         graphemes = sorted(g2p_keys, key=len, reverse=True)
-        return re.compile(r'({})'.format(r'|'.join(graphemes)), re.I)
+        return regex.compile(f"({r'|'.join(graphemes)})", regex.I)
 
     def general_trans(self, text, filter_func,
                       normpunc=False, ligatures=False):
@@ -153,29 +156,27 @@ class SimpleEpitran(object):
         Returns:
             unicode: IPA string, filtered by filter_func.
         """
-        text = unicode(text)
         text = unicodedata.normalize('NFD', text.lower())
-        logger.debug('(after norm) text=' + repr(list(text)))
+        logger.debug('(after norm) text=%s', repr(list(text)))
         text = self.strip_diacritics.process(text)
-        logger.debug('(after strip) text=' + repr(list(text)))
+        logger.debug('(after strip) text=%s', repr(list(text)))
         if self.preproc:
             text = self.preprocessor.process(text)
-        logger.debug('(after preproc) text=' + repr(list(text)))
+        logger.debug('(after preproc) text=%s', repr(list(text)))
         tr_list = []
         while text:
-            logger.debug('text=' + repr(list(text)))
+            logger.debug('text=%s', repr(list(text)))
             m = self.regexp.match(text)
             if m:
                 source = m.group(0)
                 try:
                     target = self.g2p[source][0]
                 except KeyError:
-                    logger.debug("source = '{}'".format(source))
-                    logger.debug("self.g2p[source] = '{}'"
-                                  .format(self.g2p[source]))
+                    logger.debug("source = '%s''", source)
+                    logger.debug("self.g2p[source] = %s'", self.g2p[source])
                     target = source
                 except IndexError:
-                    logger.debug("self.g2p[source]={}".format(self.g2p[source]))
+                    logger.debug("self.g2p[source]= %s", self.g2p[source])
                     target = source
                 tr_list.append((target, True))
                 text = text[len(source):]
@@ -208,7 +209,7 @@ class SimpleEpitran(object):
         return self.general_trans(text, lambda x: True,
                                   normpunc, ligatures)
 
-    def general_reverse_trans(self, ipa):
+    def general_reverse_trans(self, text):
         """Reconstructs word from IPA. Does the reverse of transliterate().
         Ignores unmapped characters.
 
@@ -218,7 +219,6 @@ class SimpleEpitran(object):
             Returns:
                 unicode: reconstructed word
         """
-        text = unicode(ipa)
         if self.rev_preproc:
             text = self.rev_preprocessor.process(text)
         tr_list = []
@@ -229,9 +229,8 @@ class SimpleEpitran(object):
                 try:
                     target = self.rev_g2p[source][0]
                 except KeyError:
-                    logger.debug("source = '{}'".format(source))
-                    logger.debug("self.rev_g2p[source] = '{}'"
-                                  .format(self.g2p[source]))
+                    logger.debug("source = '%s'", source)
+                    logger.debug("self.rev_g2p[source] = '%s'", self.g2p[source])
                     target = source
                 tr_list.append((target, True))
                 text = text[len(source):]
@@ -254,7 +253,8 @@ class SimpleEpitran(object):
             unicode: reconstructed word
         """
         if not self.rev:
-            raise ValueError('This Epitran object was initialized with no reverse transliteration loaded')
+            raise ValueError('This Epitran object was initialized' + 
+            'with no reverse transliteration loaded')
         return self.general_reverse_trans(ipa)
 
     def strict_trans(self, text, normpunc=False, ligatures=False):
@@ -291,14 +291,14 @@ class SimpleEpitran(object):
         the set {-1, 0, 1} where -1 corresponds to '-', 0 corresponds to '0',
         and 1 corresponds to '+'.
         """
-        def cat_and_cap(c):
-            cat, case = tuple(unicodedata.category(c))
+        def cat_and_cap(category):
+            cat, case = tuple(unicodedata.category(category))
             case = 1 if case == 'u' else 0
-            return unicode(cat), case
+            return cat, case
 
-        def recode_ft(ft):
+        def recode_ft(feature):
             try:
-                return {'+': 1, '0': 0, '-': -1}[ft]
+                return {'+': 1, '0': 0, '-': -1}[feature]
             except KeyError:
                 return None
 
@@ -315,7 +315,6 @@ class SimpleEpitran(object):
                 return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
-        word = unicode(word)
         word = self.strip_diacritics.process(word)
         word = unicodedata.normalize('NFD', word)
         if self.preproc:
