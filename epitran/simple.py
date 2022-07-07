@@ -4,7 +4,7 @@ import os.path
 import sys
 import unicodedata
 from collections import defaultdict
-from typing import DefaultDict # pylint: disable=unused-import
+from typing import DefaultDict, Callable # pylint: disable=unused-import
 
 import pkg_resources
 import regex
@@ -138,21 +138,17 @@ class SimpleEpitran(object):
         graphemes = sorted(g2p_keys, key=len, reverse=True)
         return regex.compile(f"({r'|'.join(graphemes)})", regex.I)
 
-    def general_trans(self, text, filter_func,
-                      normpunc=False, ligatures=False):
+    def general_trans(self, text: str, filter_func: "Callable[[tuple[str, bool]], bool]",
+                      normpunc: bool=False, ligatures: bool=False):
         """Transliaterates a word into IPA, filtering with filter_func
 
-        Args:
-            text (str): word to transcribe; unicode strings
-            filter_func (function): function for filtering segments; takes
-                                    a <segment, is_ipa> tuple and returns a
-                                    boolean.
-            normpunc (bool): normalize punctuation
-            ligatures (bool): use precomposed ligatures instead of
-                              standard IPA
-
-        Returns:
-            unicode: IPA string, filtered by filter_func.
+        :param text str: word to transcribe; unicode string
+        :param filter_func Callable[[tuple[str, bool]], bool]: function for filtering
+        segments; takes a <segment, is_ipa> tuple and returns a boolean.
+        :param normpunct bool: normalize punctuation
+        :param ligatures bool: use precompsed ligatures instead of standard IPA
+        :return: IPA string corresponding to the orthographic input `text`
+        :rtype: str
         """
         text = unicodedata.normalize('NFD', text.lower())
         logger.debug('(after norm) text=%s', repr(list(text)))
