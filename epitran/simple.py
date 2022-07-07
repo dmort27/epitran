@@ -2,6 +2,7 @@
 import logging
 import os.path
 import sys
+import csv
 import unicodedata
 from collections import defaultdict
 from typing import DefaultDict, Callable # pylint: disable=unused-import
@@ -10,8 +11,7 @@ import pkg_resources
 import regex
 
 import panphon
-import csv
-from epitran.exceptions import DatafileError, MappingError
+from epitran.exceptions import DatafileError, MappingError, FeatureValueError
 from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor
 from epitran.puncnorm import PuncNorm
@@ -187,31 +187,28 @@ class SimpleEpitran(object):
             text = self.puncnorm.norm(text)
         return unicodedata.normalize('NFC', text)
 
-    def transliterate(self, text, normpunc=False, ligatures=False):
-        """Transliterates/transcribes a word into IPA
+    def transliterate(self, text: str, normpunc: bool=False, ligatures: bool=False):
+        """Transliterates/transcribes a word into IPA. Passes unmapped 
+        characters through to output unchanged.
 
-        Passes unmapped characters through to output unchanged.
-
-        Args:
-            word (str): word to transcribe; unicode string
-            normpunc (bool): normalize punctuation
-            ligatures (bool): use precomposed ligatures instead of standard IPA
-
-        Returns:
-            unicode: IPA string with unrecognized characters included
+        :param text str: word to transcribe
+        :param normpunct bool: if True, normalize punctuation
+        :param ligatures bool: if True, use precomposed ligatures instead
+        of standard IPA
+        :return: IPA string corresponding to the orthographic string `text`.
+        All unrecognized characters are included.
+        :rtype: str
         """
         return self.general_trans(text, lambda x: True,
                                   normpunc, ligatures)
 
-    def general_reverse_trans(self, text):
+    def general_reverse_trans(self, text: str):
         """Reconstructs word from IPA. Does the reverse of transliterate().
         Ignores unmapped characters.
 
-            Args:
-                ipa (str): word transcription in ipa; unicode string
-
-            Returns:
-                unicode: reconstructed word
+        :param text str: Transcription to render in orthography
+        :return: Orthographic string corresponding to `text`
+        :rtype: str
         """
         if self.rev_preproc:
             text = self.rev_preprocessor.process(text)
@@ -237,46 +234,40 @@ class SimpleEpitran(object):
             text = self.rev_postprocessor.process(text)
         return unicodedata.normalize('NFC', text)
 
-    def reverse_transliterate(self, ipa):
+    def reverse_transliterate(self, ipa:str) -> str:
         """Reconstructs word from IPA. Does the reverse of transliterate()
 
-        Args:
-            ipa (str): word transcription in ipa; unicode string
-
-        Returns:
-            unicode: reconstructed word
+        :param ipa str: Word transcription in IPA
+        :return: Reconstruct word in orthography
+        :rtype: str
         """
         if not self.rev:
             raise ValueError('This Epitran object was initialized' + 
             'with no reverse transliteration loaded')
         return self.general_reverse_trans(ipa)
 
-    def strict_trans(self, text, normpunc=False, ligatures=False):
-        """Transliterates/transcribes a word into IPA
+    def strict_trans(self, text: str, normpunc: bool=False, ligatures: bool=False) -> str:
+        """Transliterates/transcribes a word into IPA, ignoring 
+        umapped characters.
 
-        Ignores umapped characters.
-
-        Args:
-            word (str): word to transcribe; unicode string
-            normpunc (bool): normalize punctuation
-            ligatures (bool): use precomposed ligatures instead of standard IPA
-
-        Returns:
-            unicode: IPA string
+        :param word str: word to transcribe
+        :param normpunc bool: normalize punctuation
+        :param ligatures bool: use precomposed ligatures instead of standard IPA
+        :return: IPA string corresponding to orthographic `word`, ignoring
+        out-of-mapping characters
+        :rtype: str
         """
         return self.general_trans(text, lambda x: x[1],
                                   normpunc, ligatures)
 
-    def word_to_tuples(self, word, normpunc=False):
+    def word_to_tuples(self, text: str, normpunc: bool=False) -> "list[tuple[str, int, str, str, list[tuple[str, list[int]]]]]":
         """Given a word, returns a list of tuples corresponding to IPA segments.
 
-        Args:
-            word (unicode): word to transliterate
-            normpunc (bool): If True, normalizes punctuation to ASCII inventory
-
-        Returns:
-            list: A list of (category, lettercase, orthographic_form,
-                  phonetic_form, feature_vectors) tuples.
+        :param word str: Word to transcribe
+        :param normpunc bool: Normalize punctuation
+        :return: Word represented as (category, lettercase, orthographic_form,
+        phonetic_form, feature_vectors) tuples
+        :rtype: list[tuple[str, int, str, str, list[tuple[str, list[int]]]]]
 
         The "feature vectors" form a list consisting of (segment, vector)
         pairs. For IPA segments, segment is a substring of phonetic_form such
@@ -285,62 +276,58 @@ class SimpleEpitran(object):
         the set {-1, 0, 1} where -1 corresponds to '-', 0 corresponds to '0',
         and 1 corresponds to '+'.
         """
-        def cat_and_cap(category):
+        def cat_and_cap(category: str) -> "tuple[str, int]":
             cat, case = tuple(unicodedata.category(category))
             case = 1 if case == 'u' else 0
             return cat, case
 
-        def recode_ft(feature):
+        def recode_ft(feature: str) -> int:
             try:
                 return {'+': 1, '0': 0, '-': -1}[feature]
             except KeyError:
-                return None
+                raise FeatureValueError(f'Unknown feature value "{feature}"') from KeyError
 
-        def vec2bin(vec):
+        def vec2bin(vec: "list[str]") -> "list[int]":
             return list(map(recode_ft, vec))
 
-        def to_vector(seg):
+        def to_vector(seg: str) -> "tuple[str, list[int]]":
             return seg, vec2bin(self.ft.segment_to_vector(seg))
 
-        def to_vectors(phon):
+        def to_vectors(phon: str) -> "list[tuple[str, list[int]]]":
             if phon == '':
-                return [(-1, [0] * self.num_panphon_fts)]
+                return [('', [0] * self.num_panphon_fts)]
             else:
                 return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
-        word = self.strip_diacritics.process(word)
+        word = self.strip_diacritics.process(text)
         word = unicodedata.normalize('NFD', word)
         if self.preproc:
             word = self.preprocessor.process(word)
         while word:
-            match = self.regexp.match(word)
-            if match:
-                span = match.group(1)
+            if match := self.regexp.match(word):
+                span: str = match.group(1)
                 cat, case = cat_and_cap(span[0])
-                phon = self.g2p[span.lower()][0]
-                vecs = to_vectors(phon)
+                phon: str = self.g2p[span.lower()][0]
+                vecs: "list[tuple[str, list[int]]]" = to_vectors(phon)
                 tuples.append(('L', case, span, phon, vecs))
-                word = word[len(span):]
+                word: str = word[len(span):]
             else:
                 span = word[0]
-                span = self.puncnorm.norm(span) if normpunc else span
+                span: str = self.puncnorm.norm(span) if normpunc else span
                 cat, case = cat_and_cap(span)
-                cat = 'P' if normpunc and cat in self.puncnorm else cat
-                phon = ''
-                vecs = to_vectors(phon)
+                cat: str = 'P' if normpunc and cat in self.puncnorm else cat
+                phon: str = ''
+                vecs: "list[tuple[str, list[int]]]" = to_vectors(phon)
                 tuples.append((cat, case, span, phon, vecs))
                 word = word[1:]
         return tuples
 
-    def ipa_segs(self, ipa):
+    def ipa_segs(self, ipa: str) -> "list[str]":
         """Given an IPA string, decompose it into a list of segments
 
-        Args:
-            ipa (unicode): a Unicode IPA string
-
-        Returns:
-            list: a list of unicode strings corresponding to segments
-                  (consonants and vowels) in the input string
+        :param ipa str: A phonetic representation in IPA
+        :return: A list of words corresponding to the segments in `ipa`
+        :rtype: list[str]
         """
         return self.ft.ipa_segs(ipa)

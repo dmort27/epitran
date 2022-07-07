@@ -7,3 +7,7 @@ class MappingError(Exception):
 
 class DatafileError(Exception):
     pass
+
+
+class FeatureValueError(Exception):
+    pass
