@@ -10,7 +10,7 @@ import pkg_resources
 import regex
 
 import panphon
-import unicodecsv as csv
+import csv
 from epitran.exceptions import DatafileError, MappingError
 from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor
@@ -97,8 +97,8 @@ class SimpleEpitran(object):
             path = pkg_resources.resource_filename(__name__, path)
         except IndexError as malformed_data_file:
             raise DatafileError('Add an appropriately-named mapping to the data/maps directory.') from malformed_data_file
-        with open(path, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(path, encoding='utf-8') as f:
+            reader = csv.reader(f)
             orth, phon = next(reader)
             if orth != 'Orth' or phon != 'Phon':
                 raise DatafileError(f'Header is ["{orth}", "{phon}"] instead of ["Orth", "Phon"].')
@@ -126,10 +126,8 @@ class SimpleEpitran(object):
         """Load the map table for normalizing 'down' punctuation."""
         path = os.path.join('data', 'puncnorm.csv')
         path = pkg_resources.resource_filename(__name__, path)
-        with open(path, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8',
-                                delimiter=str(','),
-                                quotechar=str('"'))
+        with open(path, encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=str(','), quotechar=str('"'))
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 
