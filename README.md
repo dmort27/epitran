@@ -8,8 +8,6 @@ The Python modules ```epitran``` and ```epitran.vector``` can be used to easily 
 
 If you wish to use Epitran to convert **English** to IPA, **you must install the Flite (including `lex_lookup`) as detailed below.**
 
-Python 3.8+ is required to use Epitran.
-
 ## Using the `epitran` Module
 
 ### The Epitran class
@@ -350,7 +348,7 @@ Note that major languages, including **French**, are missing from this table due
 
 ## Installation of Flite (for English G2P)
 
-For use with most languages, Epitran requires no special installation steps. It can be installed as an ordinary python package, either with `pip` or by running `python setup.py install` in the root of the source directory. However, English G2P in Epitran relies on CMU Flite, a speech synthesis package by Alan Black and other speech researchers at Carnegie Mellon University. For the current version of Epitran, you should follow the installation instructions for `lex_lookup`, which is used as the default G2P interface for Epitran.
+For use with most languages, Epitran requires no special installation steps. It can be installed as an ordinarary python package, either with `pip` or by running `python setup.py install` in the root of the source directory. However, English G2P in Epitran relies on CMU Flite, a speech synthesis package by Alan Black and other speech researchers at Carnegie Mellon University. For the current version of Epitran, you should follow the installation instructions for `lex_lookup`, which is used as the default G2P interface for Epitran.
 
 ### `t2p`
 

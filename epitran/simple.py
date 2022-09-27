@@ -113,7 +113,8 @@ class SimpleEpitran(object):
                     phon = regex.sub('[˩˨˧˦˥]', '', phon)
                 g2p[graph].append(phon)
                 gr_by_line[graph].append(i)
-        if nondeterminisms := self._non_deterministic_mappings(gr_by_line):
+        nondeterminisms = self._non_deterministic_mappings(gr_by_line)
+        if nondeterminisms:
             message = ""
             for graph, lines in nondeterminisms:
                 lines = [l + 2 for l in lines]
@@ -305,7 +306,8 @@ class SimpleEpitran(object):
         if self.preproc:
             word = self.preprocessor.process(word)
         while word:
-            if match := self.regexp.match(word):
+            match = self.regexp.match(word)
+            if match:
                 span: str = match.group(1)
                 cat, case = cat_and_cap(span[0])
                 phon: str = self.g2p[span.lower()][0]
