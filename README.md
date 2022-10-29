@@ -250,6 +250,7 @@ A few notes are in order regarding this data structure:
 | kmr-Latn-red| Kurmanji (reduced)      |
 | lao-Laoo    | Lao                     |
 | lsm-Latn    | Saamia                  |
+| ltc-Latn-bax | Middle Chinese (Baxter and Sagart 2014) |
 | mal-Mlym    | Malayalam               |
 | mar-Deva    | Marathi                 |
 | mlt-Latn    | Maltese                 |
