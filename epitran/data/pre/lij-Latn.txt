@@ -1,0 +1,11 @@
+scc -> <StS> / _
+cci -> <tS> / [^s] _ [aeou]
+cc -> <tS> / [^s] _ [ie]
+ci -> <tS> / _ [aeou]
+c -> <tS> / _ [ie]
+ggi -> <dZ> / _ [aeou]
+gg -> <dZ> / _ [ie]
+gi -> <dZ> / _ [aeou]
+gli -> <dZ> / _ [aeou]
+gl -> <dZ> / _ [ie]
+g -> <dZ> / _ [ie]
