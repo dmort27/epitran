@@ -21,6 +21,8 @@ s -> z / [ai]ː _ (?!e#)
 % Treatment of <gu>
 ɡy -> ɡw / (?<!fi) _ (::vowels::)
 seɡw -> seɡy / _ (::vowels::)
+
+% Special rule
 yŋna -> ina / _ #
 
 % Plural endings
