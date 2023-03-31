@@ -41,3 +41,6 @@ class TestHungarianGeneral(unittest.TestCase):
 
     def test_hangtan(self):
         self._assert_trans('hangtan', 'hɒŋtɒn')
+
+    def test_gyongy(self):
+        self._assert_trans('gyöngy', 'ɟøɲɟ')
