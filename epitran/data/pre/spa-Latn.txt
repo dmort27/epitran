@@ -1,6 +1,4 @@
 ::vowels:: = a|e|i|o|u
-...
-i -> [j] / _ ::vowels::
-u -> [w] / _ ::vowels::
+
 i -> [j] / ::vowels:: _ ::vowels::
 u -> [w] / ::vowels:: _ ::vowels::
