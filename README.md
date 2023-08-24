@@ -255,7 +255,7 @@ A few notes are in order regarding this data structure:
 | mal-Mlym    | Malayalam               |
 | mar-Deva    | Marathi                 |
 | mlt-Latn    | Maltese                 |
-| mon-Cyrl    | Mongolian (Cyrillic)    |
+| mon-Cyrl-bab| Mongolian (Cyrillic)    |
 | mri-Latn    | Maori                   |
 | msa-Latn    | Malay                   |
 | mya-Mymr    | Burmese                 |
