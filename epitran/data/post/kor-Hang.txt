@@ -1,0 +1,3 @@
+::initialconsonants:: = k|k͈|n|t|t͈|ɾ|l|m|p|p͈|s|s͈|ŋ|t͡ɕ|t͡ɕ͈|t͡ɕʰ|tʰ|pʰ|h
+::vowels:: = i|e|ø|we|ɛ|a|o|u|ʌ|ɯ|ɰi|je|jɛ|ja|jo|ju|jʌ|ɥi|wi|we|wɛ|wa|wʌ
+::finalconsonants:: = k̚|ŋ|
