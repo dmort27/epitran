@@ -1,6 +1,6 @@
 ::initialconsonants:: = k|kʰ|k͈|n|t|t͈|ɾ|m|p|p͈|s|s͈|t͡ɕ|t͡ɕ͈|t͡ɕʰ|tʰ|pʰ|h
 ::vowels:: = i|e|ø|we|ɛ|a|o|u|ʌ|ɯ|ɰi|je|jɛ|ja|jo|ju|jʌ|ɥi|wi|we|wɛ|wa|wʌ
-::finalconsonants:: = k̚|ŋ|t̚|n|l|p̚|m
+% (not used) ::finalconsonants:: = k̚|ŋ|t̚|n|l|p̚|m
 
 % remove ㅇ if followed by a vowel
 ŋ -> 0 / _ (::vowels::)
@@ -14,6 +14,18 @@ l -> ɾ / (::vowels::) _ (::vowels::)
 
 
 % change to final allophone if followed by an initialconsonant
+k̚s͈ -> k̚ / _ (::initialconsonants::|#)
+lɡ -> k̚ / _ (::initialconsonants::|#)
+ndʑ -> n / _ (::initialconsonants::|#)
+nh -> n / _ (::initialconsonants::|#)
+ls͈ -> l / _ (::initialconsonants::|#)
+ltʰ -> l / _ (::initialconsonants::|#)
+lh -> l / _ (::initialconsonants::|#)
+lb -> p̚ / _ (::initialconsonants::|#)
+p̚s͈ -> p̚ / _ (::initialconsonants::|#)
+lpʰ -> p̚ / _ (::initialconsonants::|#)
+lm -> m / _ (::initialconsonants::|#)
+
 k -> k̚ / _ (::initialconsonants::|#)
 kʰ -> k̚ / _ (::initialconsonants::|#)
 k͈ -> k̚ / _ (::initialconsonants::|#)
@@ -28,17 +40,3 @@ tʰ -> t̚ / _ (::initialconsonants::|#)
 b -> p̚ / _ (::initialconsonants::|#)
 p -> p̚ / _ (::initialconsonants::|#)
 pʰ -> p̚ / _ (::initialconsonants::|#)
-
-k̚s͈ -> k̚ / _ (::initialconsonants::|#)
-lɡ -> k̚ / _ (::initialconsonants::|#)
-ndʑ -> n / _ (::initialconsonants::|#)
-nh -> n / _ (::initialconsonants::|#)
-ls͈ -> l / _ (::initialconsonants::|#)
-ltʰ -> l / _ (::initialconsonants::|#)
-lh -> l / _ (::initialconsonants::|#)
-lb -> p̚ / _ (::initialconsonants::|#)
-p̚s͈ -> p̚ / _ (::initialconsonants::|#)
-lpʰ -> p̚ / _ (::initialconsonants::|#)
-lm -> m / _ (::initialconsonants::|#)
-
-% 
