@@ -200,6 +200,10 @@ class SimpleEpitran(object):
         All unrecognized characters are included.
         :rtype: str
         """
+        # tmp for korean
+        from jamo import h2j, j2hcj
+        text = j2hcj(h2j(text))
+        # print(text)
         return self.general_trans(text, lambda x: True,
                                   normpunc, ligatures)
 
