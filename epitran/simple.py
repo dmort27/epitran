@@ -195,6 +195,7 @@ class SimpleEpitran(object):
             text = self.puncnorm.norm(text)
         return unicodedata.normalize('NFC', text)
 
+    # Korean exception handling in transliterate
     def is_korean(self, text):
         """Check if the text contains any Korean characters."""
         for char in text:
