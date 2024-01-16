@@ -11,6 +11,8 @@ import pkg_resources
 import regex
 
 import panphon
+from jamo import h2j, j2hcj
+from g2pk import G2p
 from epitran.exceptions import DatafileError, MappingError, FeatureValueError
 from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor
@@ -58,6 +60,10 @@ class SimpleEpitran(object):
             self.rev_postprocessor = PrePostProcessor(code, 'post', True)
 
         self.nils = defaultdict(int)
+        
+        if code == "kor-Hang":
+            self.hang_g2p = G2p()
+
 
     def get_tones(self) -> bool:
         """Returns True if support for tones is turned on.
@@ -217,7 +223,10 @@ class SimpleEpitran(object):
         """
         try:
             if self.is_korean(text):
-                from jamo import h2j, j2hcj
+                # from jamo import h2j, j2hcj
+                # from g2pk import G2p
+                # g2p = G2p()
+                text = self.hang_g2p(text)
                 text = j2hcj(h2j(text))
         except Exception as e:
             print(f"Error during Korean transliteration: {e}")
