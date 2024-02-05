@@ -1,0 +1,71 @@
+::frontvowel:: = i|iː|e|eː
+::bilabial:: = p|b|m
+::alveoretro:: = t|d|n|ɖ
+::velar:: = k|ɡ
+::avowel:: = a|aː
+::ivowel:: = i|iː
+::uvowel:: = ɯ|ɯː
+::evowel:: = e|eː
+::ovowel:: = o|oː
+::continuant:: = s|ɕ|z|ʑ|h|ç|j|ɸ|ɰ|a|aː|i|iː|ɯ|ɯː|e|eː|o|oː
+
+%VV to Vː
+aa -> aː / _
+ee -> eː / _
+ii -> iː / _
+oo -> oː / _
+ɯɯ -> ɯː / _
+
+%Some special notations for long vowels
+ei -> eː / _
+ou -> oː / _
+
+% allophones of "[ラ-ロ]" & "[リャ-リョ]"
+ɾ -> ɖ / # _
+ɾ -> ɖ / ɴ _
+ɾ -> ɖ / ʔ _
+
+% allophones of "[ザ-ゾ]" & "[ジャ-ジョ]"
+z -> d͡z / # _
+z -> d͡z / ɴ _
+ʑ -> d͡ʑ / # _
+ʑ -> d͡ʑ / ɴ _
+
+% allophones of "ン"
+ɴ -> ŋ / (::frontvowel::) _ #
+
+ɴ -> m / _ (::bilabial::)
+ɴ -> n / _ (::alveoretro::)
+ɴ -> ɲ / _ ɲ
+ɴ -> ŋ / _ (::velar::)
+
+ɴ -> ã / (::avowel::) _ (::continuant::)
+ɴ -> ĩ / (::ivowel::) _ (::continuant::)
+ɴ -> ɯ̃ / (::uvowel::) _ (::continuant::)
+ɴ -> ẽ / (::evowel::) _ (::continuant::)
+ɴ -> õ / (::ovowel::) _ (::continuant::)
+
+% allophones of "ッ"
+ʔ -> k / _ k
+ʔ -> ɡ / _ ɡ
+ʔ -> s / _ s
+ʔ -> ɕ / _ ɕ
+ʔ -> z / _ z
+ʔ -> ʑ / _ ʑ
+ʔ -> t / _ t
+ʔ -> d / _ d
+ʔ -> h / _ h
+ʔ -> ç / _ ç
+ʔ -> j / _ j
+ʔ -> ɸ / _ ɸ
+ʔ -> ɰ / _ ɰ
+ʔ -> p / _ p
+ʔ -> b / _ b
+ʔ -> ɖ / _ ɖ
+
+k -> kʲ / _ kʲ
+ɡ -> ɡʲ / _ ɡʲ
+ɸ -> ɸʲ / _ ɸʲ
+p -> pʲ / _ pʲ
+b -> bʲ / _ bʲ
+ɖ -> ɖʲ / _ ɖʲ

@@ -1,0 +1,56 @@
+::voicedcons:: = b|d|d͡ʒ|ɡ|l|m|n|ŋ|r|v
+::vowels:: = a|ɛ|e|i|ɔ|ø|u|y
+::consonant:: = b|ʃ|d|d͡ʒ|f|ɡ|j|k|l|m|n|ŋ|ɲ|p|r|s|t|t͡ʃ|v|w|z|ʒ
+
+% Treatment of <ao> endings
+au -> ɔw / _ #
+
+% Treatment of <sc>
+st͡ʃ -> ʃ / _
+
+% Treatment of <n>
+n -> ŋ / _ #
+n -> ŋ / _ (::consonant::)
+[nm] -> ŋ / _ [bp]
+
+% Treatment of <s>
+s -> z / _ (::voicedcons::)
+s -> z / (a|ɛː?|eː?|i|ɔ|øː?|uː?|yː?) _ (::vowels::)
+s -> z / [ai]ː _ (?!e#)
+
+% Treatment of <gu>
+ɡy -> ɡw / (?<!fi) _ (::vowels::)
+seɡw -> seɡy / _ (::vowels::)
+
+% Special rule
+yŋna -> ina / _ #
+
+% Plural endings
+z?iuŋ -> sjuŋ / _
+zi?uiŋ -> swiŋ / _
+i?uiŋ -> wiŋ / _
+
+% Treatment of double consonants
+b+ -> b / _
+ʃ+ -> ʃ / _
+d+ -> d / _
+ɡ*d͡ʒ+ -> d͡ʒ / _
+f+ -> f / _
+ɡ+ -> ɡ / _
+j+ -> j / _
+k+ -> k / _
+l+ -> l / _
+m+ -> m / _
+n+ -> n / _
+ŋ*n+ -> n / _
+n*ŋ+ -> ŋ / _
+ɲ+ -> ɲ / _
+p+ -> p / _
+r+ -> r / _
+s+ -> s / _
+t+ -> t / _
+k*t͡ʃ+ -> t͡ʃ / _
+v+ -> v / _
+w+ -> w / _
+z+ -> z / _
+ʒ+ -> ʒ / _
