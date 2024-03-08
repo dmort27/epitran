@@ -1,0 +1,4 @@
+::vowel:: = ɒ|a|ɛ|e|i|o|ø|u|y
+
+% restore <ɡ> before vowels 
+ŋ -> ŋɡ / _ (::vowel::)
