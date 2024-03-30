@@ -1,0 +1,8 @@
+::vowel:: = a|e|i|o|i
+
+% Esperanto do not contain q, w, x, and y
+% Diphthongs containing j
+j -> w / _ (::vowel::)
+
+% Ambiguity between j and ĵ
+ĵ -> q / _

@@ -218,6 +218,7 @@ A few notes are in order regarding this data structure:
 | deu-Latn-np | German†                 |
 | deu-Latn-nar| German (more phonetic)  |
 | eng-Latn    | English‡                |
+| epo-Latn    | Esperanto               |
 | fas-Arab    | Farsi (Perso-Arabic)    |
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
