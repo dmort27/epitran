@@ -270,6 +270,7 @@ A few notes are in order regarding this data structure:
 | pan-Guru    | Punjabi (Eastern)       |
 | pol-Latn    | Polish                  |
 | por-Latn    | Portuguese              |
+| quy-Latn    | Ayachuco Quechua        |
 | ron-Latn    | Romanian                |
 | run-Latn    | Rundi                   |
 | rus-Cyrl    | Russian                 |
