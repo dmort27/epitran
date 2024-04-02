@@ -1,0 +1,20 @@
+::highfrontvowel:: = i|y
+::backvowel:: = u|o|ɑ
+::consonant:: = b|k|d|f|g|h|j|l|m|n|p|kv|r|s|t|v|ks|ts
+::vowel:: = i|e|æ|y|ø|u|o|ɑ
+::frontvowel:: = i|e|æ|y|ø
+::anycharacter:: = i|e|æ|y|ø|u|o|ɑ|b|k|d|f|g|h|j|l|m|n|p|kv|r|s|t|v|ks|ts
+::u_end_diphthongs:: = ɑu|ou|eu|iu
+
+s -> x / _ r
+h -> ç / (::highfrontvowel::) _ (::consonant::)
+h -> x / (::backvowel::) _ (::consonant::)
+h -> ɦ / (::vowel::) _ (::vowel::)
+m -> ɱ / _ f
+n -> n̪ / _ t
+n -> n̪ / t _
+l -> l̪ / _ t
+l -> l̪ / t _
+ʋ -> w / (::u_end_diphthongs::) _
+n -> ŋ / _ k
+g -> ŋ / _ n
