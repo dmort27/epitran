@@ -1,0 +1,9 @@
+
+% Rule 7) Post-processing for Word-initial Fricatives (Remove temporary characters)
+8 -> 0 / _
+
+% Rule 8) Alveolars become palatalized when followed by i or j
+t -> tʲ / _ [ij]
+n -> nʲ / _ [ij]
+s -> sʲ / _ [ij]
+l -> lʲ / _ [ij]
