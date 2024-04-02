@@ -310,6 +310,7 @@ A few notes are in order regarding this data structure:
 | wuu-Latn    | Shanghainese Wu (Wiktionary) |
 | xho-Latn    | Xhosa                   |
 | yor-Latn    | Yoruba                  |
+| yue-Latn    | Cantonese               | 
 | zha-Latn    | Zhuang                  |
 | zul-Latn    | Zulu                    |
 
