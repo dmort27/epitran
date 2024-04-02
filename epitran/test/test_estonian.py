@@ -8,7 +8,7 @@ import unicodedata
 import epitran
 
 
-class TestQuechua(unittest.TestCase):
+class TestEstonian(unittest.TestCase):
     def setUp(self):
         self.epi = epitran.Epitran('est-Latn')
 
