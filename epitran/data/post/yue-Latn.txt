@@ -1,11 +1,26 @@
-% note: any word-final rules need to
-%   account for the tones already being word-final in Jyutping
+::tones:: = ˥|˧|˧|˨˩|˩˧|˨
 
-% Deaspirate word-finally
+% 软腭音
+jy -> ju / _ (ŋ|k) 
 
-ʰ -> 0 / _ [˩˨˧˦˥]+ #
+% 齿龈音
+y -> jy / _ (n|t)
+œ -> ɵ / _ (n|t)
 
-% Make isolated nasals syllabic
 
-m -> m̩ / # _ [˩˨˧˦˥]+ #
-ŋ -> ŋ̩ / # _ [˩˨˧˦˥]+ #
+% other wikipedia rules
+yu -> y / _ (n|t)
+a -> ɐ / _ (i|u)
+ɛ -> e / _ i
+ɔ -> o / _ u
+u -> o / _ (ŋ|k)             
+
+% handle change for tone duplication at the end of words: ex. aai6
+1(::tones::) -> ˥ / _ #
+2(::tones::) -> ˧˥ / _ #
+3(::tones::) -> ˧ / _ #
+4(::tones::) -> ˨˩ / _ #
+5(::tones::) -> ˩˧ / _ #
+6(::tones::) -> ˨ / _ #    
+˩˧ -> ˨˧ / _ #
+˧˥ -> ˨˥ / _ #
