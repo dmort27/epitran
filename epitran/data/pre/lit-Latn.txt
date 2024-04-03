@@ -1,0 +1,22 @@
+% Leave diacritics intact in a and e; relevant for phonological realization
+á -> a/ / _
+à -> a` / _
+ã -> a~ / _
+é -> e/ / _
+è -> e` / _
+ẽ -> e~ / _
+
+% Strip all other diacritics
+ė́|ė̀|ė̃ -> ė / _
+ą́|ą̀|ą̃ -> ą / _
+ę́|ę̀|ę̃ -> ę / _
+í|ì|ĩ -> i / _
+į́|į̀|į̃ -> į / _
+ó|ò|õ -> o / _
+ú|ù|ũ -> u / _
+ū́|ū̀|ū̃ -> ū / _
+ų́|ų̀|ų̃ -> ų / _
+ý|ỳ|ỹ -> y / _
+ḿ|m̀|m̃ -> m / _
+ń|ǹ|ñ -> n / _
+ŕ|r̀|r̃ -> r / _
