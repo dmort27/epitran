@@ -1,8 +1,6 @@
 ::consonant:: = b|v|z|c|ch|d|f|g|gu|ll|c|qu|l|m|n|ñ|nh|p|r|rr|s|t|x
 ::vowel:: = a|á|e|é|i|í|ï|o|ó|u|ú|ü|y
 
-ph -> f / _
-
 gu -> g / _ (i|e)
 gu -> gü / _ (a|o|u)
 
