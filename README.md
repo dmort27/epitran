@@ -282,6 +282,7 @@ A few notes are in order regarding this data structure:
 | spa-Latn    | Spanish                 |
 | spa-Latn-eu | Spanish (Iberian)       |
 | sqi-Latn    | Albanian                |
+| srp-Latn    | Serbian                 |
 | swa-Latn    | Swahili                 |
 | swa-Latn-red| Swahili (reduced)       |
 | swe-Latn    | Swedish                 |
