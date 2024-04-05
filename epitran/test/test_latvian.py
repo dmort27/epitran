@@ -17,7 +17,7 @@ class TestLatvian(unittest.TestCase):
         self.assertEqual(tr, 'igdiɛna')
     def test_(self):
         tr = self.epi.transliterate('ģērbt ')
-        self.assertEqual(tr, 'ɟeːrpt')
+        self.assertEqual(tr, 'ɟɛːrpt')
     def test_(self):
         tr = self.epi.transliterate('bungas')
         self.assertEqual(tr, 'buŋgas')
@@ -29,7 +29,7 @@ class TestLatvian(unittest.TestCase):
         self.assertEqual(tr, 'vaːrdniːt͡sa')
     def test_(self):
         tr = self.epi.transliterate('mežs')
-        self.assertEqual(tr, 'meʃː')
+        self.assertEqual(tr, 'mɛʃː')
     def test_(self):
         tr = self.epi.transliterate('celts')
         self.assertEqual(tr, 't͡sælt͡s')
@@ -42,35 +42,3 @@ class TestLatvian(unittest.TestCase):
     def test_(self):
         tr = self.epi.transliterate('režīms')
         self.assertEqual(tr, 'rɛʒiːms')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'bob')
-'''
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-    def test_(self):
-        tr = self.epi.transliterate('dadži')
-        self.assertEqual(tr, 'dad͡ʒi')
-'''

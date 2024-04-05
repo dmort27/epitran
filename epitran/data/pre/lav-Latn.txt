@@ -9,7 +9,7 @@
 %voiced obstruents
 ::vobs:: = dz|dž|v|g|b|z|d|ž
 %all palatals
-::palatals:: = j|ķ|ģ|ļ|ņ|š|ž|č|dž|i|ī|e|ē|ie|ei|l
+::palatals:: = j|ķ|ģ|ļ|ņ|š|ž|č|dž|i|ī|e|ē|ie|ei
 
 % e is ɛ around palatals, ae otherwise
 % (not always perfect but pattern is irregular)
