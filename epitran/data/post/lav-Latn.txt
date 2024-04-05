@@ -1,0 +1,8 @@
+% post processing for Latvian
+
+% velarizes nasal while preserving the velar consonant
+nk -> ŋk / _
+ng -> ŋg / _
+
+% o -> dipthong non-word-initially
+uɔ -> o / # _
