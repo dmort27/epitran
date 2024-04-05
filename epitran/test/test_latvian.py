@@ -6,13 +6,9 @@ from __future__ import unicode_literals
 
 import unittest
 
-import epitran
-
-
 class TestLatvian(unittest.TestCase):
     def setUp(self):
         self.epi = epitran.Epitran('lav-Latn')
-
     def test_(self):
         tr = self.epi.transliterate('dadži')
         self.assertEqual(tr, 'dad͡ʒi')
@@ -46,6 +42,9 @@ class TestLatvian(unittest.TestCase):
     def test_(self):
         tr = self.epi.transliterate('režīms')
         self.assertEqual(tr, 'rɛʒiːms')
+    def test_(self):
+        tr = self.epi.transliterate('dadži')
+        self.assertEqual(tr, 'bob')
 '''
     def test_(self):
         tr = self.epi.transliterate('dadži')
