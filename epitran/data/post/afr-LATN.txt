@@ -1,0 +1,21 @@
+::vowel:: = a|á|ä|e|é|è|ê|ë|i|í|î|ï|o|ó|ô|ö|u|ú|û|ü|ý|y|A|Á|Ä|E|É|È|Ê|Ë|I|Í|Î|Ï|O|Ó|Ô|Ö|U|Ú|Û|Ü|Ý|Y
+::consonant:: = b|c|d|f|g|h|j|k|l|m|n|ŉ|p|q|r|s|t|v|w|x|z|B|C|D|F|G|H|J|K|L|M|N|P|Q|R|S|T|V|W|X|Z
+::ipa:: = χ|ɛ|ː|ɱ
+
+%Fixing last case of sonorant merging
+n -> ŋ / _χ
+
+%Fixing end of word
+0 -> ɛː / _#
+
+%Fixing sonorant merging
+0 -> ɱ / _(f|v)
+
+%Fixing /g/ before other letters
+χ -> g / (l|r)_e
+
+%Fixing middle of word
+0 -> ŋ / _(c|k|q|x)
+
+%Fixing consonant dependent /w/
+v -> w / (::consonant::)_

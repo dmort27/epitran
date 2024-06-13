@@ -1,0 +1,26 @@
+::vowel:: = a|á|ä|e|é|è|ê|ë|i|í|î|ï|o|ó|ô|ö|u|ú|û|ü|ý|y|A|Á|Ä|E|É|È|Ê|Ë|I|Í|Î|Ï|O|Ó|Ô|Ö|U|Ú|Û|Ü|Ý|Y
+::consonant:: = b|c|d|f|g|h|j|k|l|m|n|ŉ|p|q|r|s|t|v|w|x|z|B|C|D|F|G|H|J|K|L|M|N|P|Q|R|S|T|V|W|X|Z|ʃ
+
+%Context : end of word
+b -> p / _#
+d -> t / _#
+gh -> k / _#
+z -> s / _#
+ê -> 0 / _#
+
+%Context : beginning of word
+tj -> tʃ / #_
+
+%Context : before/between other letters
+tj -> kj / _ie
+c -> s / _(i|e|y)
+n -> 0 / _(c|k|q|x)
+
+%Context: sonorant merging
+n -> m / _(p|b)
+n -> 0 / _(f|v)
+
+%Context: Double forms
+gg -> g /_
+ûe -> û /_
+oy -> oi /_
