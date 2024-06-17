@@ -1,0 +1,52 @@
+% all rules should be formatted as: a -> b / X _ Y
+
+%vowels
+::vowels:: = a|ā|e|ē|i|ī|o|u|ū
+%short vowels
+::shortvs:: = a|e|i|o|u
+%voiceless obstruents
+::unvobs:: = c|č|f|h|k|p|s|t|š
+%voiced obstruents
+::vobs:: = dz|dž|v|g|b|z|d|ž
+%all palatals
+::palatals:: = j|ķ|ģ|ļ|ņ|š|ž|č|dž|i|ī|e|ē|ie|ei
+
+% e is ɛ around palatals, ae otherwise
+% (not always perfect but pattern is irregular)
+e -> q / _ ::palatals::
+e -> q / ::palatals:: _
+ē -> y / _ ::palatals::
+ē -> y / ::palatals:: _
+
+% devoicing before unvoiced consonants
+b -> p / _ ::unvobs::
+d -> t / _ ::unvobs::
+g -> k / _ ::unvobs::
+z -> s / _ ::unvobs::
+ž -> š / _ ::unvobs::
+dz -> c / _ ::unvobs::
+dž -> č / _ ::unvobs::
+
+% voicing assimilation before voiced consonants
+p -> b / _ ::vobs::
+t -> d / _ ::vobs::
+k -> g / _ ::vobs::
+s -> z / _ ::vobs::
+š -> ž / _ ::vobs::
+c -> dz / _ ::vobs::
+č -> dž / _ ::vobs::
+
+% short vowel + glide = dipthong
+j -> i / ::shortvs:: _
+v -> u / ::shortvs:: _
+
+% merging of similar fricatives
+s -> 0 / š _
+žs -> šš / _
+s -> š / _ č
+
+% word final digraphs
+ds -> c / _ #
+ts -> c / _ #
+
+% c -> dz / _ d
