@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 
 import unittest
+import epitran
 
 class TestLatvian(unittest.TestCase):
     def setUp(self):
