@@ -2,7 +2,7 @@
 ::consonant:: = b|d|f|g|h|j|k|l|m|n|p|r|s|š|z|ž|t|v
 
 ::devoicingset:: = p|b|d|t|g|k|s|h|š|z|ž|f
-::alveolars:: = 
+::alveolars:: = t|d|n|l|r|s|z
 
 % Rule 2) Voiced Stops become voiceless before or after a set of characters
 % b -> p / _ (::devoicingset::) | (::devoicingset::) _
