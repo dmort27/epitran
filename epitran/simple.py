@@ -12,7 +12,7 @@ import regex
 
 import panphon
 from jamo import h2j, j2hcj
-from g2pk import G2p
+# from g2pk import G2p
 from epitran.exceptions import DatafileError, MappingError, FeatureValueError
 from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor

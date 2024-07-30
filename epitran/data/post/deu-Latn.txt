@@ -1,42 +1,117 @@
-::vowel:: = a|aː|e|eː|i|iː|o|oː|u|uː|y|yː|ø|øː|au|oy|ai
-::consonant:: = b|k|x|d|d͡ʒ|t|f|ɡ|ç|j|l|m|n|ŋ|p|p͡f|v|ʀ|s|ʃ|s|t͡ʃ|t͡s|C
-::diphthong:: = ai|au|oy
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Laxing before CC
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+::vowel:: = A|Æ|E|I|O|Ø|U|Y|a|aː|e|eː|ɛ|ɛː|i|iː|ɪ|o|oː|ɔ|u|uː|ʊ|y|yː|ʏ|ø|øː|œ|aʊ̯|oɪ̯|aɪ̯|ə
+::consonant:: = b|k|x|d|d͡ʒ|t|f|ɡ|ç|j|l|m|n|ŋ|p|p͡f|v|ʀ|s|ʃ|s|t͡ʃ|t͡s|X
+::vlesscons:: = p|t|k|f|s|x|X|ç|ʃ|t͡s|t͡ʃ|p͡f
 
-i -> ɪ / _(::consonant::)(::consonant::)
-y -> ʏ / _(::consonant::)(::consonant::)
-e -> ɛ / _(::consonant::)(::consonant::)
-ø -> œ / _(::consonant::)(::consonant::)
-ɑ -> a / _(::consonant::)(::consonant::)
-o -> ɔ / _(::consonant::)(::consonant::)
-u -> ʊ / _(::consonant::)(::consonant::)
+Iɡ -> ɪç / _ #
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Lengthen tense vowels
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The short vowels
 
-0 -> ː / (ɑ|æ|e|i|o|u|y|ø)_
-ː -> 0 / (::diphthong::)_
+A -> a / _ (::consonant::)(::consonant::)
+A -> a / _ D
+% A -> a / _ (::consonant::)#
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Delete C indicating double consonant
-% and H indicating long-tense
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Æ -> ɛ / _ (::consonant::)(::consonant::)
+Æ -> ɛ / _ D
+Æ -> ɛ / _ (::consonant::)#
 
-C -> 0 / _
-H -> 0 / _
+bE -> bə / # _
+ɡE -> ɡə / # _
+E -> ə / (::vowel::|m|n|l|r|b|d|ɡ|p|t|k|X) _ (l|m|n)#
+E -> ə / _ #
+E -> ɛ / _ (::consonant::)(::consonant::)
+E -> ɛ / _ D
+% E -> ɛ / _ (::consonant::)#
+% Handle -er, -ers, -erm
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Handling of /ʀ/
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+I -> ɪ / _ (::consonant::)(::consonant::)
+I -> ɪ / _ D
+% I -> ɪ / _ (::consonant::)#
 
-əʀ -> ɐ / _ #
-% ʀ -> ɐ / (::vowel::) _ 
+O -> ɔ / _ (::consonant::)(::consonant::)
+O -> ɔ / _ D
+% O -> ɔ / _ (::consonant::)#
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Nasal place assimilation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Ø -> œ / _ (::consonant::)(::consonant::)
+Ø -> œ / _ D
+% Ø -> œ / _ (::consonant::)#
+
+U -> ʊ / _ (::consonant::)(::consonant::)
+U -> ʊ / _ D
+U -> ʊ / _ (::consonant::)#
+
+Y -> ʏ / _ (::consonant::)(::consonant::)
+Y -> ʏ / _ D
+% Y -> ʏ / _ (::consonant::)#
+
+D -> 0 / _ 
+
+% Syllabic sonorants
+ɛnd -> n̩d / _ #
+əl -> l̩ / (::vowel::)(::consonant::)+ _ (::consonant::)?#
+əm -> m̩ / (::vowel::)(::consonant::)+ _ (::consonant::)?#
+ən -> n̩ / (::vowel::)(::consonant::)+ _ (::consonant::)?#
+
+% Final devoicing
+d -> t / _ #
+b -> p / _ #
+ɡ -> k / _ #
+d͡ʒ -> t͡ʃ / _ #
+v -> f / _ #
+% d -> t / (::vowel::)(::consonant::)* _ (::consonant::)((::vowel::)|#)
+% b -> p / (::vowel::)(::consonant::)* _ (::consonant::)((::vowel::)|#)
+% d͡ʒ -> t͡ʃ / (::vowel::)(::consonant::)* _ (::consonant::)((::vowel::)|#)
+% v -> f / (::vowel::)(::consonant::)* _ (::consonant::)((::vowel::)|#)
+% Add case for words like Jagd → jaːkt
+d -> t / _ (::vlesscons::)#
+b -> p / _ (::vlesscons::)#
+ɡ -> k / _ (::vlesscons::)#
+
+Er -> ɐ / _ (s)?#
+
+% The long vowels
+A -> aː / _
+Æ -> ɛː / _
+E -> ɛː / _
+I -> iː / _
+O -> oː / _
+Ø -> øː / _
+U -> uː / _
+Y -> yː / _
+
+% Kludge
+ː -> 0 / _ (::consonant::)(::consonant::)
+
+% Ichlaut and Auchlaut
+X -> ç / (iː|i|ɪ|eː|e|ɛ|ɛː|ø:|ø|œ|yː|y|ʏ)̯? _
+X -> k / _ (s)
+X -> x / _
+
+r -> 0 / aː _ #
+ɛːr -> ɐ / ̯ _ #
+ɛːr -> ɛɐ̯ / # _ 
+r -> ɐ / ̯ _ #
+r -> ɐ̯ / #e _
+r -> ɐ̯ / #he _
+r -> ɐ̯ / #ve _
+r -> ɐ̯ / #ze _
+r -> ɐ̯ / ː _ #
+r -> ɐ̯  / _ (::consonant::)#
+
+% ː -> 0 / (::vowel::)(::consonant::)+(a|e|ɛ|ø|i|y|o|u) _
+
+h -> 0 / (::vowel::) _ (::vowel::)
+
+Z -> s / _ #
+Z -> t͡s / _
+
+s -> ʃ / # _ (t|p)
+s -> z / # _
+s -> z / [^͡] _ (::vowel::)
+ß -> s / _ 
+KS -> ks / _ 
+C -> s / # _ (i|iː|e|eː|ɛ|ɛː)
+C -> k / _ 
 
 n -> ŋ / _ k
+nɡ -> ŋ / _ 
+
