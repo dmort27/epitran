@@ -5,18 +5,21 @@
 ::alveolars:: = t|d|n|l|r|s|z
 
 % Rule 2) Voiced Stops become voiceless before or after a set of characters
-% b -> p / _ (::devoicingset::) | (::devoicingset::) _
-% d -> t / _ (::devoicingset::) | (::devoicingset::) _
-g -> k / _ (::devoicingset::) | (::devoicingset::) _
+b -> p / _ (::devoicingset::)|(::devoicingset::)
+b -> p / (::devoicingset::)|(::devoicingset::)_
+d -> t / _ (::devoicingset::)|(::devoicingset::)
+d -> t / (::devoicingset::)|(::devoicingset::)_
+g -> k / _(::devoicingset::)|(::devoicingset::)
+g -> k / (::devoicingset::)|(::devoicingset::)_
 
 % Rule 3) Word initial h gets removed
-h -> 0 / # _
+h -> 0 / #_
 
 % Rule 4) j-insertion between vowels
-üü -> üi / _ (::vowel::)
-0 -> j / i _ (::vowel::)
+üü -> üi / _(::vowel::)
+0 -> j / i _(::vowel::)
 
 % Rule 7) Word-Initial f or š
-f -> f8 / # _
-š -> š8 / # _
+f -> f8 / #_
+š -> š8 / #_
 
