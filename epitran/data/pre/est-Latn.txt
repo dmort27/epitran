@@ -1,0 +1,22 @@
+::vowel:: = a|e|i|o|u|õ|ä|ö|ü
+::consonant:: = b|d|f|g|h|j|k|l|m|n|p|r|s|š|z|ž|t|v
+
+::devoicingset:: = p|b|d|t|g|k|s|h|š|z|ž|f
+::alveolars:: = 
+
+% Rule 2) Voiced Stops become voiceless before or after a set of characters
+% b -> p / _ (::devoicingset::) | (::devoicingset::) _
+% d -> t / _ (::devoicingset::) | (::devoicingset::) _
+g -> k / _ (::devoicingset::) | (::devoicingset::) _
+
+% Rule 3) Word initial h gets removed
+h -> 0 / # _
+
+% Rule 4) j-insertion between vowels
+üü -> üi / _ (::vowel::)
+0 -> j / i _ (::vowel::)
+
+% Rule 7) Word-Initial f or š
+f -> f8 / # _
+š -> š8 / # _
+

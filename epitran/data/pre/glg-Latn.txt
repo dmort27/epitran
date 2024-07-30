@@ -1,0 +1,15 @@
+::consonant:: = b|v|z|c|ch|d|f|g|gu|ll|c|qu|l|m|n|ñ|nh|p|r|rr|s|t|x
+::vowel:: = a|á|e|é|i|í|ï|o|ó|u|ú|ü|y
+
+gu -> g / _ (i|e)
+gu -> gü / _ (a|o|u)
+
+c -> k / # _
+
+% End of word e,o,a are realized as ɪ, ʊ, ɐ
+e -> ɪ / _ #
+o -> ʊ / _ #
+a -> ɐ / _ #
+
+% Initial r is realized as /r/
+r -> rr / # _

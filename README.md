@@ -218,6 +218,7 @@ A few notes are in order regarding this data structure:
 | deu-Latn-np | German†                 |
 | deu-Latn-nar| German (more phonetic)  |
 | eng-Latn    | English‡                |
+| epo-Latn    | Esperanto               |
 | fas-Arab    | Farsi (Perso-Arabic)    |
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
@@ -270,6 +271,7 @@ A few notes are in order regarding this data structure:
 | pan-Guru    | Punjabi (Eastern)       |
 | pol-Latn    | Polish                  |
 | por-Latn    | Portuguese              |
+| quy-Latn    | Ayacucho Quechua / Quechua Chanka       |
 | ron-Latn    | Romanian                |
 | run-Latn    | Rundi                   |
 | rus-Cyrl    | Russian                 |
@@ -280,6 +282,7 @@ A few notes are in order regarding this data structure:
 | spa-Latn    | Spanish                 |
 | spa-Latn-eu | Spanish (Iberian)       |
 | sqi-Latn    | Albanian                |
+| srp-Latn    | Serbian                 |
 | swa-Latn    | Swahili                 |
 | swa-Latn-red| Swahili (reduced)       |
 | swe-Latn    | Swedish                 |
@@ -308,6 +311,7 @@ A few notes are in order regarding this data structure:
 | wuu-Latn    | Shanghainese Wu (Wiktionary) |
 | xho-Latn    | Xhosa                   |
 | yor-Latn    | Yoruba                  |
+| yue-Latn    | Cantonese               | 
 | zha-Latn    | Zhuang                  |
 | zul-Latn    | Zulu                    |
 

@@ -125,3 +125,34 @@ class EpihanTraditional(Epihan):
         self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
+
+class EpiJpan(object):
+    def __init__(self, ligatures=False, cedict_file=None, tones=False):
+        """Construct epitran object for Japanese
+
+        Args:
+            ligatures (bool): if True, use ligatures instead of standard IPA
+            cedict_file (str): path to src dictionary file
+        """
+        if not cedict_file:
+            print(os.path.dirname(__file__))
+            cedict_file = os.path.join(os.path.dirname(__file__), 'data', 'rules', 'ja.txt')
+        self.cedict = cedict.CEDictTrieForJapanese(cedict_file)
+        self.regexp = None
+        self.tones = tones
+        
+    def transliterate(self, text, normpunc=False, ligatures=False):
+        tokens = self.cedict.tokenize(text)
+        # print(tokens)
+        ipa_tokens = []
+        for token in tokens:
+            if token in self.cedict.character:
+                ipa = self.cedict.character[token]
+                ipas = u''.join(ipa).lower()
+                ipa_tokens.append(ipas.replace(u',', u''))
+            else:
+                if normpunc:
+                    token = self.normalize_punc(token)
+                ipa_tokens.append(token)
+                
+        return u''.join(ipa_tokens)
