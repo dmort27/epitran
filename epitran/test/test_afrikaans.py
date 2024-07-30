@@ -2,13 +2,11 @@
 from __future__ import unicode_literals
 
 import unittest
-import unicodedata
-
 import epitran
 
 class TestAfrikaans(unittest.TestCase):
   def setUp(self):
-    self.epi = epitran.Epitran("afr-LATN")
+    self.epi = epitran.Epitran("afr-Latn")
     
     def test_(self):
       res = self.epi.transliterate("kind")
