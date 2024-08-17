@@ -1,42 +1,43 @@
-::initialconsonants:: = k|kʰ|k͈|n|t|t͈|ɾ|m|p|p͈|s|s͈|t͡ɕ|t͡ɕ͈|t͡ɕʰ|tʰ|pʰ|h
-::vowels:: = i|e|ø|we|ɛ|a|o|u|ʌ|ɯ|ɰi|je|jɛ|ja|jo|ju|jʌ|ɥi|wi|we|wɛ|wa|wʌ
+% (not used) ::initialconsonants:: = k|kʰ|k͈|n|t|t͈|ɾ|m|p|p͈|s|s͈|t͡ɕ|t͡ɕ͈|t͡ɕʰ|tʰ|pʰ|h
+::vowels:: = i|e|ɛ|a|o|u|ʌ|ɯ|ɰi|je|jɛ|ja|jo|ju|jʌ|wi|we|wɛ|wa|wʌ
 % (not used) ::finalconsonants:: = k̚|ŋ|t̚|n|l|p̚|m
 
-% remove ㅇ if followed by a vowel
+% remove ㅇ if followed by a vowel (if it is in initial consonant position)
 ŋ -> 0 / _ (::vowels::)
 
-% change to medial allophone if surrounded by vowels
-k -> g / (::vowels::) _ (::vowels::)
-t -> d / (::vowels::) _ (::vowels::)
-t͡ɕ -> dʑ / (::vowels::) _ (::vowels::)
-p -> b / (::vowels::) _ (::vowels::)
-l -> ɾ / (::vowels::) _ (::vowels::)
+% (allophone) Change lateral to retroflex if surrounded by vowels
+% l -> ɾ / (::vowels::) _ (::vowels::)
 
+% (Handled by g2pk) Simplification of consonant clusters to single consonants at coda 
+% ks -> k / _ (::initialconsonants::|#)
+% nt͡ɕ -> n / _ (::initialconsonants::|#)
+% nh -> n / _ (::initialconsonants::|#)
+% lp -> l / _ (::initialconsonants::|#)
+% ls -> l / _ (::initialconsonants::|#)
+% ltʰ -> l / _ (::initialconsonants::|#)
+% lh -> l / _ (::initialconsonants::|#)
+% ps -> p / _ (::initialconsonants::|#)
+% lk -> k / _ (::initialconsonants::|#)
+% lm -> m / _ (::initialconsonants::|#)
+% lpʰ -> pʰ / _ (::initialconsonants::|#)
 
-% change to final allophone if followed by an initialconsonant
-k̚s͈ -> k̚ / _ (::initialconsonants::|#)
-lɡ -> k̚ / _ (::initialconsonants::|#)
-ndʑ -> n / _ (::initialconsonants::|#)
-nh -> n / _ (::initialconsonants::|#)
-ls͈ -> l / _ (::initialconsonants::|#)
-ltʰ -> l / _ (::initialconsonants::|#)
-lh -> l / _ (::initialconsonants::|#)
-lb -> p̚ / _ (::initialconsonants::|#)
-p̚s͈ -> p̚ / _ (::initialconsonants::|#)
-lpʰ -> p̚ / _ (::initialconsonants::|#)
-lm -> m / _ (::initialconsonants::|#)
+% (Handled by g2pk) change consonants regarding phonological rule that limits the final consonants in a syllable to one of seven sounds
+% kʰ -> k / _ (::initialconsonants::|#)
+% k͈ -> k / _ (::initialconsonants::|#)
+% tʰ -> t / _ (::initialconsonants::|#)
+% s -> t / _ (::initialconsonants::|#)
+% s͈ -> t / _ (::initialconsonants::|#)
+% t͡ɕ -> t / _ (::initialconsonants::|#)
+% t͡ɕʰ -> t / _ (::initialconsonants::|#)
+% pʰ -> p / _ (::initialconsonants::|#)
 
-k -> k̚ / _ (::initialconsonants::|#)
-kʰ -> k̚ / _ (::initialconsonants::|#)
-k͈ -> k̚ / _ (::initialconsonants::|#)
-t -> t̚ / _ (::initialconsonants::|#)
-tʰ -> t̚ / _ (::initialconsonants::|#)
-s -> t̚ / _ (::initialconsonants::|#)
-s͈ -> t̚ / _ (::initialconsonants::|#)
-t͡ɕ -> t̚ / _ (::initialconsonants::|#)
-t͡ɕ͈ -> t̚ / _ (::initialconsonants::|#)
-t͡ɕʰ -> t̚ / _ (::initialconsonants::|#)
-tʰ -> t̚ / _ (::initialconsonants::|#)
-b -> p̚ / _ (::initialconsonants::|#)
-p -> p̚ / _ (::initialconsonants::|#)
-pʰ -> p̚ / _ (::initialconsonants::|#)
+% (allophone) change plosives to unreleased stops at end of the syllable
+% k -> k̚ / _ (::initialconsonants::|#)
+% t -> t̚ / _ (::initialconsonants::|#)
+% p -> p̚ / _ (::initialconsonants::|#)
+
+% (allophone) Change unvoiced to voiced if surrounded by vowels
+% p -> b / (::vowels::) _ (::vowels::)
+% t -> d / (::vowels::) _ (::vowels::)
+% k -> g / (::vowels::) _ (::vowels::)
+% t͡ɕ -> d͡z / (::vowels::) _ (::vowels::)
