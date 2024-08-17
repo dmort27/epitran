@@ -61,8 +61,8 @@ class SimpleEpitran(object):
 
         self.nils = defaultdict(int)
         
-        if code == "kor-Hang":
-            self.hang_g2p = G2p()
+        # if code == "kor-Hang":
+        #     sellsf.hang_g2p = G2p()
 
 
     def get_tones(self) -> bool:
@@ -226,7 +226,7 @@ class SimpleEpitran(object):
                 # from jamo import h2j, j2hcj
                 # from g2pk import G2p
                 # g2p = G2p()
-                text = self.hang_g2p(text)
+                # text = self.hang_g2p(text)
                 text = j2hcj(h2j(text))
         except Exception as e:
             print(f"Error during Korean transliteration: {e}")
