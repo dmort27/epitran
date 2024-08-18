@@ -249,6 +249,7 @@ A few notes are in order regarding this data structure:
 | kir-Latn    | Kyrgyz (Latin)          |
 | kmr-Latn    | Kurmanji                |
 | kmr-Latn-red| Kurmanji (reduced)      |
+| kor-Hang    | Korean                  |
 | lao-Laoo    | Lao                     |
 | lij-Latn    | Ligurian                |
 | lsm-Latn    | Saamia                  |
