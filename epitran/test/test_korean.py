@@ -9,166 +9,138 @@ class TestKorean(unittest.TestCase):
     def setUp(self):
         self.epi = epitran.Epitran('kor-Hang')
 
-    ## Aspiration
-    def test_anta(self):
-        tr = self.epi.transliterate('않다')
-        self.assertEqual(tr, 'antʰa')
+    def test_vowels(self):        
+        # 제5항 다만3
+        for i, o in [
+            ("무늬", "muni"), ("희망", "himaŋ"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_silchi(self):
-        tr = self.epi.transliterate('싫지')
-        self.assertEqual(tr, 'silt͡ɕʰi')
+    def test_consonant_final(self):
+        # 제9항
+        for i, o in [
+            ("닦다", "takt͈a"), ("키읔", "kʰiɯk"), ("키읔과", "kʰiɯkk͈wa"),
+            ("옷", "ot"), ("웃다", "utt͈a"), ("있다", "itt͈a"),
+            ("젖", "t͡ɕʌt"), ("빚다", "pitt͈a"), ("꽃", "k͈ot"),
+            ("쫓다", "t͡ɕ͈ott͈a"), ("솥", "sot"), ("뱉다", "pɛtt͈a"),
+            ("앞", "ap"), ("덮다", "tʌpt͈a"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_tsohta(self):
-        tr = self.epi.transliterate('좋다')
-        self.assertEqual(tr, 't͡ɕotʰa')
+    def test_consonant_cluster_final(self):
+        # 제10항, 제11항
+        for i, o in [
+            ("넋", "nʌk"), ("넋과", "nʌkk͈wa"), ("앉다", "ant͈a"),
+            ("여덟", "jʌtʌl"), ("넓다", "nʌlt͈a"), ("외곬", "wekol"),
+            ("핥다", "halt͈a"), ("값", "kap"), ("없다", "ʌpt͈a"),
+            ("닭", "tak"), ("삶", "sam"), ("읊다", "ɯpt͈a"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_chukha(self):
-        tr = self.epi.transliterate('축하')
-        self.assertEqual(tr, 't͡ɕʰukʰa')
+    def test_aspiration(self):
+        # 제12항 1.
+        for i, o in [
+            ("놓고", "nokʰo"), ("좋던", "t͡ɕotʰʌn"), ("쌓지", "s͈at͡ɕʰi"),
+            ("각하", "kakʰa"), ("밝히다", "palkʰita"), ("맏형", "matʰjuŋ"),
+            ("좁히다", "t͡ɕopʰita"), ("넓히다", "nʌlpʰita"), ("꽃히다", "k͈ot͡ɕʰita"),
+            ("앉히다", "ant͡ɕʰita"), ("숱하다", "sutʰata")
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_palphida(self):
-        tr = self.epi.transliterate('밟히다')
-        self.assertEqual(tr, 'palpʰita')
+    def test_h(self):
+        # 제12항 2. 3. 4.
+        for i, o in [
+            ("닿소", "tas͈o"), ("많소", "mans͈o"), ("싫소", "sils͈o"),
+            ("놓는", "nonnɯn"), ("쌓네", "s͈anne"),
+            ("낳은", "naɯn"), ("닳아", "tala"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_hayathta(self):
-        tr = self.epi.transliterate('하얗다')
-        self.assertEqual(tr, 'hajatʰa')
+    def test_coda_onset(self):
+        # 제13항
+        for i, o in [
+            ("깎아", "k͈ak͈a"), ("옷이", "osi"), ("있어", "is͈ʌ"),
+            ("낮이", "nat͡ɕi"), ("꽃을", "k͈ot͡ɕʰɯl"), ("밭에", "patʰe"),
+            ("아프로", "apʰɯro")
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    ## Simplification of consonant cluster codas
-    def test_talk(self):
-        tr = self.epi.transliterate('닭')
-        self.assertEqual(tr, 'tak')
+    def test_palatalization(self):
+        # 제17항
+        for i, o in [
+            ("굳이", "kut͡ɕi"), ("밭이", "pat͡ɕʰi"), ("벼훑이", "pjʌhult͡ɕʰi"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_salm(self):
-        tr = self.epi.transliterate('삶')
-        self.assertEqual(tr, 'sam')
+    def test_assimilation(self):
+        # 제18항
+        for i, o in [
+            ("먹는", "muŋnɯn"), ("깎는", "k͈aŋnɯn"), ("키읔만", "kʰiɯkman"),
+            ("몫몫이", "moŋmoks͈i"), ("긁는", "kɯŋnɯn"), ("닫는", "tannɯn"),
+            ("짓는", "t͡ɕinnɯn"), ("있는", "innɯn"), ("맞는", "mannɯn"),
+            ("쫓는", "t͡ɕ͈onnɯn"), ("붙는", "punnɯn"), ("놓는", "nonnɯn"),
+            ("잡는", "t͡ɕamnɯn"), ("앞마당", "ammataŋ"), ("밟는", "pamnɯn"),
+            ("읊는", "ɯmnɯn"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_nok(self):
-        tr = self.epi.transliterate('넋')
-        self.assertEqual(tr, 'nʌk')
+    def test_nasalization(self):
+        # 제19항
+        for i, o in [
+            ("담력", "tamnjʌk"), ("강릉", "kaŋnɯŋ"),
+            ("막론", "maŋnon"), ("법리", "pʌmni"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    ## Seven consonant constraints for codas
-    def test_pak(self):
-        tr = self.epi.transliterate('밖')
-        self.assertEqual(tr, 'pak')
+    def test_liquidization(self):
+        # 제20항
+        for i, o in [
+            ("난로", "nallo"), ("칼날", "kʰallal"), ("물난리", "mullalli")
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_sut(self):
-        tr = self.epi.transliterate('숯')
-        self.assertEqual(tr, 'sut')
+    def test_tensification(self):
+        # 제23항, 제24항, 제25항
+        for i, o in [
+            ("국밥", "kukp͈ap"), ("깎다", "k͈ak͈t͈a"), ("넋받이", "nʌkp͈at͡ɕi"),
+            ("닭장", "takt͡ɕ͈aŋ"),
 
-    def test_pich(self):
-        tr = self.epi.transliterate('빚')
-        self.assertEqual(tr, 'pit')
+            ("뻗대다", "p͈ʌtt͈eta"), ("옷고름", "otk͈orɯm"), ("있던", "itt͈ʌn"),
+            ("꽂고", "k͈otk͈o"), ("꽃다발", "k͈ott͈apal"), ("낯설다", "nats͈ʌlta"),
 
-    def test_pit(self):
-        tr = self.epi.transliterate('빗')
-        self.assertEqual(tr, 'pit')
+            ("밭갈이", "patk͈ari"), ("곱돌", "kopt͈ol"), ("덮개", "tupk͈e"),
+            ("넓죽하다", "nʌpt͡ɕ͈ukʰata"), ("읊조리다", "ɯpt͡ɕ͈orita"), ("값지다", "kapt͡ɕ͈ita"),
 
-    ## Tensification
-    def test_kukpap(self):
-        tr = self.epi.transliterate('국밥')
-        self.assertEqual(tr, 'kukp͈ap')
+            ("신고", "sink͈o"), ("얹다", "ʌnt͡ɕ͈a"),
+            ("삼고", "samk͈o"), ("더듬지", "tʌtɯmt͡ɕ͈i"),
 
-    def test_kkakta(self):
-        tr = self.epi.transliterate('깎다')
-        self.assertEqual(tr, 'k͈akt͈a')
+            ("넓게", "nʌlk͈e"), ("핥다", "halt͈a"),
+            ("훑소", "huls͈o"), ("떫지", "t͈ʌlt͡ɕ͈i"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
-    def test_kapchida(self):
-        tr = self.epi.transliterate('값지다')
-        self.assertEqual(tr, 'kapt͈͡ɕita')
 
-    def test_deopkae(self):
-        tr = self.epi.transliterate('덮개')
-        self.assertEqual(tr, 'tʌpk͈ɛ')
-
-    def test_ipko(self):
-        tr = self.epi.transliterate('입고')
-        self.assertEqual(tr, 'ipk͈o')
-
-    def test_nokpadi(self):
-        tr = self.epi.transliterate('넋받이')
-        self.assertEqual(tr, 'nʌkp͈at͡ɕi')
-
-    def test_sakdon(self):
-        tr = self.epi.transliterate('삯돈')
-        self.assertEqual(tr, 'sakt͈on')
-
-    def test_padatda(self):
-        tr = self.epi.transliterate('받았다')
-        self.assertEqual(tr, 'patatt͈a')
-
-    ## Nasalization
-    def test_kungmul(self):
-        tr = self.epi.transliterate('국물')
-        self.assertEqual(tr, 'kuŋmul')
-
-    def test_doklip(self):
-        tr = self.epi.transliterate('독립')
-        self.assertEqual(tr, 'toŋnip')
-
-    def test_yeoklyu(self):
-        tr = self.epi.transliterate('역류')
-        self.assertEqual(tr, 'jʌŋnju')
-
-    def test_kamri(self):
-        tr = self.epi.transliterate('감리')
-        self.assertEqual(tr, 'kamni')
-
-    def test_ipron(self):
-        tr = self.epi.transliterate('입론')
-        self.assertEqual(tr, 'imnon')
-
-    def test_jeongri(self):
-        tr = self.epi.transliterate('정리')
-        self.assertEqual(tr, 't͡ɕʌŋni')
-
-    def test_heuknaemsae(self):
-        tr = self.epi.transliterate('흙냄새')
-        self.assertEqual(tr, 'hɯŋnɛmsɛ')
-
-    ## Liquidization
-    def test_umunron(self):
-        tr = self.epi.transliterate('음운론')
-        self.assertEqual(tr, 'ɯmullon')
-
-    def test_silla(self):
-        tr = self.epi.transliterate('신라')
-        self.assertEqual(tr, 'silla')
-
-    def test_kalnal(self):
-        tr = self.epi.transliterate('칼날')
-        self.assertEqual(tr, 'kʰallal')
-
-    def test_tallneun(self):
-        tr = self.epi.transliterate('닳는')
-        self.assertEqual(tr, 'tallɯn')
-
-    ## Check ll sequence
-    def test_ppalli(self):
-        tr = self.epi.transliterate('빨리')
-        self.assertEqual(tr, 'p͈alli')
-
-    ## Palatalization
-    def test_kutsi(self):
-        tr = self.epi.transliterate('굳이')
-        self.assertEqual(tr, 'kut͡ɕi')
-
-    def test_katsi(self):
-        tr = self.epi.transliterate('같이')
-        self.assertEqual(tr, 'kat͡ɕʰi')
-
-    def test_putida(self):
-        tr = self.epi.transliterate('붙이다')
-        self.assertEqual(tr, 'put͡ɕʰita')
-
-    ## Check linking sounds
-    def test_nala(self):
-        tr = self.epi.transliterate('날아')
-        self.assertEqual(tr, 'nala')
-
-    def test_boasseo(self):
-        tr = self.epi.transliterate('봤어')
-        self.assertEqual(tr, 'pwas͈ʌ')
+    def test_insertion(self):
+        # 제30항
+        for i, o in [
+            ("냇가", "nek͈a"), ("샛길", "sek͈il"), ("콧등", "kʰot͈ɯŋ"),
+            ("깃발", "kip͈al"), ("햇살", "hes͈al"), ("고갯짓", "koket͡ɕ͈it"),
+            ("콧날", "konnal"), ("뱃머리", "benmʌri"),
+            ("배갯잇", "bekennit"), ("깻잎", "k͈ennip"),
+        ]:
+            tr = self.epi.transliterate(i)
+            self.assertEqual(tr, o)
 
     # ## Exceptions: Tensification (verb stems that ends with -n or -m)
     # def test_anta(self):
@@ -214,3 +186,7 @@ class TestKorean(unittest.TestCase):
     # def test_bulkogi(self):
     #     tr = self.epi.transliterate('불고기')
     #     self.assertEqual(tr, 'pulkogi')
+
+
+if __name__ == '__main__':
+    unittest.main()
