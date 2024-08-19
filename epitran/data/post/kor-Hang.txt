@@ -1,50 +1,136 @@
-::initialconsonants:: = k|kʰ|k͈|n|t|t͈|ɾ|m|p|p͈|s|s͈|t͡ɕ|t͡ɕ͈|t͡ɕʰ|tʰ|pʰ|h
-::vowels:: = i|e|ɛ|a|o|u|ʌ|ɯ|ɰi|je|jɛ|ja|jo|ju|jʌ|wi|we|wɛ|wa|wʌ
-::nasals:: = n|m
-::finalObs:: = k|t|p
-::finalforNasal:: = k|t|m|p|ŋ
-::jvowel:: = i|je|jɛ|ja|jo|ju|jʌ
+% We closely follow the Korean pronunciation rulebook, released by the National Institute of Korean Language.
+% https://korean.go.kr/kornorms/regltn/regltnView.do?regltn_code=0002&regltn_no=346#a346
+% We include the rule number with the English summary.
+   %  #2~5. Consonants and Vowels (자음과 모음)
+   %  #6~7. Long/Short vowel contrast (음의 길이) % Excluded following modern Korean pronunciation.
+   % #8~16. Pronunciation of coda (받침의 발음)
+   % #17~22. Assimilation (음의 동화)
+   % #23~28. Tensification (경음화) 
+   % #29~30. Phoneme addition (음의 첨가) % Excluded due to required dictionary mapping.
 
-% remove ㅇ if followed by a vowel (if it is in initial consonant position)
+% Followings are excluded from this implementation:
+    % 1) [X-OP] Optional phonological rule
+    % 2) [X-MF] Phonological changes due to morphology.
+    % 3) [X-Dict] Needs dictionary mapping
+ 
+
+% #2. Consonants of Korean. Note that ㅇ (ŋ) is excluded from initial consonants, because initial consonant ㅇ does not have sound value in Korean.
+% #3~5. Vowels of Korean. We merge ㅚ with ㅙ, following modern Korean.
+% 제2항 : 표준어의 자음은 다음 19개로 한다: ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ
+% 제3항 : 표준어의 모음은 다음 21개로 한다: ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ
+% 제4항 : ‘ㅏ ㅐ ㅓ ㅔ ㅗ ㅚ ㅜ ㅟ ㅡ ㅣ’는 단모음(單母音)으로 발음한다. 붙임 : ‘ㅚ, ㅟ’는 이중 모음으로 발음할 수 있다.
+% 제5항 : ‘ㅑ ㅒ ㅕ ㅖ ㅘ ㅙ ㅛ ㅝ ㅞ ㅠ ㅢ’는 이중 모음으로 발음한다.
+::initialconsonants:: = k|k͈|n|t|t͈|ɾ|m|p|p͈|s|s͈|t͡ɕ|t͈͡ɕ|t͡ɕʰ|kʰ|tʰ|pʰ|h
+::vowels:: = a|e|ja|je|ʌ|ɛ|jʌ|jɛ|o|wa|we|jo|u|wʌ|wɛ|wi|ju|ɯ|ɰi|i
+
+::initialNasals:: = n|m
+::finalObs:: = k|t|p
+::jvowels:: = i|je|jɛ|ja|jo|ju|jʌ
+::finalforNasal:: = m|ŋ|k|p
+
+% #13. Remove ㅇ(ŋ) if it is at the initial consonant position. 
+% 제13항 : 홑받침이나 쌍받침이 모음으로 시작된 조사나 어미, 접미사와 결합되는 경우에는, 제 음가대로 뒤 음절 첫소리로 옮겨 발음한다.
 ŋ -> 0 / _ (::vowels::)
 
-% change ɰi to i if preceded by consonant
+% #5-E3. Substitute /ɰi/ to /i/ if preceded by consonant.
+% 제5항-다만 3. 자음을 첫소리로 가지고 있는 음절의 ‘ㅢ’는 [ㅣ]로 발음한다.
 ɰi -> i / (::initialconsonants::) _
 
-% Substitution of lax to aspirated for consonant clusters with 'h'
-nht -> ntʰ / (::vowels::) _ (::vowels::)
+% #17.  Palatalization of coda /ltʰ/ if followed by /i/.
+% 제17항 : 받침 ‘ㄷ, ㅌ(ㄾ)’이 조사나 접미사의 모음 ‘ㅣ’와 결합되는 경우에는, [ㅈ, ㅊ]으로 바꾸어서 뒤 음절 첫소리로 옮겨 발음한다.
+ltʰ -> lt͡ɕʰ / (::vowels::) _ i
+
+% #24. Palatalization of /k/, /t/, /s/, /t͡ɕ/ if preceded by coda /nt͡ɕ/ or /lm/. 
+% 제24항 : 어간 받침 ‘ㄴ(ㄵ), ㅁ(ㄻ)’ 뒤에 결합되는 어미의 첫소리 ‘ㄱ, ㄷ, ㅅ, ㅈ’은 된소리로 발음한다.
+nt͡ɕk -> nt͡ɕk͈ / (::vowels::) _ (::vowels::)
+nt͡ɕt -> nt͡ɕt͈ / (::vowels::) _ (::vowels::)
+nt͡ɕs -> nt͡ɕs͈ / (::vowels::) _ (::vowels::)
+nt͡ɕt͡ɕ -> nt͡ɕt͈͡ɕ / (::vowels::) _ (::vowels::)
+lmk -> lmk͈ / (::vowels::) _ (::vowels::)
+lmt -> lmt͈ / (::vowels::) _ (::vowels::)
+lms -> lms͈ / (::vowels::) _ (::vowels::)
+lmt͡ɕ -> lmt͈͡ɕ / (::vowels::) _ (::vowels::)
+
+% #25. Palatalization of /k/, /t/, /s/, /t͡ɕ/ if preceded by coda /lp/ or /ltʰ/. 
+% 제25항 : 어간 받침 ‘ㄼ, ㄾ’ 뒤에 결합되는 어미의 첫소리 ‘ㄱ, ㄷ, ㅅ, ㅈ’은 된소리로 발음한다. <need to fix>
+lpk -> lpk͈ / (::vowels::) _ (::vowels::)
+lpt -> lpt͈ / (::vowels::) _ (::vowels::)
+lps -> lps͈ / (::vowels::) _ (::vowels::)
+lpt͡ɕ -> lpt͈͡ɕ / (::vowels::) _ (::vowels::)
+ltʰk -> ltʰk͈ / (::vowels::) _ (::vowels::)
+ltʰt -> ltʰt͈ / (::vowels::) _ (::vowels::)
+ltʰs -> ltʰs͈ / (::vowels::) _ (::vowels::)
+ltʰt͡ɕ -> ltʰt͈͡ɕ / (::vowels::) _ (::vowels::)
+
+% #12. /h/ at coda position
+% #12-1. Contraction of coda /h/ and lax consonants to aspirated consonants : /nh/, /lh/
+% 제12항 : 받침 ‘ㅎ’의 발음은 다음과 같다.
+% #12-1. ‘ㅎ(ㄶ, ㅀ)’ 뒤에 ‘ㄱ, ㄷ, ㅈ’이 결합되는 경우에는, 뒤 음절 첫소리와 합쳐서 [ㅋ, ㅌ, ㅊ]으로 발음한다.
 nhk -> nkʰ / (::vowels::) _ (::vowels::)
+nht -> ntʰ / (::vowels::) _ (::vowels::)
 nht͡ɕ -> nt͡ɕʰ / (::vowels::) _ (::vowels::)
-lht -> lhtʰ / (::vowels::) _ (::vowels::)
-lhk -> lhkʰ / (::vowels::) _ (::vowels::)
-lht͡ɕ -> lht͡ɕʰ / (::vowels::) _ (::vowels::)
-lph -> lpʰ / (::vowels::) _ (::vowels::)
+lhk -> lkʰ / (::vowels::) _ (::vowels::)
+lht -> ltʰ / (::vowels::) _ (::vowels::)
+lht͡ɕ -> lt͡ɕʰ / (::vowels::) _ (::vowels::)
+hk -> kʰ / (::vowels::) _ (::vowels::)
+ht -> tʰ / (::vowels::) _ (::vowels::)
+ht͡ɕ -> t͡ɕʰ / (::vowels::) _ (::vowels::)
+
+% #12-1-A1. Contraction of coda lax consonants and initial /h/ to aspirated consonants: /lk/, /lp/, /nt͡ɕ/
+% 12-1-붙임1. 받침 ‘ㄱ(ㄺ), ㄷ, ㅂ(ㄼ), ㅈ(ㄵ)’이 뒤 음절 첫소리 ‘ㅎ’과 결합되는 경우에도, 역시 두 음을 합쳐서 [ㅋ, ㅌ, ㅍ, ㅊ]으로 발음한다.
 lkh -> lkʰ / (::vowels::) _ (::vowels::)
+lph -> lpʰ / (::vowels::) _ (::vowels::)
 nt͡ɕh -> nt͡ɕʰ / (::vowels::) _ (::vowels::)
 
-% Substitution of lax to tensce for consonant clusters with 's'
-ks -> ks͈ / (::vowels::) _ (::vowels::)
-ls -> ls͈ / (::vowels::) _ (::vowels::)
-ps-> ps͈ / (::vowels::) _ (::vowels::)
+% #12-2. Contraction of coda /h/(/nh/, /lh/) and /s/ to /s͈/.
+% 12-2. ‘ㅎ(ㄶ, ㅀ)’ 뒤에 ‘ㅅ’이 결합되는 경우에는, ‘ㅅ’을 [ㅆ]으로 발음한다.
+nhs -> ns͈ / (::vowels::) _ (::vowels::)
+lhs -> ls͈ / (::vowels::) _ (::vowels::)
+hs -> s͈ / (::vowels::) _ (::vowels::)
 
-% Simplification of consonant clusters to single consonants at coda 
-palp -> pap / _ (::initialconsonants::)
-nʌlp -> nʌp / _ (::initialconsonants::)
-nh -> n / _ (::initialconsonants::|#)
+% #12-3. Substitution of /h/ if followed by /n/.
+% 12-3. ‘ㅎ’ 뒤에 ‘ㄴ’이 결합되는 경우에는, [ㄴ]으로 발음한다.
+hn -> nn / (::vowels::) _ (::vowels::)
+
+% #12-3-A1. Deletion of /h/ if followed by /n/: /nh/, /lh/
+% 12-3-붙임1. ‘ㄶ, ㅀ’ 뒤에 ‘ㄴ’이 결합되는 경우에는, ‘ㅎ’을 발음하지 않는다.
+nhn -> nn / (::vowels::) _ (::vowels::)
+lhn -> ln / (::vowels::) _ (::vowels::)
+
+% #12-4. Deletion of /h/ if preceded by vowel-initial suffix: /nh/, /lh/
+% 12-4. ‘ㅎ(ㄶ, ㅀ)’ 뒤에 모음으로 시작된 어미나 접미사가 결합되는 경우에는, ‘ㅎ’을 발음하지 않는다.
 nh -> n / (::vowels::) _ (::vowels::)
-lh -> l / _ (::initialconsonants::|#)
 lh -> l / (::vowels::) _ (::vowels::)
+h -> 0 / (::vowels::) _ (::vowels::)
+
+% #10. Simplification of consonant clusters to single consonants at coda position if followed by initial consonant: /ks/, /nt͡ɕ/, /lp/, /ls/, /ltʰ/, /ps/. 
+% #10-E. Exception of /lp/ in words with the stems ‘palp-’.
+% 제10항 : 겹받침 ‘ㄳ’, ‘ㄵ’, ‘ㄼ, ㄽ, ㄾ’, ‘ㅄ’은 어말 또는 자음 앞에서 각각 [ㄱ, ㄴ, ㄹ, ㅂ]으로 발음한다. 
+% 제10항-다만 : ‘밟-’은 자음 앞에서 [밥]으로 발음하고, ‘넓-’은 다음과 같은 경우에 [넙]으로 발음한다: 넓죽하다, 넓둥글다
+palp -> pap / _ (::initialconsonants::)
 ks -> k / _ (::initialconsonants::|#)
 nt͡ɕ -> n / _ (::initialconsonants::|#)
 lp -> l / _ (::initialconsonants::|#)
 ls -> l / _ (::initialconsonants::|#)
 ltʰ -> l / _ (::initialconsonants::|#)
 ps -> p / _ (::initialconsonants::|#)
+
+% #11. Simplification of consonant cluster at coda position to single consonants: /lk/, /lm/, /lpʰ/.
+% 제11항 : 겹받침 ‘ㄺ, ㄻ, ㄿ’은 어말 또는 자음 앞에서 각각 [ㄱ, ㅁ, ㅂ]으로 발음한다. 
+% [X-MF] #11-다만, 용언의 어간 말음 ‘ㄺ’은 ‘ㄱ’ 앞에서 [ㄹ]로 발음한다.
 lk -> k / _ (::initialconsonants::|#)
 lm -> m / _ (::initialconsonants::|#)
-lpʰ -> pʰ / _ (::initialconsonants::|#)
+lpʰ -> p / _ (::initialconsonants::|#)
 
-% Change consonants regarding phonological rule that limits the final consonants in a syllable to one of seven sounds
+% #14. The second consonant in a coda cluster shifts to the next syllable if followed by a vowel. (Except /s/, which becomes /s͈/.) 
+% 제14항 : 겹받침이 모음으로 시작된 조사나 어미, 접미사와 결합되는 경우에는, 뒤엣것만을 뒤 음절 첫소리로 옮겨 발음한다. (이 경우, ‘ㅅ’은 된소리로 발음함.)
+ks -> ks͈ / (::vowels::) _ (::vowels::)
+ls -> ls͈ / (::vowels::) _ (::vowels::)
+ps -> ps͈ /(::vowels::) _ (::vowels::)
+
+% #8~9. Substitute final consonants to one of /k/, /t/, /p/.
+% 제8항 : 받침소리로는 ‘ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ’의 7개 자음만 발음한다.
+% 제9항 : 받침 ‘ㄲ, ㅋ’, ‘ㅅ, ㅆ, ㅈ, ㅊ, ㅌ’, ‘ㅍ’은 어말 또는 자음 앞에서 각각 대표음 [ㄱ, ㄷ, ㅂ]으로 발음한다.
 k͈ -> k / _ (::initialconsonants::|#)
 kʰ -> k / _ (::initialconsonants::|#)
 s -> t / _ (::initialconsonants::|#)
@@ -54,31 +140,84 @@ t͡ɕʰ -> t / _ (::initialconsonants::|#)
 tʰ -> t / _ (::initialconsonants::|#)
 pʰ -> p / _ (::initialconsonants::|#)
 
-% Substitute lax to aspirated if h precedes or follows 
-ph -> pʰ / (::vowels::) _ (::vowels::)
-hp -> pʰ / (::vowels::) _ (::vowels::)
+% #12. /h/ at coda position
+% #12-1-A1~A2. Contraction of coda lax consonants and initial /h/ to aspirated consonants (after final consonant substitution): /k/, /t/, /p/
+% 12-1-붙임1. 받침 ‘ㄱ(ㄺ), ㄷ, ㅂ(ㄼ), ㅈ(ㄵ)’이 뒤 음절 첫소리 ‘ㅎ’과 결합되는 경우에도, 역시 두 음을 합쳐서 [ㅋ, ㅌ, ㅍ, ㅊ]으로 발음한다.
+% 12-1-붙임2. 규정에 따라 'ㄷ'으로 발음되는 ‘ㅅ, ㅈ, ㅊ, ㅌ’의 경우에도 이에 준한다.
+kh -> kʰ / (::vowels::) _ (::vowels::)
 th -> tʰ / (::vowels::) _ (::vowels::)
-ht -> tʰ / (::vowels::) _ (::vowels::)
-kh -> kʰ /(::vowels::) _ (::vowels::)
-hk -> kʰ / (::vowels::) _ (::vowels::)
+ph -> pʰ / (::vowels::) _ (::vowels::)
 
-% Tensification 
-k -> k͈ / (::finalObs::) _
-t -> t͈ / (::finalObs::) _
-p -> p͈ / (::finalObs::) _
+% #23. Tensification of lax consonants if followed by final obstruents /k/, /t/, /p/.
+% 제23항 : 받침 ‘ㄱ(ㄲ, ㅋ, ㄳ, ㄺ), ㄷ(ㅅ, ㅆ, ㅈ, ㅊ, ㅌ), ㅂ(ㅍ, ㄼ, ㄿ, ㅄ)’ 뒤에 연결되는 ‘ㄱ, ㄷ, ㅂ, ㅅ, ㅈ’은 된소리로 발음한다.
+k -> k͈ / (::finalObs::) _ 
+t -> t͈ / (::finalObs::) _ 
+p -> p͈ / (::finalObs::) _ 
 s -> s͈ / (::finalObs::) _
-t͡ɕ -> t͡ɕ͈ / (::finalObs::) _
+t͡ɕ -> t͈͡ɕ / (::finalObs::) _
 
-% Nasaliztion 
+% #17. Palatalization of coda /t/, /tʰ/ if followed by /i/ or /j/.
+% 17-1-A: Coda /t/ + ‘-hi’ pronounces as ‘t͡ɕʰi’.
+% 제17항 : 받침 ‘ㄷ, ㅌ(ㄾ)’이 조사나 접미사의 모음 ‘ㅣ’와 결합되는 경우에는, [ㅈ, ㅊ]으로 바꾸어서 뒤 음절 첫소리로 옮겨 발음한다.
+% 17-1-붙임: ‘ㄷ’ 뒤에 접미사 ‘히’가 결합되어 ‘티’를 이루는 것은 [치]로 발음한다.
+t -> t͡ɕ / (::vowels::) _ i
+tʰ -> t͡ɕʰ / (::vowels::) _ i
+thi ->  t͡ɕʰi / (::vowels::) _ (::vowels::)
+
+% #19, 19-A. Nasalization of /l/ if followed by final nasals /m/, /ŋ/, and final obstruents /k/, /p/.
+% 제19항 : 받침 ‘ㅁ, ㅇ’ 뒤에 연결되는 ‘ㄹ’은 [ㄴ]으로 발음한다.
+% 19-붙임 : 받침 ‘ㄱ, ㅂ’ 뒤에 연결되는 ‘ㄹ’도 [ㄴ]으로 발음한다.
 l -> n / (::finalforNasal::) _ 
-p -> m / _ (::nasals::)
-t -> n / _ (::nasals::)
-k -> ŋ / _ (::nasals::)
 
-% Liquid
+% #18. Nasalization of final obstruents if followed by nasals /n/, /m/.
+% 제18항 : 받침 ‘ㄱ(ㄲ, ㅋ, ㄳ, ㄺ), ㄷ(ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ), ㅂ(ㅍ, ㄼ, ㄿ, ㅄ)’은 ‘ㄴ, ㅁ’ 앞에서 [ㅇ, ㄴ, ㅁ]으로 발음한다.
+k -> ŋ / (::vowels::) _ (::initialNasals::)
+t -> n / (::vowels::) _ (::initialNasals::)
+p -> m /(::vowels::) _ (::initialNasals::)
+
+% #20, 20-A. Liquidization of /n/ if neighbored by /l/.
+% 제20항 : ‘ㄴ’은 ‘ㄹ’의 앞이나 뒤에서 [ㄹ]로 발음한다.
+% 20-붙임 : 첫소리 ‘ㄴ’이 ‘ㅀ’, ‘ㄾ’ 뒤에 연결되는 경우에도 이에 준한다.
 n -> l / l _
 n -> l / _ l
 
-% Palatalization
-t -> t͡ɕ / _ (::jvowel::)
-tʰ -> t͡ɕʰ / _(::jvowel::)
+% (PostProcessing) Fix duplicated tense diacritics
+k͈͈ -> k͈ / _
+t͈͈ -> t͈ / _
+p͈͈ -> p͈ / _ 
+s͈͈ -> s͈ / _ 
+t͈͡ɕ͈-> t͈͡ɕ / _ 
+  
+%% Excluded Rules.
+% [X-MP] 제5항-다만1 : 용언의 활용형에 나타나는 ‘져, 쪄, 쳐’는 [저, 쩌, 처]로 발음한다.
+% [X-OP] 제5항-다만2 : ‘예, 례' 이외의 ‘ㅖ’는 [ㅔ]로도 발음한다.
+% [X-OP] 제5항-다만4 : 단어의 첫음절 이외의 ‘의’는 [ㅣ]로, 조사 ‘의’는 [ㅔ]로 발음함도 허용한다.
+% [X-DICT]제10항-다만 : ‘넓-’은 다음과 같은 경우에 [넙]으로 발음한다: 넓죽하다, 넓둥글다.
+% [X-MP] 12-4. ‘ㅎ(ㄶ, ㅀ)’ 뒤에 모음으로 시작된 어미나 접미사가 결합되는 경우에는, ‘ㅎ’을 발음하지 않는다. <need to fix>
+% [X-MP] 12-4. ‘ㅎ(ㄶ, ㅀ)’ 뒤에 모음으로 시작된 어미나 접미사가 결합되는 경우에는, ‘ㅎ’을 발음하지 않는다.
+% [X-MP/DICT] 제15항 : 받침 뒤에 모음 ‘ㅏ, ㅓ, ㅗ, ㅜ, ㅟ’들로 시작되는 실질 형태소가 연결되는 경우에는, 대표음으로 바꾸어서 뒤 음절 첫소리로 옮겨 발음한다.
+% [X-OP] 제15항-다만 : ‘맛있다, 멋있다’는 [마싣따], [머싣따]로도 발음할 수 있다.
+% [X-DICT] 제15항-붙임 : 겹받침의 경우에는, 그중 하나만을 옮겨 발음한다.
+% [X-DICT] 제16항 : 한글 자모의 이름은 그 받침소리를 연음하되, ‘ㄷ, ㅈ, ㅊ, ㅋ, ㅌ, ㅍ, ㅎ’의 경우에는 특별히 다음과 같이 발음한다.
+% [X-DICT] 제17항 : 받침 ‘ㄷ, ㅌ(ㄾ)’이 조사나 접미사의 모음 ‘ㅣ’와 결합되는 경우에는, [ㅈ, ㅊ]으로 바꾸어서 뒤 음절 첫소리로 옮겨 발음한다. <need to fix>
+% [X-DICT] 제20항-다만 : 다음과 같은 단어들은 ‘ㄹ’을 [ㄴ]으로 발음한다.
+% 제21항 : 위에서 지적한 이외의 자음 동화는 인정하지 않는다.
+% [X-OP] 제22항 : 다음과 같은 용언의 어미는 [어]로 발음함을 원칙으로 하되, [여]로 발음함도 허용한다.
+% [X-OP] 제22항-붙임 : ‘이오, 아니오’도 이에 준하여 [이요, 아니요]로 발음함을 허용한다.
+% [X-MF] 제24항 : 어간 받침 ‘ㄴ(ㄵ), ㅁ(ㄻ)’ 뒤에 결합되는 어미의 첫소리 ‘ㄱ, ㄷ, ㅅ, ㅈ’은 된소리로 발음한다. <need to fix>
+% [X-MF] 제24항-다만 : 피동, 사동의 접미사 ‘-기-’는 된소리로 발음하지 않는다.
+% [X-MF] 제25항 : 어간 받침 ‘ㄼ, ㄾ’ 뒤에 결합되는 어미의 첫소리 ‘ㄱ, ㄷ, ㅅ, ㅈ’은 된소리로 발음한다. <need to fix>
+% [X-DICT] 제26항 : 한자어에서, ‘ㄹ’ 받침 뒤에 연결되는 ‘ㄷ, ㅅ, ㅈ’은 된소리로 발음한다.
+% [X-MF] 제26항-다만 : 같은 한자가 겹쳐진 단어의 경우에는 된소리로 발음하지 않는다.
+% [X-MF] 제27항 : 관형사형 ‘-(으)ㄹ’ 뒤에 연결되는 ‘ㄱ, ㄷ, ㅂ, ㅅ, ㅈ’은 된소리로 발음한다.
+% [X-MF] 제27항-다만 : 끊어서 말할 적에는 예사소리로 발음한다. 붙임 : ‘-(으)ㄹ’로 시작되는 어미의 경우에도 이에 준한다.
+% [X-DICT] 제28항 : 표기상으로는 사이시옷이 없더라도, 관형격 기능을 지니는 사이시옷이 있어야 할(휴지가 성립되는) 합성어의 경우에는, 뒤 단어의 첫소리 ‘ㄱ, ㄷ, ㅂ, ㅅ, ㅈ’을 된소리로 발음한다.
+% [X-MF/DICT] 제29항 : 합성어 및 파생어에서, 앞 단어나 접두사의 끝이 자음이고 뒤 단어나 접미사의 첫음절이 ‘이, 야, 여, 요, 유’인 경우에는, ‘ㄴ’ 음을 첨가하여 [니, 냐, 녀, 뇨, 뉴]로 발음한다.
+% [X-DICT] 제29항-다만 : 다음과 같은 말들은 ‘ㄴ’ 음을 첨가하여 발음하되, 표기대로 발음할 수 있다.
+% [X-DICT] 제29항-붙임1 : ‘ㄹ’ 받침 뒤에 첨가되는 ‘ㄴ’ 음은 [ㄹ]로 발음한다.
+% [X-DICT] 제29항-붙임2 : 두 단어를 이어서 한 마디로 발음하는 경우에도 이에 준한다.
+% [X-DICT] 제29항-다만: 다음과 같은 단어에서는 ‘ㄴ(ㄹ)’ 음을 첨가하여 발음하지 않는다.
+% [X-DICT] % 제30항 : 사이시옷이 붙은 단어는 다음과 같이 발음한다.
+% [X-DICT] 30-1 : ‘ㄱ, ㄷ, ㅂ, ㅅ, ㅈ’으로 시작하는 단어 앞에 사이시옷이 올 때는 이들 자음만을 된소리로 발음하는 것을 원칙으로 하되, 사이시옷을 [ㄷ]으로 발음하는 것도 허용한다. (사이시옷을 [ㄷ]로 발음할 경우, 제23항에 의해 처리됨)
+% [X-DICT] 30-2 : 사이시옷 뒤에 ‘ㄴ, ㅁ’이 결합되는 경우에는 [ㄴ]으로 발음한다. (제23항에 의해 처리됨)
+% [X-DICT] 30-3 : 사이시옷 뒤에 ‘이’ 음이 결합되는 경우에는 [ㄴㄴ]으로 발음한다. 
