@@ -1,0 +1,33 @@
+::front_vowel:: = i|e|í|é
+::back_vowel:: = a|o|u|á|ó|ú
+::vowel:: = a|i|e|o|u|á|ó|ú|í|é
+::long_vowel:: = á|ó|ú|í|é
+::consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr|b|c|d|f|g|h|l|m|n|p|r|s|t
+
+
+% Eclipsis (urú) Rules
+mb -> m / # _
+gc -> g / # _
+nd -> n / # _
+bhf -> bh / # _
+bp -> b / # _
+dt -> d / # _
+
+% Broad-slender vowel rules
+%% generally: [ei] with slender consonants, [aou] with broad consonants
+e -> ь / (::consonant::) _ (::back_vowel::)
+e -> 0 / # _ (::back_vowel::)
+i -> ь / (::consonant::) _ [uú]
+ae -> ъé / (::consonant::) _
+ao -> ъíъ / (::consonant::) _ (::consonant::|#)
+aoi -> ъí / (::consonant::) _ (::consonant::|#)
+0 -> ь / (::consonant::) _ (::front_vowel::)
+0 -> ь / (::front_vowel::) _ (::consonant::)
+0 -> ъ / (::consonant::) _ (::back_vowel::)
+0 -> ъ / (::back_vowel::) _ (::consonant::)
+
+% Final consonants adopt the preceeding broad/slender rule
+(?P<sw1>[ьъ])(?P<sw2>(::consonant::)) -> 0 / _ (::consonant::|#)
+[ьъ] -> 0 / _ (::consonant::)[ьъ]
+[ьъ] -> 0 / (::vowel::) _ #
+[ьъ] -> 0 / # _
