@@ -194,6 +194,7 @@ A few notes are in order regarding this data structure:
 | Code        | Language (Script)       |
 |-------------|-------------------------|
 | aar-Latn    | Afar                    |
+| afr-Latn    | Afrikanns               |
 | aii-Syrc    | Assyrian Neo-Aramaic    |
 | amh-Ethi    | Amharic                 |
 | amh-Ethi-pp | Amharic (more phonetic) |
@@ -204,29 +205,35 @@ A few notes are in order regarding this data structure:
 | aze-Latn    | Azerbaijani (Latin)     |
 | ben-Beng    | Bengali                 |
 | ben-Beng-red| Bengali (reduced)       |
+| ben-Beng-east| Eastern Bengali        |
 | bxk-Latn    | Bukusu                  |
 | cat-Latn    | Catalan                 |
 | ceb-Latn    | Cebuano                 |
 | ces-Latn    | Czech                   |
 | cjy-Latn    | Jin (Wiktionary)        |
+| ckb-Arab    | Sorani                  |
 | cmn-Hans    | Mandarin (Simplified)\* |
 | cmn-Hant    | Mandarin (Traditional)\*|
 | cmn-Latn    | Mandarin (Pinyin)\*     |
-| ckb-Arab    | Sorani                  |
 | csb-Latn    | Kashubian               |
 | deu-Latn    | German                  |
 | deu-Latn-np | German†                 |
 | deu-Latn-nar| German (more phonetic)  |
 | eng-Latn    | English‡                |
 | epo-Latn    | Esperanto               |
+| est-Latn    | Estonian                |
 | fas-Arab    | Farsi (Perso-Arabic)    |
+| fin-Latn    | Finnish                 |
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
 | fra-Latn-p  | French (more phonetic)  |
 | ful-Latn    | Fulah                   |
 | gan-Latn    | Gan (Wiktionary)        |
-| got-Latn    | Gothic                  |
+| glg-Latn    | Galician	              |
+| got-Goth    | Gothic                  |
+| got-Latn    | Gothic (Latin)          |
 | hak-Latn    | Hakka (pha̍k-fa-sṳ)      |
+| hat-Latn-bab| Haitian (Latin-Babel)   |
 | hau-Latn    | Hausa                   |
 | hin-Deva    | Hindi                   |
 | hmn-Latn    | Hmong                   |
@@ -237,11 +244,12 @@ A few notes are in order regarding this data structure:
 | ind-Latn    | Indonesian              |
 | ita-Latn    | Italian                 |
 | jam-Latn    | Jamaican                |
+| jav-Latn    | Javanese                |
 | jpn-Hrgn    | Japanese (Hiragana)     |
 | jpn-Hrgn-red| Japanese (Hiragana, reduced) |
 | jpn-Ktkn    | Japanese (Katakana)     |
 | jpn-Ktkn-red| Japanese (Katakana, reduced) |
-| jav-Latn    | Javanese                |
+| kat-Geor    | Georgian                |
 | kaz-Cyrl    | Kazakh (Cyrillic)       |
 | kaz-Cyrl-bab| Kazakh (Cyrillic—Babel) |
 | kaz-Latn    | Kazakh (Latin)          |
@@ -255,7 +263,11 @@ A few notes are in order regarding this data structure:
 | kmr-Latn-red| Kurmanji (reduced)      |
 | kor-Hang    | Korean                  |
 | lao-Laoo    | Lao                     |
+| lao-Laoo-prereform | Lao (Before spelling reform) |
+| lav-Latn    | Latvian	                |
+| lez-Cyrl    | Lezgian                 |
 | lij-Latn    | Ligurian                |
+| lit-Latn    | Lithuanian              |
 | lsm-Latn    | Saamia                  |
 | ltc-Latn-bax | Middle Chinese (Baxter and Sagart 2014) |
 | mal-Mlym    | Malayalam               |
@@ -269,8 +281,8 @@ A few notes are in order regarding this data structure:
 | nan-Latn-tl | Hokkien (Tâi-lô)        |
 | nld-Latn    | Dutch                   |
 | nya-Latn    | Chichewa                |
-| ood-Lat-alv | Tohono O'odham          |
-| ood-Latn-sax| Tohono O'odham          |
+| ood-Latn-alv| Tohono O'odham (Alvarez–Hale) |
+| ood-Latn-sax| Tohono O'odham (Saxton) |
 | ori-Orya    | Odia                    |
 | orm-Latn    | Oromo                   |
 | pan-Guru    | Punjabi (Eastern)       |
@@ -287,7 +299,8 @@ A few notes are in order regarding this data structure:
 | spa-Latn    | Spanish                 |
 | spa-Latn-eu | Spanish (Iberian)       |
 | sqi-Latn    | Albanian                |
-| srp-Latn    | Serbian                 |
+| srp-Latn    | Serbian (Latin)         |
+| srp-Cyrl    | Serbian (Cyrillic)      |
 | swa-Latn    | Swahili                 |
 | swa-Latn-red| Swahili (reduced)       |
 | swe-Latn    | Swedish                 |
