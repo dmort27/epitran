@@ -320,7 +320,7 @@ A few notes are in order regarding this data structure:
 | tur-Latn    | Turkish (Latin)         |
 | tur-Latn-bab| Turkish (Latin—Babel)   |
 | tur-Latn-red| Turkish (reduced)       |
-| ukr-Cyrl    | Ukranian                |
+| ukr-Cyrl    | Ukrainian               |
 | urd-Arab    | Urdu                    |
 | uig-Arab    | Uyghur (Perso-Arabic)   |
 | uzb-Cyrl    | Uzbek (Cyrillic)        |
