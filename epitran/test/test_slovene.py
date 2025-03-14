@@ -35,7 +35,7 @@ class TestSlovene(unittest.TestCase):
             ("disk", "diːsk"),
             ("tsin", "tsiːn"),
             ("kip", "kiːp"),
-            ("gib", "giːp"),
+            ("gib", "ɡiːp"),
             ("čin", "tʃiːn"),
             # ("gin", "dʒiːn"),
             ("miti", "miːti"),

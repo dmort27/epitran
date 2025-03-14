@@ -3,17 +3,17 @@
 
 % Before voiceless obstruents and in word-final position (unless they are followed by a word-initial voiced obstruent)
 % voiced obstruents are completely devoiced.
-::voicedObs:: = b|d|g|dʒ|z|ʒ
+::voicedObs:: = b|d|ɡ|dʒ|z|ʒ
 ::voicelessObs:: = p|t|k|ts|tʃ|f|s|ʃ
 b -> p / _ #
 d -> t / _ #
-g -> k / _ #
+ɡ -> k / _ #
 dʒ -> tʃ / _ #
 z -> s / _ #
 ʒ -> ʃ / _ #
 b -> p / _ (::voicelessObs::)
 d -> t / _ (::voicelessObs::)
-g -> k / _ (::voicelessObs::)
+ɡ -> k / _ (::voicelessObs::)
 dʒ -> tʃ / _ (::voicelessObs::)
 z -> s / _ (::voicelessObs::)
 ʒ -> ʃ / _ (::voicelessObs::)
@@ -30,8 +30,8 @@ ts -> tʃ / _ (::postalveolar::)
 tʃ -> 0 / _ tʃ
 
 
-% The nasal /n/ is pronounced as velar [ŋ] before /k, g, x/.
-% ::dorsal:: = k|g|x
+% The nasal /n/ is pronounced as velar [ŋ] before /k, ɡ, x/.
+% ::dorsal:: = k|ɡ|x
 % n -> ŋ / _ (::dorsal::)
 
 
