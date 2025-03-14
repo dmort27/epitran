@@ -245,10 +245,10 @@ A few notes are in order regarding this data structure:
 | ita-Latn    | Italian                 |
 | jam-Latn    | Jamaican                |
 | jav-Latn    | Javanese                |
-| jpn-Hrgn    | Japanese (Hiragana)     |
-| jpn-Hrgn-red| Japanese (Hiragana, reduced) |
-| jpn-Ktkn    | Japanese (Katakana)     |
-| jpn-Ktkn-red| Japanese (Katakana, reduced) |
+| jpn-Hira    | Japanese (Hiragana)     |
+| jpn-Hira-red| Japanese (Hiragana, reduced) |
+| jpn-Kana    | Japanese (Katakana)     |
+| jpn-Kana-red| Japanese (Katakana, reduced) |
 | kat-Geor    | Georgian                |
 | kaz-Cyrl    | Kazakh (Cyrillic)       |
 | kaz-Cyrl-bab| Kazakh (Cyrillic—Babel) |
