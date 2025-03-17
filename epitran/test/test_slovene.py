@@ -64,23 +64,6 @@ class TestSlovene(unittest.TestCase):
             ("izžepa", "iʒɛːpa"),
         ])
 
-    # def test_velar_assm(self):
-    #     self._test_boilerplate([
-    #         ("banka", "baːŋka"),
-    #         ("angel", "aːŋgɛl"),
-    #         ("Anhovo", "aːŋxoʋo"),
-    #     ])
-
-    # def test_labiodental_assm(self):
-    #     self._test_boilerplate([
-    #         ("simfonija", "siɱfɔniːja"),
-    #         ("informacija", "iɱfɔɾmaːtsija"),
-    #     ])
-
-    # def test_v_allophones(self):
-    #     self._test_boilerplate([
-    #     ])
-
     def test_vowels(self):
         self._test_boilerplate([
             ("mit", "miːt"),

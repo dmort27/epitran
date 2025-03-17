@@ -30,11 +30,7 @@ ts -> tʃ / _ (::postalveolar::)
 tʃ -> 0 / _ tʃ
 
 
+% We focus on phonemic (not phonetic) transcriptions, so we skip allophones.
 % The nasal /n/ is pronounced as velar [ŋ] before /k, ɡ, x/.
-% ::dorsal:: = k|ɡ|x
-% n -> ŋ / _ (::dorsal::)
-
-
 % Nasals, /m, n/, are pronounced as labiodental /ɱ/ before /f, ʋ/
-% m -> ɱ / _ f|ʋ
-% n -> ɱ / _ f|ʋ
+% Allophonic variants of the approximant /ʋ/
