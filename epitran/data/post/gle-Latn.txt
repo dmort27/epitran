@@ -1,11 +1,35 @@
-::broad:: = k|g|ŋ|w|ɣ|x
-::slender:: = c|ɟ|ɲ|vʲ|j|ç
+::broad:: = k|g|ŋ|w|ɣ|x|s
+::slender:: = c|ɟ|ɲ|vʲ|j|ç|ʃ
+::consonant:: = d|t|n|l|ɾ|h|v|p|b|f|::broad::|::slender::
+
+% Propagate broad/slender marking across word-initial clusters
+0 -> ʲ / #(::consonant::) _ (::consonant::)ʲ
+0 -> ˠ / #(::consonant::) _ (::consonant::)ˠ
+
+
+% /r/ takes broad pronunciation initially and in certain clusters
+ʲ -> ˠ / ɾ _ [dlnsth]
+ʲ -> ˠ / sɾ _
+ʲ -> ˠ / #ɾ _
+% /x/ takes broad pronunciation before /t/
+ʲ -> ˠ / x _ t
+% /h/ doesn't have broad/slender distinction
+[ʲˠ] -> 0 / h _
+
 
 k -> c / _ ʲ
 g -> ɟ / _ ʲ
 x -> ç / _ ʲ
 ɣ -> j / _ ʲ
 ŋ -> ɲ / _ ʲ
+s -> ʃ / _ ʲ
 v -> w / _ ˠ
 ˠ -> 0 / (::broad::) _
 ʲ -> 0 / (::slender::) _
+
+% <ng> is only a pure nasal word-initially
+0 -> g / .ŋ _
+0 -> ɟ / .ɲ _
+
+% For normalization, we follow the convention of leaving broad consonants unmarked
+ˠ -> 0 / _

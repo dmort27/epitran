@@ -1,11 +1,17 @@
+%% Note: most of these rules are based on the Ulster pronunciation.
+%% For Connacht and Munster pronunciations, ymmv
+
 ::front_vowel:: = i|e|í|é
 ::back_vowel:: = a|o|u|á|ó|ú
 ::vowel:: = a|i|e|o|u|á|ó|ú|í|é
 ::long_vowel:: = á|ó|ú|í|é
-::consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr|b|c|d|f|g|h|l|m|n|p|r|s|t
+::consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr|b|c|d|f|g|h|l|m|n|p|r|s|t|v|z
+::digraph_consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr
+
+%% Data normalization, preprocessing
 
 
-% Eclipsis (urú) Rules
+%% Eclipsis (urú) Rules
 mb -> m / # _
 gc -> g / # _
 nd -> n / # _
@@ -13,21 +19,78 @@ bhf -> bh / # _
 bp -> b / # _
 dt -> d / # _
 
-% Broad-slender vowel rules
-%% generally: [ei] with slender consonants, [aou] with broad consonants
-e -> ь / (::consonant::) _ (::back_vowel::)
-e -> 0 / # _ (::back_vowel::)
-i -> ь / (::consonant::) _ [uú]
-ae -> ъé / (::consonant::) _
-ao -> ъíъ / (::consonant::) _ (::consonant::|#)
+%% Broad-slender vowel rules
+% generally: [ei] with slender consonants, [aou] with broad consonants
+
+% Note that accented characters may be classified as sequences
+
+% <ae> is pronounced /e:/, generally between broad consonants
+aei -> ъé / (::consonant::) _
+ae -> ъéъ / (::consonant::) _
+
+% <ao> is pronounced /i:/, generally between broad consonants
 aoi -> ъí / (::consonant::) _ (::consonant::|#)
+ao -> ъíъ / (::consonant::) _ (::consonant::|#)
+
+% <eo> is /o:/ except in four words
+i -> ь / eo _
+eo -> ьó / _
+
+% <ei> is usually /e/, but sometimes /i/ or /e:/
+ei -> i / _ [mn]
+i -> ь / (e|é) _ (::consonant::)
+e -> é / _ ь?r[dln]
+
+% <ea> 
+
+% <oi> represents many possible sounds
+oi -> ъi / (n|m|mh) _
+oi -> ъi / _ (n|m|mh)
+oi -> oь / _ (cht|rs|rt|rth|s)
+oi -> óь / _ r[dln]
+oi -> ъi / _ ll(#|::consonant::)
+oi -> ъe / _
+
+% Rules for <u>
+u -> ú / _ (ó|á)
+u -> ъ / _ (i|í)
+u -> ú / _ r[dln]
+
+% Rules for <a>
+a -> ъ / é _
+a -> ъ / _ í
+i -> ь / (a|á) _ (::consonant::)
+a -> á / _ ь?r[dlnr]
+
+% Rules for <i>
+i -> í / _ (ó|á)
+i -> ь / (::consonant::) _ (u|ú)
+i -> ь / (á|ú|ó) _
+
+% Rules for <o>
+o -> ъ / (i|í) _ (::consonant::)
+o -> ó / _ r[dln]
+
+% Rules for <e>
+e -> ь / (::consonant::|#) _ (::back_vowel::)
+
+% general insertion rules
 0 -> ь / (::consonant::) _ (::front_vowel::)
 0 -> ь / (::front_vowel::) _ (::consonant::)
 0 -> ъ / (::consonant::) _ (::back_vowel::)
 0 -> ъ / (::back_vowel::) _ (::consonant::)
 
+% Ensure digraphs are not erroneously split
+[ьъ] -> 0 / (::vowel::) _ (::digraph_consonant::)[ьъ]
+
 % Final consonants adopt the preceeding broad/slender rule
 (?P<sw1>[ьъ])(?P<sw2>(::consonant::)) -> 0 / _ (::consonant::|#)
-[ьъ] -> 0 / _ (::consonant::)[ьъ]
+
+% Propagate throughout consonant clusters
+0 -> ь / (::consonant::)ь(::consonant::) _ #
+0 -> ъ / (::consonant::)ъ(::consonant::) _ #
+
+% Remove extraneous symbols
+[ьъ] -> 0 / (::vowel::) _ (::consonant::)[ьъ]
 [ьъ] -> 0 / (::vowel::) _ #
 [ьъ] -> 0 / # _
