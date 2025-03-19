@@ -1,0 +1,139 @@
+% Luganda preprocessor rules
+% These rules modify the orthographic representation before mapping to phonetic representation
+
+% Define variables
+::vowels:: = a|e|i|o|u|A|E|I|O|U
+::consonants:: = b|c|d|f|g|h|j|k|l|m|n|p|r|s|t|v|w|y|z|B|C|D|F|G|H|J|K|L|M|N|P|R|S|T|V|W|Y|Z
+
+% Special handling for 'ng' digraph when it represents [ŋg] rather than [ŋ]
+% This happens at morpheme boundaries
+% Reference: Luganda stops before 'g' generally nasalize to [ŋ]
+ng' -> ŋ / _
+
+% Handle sequences of vowels at morpheme boundaries that should not coalesce
+% This is sometimes marked with an apostrophe in careful writing
+% e.g., "oku'eta" -> /okuweta/ not /okweta/
+a' -> a / _
+e' -> e / _
+i' -> i / _
+o' -> o / _
+u' -> u / _
+
+% Pre-process cases where 'e' or 'o' should not glide before another vowel
+% For example, in some loanwords or at certain morpheme boundaries
+
+% Special handling for prenasalized consonants
+% Make sure they're recognized as single units rather than sequences
+mb -> ᵐb / _
+mp -> ᵐp / _
+nd -> ⁿd / _
+nt -> ⁿt / _
+nj -> ⁿdʒ / _
+nc -> ⁿtʃ / _
+nk -> ᵑk / _
+ng -> ᵑɡ / _
+
+% Handle special case for glottal stop (sometimes written with an apostrophe)
+' -> ʔ / _
+
+% Handle orthographic variants
+% Sometimes 'w' is written after consonants to indicate labialization
+% Make sure these are processed consistently
+bw -> bʷ / _
+dw -> dʷ / _
+fw -> fʷ / _
+gw -> ɡʷ / _
+jw -> dʒʷ / _
+kw -> kʷ / _
+lw -> lʷ / _
+mw -> mʷ / _
+nw -> nʷ / _
+pw -> pʷ / _
+sw -> sʷ / _
+tw -> tʷ / _
+vw -> vʷ / _
+zw -> zʷ / _
+
+% Handle capitalized forms of digraphs
+Mb -> ᵐb / _
+Mp -> ᵐp / _
+Nd -> ⁿd / _
+Nt -> ⁿt / _
+Nj -> ⁿdʒ / _
+Nc -> ⁿtʃ / _
+Nk -> ᵑk / _
+Ng -> ᵑɡ / _
+Bw -> bʷ / _
+Dw -> dʷ / _
+Fw -> fʷ / _
+Gw -> ɡʷ / _
+Jw -> dʒʷ / _
+Kw -> kʷ / _
+Lw -> lʷ / _
+Mw -> mʷ / _
+Nw -> nʷ / _
+Pw -> pʷ / _
+Sw -> sʷ / _
+Tw -> tʷ / _
+Vw -> vʷ / _
+Zw -> zʷ / _
+
+% All caps versions
+MB -> ᵐb / _
+MP -> ᵐp / _
+ND -> ⁿd / _
+NT -> ⁿt / _
+NJ -> ⁿdʒ / _
+NC -> ⁿtʃ / _
+NK -> ᵑk / _
+NG -> ᵑɡ / _
+BW -> bʷ / _
+DW -> dʷ / _
+FW -> fʷ / _
+GW -> ɡʷ / _
+JW -> dʒʷ / _
+KW -> kʷ / _
+LW -> lʷ / _
+MW -> mʷ / _
+NW -> nʷ / _
+PW -> pʷ / _
+SW -> sʷ / _
+TW -> tʷ / _
+VW -> vʷ / _
+ZW -> zʷ / _
+
+% Handle long vowels (doubled vowels)
+aa -> aː / _
+ee -> eː / _
+ii -> iː / _
+oo -> oː / _
+uu -> uː / _
+Aa -> aː / _
+Ee -> eː / _
+Ii -> iː / _
+Oo -> oː / _
+Uu -> uː / _
+AA -> aː / _
+EE -> eː / _
+II -> iː / _
+OO -> oː / _
+UU -> uː / _
+
+% Handle geminated consonants (doubled consonants)
+bb -> bː / _
+cc -> tʃː / _
+dd -> dː / _
+ff -> fː / _
+gg -> ɡː / _
+jj -> dʒː / _
+kk -> kː / _
+ll -> lː / _
+mm -> mː / _
+nn -> nː / _
+pp -> pː / _
+rr -> ɾː / _
+ss -> sː / _
+tt -> tː / _
+vv -> vː / _
+ww -> wː / _
+zz -> zː / _
