@@ -241,6 +241,7 @@ A few notes are in order regarding this data structure:
 | jpn-Hrgn-red| Japanese (Hiragana, reduced) |
 | jpn-Ktkn    | Japanese (Katakana)     |
 | jpn-Ktkn-red| Japanese (Katakana, reduced) |
+| jpn-Jpan    | Japanese (Hiragana, Katakana, Kanji) |
 | jav-Latn    | Javanese                |
 | kaz-Cyrl    | Kazakh (Cyrillic)       |
 | kaz-Cyrl-bab| Kazakh (Cyrillic—Babel) |
