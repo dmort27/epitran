@@ -1,84 +1,36 @@
 % Luganda postprocessor rules
-% These rules modify the phonetic representation after mapping
+% These rules adjust the phonemic form to account for phonological processes
 
-% Define variables
 ::vowels:: = a|e|i|o|u|aː|eː|iː|oː|uː
-::short_vowels:: = a|e|i|o|u
-::long_vowels:: = aː|eː|iː|oː|uː
-::consonants:: = b|bː|tʃ|tʃː|d|dː|f|fː|ɡ|ɡː|h|dʒ|dʒː|k|kː|l|lː|m|mː|n|nː|ɲ|ɲː|ŋ|ŋː|p|pː|ɾ|ɾː|s|sː|t|tː|v|vː|w|wː|j|jː|z|zː
-::plosives:: = b|d|ɡ|p|t|k
+::consonants:: = b|d|dʒ|f|g|h|k|l|m|n|ɲ|ŋ|p|r|s|t|tʃ|v|w|j|z|bː|dː|dʒː|fː|gː|kː|lː|mː|nː|ɲː|ŋː|pː|rː|sː|tː|tʃː|vː|wː|jː|zː|ᵐp|ᵐb|ᵐf|ᵐv|ⁿt|ⁿd|ⁿtʃ|ⁿdʒ|ᵑk|ᵑg
 ::nasals:: = m|n|ɲ|ŋ
-::labial_cons:: = b|p|f|v|m|w
+::stops:: = p|b|t|d|k|g
 
-% Nasal place assimilation - adjustment of nasal consonants according to following sound
-n -> m / _ [bp]
+% Adjust nasal place of articulation (if any escaped preprocessing)
+n -> m / _ [pbfv]
 n -> ɲ / _ [j]
 n -> ŋ / _ [kg]
 
-% Handle syllabic nasals (word-initially before consonants)
-0 -> ə / # [mnɲŋ] _ (::consonants::)
+% Vowel lengthening before prenasalized consonants
+a -> aː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+e -> eː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+i -> iː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+o -> oː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+u -> uː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
 
-% Vowel coalescence processes at morpheme boundaries
-% When two vowels come together at morpheme boundaries, they often fuse
-a(::short_vowels::) -> aː / _
-e(::short_vowels::) -> eː / _
-i(::short_vowels::) -> iː / _
-o(::short_vowels::) -> oː / _
-u(::short_vowels::) -> uː / _
-
-% Glide formation (high vowels becoming glides before other vowels)
-i -> j / _ (::vowels::)
-u -> w / _ (::vowels::)
-
-% Make sure labialized consonants don't have separate 'w' following them
-bʷw -> bʷ / _
-dʷw -> dʷ / _
-fʷw -> fʷ / _
-ɡʷw -> ɡʷ / _
-dʒʷw -> dʒʷ / _
-kʷw -> kʷ / _
-lʷw -> lʷ / _
-mʷw -> mʷ / _
-nʷw -> nʷ / _
-pʷw -> pʷ / _
-sʷw -> sʷ / _
-tʷw -> tʷ / _
-vʷw -> vʷ / _
-zʷw -> zʷ / _
-
-% Postprocess loan phonemes that aren't native to Luganda
-x -> ks / _
-q -> k / _
-
-% Handle syllable-final obstruents (rare in native Luganda words)
-% These typically appear in loanwords
-[ptk] -> ʔ / _ #
-
-% Handle cases where double nasals might persist
+% Simplify any sequences that might have escaped
 mm -> mː / _
 nn -> nː / _
 ɲɲ -> ɲː / _
 ŋŋ -> ŋː / _
 
-% Ensure prenasalized consonants are properly connected
-n?ᵐb -> ᵐb / _
-n?ᵐp -> ᵐp / _
-n?ⁿd -> ⁿd / _
-n?ⁿt -> ⁿt / _
-n?ⁿdʒ -> ⁿdʒ / _
-n?ⁿtʃ -> ⁿtʃ / _
-n?ᵑk -> ᵑk / _
-n?ᵑɡ -> ᵑɡ / _
+% Handle devoicing of final obstruents (common in loanwords)
+b -> p / _ #
+d -> t / _ #
+g -> k / _ #
+z -> s / _ #
+dʒ -> tʃ / _ #
 
-% Make sure lone prenasalization symbols don't appear
-ᵐ -> m / _
-ⁿ -> n / _
-ᵑ -> ŋ / _
-
-% Vowel lengthening before prenasalized consonants
-% In many Bantu languages including Luganda, vowels typically lengthen before NC sequences
-a -> aː / _ (ᵐb|ᵐp|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑɡ)
-e -> eː / _ (ᵐb|ᵐp|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑɡ)
-i -> iː / _ (ᵐb|ᵐp|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑɡ)
-o -> oː / _ (ᵐb|ᵐp|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑɡ)
-u -> uː / _ (ᵐb|ᵐp|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑɡ)
+% High vowels become glides before other vowels
+i -> j / _ (::vowels::)
+u -> w / _ (::vowels::)
