@@ -40,7 +40,6 @@ class CEDictTrie(object):
                         cedict[hanzi[1]] = (pinyin, english)  # simplified characters only.
         return cedict
 
-
     def _construct_trie(self, hanzi):
         pairs = []
         for hz, df in self.hanzi.items():
@@ -74,6 +73,26 @@ class CEDictTrie(object):
                 tokens.append(s[0])
                 s = s[1:]
         return tokens
+
+class CEDictTrieForCantonese(CEDictTrie):
+    def _read_cedict(self, cedict_file, traditional=False):
+        comment_re = re.compile('\s*#')
+        lemma_re = re.compile('(?P<hanzi>[^[]+) \[(?P<pinyin>[^]]+)\] \{(?P<jyutping>[^}]+)\} /(?P<english>.+)/')
+        cedict = {}
+        with codecs.open(cedict_file, 'r', 'utf-8') as f:
+            for line in f:
+                if comment_re.match(line):
+                    pass
+                elif lemma_re.match(line):
+                    match = lemma_re.match(line)
+                    hanzi = match.group('hanzi').split(' ')
+                    jyutping = match.group('jyutping').split(' ')
+                    english = match.group('english').split('/')
+                    if traditional:
+                        cedict[hanzi[0]] = (jyutping, english)  # traditional characters only
+                    else:
+                        cedict[hanzi[1]] = (jyutping, english)  # simplified characters only.
+        return cedict
     
 class CEDictTrieForJapanese(object):
     def __init__(self, cedict_file):
