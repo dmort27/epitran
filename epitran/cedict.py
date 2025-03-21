@@ -88,10 +88,19 @@ class CEDictTrieForCantonese(CEDictTrie):
                     hanzi = match.group('hanzi').split(' ')
                     jyutping = match.group('jyutping').split(' ')
                     english = match.group('english').split('/')
-                    if traditional:
-                        cedict[hanzi[0]] = (jyutping, english)  # traditional characters only
-                    else:
-                        cedict[hanzi[1]] = (jyutping, english)  # simplified characters only.
+                    
+                    hanzi = hanzi[0] if traditional else hanzi[1]
+                    cedict[hanzi] = (jyutping, english)
+
+                    # NOTE(Jinchuan): Some isolated characters are missing in the dict
+                    # but there are many words contains those characters. So we split
+                    # the words and get the pronunciation of each single character.
+                    # This operation will reduce out-of-vocabulary issue but will
+                    # definitely introduce errors: some characters have multiple
+                    # pronunciation, but we only keep one of it.
+                    for char, syllable in zip(hanzi, jyutping):
+                        if char not in cedict_file:
+                            cedict[char] = (syllable, "")
         return cedict
     
 class CEDictTrieForJapanese(object):
