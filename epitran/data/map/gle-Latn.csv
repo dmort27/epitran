@@ -6,7 +6,7 @@ ch,x
 d,d
 dh,ɣ
 f,f
-fh,0
+fh,
 g,g
 gh,ɣ
 h,h
@@ -25,6 +25,7 @@ s,s
 sh,h
 t,t
 th,h
+j,d͡ʒ
 v,v
 z,z
 ь,ʲ
@@ -44,3 +45,5 @@ ai,əi
 ei,ei
 ua,uə
 ia,iə
+-,
+!,

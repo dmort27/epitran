@@ -5,11 +5,14 @@
 ::back_vowel:: = a|o|u|á|ó|ú
 ::vowel:: = a|i|e|o|u|á|ó|ú|í|é
 ::long_vowel:: = á|ó|ú|í|é
+::diphthong:: = au|ai|ei|ua|ia
 ::consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr|b|c|d|f|g|h|l|m|n|p|r|s|t|v|z
 ::digraph_consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr
 
 %% Data normalization, preprocessing
 
+% exceptional forms
+0 -> ! / # _ (anseo|deoch|eochair|seo)#
 
 %% Eclipsis (urú) Rules
 mb -> m / # _
@@ -18,6 +21,9 @@ nd -> n / # _
 bhf -> bh / # _
 bp -> b / # _
 dt -> d / # _
+ts -> t / # _
+% <dt> is realized as /t/ outside of eclipsis
+dt -> t / _
 
 %% Broad-slender vowel rules
 % generally: [ei] with slender consonants, [aou] with broad consonants
@@ -35,6 +41,7 @@ ao -> ъíъ / (::consonant::) _ (::consonant::|#)
 % <eo> is /o:/ except in four words
 i -> ь / eo _
 eo -> ьó / _
+ó -> o / #!.* _
 
 % <ei> is usually /e/, but sometimes /i/ or /e:/
 ei -> i / _ [mn]
@@ -80,17 +87,8 @@ e -> ь / (::consonant::|#) _ (::back_vowel::)
 0 -> ъ / (::consonant::) _ (::back_vowel::)
 0 -> ъ / (::back_vowel::) _ (::consonant::)
 
-% Ensure digraphs are not erroneously split
-[ьъ] -> 0 / (::vowel::) _ (::digraph_consonant::)[ьъ]
+% <n> realized as /r/ in certain initial clusters
+n -> r / #[^s]h? _
 
-% Final consonants adopt the preceeding broad/slender rule
-(?P<sw1>[ьъ])(?P<sw2>(::consonant::)) -> 0 / _ (::consonant::|#)
-
-% Propagate throughout consonant clusters
-0 -> ь / (::consonant::)ь(::consonant::) _ #
-0 -> ъ / (::consonant::)ъ(::consonant::) _ #
-
-% Remove extraneous symbols
-[ьъ] -> 0 / (::vowel::) _ (::consonant::)[ьъ]
-[ьъ] -> 0 / (::vowel::) _ #
-[ьъ] -> 0 / # _
+% <th> deleted finally after long vowels and diphthongs
+th -> 0 / (::long_vowel::|::diphthong::)[ьъ] _ #
