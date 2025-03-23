@@ -423,6 +423,27 @@ class TestIrish(unittest.TestCase):
             pred = self.epi.transliterate(orth)
             self.assertEqual(pred,phon)
 
+    # Schwa-epenthesis
+    def test_epenthesis(self):
+        pairs = [
+            (u'gorm',u'goɾəm'),
+            (u'dearg',u'dʲaɾəg'),
+            (u'dorcha',u'doɾəxa'),
+            (u'ainm',u'anʲəmʲ'),
+            (u'deilgneach',u'dʲelʲəɟnʲax'),
+            (u'leanbh',u'lʲanəw'),
+            (u'airgead',u'aɾʲəɟad'),
+            (u'téarma',u'tʲeːɾma'),
+            (u'dualgas',u'duəlgas'),
+            (u'armónach',u'aɾəmoːnax'), #schwa-epenthesis
+            (u'dhearg',u'jaɾəg'), # schwa-epenthesis
+            (u'margadh',u'maɾəgəi'), # schwa-epenthesis
+        ]
+        for orth,phon in pairs:
+            pred = self.epi.transliterate(orth)
+            self.assertEqual(pred,phon)
+        ...
+
     # Test normalization of spelling
     def test_spelling(self):
         ...

@@ -7,8 +7,8 @@
 (?P<sw1>[ʲˠ])(?P<sw2>(::consonant::)) -> 0 / _ (::consonant::|#)
 
 % Propagate throughout consonant clusters
-0 -> ʲ / (::consonant::)ʲ(::consonant::) _ #
-0 -> ˠ / (::consonant::)ˠ(::consonant::) _ #
+0 -> ʲ / (::consonant::)ʲ(::consonant::) _ (::consonant::|#)
+0 -> ˠ / (::consonant::)ˠ(::consonant::) _ (::consonant::|#)
 0 -> ʲ / #(::consonant::) _ (::consonant::)ʲ
 0 -> ˠ / #(::consonant::) _ (::consonant::)ˠ
 
@@ -59,3 +59,5 @@ v -> w / _ ˠ
 
 % For normalization, we follow the convention of leaving broad consonants unmarked
 ˠ -> 0 / _
+
+0 -> ə / (?<!ː|[əiue][əiu])[lnɾ]ʲ? _ [bvwmfxçgɟ]
