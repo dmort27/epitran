@@ -5,6 +5,7 @@
 ::back_vowel:: = a|o|u|á|ó|ú
 ::vowel:: = a|i|e|o|u|á|ó|ú|í|é
 ::long_vowel:: = á|ó|ú|í|é
+::short_vowel:: = a|o|u|i|e
 ::diphthong:: = au|ai|ei|ua|ia
 ::consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr|b|c|d|f|g|h|l|m|n|p|r|s|t|v|z
 ::digraph_consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr
@@ -45,10 +46,10 @@ eo -> ьó / _
 
 % <ei> is usually /e/, but sometimes /i/ or /e:/
 ei -> i / _ [mn]
-i -> ь / (e|é) _ (::consonant::)
+i -> ь / (e|é) _ (?![dg]h)(::consonant::)
+i -> ь / é _ [dg]h
+0 -> ь / ei[dg]h _ (::consonant::)
 e -> é / _ ь?r[dln]
-
-% <ea> 
 
 % <oi> represents many possible sounds
 oi -> ъi / (n|m|mh) _
@@ -56,7 +57,7 @@ oi -> ъi / _ (n|m|mh)
 oi -> oь / _ (cht|rs|rt|rth|s)
 oi -> óь / _ r[dln]
 oi -> ъi / _ ll(#|::consonant::)
-oi -> ъe / _
+oi -> ъe / _ (?![dg]h)
 
 % Rules for <u>
 u -> ú / _ (ó|á)
@@ -66,7 +67,7 @@ u -> ú / _ r[dln]
 % Rules for <a>
 a -> ъ / é _
 a -> ъ / _ í
-i -> ь / (a|á) _ (::consonant::)
+i -> ь / (a|á) _ (?![gd]h)(::consonant::)
 a -> á / _ ь?r[dlnr]
 
 % Rules for <i>
@@ -81,11 +82,25 @@ o -> ó / _ r[dln]
 % Rules for <e>
 e -> ь / (::consonant::|#) _ (::back_vowel::)
 
+% Rules for <bh>, <dh>, <gh>, <mh> after short vowels
+% ensure broad/slender rules are applied before deleting vowel symbols
+0 -> ь / (::short_vowel::)[bdgm]h(::short_vowel::)?(::front_vowel::) _ (::consonant::)
+0 -> ъ / (::short_vowel::)[bdgm]h(::short_vowel::)?(::back_vowel::) _ (::consonant::)
+ai? -> 0 / [aou][bdgm]h _
+([eь]a|i) -> 0 / [eo]i[dg]h_
+[eь]a -> 0 / aigh _
+e -> 0 / ai[dg]h _
+
+0 -> : / [aou][bm]h _
+0 -> : / [aoi][dg]h _
+
 % general insertion rules
 0 -> ь / (::consonant::) _ (::front_vowel::)
 0 -> ь / (::front_vowel::) _ (::consonant::)
 0 -> ъ / (::consonant::) _ (::back_vowel::)
 0 -> ъ / (::back_vowel::) _ (::consonant::)
+% Revert overzealous replacement
+[ьъ] -> 0 / (::short_vowel::) _ [bdgm]h:
 
 % <n> realized as /r/ in certain initial clusters
 n -> r / #[^s]h? _

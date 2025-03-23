@@ -73,12 +73,12 @@ class TestIrish(unittest.TestCase):
             (u'eirleach',u'eːɾlʲax'),
             (u'ceirnín',u'ceːɾnʲiːnʲ'),
             (u'ceird','ceːɾdʲ'),
-            #(u'creimeadh',u''), # final <dh>
+            (u'creimeadh',u'cɾʲimʲəi'), # final <dh>
             (u'sceimhle',u'ʃcivʲlʲe'),
             #(u'seinm',u'ʃinʲəmʲ'), # epenthesis
             (u'greim',u'ɟɾʲimʲ'),
             (u'sé',u'ʃeː'),
-            (u'déanamh',u'dʲeːnaw'),
+            (u'déanamh',u'dʲeːnəu'), # final <mh>
             (u'buidéal',u'bidʲeːl'),
             (u'scéimh',u'ʃceːvʲ'),
             (u'páipéir',u'paːpʲeːɾʲ'),
@@ -160,13 +160,13 @@ class TestIrish(unittest.TestCase):
             (u'post',u'post'),
             (u'bord',u'boːɾd'),
             (u'orlach',u'oːɾlax'),
-            #(u'conradh',u'konɾa'), #final <dh>
+            (u'conradh',u'konɾəi'), #final <dh>
             (u'cromóg',u'kɾomoːg'),
             (u'fonn',u'fon'),
             (u'trom',u'tɾom'),
             (u'long',u'loŋg'),
             (u'mo',u'mo'),
-            #(u'cothrom',u'koɾom'), #disappearing /h/
+            (u'cothrom',u'kohɾom'),
             (u'póg',u'poːg'),
             #(u'armónach',u'aɾəmoːnax'), #schwa-epenthesis
             (u'móin',u'moːnʲ'),
@@ -186,7 +186,7 @@ class TestIrish(unittest.TestCase):
             (u'thoir',u'heɾʲ'),
             (u'cloiche',u'kleçe'),
             (u'cois',u'koʃ'),
-            #(u'cloisfidh',u'kloʃiː'), # final <dh>
+            #(u'cloisfidh',u'kloʃiː'), # final <dh>, /f/-removal
             (u'boicht',u'boxtʲ'),
             (u'doirse',u'doɾʃe'),
             (u'goirt',u'goɾtʲ'),
@@ -212,7 +212,7 @@ class TestIrish(unittest.TestCase):
 
     def test_u(self):
         pairs = [
-            (u'dubh',u'duw'),
+            (u'dubh',u'duː'),
             (u'burla',u'buːɾla'),
             (u'murnán',u'muːɾnaːn'),
             (u'agus',u'agus'),
@@ -307,11 +307,11 @@ class TestIrish(unittest.TestCase):
     def test_r(self):
         pairs = [
             (u'ruán',u'ɾuːaːn'),
-            #(u'cumhra',u'kuːɾa'), #final <mh>
+            (u'cumhra',u'kuːɾa'), #final <mh>
             (u'fuar',u'fuəɾ'),
             (u'rí',u'ɾiː'),
             (u'airde',u'aːɾdʲe'),
-            #(u'duirling',u'duːɾlʲənʲ'),
+            #(u'duirling',u'duːɾlʲənʲ'), # no source
             (u'coirnéal',u'koːɾnʲeːl'),
             (u'cuairt',u'kuəɾtʲ'),
             (u'sreang',u'sɾaŋg'),
@@ -345,9 +345,79 @@ class TestIrish(unittest.TestCase):
             (u'jab',u'd͡ʒab'),
             (u'jíp',u'd͡ʒiːpʲ'),
             (u'vóta',u'woːta'),
-            (u'veidhlín',u'vʲəilʲiːnʲ'),
+            (u'veidhlín',u'vʲeːlʲiːnʲ'), # final <dh>
             (u'zú',u'zuː'),
-            (u'Zen',u'ʒɛnʲ'),
+            (u'Zen',u'ʒenʲ'),
+        ]
+        for orth,phon in pairs:
+            pred = self.epi.transliterate(orth)
+            self.assertEqual(pred,phon)
+
+    # Multigraphs involving <bh>, <dh>, <gh>, <mh>
+    def test_xbh_xmh(self):
+        pairs = [
+            (u'Feabhra',u'fʲəuɾa'),
+            (u'leabhair',u'lʲəuɾʲ'),
+            (u'sabhall',u'səul'),
+            (u'ramhraigh',u'ɾəuɾəi'), #<igh>
+            (u'amhantar',u'əuntaɾ'),
+            (u'Samhain',u'səunʲ'),
+            (u'acadamh',u'akadəu'),
+            (u'creideamh',u'cɾʲedʲəu'),
+            (u'Domhnach',u'doːnax'),
+            (u'comhar',u'koːɾ'),
+            (u'domhain',u'doːnʲ'),
+            (u'dubh',u'duː'),
+            (u'tiubh',u'tʲuː'),
+            (u'cumhra',u'kuːɾa'),
+            (u'Mumhan',u'muːn'),
+            (u'ciumhais',u'cuːʃ'),
+            (u'lobhra',u'loːɾa'),
+            (u'lobhar',u'loːɾ'),
+            (u'lobhair',u'loːɾʲ'),
+        ]
+        for orth,phon in pairs:
+            pred = self.epi.transliterate(orth)
+            self.assertEqual(pred,phon)
+
+    def test_xdh_xgh(self):
+        pairs = [
+            (u'meadhg',u'mʲəig'),
+            (u'adharc',u'əiɾk'),
+            (u'adhairt',u'əiɾtʲ'),
+            (u'saghsanna',u'səisana'),
+            #(u'deagha',u'dəi'), # no source on pronunciation, can't verify that initial is supposed to be broad
+            (u'aghaidh',u'əij'),
+            #(u'margadh',u'maɾəgəi'), # schwa-epenthesis
+            (u'briseadh',u'bʲɾʲiʃəi'),
+            (u'aidhleann',u'əilʲan'),
+            (u'aidhe',u'əi'),
+            (u'aighneas',u'əinʲas'),
+            (u'aighe',u'əi'),
+            (u'caighean',u'kəin'),
+            (u'cleachtaidh',u'clʲaxtəi'),
+            (u'bacaigh',u'bakəi'),
+            (u'feidhm',u'fʲeːmʲ'),
+            (u'eidheann',u'eːn'),
+            (u'meidhir',u'mʲeːɾʲ'),
+            (u'feighlí',u'fʲeːlʲiː'),
+            (u'leigheas',u'lʲeːs'),
+            (u'feighil',u'fʲeːlʲ'),
+            (u'ligh',u'lʲiː'),
+            (u'guigh',u'giː'),
+            (u'tuillidh',u'tilʲiː'),
+            (u'coiligh',u'kelʲiː'),
+            (u'oidhre',u'əiɾʲe'),
+            (u'oidheanna',u'əina'),
+            (u'oighreach',u'əiɾʲax'),
+            (u'oigheann',u'əin'),
+            (u'loighic',u'ləic'),
+            (u'bodhrán',u'boːɾaːn'),
+            (u'bodhar',u'boːɾ'),
+            (u'bodhair',u'boːɾʲ'),
+            (u'doghra',u'doːɾa'),
+            (u'bogha',u'boː'),
+            (u'broghais',u'bɾoːʃ'),
         ]
         for orth,phon in pairs:
             pred = self.epi.transliterate(orth)
