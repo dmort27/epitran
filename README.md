@@ -287,6 +287,7 @@ A few notes are in order regarding this data structure:
 | spa-Latn    | Spanish                 |
 | spa-Latn-eu | Spanish (Iberian)       |
 | sqi-Latn    | Albanian                |
+| sro-Latn    | Sardinian (Campidanese) |
 | srp-Latn    | Serbian                 |
 | swa-Latn    | Swahili                 |
 | swa-Latn-red| Swahili (reduced)       |
