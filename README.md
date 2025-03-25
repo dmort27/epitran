@@ -305,6 +305,8 @@ A few notes are in order regarding this data structure:
 | spa-Latn    | Spanish                 |
 | spa-Latn-eu | Spanish (Iberian)       |
 | sqi-Latn    | Albanian                |
+| sro-Latn    | Sardinian (Campidanese) |
+| srp-Latn    | Serbian                 |
 | srp-Latn    | Serbian (Latin)         |
 | srp-Cyrl    | Serbian (Cyrillic)      |
 | swa-Latn    | Swahili                 |
