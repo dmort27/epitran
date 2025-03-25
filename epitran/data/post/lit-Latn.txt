@@ -1,7 +1,7 @@
 ::vowel:: = ɐ|aː|ɛ|æː|e|eː|ɪ|iː|oː|ɔ|ʊ|uː|iɛ|uɔ
 ::consonant_hard:: = b|t͡s|t͡ʃ|d|f|ɡ|ɦ|k|ɫ|m|n|p|r|s|ʃ|t|v|z|ʒ|x|d͡z|d͡ʒ
-::consonant_soft:: = ((b|t͡s|t͡ʃ|d|f|ɡ|ɦ|k|ɫ|m|n|p|r|s|ʃ|t|v|z|ʒ|x|d͡z|d͡ʒ)ʲ|ɕ|ʑ|t͡ɕ|d͡ʑ)
-%::consonant_soft:: = ((b|t͡s|d|f|ɡ|ɦ|k|ɫ|m|n|p|r|s|t|v|z|x|d͡z)ʲ)|ɕ|ʑ|t͡ɕ|d͡ʑ
+::consonant_soft:: = ((b|t͡s|t͡ʃ|d|f|ɡ|ɦ|k|l|m|n|p|r|s|ʃ|t|v|z|ʒ|x|d͡z|d͡ʒ)ʲ|ɕ|ʑ|t͡ɕ|d͡ʑ)
+%::consonant_soft:: = ((b|t͡s|d|f|ɡ|ɦ|k|l|m|n|p|r|s|t|v|z|x|d͡z)ʲ)|ɕ|ʑ|t͡ɕ|d͡ʑ
 ::consonant:: = (::consonant_hard::)|(::consonant_soft::)|j
 
 % "According to their relations with hard and soft (palatalized) consonants, the vowels may be classified into two types:"
@@ -68,6 +68,7 @@ v -> w / _ ((::consonant::)|#)
 zʲ -> ʑ / _
 t͡ʃʲ -> t͡ɕ / _
 d͡zʲ -> d͡ʑ / _
+ɫʲ -> lʲ / _
 
 % Change /m mʲ/ into labiodentals before /v vʲ/ and /f fʲ/
 mʲ -> ɱʲ / _ (v|f)

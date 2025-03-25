@@ -8,7 +8,6 @@ import unicodecsv as csv
 def main(fns, fnn):
     punc = set()
     for fn in fns:
-        print fn
         with open(fn, 'rb') as f:
             reader = csv.reader(f, encoding='utf-8')
             for _, s in reader:

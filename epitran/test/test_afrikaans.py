@@ -8,31 +8,30 @@ class TestAfrikaans(unittest.TestCase):
   def setUp(self):
     self.epi = epitran.Epitran("afr-Latn")
     
-    def test_(self):
+    def test_1(self):
       res = self.epi.transliterate("kind")
       self.assertEqual(res, "kint")
     
-    def test_(self):
+    def test_2(self):
       res = self.epi.transliterate("tjap")
       self.assertEqual(res, "tʃap")
 
-    def test_(self):
+    def test_3(self):
       res = self.epi.transliterate("berge")
       self.assertEqual(res, "berge")  
 
-    def test_(self):
+    def test_4(self):
       res = self.epi.transliterate("kwaad")
       self.assertEqual(res, "kwɑːt")
     
-    def test_(self):
+    def test_5(self):
       res = self.epi.transliterate("dink")
       self.assertEqual(res, "diŋk")
 
-    def test_(self):
+    def test_6(self):
       res = self.epi.transliterate("kus")
       self.assertEqual(res, "kɵs")
 
-    def test_(self):
+    def test_7(self):
       res = self.epi.transliterate("gat")
       self.assertEqual(res, "χat")
-    
