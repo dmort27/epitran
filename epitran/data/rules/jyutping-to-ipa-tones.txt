@@ -1,78 +1,98 @@
-oeng -> œŋ / _
-aang -> aŋ / _
-yut -> yt̚ / _
-yun -> yn / _
-ung -> ʊŋ / _
-ong -> ɔŋ / _
-oek -> œk̚ / _
-ing -> ɪŋ / _
-eot -> ɵt̚ / _
-eon -> ɵn / _
-eoi -> ɵɥ / _
-eng -> ɛŋ / _
-ang -> ɐŋ / _
-aau -> aw / _
-aat -> at̚ / _
-aap -> ap̚ / _
-aan -> an / _
-aam -> am / _
-aak -> ak̚ / _
-aai -> aj / _
-yu -> y / _
-ut -> ut̚ / _
-un -> un / _
-uk -> ʊk̚ / _
-ui -> uj / _
-ou -> ɔw / _
-ot -> ɔt̚ / _
-on -> ɔn / _
-ok -> ɔk̚ / _
-oi -> ɔj / _
-oe -> œ / _
+% Reference: https://en.wikipedia.org/wiki/Help:IPA/Cantonese
+% Jinchuan Tian (jinchuat@andrew.cmu.edu)
+
+% We use double 'x' to indicate the transformed IPA part so that
+% those IPAs will not be considered as Jyutping by mistake.
+
+% definition
+::init:: = f|h|j|g|k|gw|kw|l|m|n|ng|b|p|s|d|t|z|c|w
+::tone:: = 1|2|3|4|5|6
+
+% (1) whole and independent syllables
 ng -> ŋ̍ / # _ #
-ng -> ŋ / _
-kw -> kʷʰ / _
-iu -> iw / _
-it -> it̚ / _
-ip -> ip̚ / _
-in -> in / _
-im -> im / _
-ik -> ɪk̚ / _
-gw -> kʷ / _
-ek -> ɛk̚ / _
-ei -> ej / _
-au -> ɐw / _
-at -> ɐt̚ / _
-ap -> ɐp̚ / _
-an -> ɐn / _
-am -> ɐm / _
-ak -> ɐk̚ / _
-ai -> ɐj / _
-aa -> a / _
-z -> ts / _
-w -> w / _
-u -> u / _
-t -> tʰ / _
-s -> s / _
-p -> pʰ / _
-o -> ɔ / _
-n -> n / _
 m -> m̩ / # _ #
-m -> m / _
-l -> l / _
-k -> kʰ / _
-j -> j / _
-i -> i / _
-h -> h / _
-g -> k / _
-f -> f / _
-e -> ɛ / _
-d -> t / _
-c -> tsʰ / _
-b -> p / _
-6 -> ˨ / _
-5 -> ˨˧ / _
-4 -> ˨˩ / _
-3 -> ˧ / _
-2 -> ˨˥ / _
-1 -> ˥ / _
+
+% (2) initial consonants, 19 items
+f -> xfx / # _
+h -> xhx / # _
+j -> xjx / # _
+gw -> xkʷx / # _
+kw -> xkʷʰx / # _
+g -> xkx / # _
+k -> xkʰx / # _
+l -> xlx / # _
+m -> xmx / # _
+n -> xnx / # _
+ng -> xŋx / # _
+b -> xpx / # _
+p -> xpʰx / # _
+s -> xsx / # _
+d -> xtx / # _
+t -> xtʰx / # _
+z -> xtsx / # _
+c -> xtsʰx / # _
+w -> xwx / # _
+
+% (3) finals, 51 items
+oeng -> xœŋx / x _ (::tone::)
+aang -> xaŋx / x _ (::tone::)
+yut -> xyt̚x / x _ (::tone::)
+yun -> xynx / x _ (::tone::)
+ung -> xʊŋx / x _ (::tone::)
+ong -> xɔŋx / x _ (::tone::)
+oek -> xœk̚x / x _ (::tone::)
+ing -> xɪŋx / x _ (::tone::)
+eot -> xɵt̚x / x _ (::tone::)
+eon -> xɵnx / x _ (::tone::)
+eoi -> xɵɥx / x _ (::tone::)
+eng -> xɛŋx / x _ (::tone::)
+ang -> xɐŋx / x _ (::tone::)
+aau -> xawx / x _ (::tone::)
+aat -> xat̚x / x _ (::tone::)
+aap -> xap̚x / x _ (::tone::)
+aan -> xanx / x _ (::tone::)
+aam -> xamx / x _ (::tone::)
+aak -> xak̚x / x _ (::tone::)
+aai -> xajx / x _ (::tone::)
+yu -> xyx / x _ (::tone::)
+ut -> xut̚x / x _ (::tone::)
+un -> xunx / x _ (::tone::)
+uk -> xʊk̚x / x _ (::tone::)
+ui -> xujx / x _ (::tone::)
+ou -> xɔwx / x _ (::tone::)
+ot -> xɔt̚x / x _ (::tone::)
+on -> xɔnx / x _ (::tone::)
+ok -> xɔk̚x / x _ (::tone::)
+oi -> xɔjx / x _ (::tone::)
+oe -> xœx / x _ (::tone::)
+iu -> xiwx / x _ (::tone::)
+it -> xit̚x / x _ (::tone::)
+ip -> xip̚x / x _ (::tone::)
+in -> xinx / x _ (::tone::)
+im -> ximx / x _ (::tone::)
+ik -> xɪk̚x / x _ (::tone::)
+ek -> xɛk̚x / x _ (::tone::)
+ei -> xejx / x _ (::tone::)
+au -> xɐwx / x _ (::tone::)
+at -> xɐt̚x / x _ (::tone::)
+ap -> xɐp̚x / x _ (::tone::)
+an -> xɐnx / x _ (::tone::)
+am -> xɐmx / x _ (::tone::)
+ak -> xɐk̚x / x _ (::tone::)
+ai -> xɐjx / x _ (::tone::)
+aa -> xax / x _ (::tone::)
+u -> xux / x _ (::tone::)
+o -> xɔx / x _ (::tone::)
+i -> xix / x _ (::tone::)
+e -> xɛx / x _ (::tone::)
+
+% (4) tones, 6 itmes
+1 -> x˥x / x _ #
+2 -> x˨˥x / x _ #
+3 -> x˧x / x _ #
+4 -> x˨˩x / x _ #
+5 -> x˨˧x / x _ #
+6 -> x˨x / x _ #
+
+% (5) remove all 'x'
+x -> 0 / _

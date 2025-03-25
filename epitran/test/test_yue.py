@@ -57,7 +57,7 @@ class TestYue2(unittest.TestCase):
             ('天','tʰin˥'),
             ('好','hɔw˧'),
             ('都','tɔw˥'),
-            ('馬','ma˨˧')
+            ('媽','ma˨˧'),
         ]
 
     def test(self):

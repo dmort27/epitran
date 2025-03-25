@@ -130,10 +130,7 @@ class EpiCanto(Epihan):
                               IPA
         """
         if not cedict_file:
-            if download.cc_canto_exists():
-                cedict_file = download.get_cc_canto_file()
-            else:
-                raise MissingData('Download CC-Canto with "epitran.download.cc_canto().')
+            cedict_file = download.cc_canto()
         if tones:
             rules_file = os.path.join('data', 'rules', 'jyutping-to-ipa-tones.txt')
         else:

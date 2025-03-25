@@ -29,20 +29,19 @@ def cedict():
         with gzip.open(gzfilename, 'rb') as ip_byte, open(txtfilename, 'w') as op:
             op.write(ip_byte.read().decode('utf-8'))
         os.remove(gzfilename)
-
-def get_cc_canto_file():
-    return os.path.join(get_dir(), 'cc_canto', 'cccanto-webdist.txt')
-
-def cc_canto_exists():
-    return os.path.exists(get_cc_canto_file())
+    
+    return txtfilename
 
 def cc_canto():
-    cc_canto_dir = os.path.join(get_dir(), 'cc_canto')
-    r = requests.get(CC_CANTO_URL)
-    with zipfile.ZipFile(BytesIO(r.content)) as zip_ref:
-        zip_ref.extractall(cc_canto_dir)
+    cc_canto_dir = os.path.join(base_dir(), 'cc_canto')
+    cc_canto_txt = os.path.join(cc_canto_dir, 'cccanto-webdist.txt')
 
-    return txtfilename
+    if not os.path.exists(cc_canto_txt):
+        r = requests.get(CC_CANTO_URL)
+        with zipfile.ZipFile(BytesIO(r.content)) as zip_ref:
+            zip_ref.extractall(cc_canto_dir)
+
+    return cc_canto_txt
 
 def opendict_ja():
     txtfilename = os.path.join(base_dir(), 'ja.txt')
