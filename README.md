@@ -227,6 +227,7 @@ A few notes are in order regarding this data structure:
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
 | fra-Latn-p  | French (more phonetic)  |
+| fry-Latn    | Frisian                 |
 | ful-Latn    | Fulah                   |
 | gan-Latn    | Gan (Wiktionary)        |
 | glg-Latn    | Galician	              |

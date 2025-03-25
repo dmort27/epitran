@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Sources include Wiktionary and Frysk Hânwurdboek
 
 from __future__ import print_function, unicode_literals
@@ -11,7 +12,7 @@ def assemble_ipa(xs):
     return ''.join([x[3] for x in xs])
 
 
-class TestDutch(unittest.TestCase):
+class TestFrisian(unittest.TestCase):
     def setUp(self):
         self.epi = epitran.Epitran('fry-Latn')
 
