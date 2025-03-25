@@ -225,6 +225,7 @@ A few notes are in order regarding this data structure:
 | fra-Latn-p  | French (more phonetic)  |
 | ful-Latn    | Fulah                   |
 | gan-Latn    | Gan (Wiktionary)        |
+| gle-Latn    | Irish                   |
 | got-Latn    | Gothic                  |
 | hak-Latn    | Hakka (pha̍k-fa-sṳ)      |
 | hau-Latn    | Hausa                   |
@@ -338,6 +339,7 @@ Some the languages listed above should be approached with caution. It is not pos
 | fas-Arab    | Farsi (Perso-Arabic)    |
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
+| gle-Latn    | Irish                   |
 | mya-Mymr    | Burmese                 |
 | por-Latn    | Portuguese              |
 
