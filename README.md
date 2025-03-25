@@ -294,6 +294,7 @@ A few notes are in order regarding this data structure:
 | rus-Cyrl    | Russian                 |
 | sag-Latn    | Sango                   |
 | sin-Sinh    | Sinhala                 |
+| slv-Latn    | Slovene / Slovenian     |
 | sna-Latn    | Shona                   |
 | som-Latn    | Somali                  |
 | spa-Latn    | Spanish                 |
