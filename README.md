@@ -268,6 +268,7 @@ A few notes are in order regarding this data structure:
 | nan-Latn    | Hokkien (pe̍h-oē-jī)     |
 | nan-Latn-tl | Hokkien (Tâi-lô)        |
 | nld-Latn    | Dutch                   |
+| nno-Latn    | Norwegian (Nynorsk)     |
 | nya-Latn    | Chichewa                |
 | ood-Lat-alv | Tohono O'odham          |
 | ood-Latn-sax| Tohono O'odham          |

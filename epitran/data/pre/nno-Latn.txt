@@ -1,0 +1,34 @@
+% Symbol definitions
+::consonant:: = b|d|f|g|h|j|k|l|m|n|p|r|s|t|v|w|z
+::vowel:: = a|å|æ|e|i|o|u|y|ø|è|ì|ù|ỳ
+::front_vowel:: = ei|i|y|øy
+
+% Contextual pronunciations
+g -> j / _ (::front_vowel::)
+dj -> j / _
+hj -> j / _
+hj -> j / _
+gn -> ŋn / (::vowel::) _
+k -> kj / _ (ei|y|øy)
+sk -> skj / _ (::front_vowel::)
+e -> æ / _ r
+ig -> i / _ #
+
+% Loanword adaptations
+c -> s / _ (e|i)
+c -> k / _ (a|å|æ|o|u|y|ø|ù|ỳ)
+
+% Open syllable lengthening
+a -> aa / _ (::consonant::)(::vowel::)|(::consonant::)#
+å -> åå / _ (::consonant::)(::vowel::)|(::consonant::)#
+æ -> ææ / _ (::consonant::)(::vowel::)|(::consonant::)#
+e -> ee / _ (::consonant::)(::vowel::)|(::consonant::)#
+i -> ii / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+o -> oo / _ (::consonant::)(::vowel::)|(::consonant::)#
+u -> uu / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+y -> yy / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+ø -> øø / _ (::consonant::)(::vowel::)|(::consonant::)#
+è -> èè / _ (::consonant::)(::vowel::)|(::consonant::)#
+ì -> ìì / _ (::consonant::)(::vowel::)|(::consonant::)#
+ù -> ùù / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+ỳ -> ỳỳ / _ #|(::consonant::)(::vowel::)|(::consonant::)#
