@@ -1,0 +1,29 @@
+::vowel:: = ə|a|aː|i|iː|u|uː|e|æː|o|ɔ|ɔː|əh|əm
+::consonant:: = k|kʰ|ɡ|ɡ̤|ŋ|t͡ʃ|t͡ʃʰ|d͡ʒ|d͡ʒ̤|ɲ|ʈ|ʈʰ|ɖ|ɽ|ɖ̤|ɽ̥|ɳ|t|tʰ|d|d̤|n|p|pʰ|b|b̤|m|j|r|l|v|ʃ|ʂ|s|ɦ
+
+% Remove the schwa at the end of a word
+ə -> 0 / (::vowel::)(::consonant::) _ #
+
+% Remove the schwa before a vowel
+ə -> 0 / _ (::vowel::)
+
+% <ons> -> 0
+<ons> -> 0 / _
+
+% ː -> 0 / əV_
+ː -> 0 / ə(a|i|u|æ|ɔ) _
+
+% ː -> ̃ː
+(?P<sw1>ː)(?P<sw2>̃) -> 0 / _
+
+% ə -> 0 / VC_CV
+ə -> 0 / (::vowel::)N?(::consonant::) _ (?=(::consonant::)(::vowel::))
+
+% Viraama
+ə् -> 0 / _
+
+% Homorganic nasal
+N -> m / _ (p|pʰ|b|b̤|m)
+N -> ŋ / _ (k|kʰ|ɡ|ɡ̤|ŋ)
+N -> ɲ / _ (t͡ʃ|t͡ʃʰ|d͡ʒ|d͡ʒ̤|ɲ)
+N -> n / _

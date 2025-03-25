@@ -1,0 +1,36 @@
+% We closely follow the Handbook of the International Phonetic Association (Slovene)
+
+
+% Before voiceless obstruents and in word-final position (unless they are followed by a word-initial voiced obstruent)
+% voiced obstruents are completely devoiced.
+::voicedObs:: = b|d|ɡ|dʒ|z|ʒ
+::voicelessObs:: = p|t|k|ts|tʃ|f|s|ʃ
+b -> p / _ #
+d -> t / _ #
+ɡ -> k / _ #
+dʒ -> tʃ / _ #
+z -> s / _ #
+ʒ -> ʃ / _ #
+b -> p / _ (::voicelessObs::)
+d -> t / _ (::voicelessObs::)
+ɡ -> k / _ (::voicelessObs::)
+dʒ -> tʃ / _ (::voicelessObs::)
+z -> s / _ (::voicelessObs::)
+ʒ -> ʃ / _ (::voicelessObs::)
+
+
+% /s, z, ts/ when followed by /ʃ, ʒ, tʃ, dʒ/ assimilate or coalesce to /ʃ, ʒ, tʃ/ respectively
+::postalveolar:: = ʃ|ʒ|tʃ|dʒ
+s -> ʃ / _ (::postalveolar::)
+z -> ʒ / _ (::postalveolar::)
+ts -> tʃ / _ (::postalveolar::)
+% remove duplicates after assimilation
+ʃ -> 0 / _ ʃ
+ʒ -> 0 / _ ʒ
+tʃ -> 0 / _ tʃ
+
+
+% We focus on phonemic (not phonetic) transcriptions, so we skip allophones.
+% The nasal /n/ is pronounced as velar [ŋ] before /k, ɡ, x/.
+% Nasals, /m, n/, are pronounced as labiodental /ɱ/ before /f, ʋ/
+% Allophonic variants of the approximant /ʋ/

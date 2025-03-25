@@ -124,7 +124,7 @@ class SimpleEpitran(object):
         if nondeterminisms:
             message = ""
             for graph, lines in nondeterminisms:
-                lines = [l + 2 for l in lines]
+                lines = [line + 2 for line in lines]
                 delim = ', '
                 message += '\n' + \
                     f'One-to-many G2P mapping for "{graph}" on lines {delim.join(map(str, lines))}'
