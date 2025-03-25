@@ -27,7 +27,7 @@ class Epitran(object):
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
-               'jpn-Hira': EpiJpan,}
+               'jpn-Jpan': EpiJpan,}
 
     def __init__(self, code: str, preproc: bool=True, postproc: bool=True, ligatures: bool=False,
                 cedict_file: Union[bool, None]=None, rev: bool=False, 

@@ -1,0 +1,67 @@
+% ref: Cagliari Sardinian, Journal of the IPA; Sardinian phonology, wiki;
+%% The Oxford Guide to the Romance Languages; The Oxford Encyclopedia of Romance Linguistics
+
+::vowel:: = a|e|ɛ|i|o|ɔ|u|ja|ju|wa|wu
+::highvowel:: = i|u
+::frontvowel:: = e|ɛ|i
+::consonant:: = b|β|c|k|d|d͡ʒ|d͡z|ɖ|ð|f|ɡ|ɣ|j|k|l|m|n|ɲ|p|ɾ|r|s|ʃ|t|t͡s|t͡ʃ|v|w|ʒ|ː
+::voicedcons:: = b|β|d|d͡ʒ|d͡z|ɖ|ð|ɡ|ɣ|j|l|m|n|ɲ|ɾ|r|t͡s|t͡ʃ|v|w|ʒ
+
+% Special words
+dɛ -> de / (#|\s+) _ (#|\s+)
+
+% Vowels
+%% Metaphony: (ɛ,ɔ) -> (e,o) before syllable with high vowels, may repeat across syllables
+%% *lots of exceptions, not always happening
+ɛ -> e / _ (\w*(e|o)\w*)*\w+(::highvowel::)
+ɔ -> o / _ (\w*(e|o)\w*)*\w+(::highvowel::)
+
+%% Split dipthong (not sure if missing any case)
+j -> i / (lː|rː|l|r) _ (a|u)
+
+
+% Consonants
+
+%% Plosives
+0 -> ː / (::vowel::)(p|t|k) _ (::vowel::)|r
+(p|b) -> β / (::vowel::)\s* _ ((\s*(::vowel::))|r)
+(t|d) -> ð / (::vowel::)\s* _ ((\s*(::vowel::))|r)
+(k|ɡ) -> ɣ / (::vowel::)\s* _ ((\s*(::vowel::))|r)
+
+%% Fricatives
+s -> z / (::vowel::)\s* _ \s*(::vowel::)
+s -> z / _ ::voicedcons::
+f -> v / (::vowel::)\s* _ \s*(::vowel::)
+t͡ʃ -> ʒ / (::vowel::)\s* _ \s*(::vowel::)
+
+%% Nasals
+m -> 0 / u _ #      % observed from examples, not sure
+
+%% Liquids
+r -> ɾ / ::vowel:: _ ::vowel::
+
+%% Remove h
+h -> 0 / _
+
+
+% Skipped neutralization (varies too much across context and Sardinian varieties)
+% Also skipped paragogic vowels (same)
+
+
+% Additional sandhi
+0 -> ː / n\s+(f|l|r|s|ʃ) _
+n -> 0 / _ \s+(f|l|r|s|ʃ)
+n -> m / _ \s+(b|p|β|m)
+n -> ɲ / _ \s+(c|t͡ʃ|k|ɡ|ɣ)
+
+0 -> ː / (s|r)\s+(l|n) _
+(s|r) -> 0 / _ \s+(l|n)
+est -> e / (#|\s+) _ \s+(l|n)
+
+r -> s / _ \s+(s|c|k|p|t|t͡ʃ|ʃ)
+est -> es / (#|\s+) _ \s+(s|c|k|p|t|t͡ʃ|ʃ)
+s -> r / _ \s+(::voicedcons::)
+est -> er / (#|\s+) _ \s+(::voicedcons::)
+
+0 -> ː / t\s+(::consonant::) _
+t -> 0 / _ \s+(::consonant::)
