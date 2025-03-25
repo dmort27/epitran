@@ -241,7 +241,7 @@ class TestIrish(unittest.TestCase):
     def test_ui(self):
         pairs = [
             (u'duine',u'dinʲe'),
-            #(u'duirling',u'diɾlʲinʲ'), # pronunciation unverified, seems dubious
+            #(u'duirling',u'diɾlʲinʲ'), # pronunciation unverified, may be irregular
             (u'tuirne',u'tiɾnʲe'),
             (u'tuillteanach',u'tilʲtʲanax'),
             (u'puinn',u'pinʲ'),
@@ -271,7 +271,7 @@ class TestIrish(unittest.TestCase):
         pairs = [
             (u'dhorn',u'ɣoːɾn'),
             (u'ádh',u'aː'),
-            #(u'dhearg',u'jaɾəg'), # schwa-epenthesis
+            (u'dhearg',u'jaɾəg'), # schwa-epenthesis
             (u'fáidh',u'faːj'),
             (u'ghasúr',u'ɣasuːɾ'),
             (u'Eoghan',u'oːan'),
@@ -325,7 +325,7 @@ class TestIrish(unittest.TestCase):
 
     def test_th(self):
         pairs = [
-            #(u'thuaidh',u'huə'), # final <dh>
+            (u'thuaidh',u'huəi'), # final <dh>
             (u'thíos',u'hiːs'),
             (u'athair',u'ahaɾʲ'),
             (u'coinnithe',u'kinʲihe'),
@@ -388,7 +388,7 @@ class TestIrish(unittest.TestCase):
             (u'saghsanna',u'səisana'),
             #(u'deagha',u'dəi'), # no source on pronunciation, can't verify that initial is supposed to be broad
             (u'aghaidh',u'əij'),
-            #(u'margadh',u'maɾəgəi'), # schwa-epenthesis
+            (u'margadh',u'maɾəgəi'), # schwa-epenthesis
             (u'briseadh',u'bʲɾʲiʃəi'),
             (u'aidhleann',u'əilʲan'),
             (u'aidhe',u'əi'),
@@ -485,7 +485,7 @@ class TestIrish(unittest.TestCase):
             (u'bain',u'binʲ'),
             (u'shroich',u'ɾeç'),
             (u'abhainn',u'oːnʲ'),
-            (u'crua',u'kɾuiː'),
+            (u'crua',u'kɾuəi'),
         ]
         for orth,phon in pairs:
             pred = self.epi.transliterate(orth)
@@ -493,22 +493,24 @@ class TestIrish(unittest.TestCase):
 
     # Test normalization of spelling
     def test_spelling(self):
-        ...
+        pairs = [
+            (u'gheobhaidh',u'ġeoḃaiḋ'),
+            (u'cleachtaidh',u'cleaċtaiḋ'),
+            (u'd\'fhiafraigh',u'd’ḟiafraiġ'),
+            (u'caighean',u'caiġean'),
+            (u'ramhraigh',u'raṁraiġ'),
+            (u'pholl',u'ṗoll'),
+            (u'shiúil',u'ṡiúil'),
+            (u'athair',u'aṫair'),
+        ]
+        for orth_xh,orth_dot in pairs:
+            pred1 = self.epi.transliterate(orth_xh)
+            pred2 = self.epi.transliterate(orth_dot)
+            self.assertEqual(pred1,pred2)
 
 # Any individual test cases (eg. batch testing multiple words that contain
 # a certain pattern) can be defined here
-individual_tests = None; [
-            # The pattern <dh> -> /w/
-            #(u'moladh',u'molaw'),
-            #(u'osclaíodh',u'oskliːw'),
-            (u'bheannódh',u'vʲanoːxəw'),
-            (u'bheannóinn',u'vʲanoːxənʲ'),
-            (u'dhófadh',u'ɣoːhaw'),
-            (u'déarfaidh',u'dʲeːɾhəi'),
-            (u'brisfidh',u'bʲɾʲiʃiː'),
-            (u'scuabfadh',u'skuəpaw'),
-            (u'bheas',u'vʲes'),
-        ]
+individual_tests = None
 
 if individual_tests is not None:
     for pair in individual_tests:

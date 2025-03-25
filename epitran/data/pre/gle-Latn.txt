@@ -12,6 +12,18 @@
 
 %% Data normalization, preprocessing
 
+% Alternate spelling
+ḃ -> bh / _
+ċ -> ch / _
+ḋ -> dh / _
+ḟ -> fh / _
+ġ -> gh / _
+ṁ -> mh / _
+ṗ -> ph / _
+ṡ -> sh / _
+ṫ -> th / _
+’ -> ' / _
+
 % Exceptional forms
 % short pronunciation of <eo>
 0 -> ! / # _ (anseo|deoch|eochair|seo)#
@@ -51,7 +63,7 @@ sh -> 0 / # _ roich#
 d' -> 0 / # _ fhreagair#
 a -> ъ / #(g?c|ch)r _ inn#
 a -> ъ / #(m?b|bh) _ in
-0 -> í / #crua _ #
+0 -> idh / #crua _ #
 
 %% Eclipsis (urú) Rules
 mb -> m / # _
