@@ -1,0 +1,71 @@
+% Luganda preprocessor rules
+% These rules prepare orthographic text for phonemic mapping
+
+::vowels:: = a|e|i|o|u|A|E|I|O|U
+::consonants:: = b|c|d|f|g|h|j|k|l|m|n|p|r|s|t|v|w|y|z|B|C|D|F|G|H|J|K|L|M|N|P|R|S|T|V|W|Y|Z
+
+% Handle special case for velar nasal with apostrophe
+ng' -> ŋ / _
+Ng' -> ŋ / _
+NG' -> ŋ / _
+
+% Handle prenasalized consonants as digraphs
+% These need to be processed before individual consonants
+mp -> ᵐp / _
+mb -> ᵐb / _
+nf -> ᵐf / _
+nv -> ᵐv / _
+nt -> ⁿt / _
+nd -> ⁿd / _
+nc -> ⁿtʃ / _
+nj -> ⁿdʒ / _
+nk -> ᵑk / _
+ng -> ᵑg / _
+
+% Handle capitalized versions 
+Mp -> ᵐp / _
+Mb -> ᵐb / _
+Nf -> ᵐf / _
+Nv -> ᵐv / _
+Nt -> ⁿt / _
+Nd -> ⁿd / _
+Nc -> ⁿtʃ / _
+Nj -> ⁿdʒ / _
+Nk -> ᵑk / _
+Ng -> ᵑg / _
+
+% Handle other important digraphs
+ny -> ɲ / _
+Ny -> ɲ / _
+NY -> ɲ / _
+
+% Handle long vowels
+aa -> aː / _
+ee -> eː / _
+ii -> iː / _
+oo -> oː / _
+uu -> uː / _
+Aa|AA -> aː / _
+Ee|EE -> eː / _
+Ii|II -> iː / _
+Oo|OO -> oː / _
+Uu|UU -> uː / _
+
+% Handle geminated consonants
+bb -> bː / _
+dd -> dː / _
+ff -> fː / _
+gg -> gː / _
+jj -> dʒː / _
+kk -> kː / _
+ll -> lː / _
+mm -> mː / _
+nn -> nː / _
+pp -> pː / _
+rr -> rː / _
+ss -> sː / _
+tt -> tː / _
+vv -> vː / _
+ww -> wː / _
+yy -> jː / _
+zz -> zː / _
