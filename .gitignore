@@ -1,3 +1,6 @@
+# Ignore cached data
+epitran/epitran_data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
