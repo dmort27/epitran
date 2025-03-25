@@ -1,0 +1,21 @@
+::vowel:: = a|e|i|o|u
+::consonant:: = b|c|t͡ʃ|d|f|g|d͡ʒ|h|j|k|l|m|n|ɲ|p|r|s|ʃ|t|v|w|x|y|z
+
+% Clean vowels
+(à|á|ã) -> a / _
+(è|é) -> e / _
+(ì|í) -> i / _
+(ù|ú) -> u / _
+(ò|ó|õ) -> o / _
+
+% Consonants
+sc(e|i) -> ʃː / \w+ _
+sc(e|i) -> ʃ / (#|\s+) _
+c -> t͡ʃ / (#|\s+|^s) _ (e|i)
+nn -> ɲː / _ (i|y|j)
+
+% Special cases
+chin -> chind / (#|\s+) _ \s+(::vowel::)
+non -> no / (#|\s+) _ \s+(::vowel::)
+a -> at / (#|\s+) _ \s+     % a < AD; "at" for convenience
+e -> et / (#|\s+) _ \s+     % e < ET

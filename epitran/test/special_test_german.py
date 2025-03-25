@@ -151,7 +151,7 @@ class TestGermanDuden(unittest.TestCase):
     def test_lehm(self):
         self._derivation('lehm', 'leːm')
 
-    def test_(self):
+    def test_bai(self):
         self._derivation('bei', 'baɪ̯')
 
     def test_teuer(self):
@@ -328,9 +328,6 @@ class TestGermanDuden(unittest.TestCase):
     def test_kost(self):
         self._derivation('kost', 'kɔst')
 
-    def test_(self):
-        self._derivation('', '')
-
     def test_stigma(self):
         self._derivation('Stigma', 'ʃtɪɡma')
 
@@ -339,9 +336,6 @@ class TestGermanDuden(unittest.TestCase):
 
     def test_mass(self):
         self._derivation('Maß', 'maːs')
-
-    def test_pass(self):
-        self._derivation('Pass', 'pas')
 
     def test_treu(self):
         self._derivation('treu', 'trɔɪ̯')

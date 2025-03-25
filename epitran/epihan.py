@@ -42,12 +42,8 @@ class Epihan(object):
             tones (bool): if True, output tones as Chao tone numbers; overrides
                           `rules_file`
         """
-        # If no cedict_file is specified, raise and error
         if not cedict_file:
-            if download.cedict_exists():
-                cedict_file = download.get_cedict_file()
-            else:
-                raise MissingData('Download CC-CEDICT with "epitran.download.cedict()')
+            cedict_file = download.cedict()
         if tones:
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
@@ -113,10 +109,7 @@ class EpihanTraditional(Epihan):
                               IPA
         """
         if not cedict_file:
-            if download.cedict_exists():
-                cedict_file = download.get_cedict_file()
-            else:
-                raise MissingData('Download CC-CEDICT with "epitran.download.cedict().')
+            cedict_file = download.cedict()
         if tones:
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
@@ -159,15 +152,13 @@ class EpiJpan(object):
             cedict_file (str): path to src dictionary file
         """
         if not cedict_file:
-            print(os.path.dirname(__file__))
-            cedict_file = os.path.join(os.path.dirname(__file__), 'data', 'rules', 'ja.txt')
+            cedict_file = download.opendict_ja()
         self.cedict = cedict.CEDictTrieForJapanese(cedict_file)
         self.regexp = None
         self.tones = tones
-        
+
     def transliterate(self, text, normpunc=False, ligatures=False):
         tokens = self.cedict.tokenize(text)
-        # print(tokens)
         ipa_tokens = []
         for token in tokens:
             if token in self.cedict.character:

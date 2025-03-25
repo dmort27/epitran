@@ -22,8 +22,8 @@ class CEDictTrie(object):
         self.trie = self._construct_trie(self.hanzi)
 
     def _read_cedict(self, cedict_file, traditional=False):
-        comment_re = re.compile('\s*#')
-        lemma_re = re.compile('(?P<hanzi>[^]]+) \[(?P<pinyin>[^]]+)\] /(?P<english>.+)/')
+        comment_re = re.compile(r'\s*#')
+        lemma_re = re.compile(r'(?P<hanzi>[^]]+) \[(?P<pinyin>[^]]+)\] /(?P<english>.+)/')
         cedict = {}
         with codecs.open(cedict_file, 'r', 'utf-8') as f:
             for line in f:
@@ -114,7 +114,6 @@ class CEDictTrieForJapanese(object):
         self.trie = self._construct_trie(self.character)
         
     def _read_cedict(self, cedict_file):
-        pron_re = '/'
         cedict = {}
         with codecs.open(cedict_file, 'r', 'utf-8') as f:
             for line in f:

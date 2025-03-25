@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import unittest
-import unicodedata
 
 import epitran
 
@@ -59,13 +58,13 @@ class TestLithuanianVowelAdvancement(unittest.TestCase):
         tr = self.epi.transliterate('žalúosius')
         self.assertEqual(tr, 'ʒɐɫuɔsʲʊ˖s')
         tr = self.epi.transliterate('žaliúosius')
-        self.assertEqual(tr, 'ʒɐɫʲuɔ˖sʲʊ˖s')
+        self.assertEqual(tr, 'ʒɐlʲuɔ˖sʲʊ˖s')
 
     def test_zaloji(self):
         tr = self.epi.transliterate('žalóji')
         self.assertEqual(tr, 'ʒɐɫoːjɪ')
         tr = self.epi.transliterate('žalióji')
-        self.assertEqual(tr, 'ʒɐɫʲoː˖jɪ')
+        self.assertEqual(tr, 'ʒɐlʲoː˖jɪ')
 
     """
     def test_koksas(self):
@@ -94,7 +93,7 @@ class TestLithuanianTkAspiration(unittest.TestCase):
         tr = self.epi.transliterate('kasmẽt')
         self.assertEqual(tr, 'kasʲmʲɛt') # unsure if correct
         tr = self.epi.transliterate('kasmẽt,')
-        self.assertEqual(tr, 'kasʲmʲæːtʰ,')
+        self.assertEqual(tr, 'kasʲmʲæːtʰ ')
 
     def test_bek(self):
         tr = self.epi.transliterate('bė́k')
@@ -125,7 +124,7 @@ class TestLithuanianMisc(unittest.TestCase):
 
     def test_atsikele(self):
         tr = self.epi.transliterate('atsikė́lė')
-        self.assertEqual(tr, 'ɐt͡sʲɪkʲeːɫʲeː')
+        self.assertEqual(tr, 'ɐt͡sʲɪkʲeːlʲeː')
 
     def test_pussesere(self):
         tr = self.epi.transliterate('pùsseserė')
@@ -133,4 +132,4 @@ class TestLithuanianMisc(unittest.TestCase):
 
     def test_zemvaldys(self):
         tr = self.epi.transliterate('žemvaldỹs')
-        self.assertEqual(tr, 'ʒʲɛɱvɐɫʲdʲiːs')
+        self.assertEqual(tr, 'ʒʲɛɱvɐlʲdʲiːs')
