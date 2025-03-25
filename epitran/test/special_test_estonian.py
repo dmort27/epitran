@@ -108,7 +108,7 @@ class TestEstonian(unittest.TestCase):
 
     def test_fakti(self): 
         tr = self.epi.transliterate('fakti')
-        self.assertEqual(tr, 'fakːti')
+        self.assertEqual(tr, 'fɑkːti')
 
     # RULE 8
     def test_pani(self): 

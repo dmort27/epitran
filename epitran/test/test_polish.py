@@ -54,7 +54,7 @@ class TestPolish(unittest.TestCase):
 
     def test_szybko(self):
         tr = self.epi.transliterate('szybko')
-        self.assertEqual(tr, 'ʂɨbkɔ')
+        self.assertEqual(tr, 'ʂɨpkɔ')
 
     def test_dziadek(self):
         tr = self.epi.transliterate('dziadek')

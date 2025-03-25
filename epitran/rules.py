@@ -41,7 +41,7 @@ class Rules(object):
                 # Normalize the line to decomposed form
                 line = line.strip()
                 line = unicodedata.normalize('NFD', line)
-                if not re.match('\s*%', line):
+                if not re.match(r'\s*%', line):
                     rules.append(self._read_rule(i, line))
         return [rule for rule in rules if rule is not None]
 
