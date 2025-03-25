@@ -86,7 +86,6 @@ class CEDictTrieForJapanese(object):
         self.trie = self._construct_trie(self.character)
         
     def _read_cedict(self, cedict_file):
-        pron_re = '/'
         cedict = {}
         with codecs.open(cedict_file, 'r', 'utf-8') as f:
             for line in f:
