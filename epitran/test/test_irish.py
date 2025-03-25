@@ -34,7 +34,7 @@ class TestIrish(unittest.TestCase):
             (u'airne',u'aːɾnʲe'),
             (u'airde',u'aːɾdʲe'),
             (u'caillte',u'kalʲtʲe'),
-            (u'crainn',u'kɾanʲ'),
+            #(u'crainn',u'kɾanʲ'), # exceptional pronunciation in Ulster, but not other dialects
             (u'eolais',u'oːlaʃ'),
             (u'maígh',u'miːj'),
             (u'gutaí',u'gutiː'),
@@ -75,7 +75,7 @@ class TestIrish(unittest.TestCase):
             (u'ceird','ceːɾdʲ'),
             (u'creimeadh',u'cɾʲimʲəi'), # final <dh>
             (u'sceimhle',u'ʃcivʲlʲe'),
-            #(u'seinm',u'ʃinʲəmʲ'), # epenthesis
+            (u'seinm',u'ʃinʲəmʲ'), # epenthesis
             (u'greim',u'ɟɾʲimʲ'),
             (u'sé',u'ʃeː'),
             (u'déanamh',u'dʲeːnəu'), # final <mh>
@@ -330,7 +330,7 @@ class TestIrish(unittest.TestCase):
             (u'athair',u'ahaɾʲ'),
             (u'coinnithe',u'kinʲihe'),
             (u'ith',u'ih'),
-            #(u'foghlamtha',u'foːlamha'), # final <gh>
+            (u'foghlamtha',u'foːlama'), # final <gh>
             (u'ruaigthe',u'ɾuəce'),
             (u'scuabtha',u'skuəpa'),
             (u'bláth',u'blaː'),
@@ -444,13 +444,71 @@ class TestIrish(unittest.TestCase):
             self.assertEqual(pred,phon)
         ...
 
+    # Test exceptional cases
+    def test_verb_conjugations(self):
+        '''
+        The pattern <dh#> -> /w/ is not reconsileable in general, as there is
+        too much overlap between verbal inflections and non-morphemic finals
+        to distinguish them out of context. The shift is kept where the verb form
+        is unambiguous.
+        '''
+        pairs = [
+            #(u'moladh',u'molaw'),
+            #(u'osclaíodh',u'oskliːw'),
+            (u'bheannódh',u'vʲanoːxəw'),
+            (u'bheannóinn',u'vʲanoːxənʲ'),
+            (u'dhófadh',u'ɣoːhaw'),
+            (u'déarfaidh',u'dʲeːɾhəi'),
+            (u'brisfidh',u'bʲɾʲiʃiː'),
+            (u'scuabfadh',u'skuəpaw'),
+            (u'bheas',u'vʲes'),
+        ]
+        for orth,phon in pairs:
+            pred = self.epi.transliterate(orth)
+            self.assertEqual(pred,phon)
+
+    def test_exceptions_ulster(self):
+        '''
+        Sourced from Chapter 8 of Stenson and Hickey "Understanding Irish Spelling: A Handbook for Teachers and Learners"
+        https://www.cogg.ie/wp-content/uploads/Understanding-Irish-Spelling-A-Handbook-for-Teachers-and-Learners-by-Dr.-Nancy-Stenson-and-Dr.-Tina-Hickey.pdf
+        IPA transcriptions inferred from given "expected spelling" where not provided, and cross-referenced against Wiktionary and
+        the pronunciation dictionary at https://www.teanglann.ie/ where possible. Words for which the "regular" pronunciation
+        is attested in at least one of these sources were ignored.
+        '''
+        pairs = [
+            (u'raibh',u'ɾo'),
+            (u'tabhair',u'toːɾʲ'),
+            (u'tabharfaidh',u'toːɾhəi'),
+            (u'tabharthach',u'toːɾhax'),
+            (u'd\'fhiafraigh',u'dʲiəɾəi'),
+            (u'tarraing',u'taːɾanʲ'),
+            (u'bain',u'binʲ'),
+            (u'shroich',u'ɾeç'),
+            (u'abhainn',u'oːnʲ'),
+            (u'crua',u'kɾuiː'),
+        ]
+        for orth,phon in pairs:
+            pred = self.epi.transliterate(orth)
+            self.assertEqual(pred,phon)
+
     # Test normalization of spelling
     def test_spelling(self):
         ...
 
 # Any individual test cases (eg. batch testing multiple words that contain
 # a certain pattern) can be defined here
-individual_tests = None
+individual_tests = None; [
+            # The pattern <dh> -> /w/
+            #(u'moladh',u'molaw'),
+            #(u'osclaíodh',u'oskliːw'),
+            (u'bheannódh',u'vʲanoːxəw'),
+            (u'bheannóinn',u'vʲanoːxənʲ'),
+            (u'dhófadh',u'ɣoːhaw'),
+            (u'déarfaidh',u'dʲeːɾhəi'),
+            (u'brisfidh',u'bʲɾʲiʃiː'),
+            (u'scuabfadh',u'skuəpaw'),
+            (u'bheas',u'vʲes'),
+        ]
 
 if individual_tests is not None:
     for pair in individual_tests:
@@ -458,7 +516,7 @@ if individual_tests is not None:
         def test_local(self,o=orth,p=phon):
             self._assert_transcription_match(o,p)
 
-    setattr(TestIrish,f'test_{orth}',test_local)
+        setattr(TestIrish,f'test_{orth}',test_local)
 
 
 if __name__ == '__main__':

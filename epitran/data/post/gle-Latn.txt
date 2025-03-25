@@ -1,6 +1,6 @@
 ::broad:: = k|g|ŋ|w|ɣ|x|s|z
 ::slender:: = c|ɟ|ɲ|vʲ|j|ç|ʃ|ʒ
-::consonant:: = b|p|m|f|v|d|t|n|l|ɾ|h|::broad::|::slender::
+::consonant:: = b|p|m|f|F|v|d|t|n|l|ɾ|h|::broad::|::slender::
 ::vowel:: = a|i|u|e|o|ǝ|aː|iː|uː|eː|oː
 
 % Final consonants adopt the preceeding broad/slender rule
@@ -59,5 +59,7 @@ v -> w / _ ˠ
 
 % For normalization, we follow the convention of leaving broad consonants unmarked
 ˠ -> 0 / _
+% <fh> is silent, but blocks consonants from being word-initial
+Fʲ? -> 0 / _
 
 0 -> ə / (?<!ː|[əiue][əiu])[lnɾ]ʲ? _ [bvwmfxçgɟ]

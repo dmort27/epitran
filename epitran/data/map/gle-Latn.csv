@@ -6,7 +6,7 @@ ch,x
 d,d
 dh,ɣ
 f,f
-fh,
+fh,F
 g,g
 gh,ɣ
 h,h
@@ -45,6 +45,7 @@ ai,əi
 ei,ei
 ua,uə
 ia,iə
+ə,ə
 abh:,əu
 amh:,əu
 obh:,oː
@@ -64,4 +65,7 @@ oigh:,əi
 odh:,oː
 ogh:,oː
 -,
+',
 !,
+V!,
+B!,

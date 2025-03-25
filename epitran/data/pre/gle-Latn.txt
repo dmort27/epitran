@@ -12,8 +12,46 @@
 
 %% Data normalization, preprocessing
 
-% exceptional forms
+% Exceptional forms
+% short pronunciation of <eo>
 0 -> ! / # _ (anseo|deoch|eochair|seo)#
+
+% forms of "bí"
+0 -> B! / # _ (bheadh|mbeadh|bheas|bead|beadh)#
+ea -> eъ / #B!.* _
+B! -> 0 / _
+
+% regular verb conjugations
+% specifically, those containing <f>
+0 -> V! / (?<!V[!].*) _ (fa?idh|fe?ad|fa?ir|fa?imid|fa?id|fe?adh|fa?inn|fe?á|fa?imis|fa?idís)#
+f -> th / V! _
+% and several containing <ó(i)> or <eo(i)>
+% TODO: stress-test non-verbs and see if any remaining expressions overzealously match
+0 -> V! / (?<!V[!].*) _ ((ó|eo)idh|(ó|eo)imid|(ó|eo)far|(ó|eo)dh|(ó|eo)inn|(ó|eo)fá|(ó|eo)imis|(ó|eo)idís|(ó|eo)faí)#
+(eo|ó) -> óchъəъ / V!.* _
+ъi -> ь / V!.*ə _
+% <dh> becomes /w/ after a broad vowel in verb endings
+% There is an exception when followed by certain pronouns, but context-sensitive replacement is out-of-scope
+dh -> v / V!.*(?<!(::front_vowel::)) _
+% <aim#> has a nonstandard pronunciation, but its implementation causes others to break
+%i -> ьəъ / V!a? _ m#
+%aь -> ъ / V! _ əъm
+V! -> 0 / _
+
+% rules for common irregular pronunciations
+raibh -> ro / # _ #
+abha -> ó / #(d?t|th) _ i?r
+abha -> ó / #(n?g|gh) _ i?l
+abha -> ó / #(n-|h)? _ i?nn#
+d -> 0 / #(g?c|ch)o _ la[dt]
+f -> 0 / #d'fhia _ raigh#
+g -> 0 / (d?t|th)arrain _ #
+gheobhaidh -> ghьó / # _ #
+sh -> 0 / # _ roich#
+d' -> 0 / # _ fhreagair#
+a -> ъ / #(g?c|ch)r _ inn#
+a -> ъ / #(m?b|bh) _ in
+0 -> í / #crua _ #
 
 %% Eclipsis (urú) Rules
 mb -> m / # _
