@@ -206,6 +206,7 @@ A few notes are in order regarding this data structure:
 | ben-Beng    | Bengali                 |
 | ben-Beng-red| Bengali (reduced)       |
 | ben-Beng-east| Eastern Bengali        |
+| bho-Deva    | Bhojpuri                |
 | bxk-Latn    | Bukusu                  |
 | cat-Latn    | Catalan                 |
 | ceb-Latn    | Cebuano                 |
@@ -275,6 +276,7 @@ A few notes are in order regarding this data structure:
 | lit-Latn    | Lithuanian              |
 | lsm-Latn    | Saamia                  |
 | ltc-Latn-bax | Middle Chinese (Baxter and Sagart 2014) |
+| lug-Latn    | Ganda / Luganda         |
 | mal-Mlym    | Malayalam               |
 | mar-Deva    | Marathi                 |
 | mlt-Latn    | Maltese                 |
@@ -306,7 +308,6 @@ A few notes are in order regarding this data structure:
 | spa-Latn-eu | Spanish (Iberian)       |
 | sqi-Latn    | Albanian                |
 | sro-Latn    | Sardinian (Campidanese) |
-| srp-Latn    | Serbian                 |
 | srp-Latn    | Serbian (Latin)         |
 | srp-Cyrl    | Serbian (Cyrillic)      |
 | swa-Latn    | Swahili                 |
@@ -322,6 +323,7 @@ A few notes are in order regarding this data structure:
 | tir-Ethi    | Tigrinya                |
 | tir-Ethi-pp | Tigrinya (more phonemic)|
 | tir-Ethi-red| Tigrinya (reduced)      |
+| tok-Latn    | Toki Pona               |
 | tpi-Latn    | Tok Pisin               |
 | tuk-Cyrl    | Turkmen (Cyrillic)      |
 | tuk-Latn    | Turkmen (Latin)         |
