@@ -4,6 +4,10 @@
 ::vowels:: = a|e|i|o|u|A|E|I|O|U
 ::consonants:: = b|c|d|f|g|h|j|k|l|m|n|p|r|s|t|v|w|y|z|B|C|D|F|G|H|J|K|L|M|N|P|R|S|T|V|W|Y|Z
 
+% Handle apostrophe for nasal prefixes
+n' -> ⁿ / _
+N' -> ⁿ / _
+
 % Handle special case for velar nasal with apostrophe
 ng' -> ŋ / _
 Ng' -> ŋ / _
@@ -33,6 +37,13 @@ Nc -> ⁿtʃ / _
 Nj -> ⁿdʒ / _
 Nk -> ᵑk / _
 Ng -> ᵑg / _
+
+% Handle special case for nny sequence (geminated palatal nasal)
+nny -> ɲː / _
+Nny -> ɲː / _
+NNy -> ɲː / _
+NnY -> ɲː / _
+NNY -> ɲː / _
 
 % Handle other important digraphs
 ny -> ɲ / _
