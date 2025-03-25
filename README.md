@@ -244,6 +244,11 @@ A few notes are in order regarding this data structure:
 | ind-Latn    | Indonesian              |
 | ita-Latn    | Italian                 |
 | jam-Latn    | Jamaican                |
+| jpn-Hrgn    | Japanese (Hiragana)     |
+| jpn-Hrgn-red| Japanese (Hiragana, reduced) |
+| jpn-Ktkn    | Japanese (Katakana)     |
+| jpn-Ktkn-red| Japanese (Katakana, reduced) |
+| jpn-Jpan    | Japanese (Hiragana, Katakana, Kanji) |
 | jav-Latn    | Javanese                |
 | jpn-Hira    | Japanese (Hiragana)     |
 | jpn-Hira-red| Japanese (Hiragana, reduced) |
