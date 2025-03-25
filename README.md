@@ -28,7 +28,7 @@ Its constructor takes one argument, `code`, the ISO 639-3 code of the language t
 >>> epi = epitran.Epitran('uig-Arab')  # Uyghur in Perso-Arabic script
 ```
 
-It is now possible to use the Epitran class for English and Mandarin Chinese (Simplified and Traditional) G2P as well as the other langugages that use Epitran's "classic" model. For Chinese, it is necessary to point the constructor to a copy of the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary:
+It is now possible to use the Epitran class for English, Mandarin Chinese (Simplified and Traditional) and Cantonese (Traditional) G2P as well as the other langugages that use Epitran's "classic" model. For Chinese and Canonese, it is necessary to point the constructor to a copy of the [CC-CEDict](https://cc-cedict.org/wiki/) dictionary or [CC-Canto](https://cccanto.org/cccanto-170202.zip). E.g.:
 
 
 ```python
@@ -339,11 +339,13 @@ A few notes are in order regarding this data structure:
 | wuu-Latn    | Shanghainese Wu (Wiktionary) |
 | xho-Latn    | Xhosa                   |
 | yor-Latn    | Yoruba                  |
-| yue-Latn    | Cantonese               | 
+| yue-Latn    | Cantonese (Jyutping)    |
+| yue-Hant    | Cantonese (Character)   |
 | zha-Latn    | Zhuang                  |
 | zul-Latn    | Zulu                    |
 
 \*Chinese G2P requires the freely available [CC-CEDict](https://cc-cedict.org/wiki/) dictionary.
+\*Cantonese G2P (Option `yue-Hant`) requires the freely available [CC-Canto](https://cccanto.org/cccanto-170202.zip) dictionary. This dictionary may not be accuracy for single characters, as some single characters may have multiple pronunciations.
 
 †These language preprocessors and maps naively assume a phonemic orthography.
 
