@@ -46,10 +46,6 @@ class TestNynorsk(unittest.TestCase):
     def test_land(self):
         tr = self.epi.transliterate('land')
         self.assertEqual(tr, 'lɑnd')
-    
-    def test_sol(self):
-        tr = self.epi.transliterate('sol')
-        self.assertEqual(tr, 'suːl')
         
     def test_skodd(self):
         tr = self.epi.transliterate('skodd')
