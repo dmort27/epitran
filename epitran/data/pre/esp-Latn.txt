@@ -1,0 +1,25 @@
+::vowel:: = a|e|i|o|u|A|E|I|O|U
+::consonant:: = b|c|ĉ|d|f|g|ĝ|h|ĥ|j|k|l|m|n|p|r|s|ŝ|t|v|z|B|C|Ĉ|D|F|G|Ĝ|H|Ĥ|J|K|L|M|N|P|R|S|Ŝ|T|V|Z
+::ipa:: = ɡ|t͡ʃ|d͡ʒ|ʃ|x|ʒ
+
+% Fixing vowel variations before consonants
+a -> ɒ / (::consonant::) _  % 'a' becomes 'ɒ' before consonants
+e -> ɛ / (::consonant::) _  % 'e' becomes 'ɛ' before consonants
+i -> ɪ / (::consonant::) _  % 'i' becomes 'ɪ' before consonants
+
+% Fixing consonant changes before specific vowels
+g -> ʒ / _(::vowel::)  % 'g' becomes 'ʒ' before vowels
+ĉ -> t͡ʃ / _ (::vowel::)  % 'ĉ' becomes [t͡ʃ] before vowels
+ĝ -> d͡ʒ / _ (::vowel::)  % 'ĝ' becomes [d͡ʒ] before vowels
+
+% Fixing diphthong handling
+ai -> ai̯ / _  % 'ai' stays as is
+ei -> ei̯ / _  % 'ei' stays as is
+oi -> oi̯ / _  % 'oi' stays as is
+
+% Fixing sonorant merging
+n -> m / _(p|b)  % 'n' merges to 'm' before 'p' or 'b'
+n -> 0 / _(f|v)  % 'n' is deleted before 'f' or 'v'
+
+% Fixing initial 'r' consonant
+r -> ʁ / #_  % 'r' becomes 'ʁ' at the beginning of words

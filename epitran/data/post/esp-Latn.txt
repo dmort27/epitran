@@ -1,0 +1,21 @@
+::vowel:: = a|e|i|o|u|A|E|I|O|U
+::consonant:: = b|c|ĉ|d|f|g|ĝ|h|ĥ|j|k|l|m|n|p|r|s|ŝ|t|v|z|B|C|Ĉ|D|F|G|Ĝ|H|Ĥ|J|K|L|M|N|P|R|S|Ŝ|T|V|Z
+::ipa:: = ɡ|t͡ʃ|d͡ʒ|ʃ|x|ʒ
+
+% Fixing end of word
+0 -> ɒ / _#  % "a" becomes "ɒ" at the end of words
+0 -> ɛː / _#  % Placeholder to indicate vowel lengthening at the end of words
+
+% Fixing sonorant merging
+n -> m / _(p|b)  % 'n' merges to 'm' before 'p' or 'b'
+n -> 0 / _(f|v)  % 'n' is deleted before 'f' or 'v'
+
+% Fixing consonant dependent transformations
+ĉ -> t͡ʃ / _  % 'ĉ' becomes [t͡ʃ] when it appears
+ĝ -> d͡ʒ / _  % 'ĝ' becomes [d͡ʒ]
+v -> w / (::consonant::)_  % 'v' becomes 'w' before consonants
+
+% Fixing diphthongs (e.g., handling of 'ai' and 'oi')
+ai -> ai̯ / _
+ei -> ei̯ / _
+oi -> oi̯ / _
