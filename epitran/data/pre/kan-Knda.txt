@@ -1,0 +1,11 @@
+% preprocess rule that goes from a single digit (0-9) to form to be processed in the map; this does not work for digits > 9 if they are represented as numerals, but should work if they are represented as characters.
+೦ -> ಸೊನ್ನೆ / _
+೧ -> ಒಂದು / _
+೨ -> ಎರಡು / _
+೩ -> ಮೂರು / _
+೪ -> ನಾಲ್ಕು / _
+೫ -> ಅಯ್ದು / _
+೬ -> ಆರು / _
+೭ -> ಏಳು / _
+೮ -> ಎಂಟು / _
+೯ -> ಒಂಬತ್ತು/ _
