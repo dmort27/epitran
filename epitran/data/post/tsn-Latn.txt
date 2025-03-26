@@ -1,0 +1,19 @@
+% Postprocessing rules for Setswana
+
+::consonant:: = ŋ|tsʰ|tʃʰ|ts|tʃ|tɬʰ|tɬ|pʰ|tʰ|ʃ|kxʰ|kʰ|b|d|f|g|h|dʒ|k|l|m|n|p|r|s|t|v|w|j|c
+::vowel:: = a|e|i|o|u|ɛ|ɪ|ʊ|ɔ
+
+mo -> mʊ / _ (::consonant::)
+bo -> bʊ / _ (::consonant::)
+lo -> lʊ / _ (::consonant::)
+ao -> aʊ / _ (::consonant::)
+
+o -> ʊ / (::consonant::) _
+
+
+se -> sɪ / _ (::consonant::)
+le -> lɪ / _ (::consonant::)
+me -> mɛ / _ (::consonant::)
+ae -> aɪ / _ (::consonant::)
+
+e -> ɪ / (::consonant::) _ #
