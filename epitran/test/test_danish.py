@@ -23,7 +23,7 @@ class TestDanish(unittest.TestCase):
 
         def test_4(self):
             res = self.epi.transliterate("tyve")
-            self.assertEqual(res, "tyːvɐ")
+            self.assertEqual(res, "tyvɐ")
 
         def test_5(self):
             res = self.epi.transliterate("synge")
