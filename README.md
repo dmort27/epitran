@@ -255,6 +255,7 @@ A few notes are in order regarding this data structure:
 | jpn-Hira-red| Japanese (Hiragana, reduced) |
 | jpn-Kana    | Japanese (Katakana)     |
 | jpn-Kana-red| Japanese (Katakana, reduced) |
+| kan-Knda    | Kannada                 |
 | kat-Geor    | Georgian                |
 | kaz-Cyrl    | Kazakh (Cyrillic)       |
 | kaz-Cyrl-bab| Kazakh (Cyrillic—Babel) |
