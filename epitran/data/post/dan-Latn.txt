@@ -13,6 +13,11 @@ aw -> aʊ / _
 aj -> aɪ / _
 ɔj -> ɔɪ / _
 
+% The Danish schwa sound, often represented by 'e' at the end of words,
+% is frequently realized as a near-open central vowel.
+% This rule approximates that sound.
+ə -> ɐ / _
+
 
 % Simplify vowel symbols
 a -> ɑ / _
