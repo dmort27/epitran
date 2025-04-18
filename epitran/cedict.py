@@ -76,8 +76,8 @@ class CEDictTrie(object):
 
 class CEDictTrieForCantonese(CEDictTrie):
     def _read_cedict(self, cedict_file, traditional=False):
-        comment_re = re.compile('\s*#')
-        lemma_re = re.compile('(?P<hanzi>[^[]+) \[(?P<pinyin>[^]]+)\] \{(?P<jyutping>[^}]+)\} /(?P<english>.+)/')
+        comment_re = re.compile(r'\s*#')
+        lemma_re = re.compile(r'(?P<hanzi>[^[]+) \[(?P<pinyin>[^]]+)\] \{(?P<jyutping>[^}]+)\} /(?P<english>.+)/')
         cedict = {}
         with codecs.open(cedict_file, 'r', 'utf-8') as f:
             for line in f:
