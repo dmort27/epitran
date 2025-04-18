@@ -29,7 +29,7 @@ def cedict():
         with gzip.open(gzfilename, 'rb') as ip_byte, open(txtfilename, 'w') as op:
             op.write(ip_byte.read().decode('utf-8'))
         os.remove(gzfilename)
-    
+
     return txtfilename
 
 def cc_canto():
