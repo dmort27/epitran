@@ -3,7 +3,7 @@ import logging
 from typing import Union
 
 import panphon.featuretable
-from epitran.epihan import Epihan, EpihanTraditional, EpiJpan
+from epitran.epihan import Epihan, EpihanTraditional, EpiJpan, EpiCanto
 from epitran.flite import FliteLexLookup
 from epitran.puncnorm import PuncNorm
 from epitran.simple import SimpleEpitran
@@ -27,7 +27,9 @@ class Epitran(object):
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
-               'jpn-Jpan': EpiJpan,}
+               'jpn-Hira': EpiJpan,
+               'yue-Hant': EpiCanto,
+               }
 
     def __init__(self, code: str, preproc: bool=True, postproc: bool=True, ligatures: bool=False,
                 cedict_file: Union[bool, None]=None, rev: bool=False, 

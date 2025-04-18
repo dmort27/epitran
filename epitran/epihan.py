@@ -119,6 +119,27 @@ class EpihanTraditional(Epihan):
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
 
+class EpiCanto(Epihan):
+    def __init__(self, ligatures=False, cedict_file=None, tones=False, rules_file='jyutping-to-ipa.txt'):
+        """Construct epitran object for Cantonese
+
+        Args:
+            ligatures (bool): if True, use ligatures instead of standard IPA
+            cc_canto_file (str): path to CC-Canto dictionary file
+            rules_file (str): name of file with rules for converting jyutping to
+                              IPA
+        """
+        if not cedict_file:
+            cedict_file = download.cc_canto()
+        if tones:
+            rules_file = os.path.join('data', 'rules', 'jyutping-to-ipa-tones.txt')
+        else:
+            rules_file = os.path.join('data', 'rules', rules_file)
+        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        self.cedict = cedict.CEDictTrieForCantonese(cedict_file, traditional=True)
+        self.rules = rules.Rules([rules_file])
+        self.regexp = re.compile(r'\p{Han}')
+
 class EpiJpan(object):
     def __init__(self, ligatures=False, cedict_file=None, tones=False):
         """Construct epitran object for Japanese

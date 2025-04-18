@@ -40,7 +40,6 @@ class CEDictTrie(object):
                         cedict[hanzi[1]] = (pinyin, english)  # simplified characters only.
         return cedict
 
-
     def _construct_trie(self, hanzi):
         pairs = []
         for hz, df in self.hanzi.items():
@@ -74,6 +73,35 @@ class CEDictTrie(object):
                 tokens.append(s[0])
                 s = s[1:]
         return tokens
+
+class CEDictTrieForCantonese(CEDictTrie):
+    def _read_cedict(self, cedict_file, traditional=False):
+        comment_re = re.compile(r'\s*#')
+        lemma_re = re.compile(r'(?P<hanzi>[^[]+) \[(?P<pinyin>[^]]+)\] \{(?P<jyutping>[^}]+)\} /(?P<english>.+)/')
+        cedict = {}
+        with codecs.open(cedict_file, 'r', 'utf-8') as f:
+            for line in f:
+                if comment_re.match(line):
+                    pass
+                elif lemma_re.match(line):
+                    match = lemma_re.match(line)
+                    hanzi = match.group('hanzi').split(' ')
+                    jyutping = match.group('jyutping').split(' ')
+                    english = match.group('english').split('/')
+                    
+                    hanzi = hanzi[0] if traditional else hanzi[1]
+                    cedict[hanzi] = (jyutping, english)
+
+                    # NOTE(Jinchuan): Some isolated characters are missing in the dict
+                    # but there are many words contains those characters. So we split
+                    # the words and get the pronunciation of each single character.
+                    # This operation will reduce out-of-vocabulary issue but will
+                    # definitely introduce errors: some characters have multiple
+                    # pronunciation, but we only keep one of it.
+                    for char, syllable in zip(hanzi, jyutping):
+                        if char not in cedict_file:
+                            cedict[char] = (syllable, "")
+        return cedict
     
 class CEDictTrieForJapanese(object):
     def __init__(self, cedict_file):
