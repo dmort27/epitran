@@ -1,0 +1,34 @@
+::consonant:: = b|bt|c|ç|cc|ch|d|f|g|gd|gu|h|j|k|l|lh|m|n|nd|nt|nh|gn|p|q|r|rr|rm|rn|s|ss|sh|t|tg|tj|tl|tm|tn|tz|v|w|x|y|z
+::vowel:: = a|e|è|i|ò|o|u|ai|ei|èi|òi|òu|au|eu|èu|ia|ie|iè|uò|io|iu|oi|üa|üe|oè|uè|oá|oí|üi|uau|oeo|ièi|ieu|ièu|uòu|uèi
+
+g -> d͡ʒ / _ (e|i)
+k -> s / _ (e|i)
+cc -> t͡s / _ (e|i)
+
+b -> β / (::vowel::|ɾ|l|z) _ (::vowel::|ɾ|l|z)
+g -> ɣ / (::vowel::|ɾ|l|z) _ (::vowel::|ɾ|l|z)
+d -> ð / (::vowel::|ɾ|l|z) _ (::vowel::|ɾ|l|z)
+g -> ɣ / (::vowel::|ɾ|l|z) _ (::vowel::|ɾ|l|z)
+
+
+b -> p / _ #
+c -> k / _ #
+g -> k / _ #
+z -> s / _ #
+
+n -> m / _ (p|b|m)
+n -> ŋ / _ (k|g)
+n -> ɱ / _ f
+
+nd -> n / _ # 
+nt -> n / _ #
+nh -> n / _ #
+
+ɾ -> 0 / _ # 
+rm -> ɾ / _ #
+rn -> ɾ / _ #
+
+
+
+
+
