@@ -1,0 +1,19 @@
+% Postprocessing rules for Interlingua
+% Define vowel set
+::vowels:: = a|e|i|o|u
+
+% Reduce long vowels (if they arise due to orthographic doubling)
+aa -> a / _
+ee -> e / _
+ii -> i / _
+oo -> o / _
+uu -> u / _
+
+% Adjust word-final 'e' to schwa when unstressed
+e -> ə / _ #
+
+% Ensure word-internal 's' between vowels is pronounced as /z/
+s -> z / (::vowels::) _ (::vowels::)
+
+% Convert 'x' to 'ks'
+x -> ks / _
