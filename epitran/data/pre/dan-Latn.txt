@@ -1,0 +1,88 @@
+::vowels:: = a|e|i|o|u|y|æ|ø|å
+::consonants:: = b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|z
+
+
+% Vowel Length and Contextual Rules
+a -> aː / _[^::consonant::][^::consonant::]
+a -> a / _::consonant::::consonant::
+a -> aː / _#
+a -> ɑ / _(k|m|p|r|u|ng)
+a -> ɛ / _(d|l|n|s|t)
+
+e -> eː / _[^::consonant::][^::consonant::]
+e -> ɛ / _::consonant::::consonant::
+e -> eː / _#
+e -> 0 / _(n|m)#
+
+i -> iː / _[^::consonant::][^::consonant::]
+i -> ɪ / _(ig|ik|it|lig|tig|i)#
+i -> e / _
+
+o -> oː / _[^::consonant::][^::consonant::]
+o -> ɔ / _::consonant::::consonant::
+o -> oː / _#
+
+u -> uː / _[^::consonant::][^::consonant::]
+u -> o / _::consonant::::consonant::
+
+æ -> ɛː / _[^::consonant::][^::consonant::]
+æ -> ɛ / _::consonant::::consonant::
+æ -> eɪ / _r
+
+ø -> øː / _[^::consonant::][^::consonant::]
+ø -> œ / _::consonant::::consonant::
+ø -> øː / _#
+ø -> ɔj / _(j|g)
+
+å -> ɔː / _[^::consonant::][^::consonant::]
+å -> ʌ / _::consonant::::consonant::
+å -> oː / _r
+
+y -> yː / _[^::consonant::][^::consonant::]
+y -> ø / _::consonant::::consonant::
+
+% Consonant Contextual Rules
+c -> s / _(e|i|y|æ|ø)
+d -> ð / _#
+g -> j / _(e|i|y|æ|ø)
+g -> v / _(o|å)
+g -> 0 / _#
+h -> 0 / _::consonant::
+n -> ŋ / _g
+p -> b / _[^#]
+t -> d / _[^#]
+r -> 0 / _::vowel::
+v -> w / (::consonant::)_
+x -> s / _(c|t|s)
+
+% Special letter combinations
+hv -> v / #_
+hj -> j / #_
+aj -> aj
+ej -> aj
+eg -> aj
+af -> aw / #_
+ag -> ej / _::vowel::
+ag -> ej / _#
+ag -> aw / _::consonant::
+av -> ɛv / _::vowel::
+av -> ɛw / _::vowel::
+av -> aw / _::consonant::
+av -> aw / _#
+er -> o / _#
+
+
+% Loanword rules (examples)
+j -> ɕ / jazz|jeans|jury
+
+
+% "R" after Vowels
+ar -> aː / _
+er -> ɛɐ̯ / _
+ir -> iɐ̯ / _
+or -> ɔɐ̯ / _
+ur -> ʊɐ̯ / _
+ær -> ɛɐ̯ / _
+ør -> œɐ̯ / _
+år -> ɔɐ̯ / _
+yr -> yɐ̯ / _
