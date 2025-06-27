@@ -1,0 +1,36 @@
+% Luganda postprocessor rules
+% These rules adjust the phonemic form to account for phonological processes
+
+::vowels:: = a|e|i|o|u|aː|eː|iː|oː|uː
+::consonants:: = b|d|dʒ|f|g|h|k|l|m|n|ɲ|ŋ|p|r|s|t|tʃ|v|w|j|z|bː|dː|dʒː|fː|gː|kː|lː|mː|nː|ɲː|ŋː|pː|rː|sː|tː|tʃː|vː|wː|jː|zː|ᵐp|ᵐb|ᵐf|ᵐv|ⁿt|ⁿd|ⁿtʃ|ⁿdʒ|ᵑk|ᵑg
+::nasals:: = m|n|ɲ|ŋ
+::stops:: = p|b|t|d|k|g
+
+% Adjust nasal place of articulation (if any escaped preprocessing)
+n -> m / _ [pbfv]
+n -> ɲ / _ [j]
+n -> ŋ / _ [kg]
+
+% Vowel lengthening before prenasalized consonants
+a -> aː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+e -> eː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+i -> iː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+o -> oː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+u -> uː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+
+% Simplify any sequences that might have escaped
+mm -> mː / _
+nn -> nː / _
+ɲɲ -> ɲː / _
+ŋŋ -> ŋː / _
+
+% Handle devoicing of final obstruents (common in loanwords)
+b -> p / _ #
+d -> t / _ #
+g -> k / _ #
+z -> s / _ #
+dʒ -> tʃ / _ #
+
+% High vowels become glides before other vowels
+i -> j / _ (::vowels::)
+u -> w / _ (::vowels::)

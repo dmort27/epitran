@@ -42,12 +42,8 @@ class Epihan(object):
             tones (bool): if True, output tones as Chao tone numbers; overrides
                           `rules_file`
         """
-        # If no cedict_file is specified, raise and error
         if not cedict_file:
-            if download.cedict_exists():
-                cedict_file = download.get_cedict_file()
-            else:
-                raise MissingData('Download CC-CEDICT with "epitran.download.cedict()')
+            cedict_file = download.cedict()
         if tones:
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
@@ -113,16 +109,34 @@ class EpihanTraditional(Epihan):
                               IPA
         """
         if not cedict_file:
-            if download.cedict_exists():
-                cedict_file = download.get_cedict_file()
-            else:
-                raise MissingData('Download CC-CEDICT with "epitran.download.cedict().')
+            cedict_file = download.cedict()
         if tones:
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
             rules_file = os.path.join('data', 'rules', rules_file)
         rules_file = pkg_resources.resource_filename(__name__, rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
+        self.rules = rules.Rules([rules_file])
+        self.regexp = re.compile(r'\p{Han}')
+
+class EpiCanto(Epihan):
+    def __init__(self, ligatures=False, cedict_file=None, tones=False, rules_file='jyutping-to-ipa.txt'):
+        """Construct epitran object for Cantonese
+
+        Args:
+            ligatures (bool): if True, use ligatures instead of standard IPA
+            cc_canto_file (str): path to CC-Canto dictionary file
+            rules_file (str): name of file with rules for converting jyutping to
+                              IPA
+        """
+        if not cedict_file:
+            cedict_file = download.cc_canto()
+        if tones:
+            rules_file = os.path.join('data', 'rules', 'jyutping-to-ipa-tones.txt')
+        else:
+            rules_file = os.path.join('data', 'rules', rules_file)
+        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        self.cedict = cedict.CEDictTrieForCantonese(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
 
@@ -135,15 +149,13 @@ class EpiJpan(object):
             cedict_file (str): path to src dictionary file
         """
         if not cedict_file:
-            print(os.path.dirname(__file__))
-            cedict_file = os.path.join(os.path.dirname(__file__), 'data', 'rules', 'ja.txt')
+            cedict_file = download.opendict_ja()
         self.cedict = cedict.CEDictTrieForJapanese(cedict_file)
         self.regexp = None
         self.tones = tones
-        
+
     def transliterate(self, text, normpunc=False, ligatures=False):
         tokens = self.cedict.tokenize(text)
-        # print(tokens)
         ipa_tokens = []
         for token in tokens:
             if token in self.cedict.character:
