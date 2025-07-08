@@ -27,7 +27,7 @@ class Epitran(object):
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
-               'jpn-Hira': EpiJpan,
+               'jpn-Jpan': EpiJpan,
                'yue-Hant': EpiCanto,
                }
 

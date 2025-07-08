@@ -74,6 +74,7 @@ class CEDictTrie(object):
                 s = s[1:]
         return tokens
 
+
 class CEDictTrieForCantonese(CEDictTrie):
     def _read_cedict(self, cedict_file, traditional=False):
         comment_re = re.compile(r'\s*#')
@@ -102,7 +103,8 @@ class CEDictTrieForCantonese(CEDictTrie):
                         if char not in cedict_file:
                             cedict[char] = (syllable, "")
         return cedict
-    
+
+
 class CEDictTrieForJapanese(object):
     def __init__(self, cedict_file):
         """Construct a trie over src
@@ -112,7 +114,7 @@ class CEDictTrieForJapanese(object):
         """
         self.character = self._read_cedict(cedict_file)
         self.trie = self._construct_trie(self.character)
-        
+
     def _read_cedict(self, cedict_file):
         cedict = {}
         with codecs.open(cedict_file, 'r', 'utf-8') as f:
@@ -125,27 +127,27 @@ class CEDictTrieForJapanese(object):
                 else:
                     cedict[character] = ''
         return cedict
-        
+
     def _construct_trie(self, character):
         pairs = []
         for ch, pron in self.character.items():
             pairs.append((ch, (pron.encode('utf-8'),)))
         trie = marisa_trie.RecordTrie(str('@s'), pairs)
         return trie
-    
+
     def has_key(self, key):
         return key in self.character
-    
+
     def prefixes(self, s):
         return self.trie.prefixes(s)
-    
+
     def longest_prefix(self, s):
         prefixes = self.prefixes(s)
         if not prefixes:
             return ''
         else:
             return sorted(prefixes, key=len)[-1]
-        
+
     def tokenize(self, s):
         tokens = []
         while s:
@@ -157,5 +159,3 @@ class CEDictTrieForJapanese(object):
                 tokens.append(s[0])
                 s = s[1:]
         return tokens
-                
-            
