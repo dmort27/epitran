@@ -3,7 +3,6 @@ from __future__ import print_function, unicode_literals, division, absolute_impo
 
 import os.path
 
-import pkg_resources
 import regex as re
 
 from . import cedict
@@ -48,7 +47,7 @@ class Epihan(object):
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
             rules_file = os.path.join('data', 'rules', rules_file)
-        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        rules_file = os.path.join(os.path.dirname(__file__), rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
@@ -114,7 +113,7 @@ class EpihanTraditional(Epihan):
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
             rules_file = os.path.join('data', 'rules', rules_file)
-        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        rules_file = os.path.join(os.path.dirname(__file__), rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
@@ -135,7 +134,7 @@ class EpiCanto(Epihan):
             rules_file = os.path.join('data', 'rules', 'jyutping-to-ipa-tones.txt')
         else:
             rules_file = os.path.join('data', 'rules', rules_file)
-        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        rules_file = os.path.join(os.path.dirname(__file__), rules_file)
         self.cedict = cedict.CEDictTrieForCantonese(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
