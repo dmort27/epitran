@@ -8,7 +8,6 @@ import string
 import sys
 import unicodedata
 
-import pkg_resources
 import regex as re
 
 import panphon
@@ -40,7 +39,7 @@ class Flite(object):
             ligatures (bool): if True, use non-standard ligatures instead of
                               standard IPA
         """
-        arpabet = pkg_resources.resource_filename(__name__, os.path.join('data', arpabet + '.csv'))
+        arpabet = os.path.join(os.path.dirname(__file__), os.path.join('data', arpabet + '.csv'))
         self.arpa_map = self._read_arpabet(arpabet)
         self.chunk_re = re.compile(r"([A-Za-z'’]+|[^A-Za-z'’]+)", re.U)
         self.letter_re = re.compile(r"[A-Za-z'’]+")
