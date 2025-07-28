@@ -1,0 +1,53 @@
+::vowel:: = a|â|e|ê|i|o|ô|u|ú|û|y|ɔ|ɛ
+::consonant:: = b|d|f|g|h|j|k|l|m|n|p|r|s|t|v|w|z|x
+::double:: = bb|dd|ff|gg|hh|jj|kk|ll|mm|nn|pp|rr|ss|tt|vv|ww|zz
+
+% rewriting of ch to prevent conflict with h
+ch -> x / _
+
+% vowel quality changes
+a -> ɔ / (::consonant::) _ [dtlns]
+a -> ɔ / # _ [dtlns]
+ɔ -> a / # _ ng
+i -> j / aa _
+i -> y / (::consonant::) _ (::consonant::)(::vowel::)
+i -> y / # _ (::consonant::)(::vowel::)
+e -> ɛ / #(::consonant::)* _ (::consonant::)*#
+e -> ɛ / _ (::double::)
+e -> ɛ / _ l(::consonant::)
+ɛ -> e / i _
+e -> ə / _ #
+en -> ən / _ #
+oe -> û / _ x|g|k
+
+% h, l, r deletion
+l -> 0 / â _ [dt]
+h -> 0 / _ j
+r -> 0 / _ [stndl]
+
+% nasal assimilation
+n -> ng / _ k
+
+% word-final devoicing
+b -> p / _ #
+d -> t / _ #
+
+% double letters go to single letters rule
+bb -> b / _
+dd -> d / _
+ff -> f / _
+gg -> g / _
+
+hh -> h / _
+jj -> j / _
+kk -> k / _
+ll -> l / _
+mm -> m / _
+nn -> n / _
+pp -> p / _
+rr -> r / _
+ss -> s / _
+tt -> t / _
+vv -> v / _
+ww -> w / _
+zz -> z / _
