@@ -1,0 +1,25 @@
+% Sources used:
+% - Wiktionary: https://en.wiktionary.org/wiki/Appendix:Norwegian_Nynorsk_pronunciation
+% - Omniglot: https://www.omniglot.com/writing/norwegian.htm
+% - Kristoffersen, Gjert. The Phonology of Norwegian. Oxford University Press, USA, 2000.
+%   (Chapter 12: Orthographic Conventions)
+% - Norwegian Nynorsk IPA Transcriptions: https://iecor.clld.org/languages/norwegiannynorsk
+
+% Symbol definitions
+::consonant:: = b|d|f|g|h|j|k|l|m|n|p|r|s|t|v|w|z
+::vowel:: = a|å|æ|e|i|o|u|y|ø|è|ì|ù|ỳ
+::front_vowel:: = ei|i|y|øy
+
+% Contextual pronunciations (applied to IPA)
+g -> j / _ (::front_vowel::)
+dj -> j / _
+hj -> j / _
+gn -> ŋn / (::vowel::) _
+k -> kj / _ (ei|y|øy)
+sk -> skj / _ (::front_vowel::)
+e -> æ / _ r
+ig -> i / _ #
+
+% Loanword adaptations
+c -> s / _ (e|i)
+c -> k / _ (a|o|æ|u|y|ø|ù|ỳ)
