@@ -1,0 +1,48 @@
+::vowel:: = a|aː|ɛ|eː|ə|ɪ|ɨ|iː|ɨː|ɔ|oː|ʊ|uː|ai|aɨ|aːɨ|aːi|au|ɛu|ɛi|eɨ|əu|ɪu|ɨu|ɔi|ɔɨ|ʊɨ
+::consonant:: = b|d|dʒ|ð|f|ɡ|h|j|k|l|ɬ|m|m̥|n|n̥|ŋ|ŋ̊|p|r|r̥|s|ʃ|t|tʃ|θ|v|w|χ
+
+
+% The voiceless nasals /m̥ n̥ ŋ̊/ occur mostly word-initially
+mh -> m̥ / # _
+Mh -> m̥ / # _
+nh -> n̥ / # _
+Nh -> n̥ / # _
+ngh -> ŋ̊ / # _
+Ngh -> ŋ̊ / # _
+
+% y is pronounced as ɨ̯ at the end of a word
+y -> ɨ̯ / _ #
+
+% When 'i' precedes a vowel at the start of a word, it's pronounced /j/
+i -> j / _ (::vowel::)
+
+% When 'w' appears at the beginning of a word before a vowel, it's pronounced /w/ (consonantal)
+w -> w / # _ (::vowel::)
+
+% When 'w' appears between consonants or at the end of a word, it's pronounced /u/ (vowel)
+w -> u / (::consonant::) _ (::consonant::)
+w -> u / _ #
+
+% ny -> nɨ̞
+ny -> nɨ̞ / _
+
+% ni -> nj if ni is before a vowel
+ni -> nj / _ (::vowel::)
+
+% i with a following vowel is pronounced as j
+ia -> ja / _
+ie -> je / _
+io -> jo / _
+iu -> ju / _
+iw -> ɪu̯ / _ #
+
+% wm -> ʊm
+iwm -> jʊm / _
+
+ws -> u̯s / (::vowel::) _
+ws -> ʊs / (::consonant::) _
+
+st -> sd / _
+
+
+
