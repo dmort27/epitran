@@ -1,0 +1,17 @@
+% Preprocessing rules for Interlingua
+% Define vowel set
+::vowels:: = a|e|i|o|u
+
+% Normalize 'qu' to 'kw' for phonemic clarity
+qu -> kw / _
+
+% Normalize 'ch' to 'k'
+ch -> k / _
+
+% Ensure soft 'c' before 'e' and 'i' converts properly to 'tʃ'
+ce -> tʃ / _
+ci -> tʃ / _
+
+% Ensure hard 'g' before 'e' and 'i' converts to 'dʒ'
+ge -> dʒ / _
+gi -> dʒ / _
