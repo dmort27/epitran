@@ -1,37 +1,25 @@
-% Northern Pashto (Yousafzai) dialect postprocessing rules
-% Handle final schwa deletion in certain contexts
-ə -> 0 / (ɑ|i|u|e|ai)(b|p|t|θ|d͡ʒ|t͡ʃ|ts|dz|h|x|d|ð|ɖ|ɽ|r|z|ʒ|s|ʃ|ʂ|ʐ|sˤ|dˤ|tˤ|ðˤ|ʔ|ɣ|f|q|k|ɡ|l|m|n|ɳ) _ (b|p|t|θ|d͡ʒ|t͡ʃ|ts|dz|h|x|d|ð|ɖ|ɽ|r|z|ʒ|s|ʃ|ʂ|ʐ|sˤ|dˤ|tˤ|ðˤ|ʔ|ɣ|f|q|k|ɡ|l|m|n|ɳ)(ɑ|i|u|e|ai)
+% Postprocessor for pbu-Arab
+% Phonetic-side rewrites and assimilation rules.
 
-% Handle gemination simplification
-ːː -> ː / _ _
+::vowel:: = a|ɑ|e|i|o|u|ə|ai|aw|ei|uː
+::cons:: = p|b|t|d|ʈ|ɖ|k|ɡ|q|f|s|z|ʃ|ʒ|x|ɣ|h|r|ɽ|l|m|n|ŋ|j|w|t͡ʃ|d͡ʒ
 
-% Handle final consonant devoicing (optional rule for Northern Pashto)
-b -> p / _ #
-d -> t / _ #
-ɡ -> k / _ #
-d͡ʒ -> t͡ʃ / _ #
-dz -> ts / _ #
+% Insert a glottal stop at the beginning of words that begin with a vowel
+0 -> ʔ / # _ (::vowel::)
 
-% Double the preceding consonant for shadda:
-ّ -> 0 / _ _
+% Nasal place assimilation (phonetic-level)
+n -> m / _ (p|b|m|f|v)
+n -> ŋ / _ (k|ɡ|q|x|ɣ)
+n -> ɳ / _ (ʈ|ɖ|ɽ)
 
-% Nasal place assimilation:
-n -> m / _ [pbmfv]
-n -> ŋ / _ [kɡqxɣ]
-n -> ɳ / _ [ʈɖɽ]
+% Convert medial /u/ to /o/ between consonants (simple heuristic)
+u -> o / (::cons::) _ (::cons::)
 
-% Handle و conversion based on context
-% Convert u to w in specific consonant cluster contexts (like ژوند)
-u -> w / d͡ʒ _ n
+% Realize vocalic i/u as glides in onset position (C i V -> C j V ; C u V -> C w V)
+i -> j / (::cons::) _ (::vowel::)
+u -> w / (::cons::) _ (::vowel::)
 
-% Convert u to o in other consonant contexts (like کور)
-u -> o / k _ r
-u -> o / [pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj] _ [pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj]
-u -> o / [pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj] _ #
+% Final adjustments (optional): map orthographic final 'a' to schwa in some written forms
+% (If you prefer a different convention for final 'ه' vs 'ۀ', adjust these rules.)
 
-% Convert final h to a in Pashto (common pattern)
-h -> a / _ #
-
-% Convert ɑu to aw for diphthong
-ɑu -> aw / _ _
-
+% End of postprocessor

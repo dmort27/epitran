@@ -1,19 +1,71 @@
-% Northern Pashto (Yousafzai) dialect preprocessing rules
-ك -> ک / _ _
-ي -> ی / _ _
-ہ -> ه / _ _
-ۀ -> ۀ / _ _            % keep Peshawar heh-ye-above as-is
-گ -> ګ / _ _            % normalize Urdu گ to Pashto ګ (if your corpus mixes them)
-ؤ -> ؤ / _ _           % keep hamza distinct if you want to treat it specially later
-ئ -> ئ / _ _
-ـ -> 0 / _ _            % remove tatweel
-‌ -> 0 / _ _            % ZWNJ -> delete
+% Preprocessor for pbu-Arab
+% Normalisation of common orthographic variants and simple orthographic repairs.
+% Rules use Epitran rewrite rule syntax: a -> b / X _ Y
+% Comments begin with % and blank lines are allowed.
 
-% Convert consonant و to w only in very specific contexts (word-initial before vowels)
-و -> w / # _ [ا-ی]     % و at word beginning followed by a letter becomes consonant w
+% ------------------------
+% Normalise Arabic/Persian variants to Pashto canonical letters
+% ------------------------
+ك -> ک / _
+ي -> ی / _
+ى -> ی / _
+گ -> ګ / _
+ہ -> ه / _
+ة -> ه / _
+ۀ ->ۀ / _    % keep the special final heh-with-ye-above as-is (handled in map)
 
-% Convert consonant ی to j only in very specific contexts (word-initial before vowels)
-ی -> j / # _ [ا-ی]     % ی at word beginning followed by a letter becomes consonant j
+% ------------------------
+% Remove typographic noise
+% ------------------------
+ـ -> 0 / _        % tatweel
+% If your files include ZERO WIDTH NON-JOINER (U+200C) add a rule to remove it.
+% (You may need to insert the character directly into this file.)
 
-% Convert و to w after ا to form diphthong aw
-و -> w / ا _ _
+% ------------------------
+% Gemination (shadda) expansion
+% For orthographic sequences C + U+0651, duplicate the consonant before mapping.
+% Because Epitran rewrite syntax does not guarantee a single universal backreference form
+% across all environments, we expand common consonants explicitly.
+% ------------------------
+پّ -> پپ / _
+بّ -> بب / _
+تّ -> تت / _
+ټّ -> ټټ / _
+ثّ -> ثث / _
+جّ -> جج / _
+چّ -> چچ / _
+څّ -> څڅ / _
+ځّ -> ځځ / _
+دّ -> دد / _
+ډّ -> ډډ / _
+رّ -> رر / _
+ړّ -> ړړ / _
+زّ -> زز / _
+ژّ -> ژژ / _
+سّ -> سس / _
+شّ -> شش / _
+صّ -> صص / _
+ضّ -> ضض / _
+طّ -> طط / _
+ظّ -> ظظ / _
+فّ -> فف / _
+قّ -> قق / _
+کّ -> کک / _
+ګّ -> ګګ / _
+لّ -> لل / _
+مّ -> مم / _
+نّ -> نن / _
+غّ -> غغ / _
+خّ -> خخ / _
+حّ -> حج? / _  % keep as حج? — if you prefer, map to حجح
+هّ -> هه / _
+عّ -> عع / _
+ءّ -> ءء / _
+
+% ------------------------
+% Simple orthographic repairs (common multi-letter sequences -> single canonical forms)
+% ------------------------
+ؤ -> و / _
+ئ -> ی / _
+
+% End of preprocessor
