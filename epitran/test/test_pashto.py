@@ -15,3 +15,4 @@ def test_core():
     t('ونه', 'wana')            # و onset → w, no implicit vowels
     t('او', 'ɑw')              # diphthong (correct transliteration)
     t('ستړی', 'staɽai')          # ړۍ→ɽ + final ی as i, no implicit vowels
+    t('سړي', 'saɽi:')         # ړۍ→ɽ + final ی as i, no implicit vowels

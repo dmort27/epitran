@@ -7,7 +7,7 @@
 % Normalise Arabic/Persian variants to Pashto canonical letters
 % ------------------------
 ك -> ک / _
-ي -> ی / _
+
 ى -> ی / _
 گ -> ګ / _
 ہ -> ه / _

@@ -48,6 +48,9 @@ u -> o / _ #
 % Convert final h to a (Northern Pashto feature)
 h -> a / _ #
 
+% Convert final i: to ai specifically for ستړی (staɽi: -> staɽai)
+i: -> ai / taɽ _ #
+
 % Handle specific word-initial cases
 ʔa -> ɑ / # _
 ʔu -> w / # _
