@@ -3,7 +3,7 @@
 ə -> 0 / (ɑ|i|u|e|ai)(b|p|t|θ|d͡ʒ|t͡ʃ|ts|dz|h|x|d|ð|ɖ|ɽ|r|z|ʒ|s|ʃ|ʂ|ʐ|sˤ|dˤ|tˤ|ðˤ|ʔ|ɣ|f|q|k|ɡ|l|m|n|ɳ) _ (b|p|t|θ|d͡ʒ|t͡ʃ|ts|dz|h|x|d|ð|ɖ|ɽ|r|z|ʒ|s|ʃ|ʂ|ʐ|sˤ|dˤ|tˤ|ðˤ|ʔ|ɣ|f|q|k|ɡ|l|m|n|ɳ)(ɑ|i|u|e|ai)
 
 % Handle gemination simplification
-ːː -> ː
+ːː -> ː / _ _
 
 % Handle final consonant devoicing (optional rule for Northern Pashto)
 b -> p / _ #
@@ -12,19 +12,26 @@ d -> t / _ #
 d͡ʒ -> t͡ʃ / _ #
 dz -> ts / _ #
 
+% Double the preceding consonant for shadda:
+ّ -> 0 / _ _
 
-# Double the preceding consonant for shadda:
-(ː?)([pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj])\u0651,\2\2
+% Nasal place assimilation:
+n -> m / _ [pbmfv]
+n -> ŋ / _ [kɡqxɣ]
+n -> ɳ / _ [ʈɖɽ]
 
-# Optional onset glottal stop before word-initial vowel:
-(^|[ ]|[#])([ɑaeiouə]),\1ʔ\2
+% Handle و conversion based on context
+% Convert u to w in specific consonant cluster contexts (like ژوند)
+u -> w / d͡ʒ _ n
 
-# Nasal place assimilation:
-n([pbmfv]),m\1
-n([kɡqxɣ]),ŋ\1
-n([ʈɖɽ]),ɳ\1
+% Convert u to o in other consonant contexts (like کور)
+u -> o / k _ r
+u -> o / [pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj] _ [pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj]
+u -> o / [pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj] _ #
 
-# Simple context for و disambiguation (very mild, PBU-biased):
-# If و is between consonants and previous char was not ا, prefer o (change u→o):
-([pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj])u([pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj]) , \1o\2
+% Convert final h to a in Pashto (common pattern)
+h -> a / _ #
+
+% Convert ɑu to aw for diphthong
+ɑu -> aw / _ _
 
