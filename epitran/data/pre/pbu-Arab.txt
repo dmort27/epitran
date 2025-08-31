@@ -1,0 +1,10 @@
+% Northern Pashto (Yousafzai) dialect preprocessing rules
+ك,ک
+ي,ی
+ہ,ه
+ۀ,ۀ            # keep Peshawar heh-ye-above as-is
+گ,ګ            # normalize Urdu گ to Pashto ګ (if your corpus mixes them)
+ؤ,ؤ           # keep hamza distinct if you want to treat it specially later
+ئ,ئ
+ـ,             # remove tatweel
+\u200c,        # ZWNJ -> delete

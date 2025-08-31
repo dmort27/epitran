@@ -331,6 +331,7 @@ A few notes are in order regarding this data structure:
 | uig-Arab    | Uyghur (Perso-Arabic)   |
 | uzb-Cyrl    | Uzbek (Cyrillic)        |
 | uzb-Latn    | Uzbek (Latin)           |
+| pbu-Arab    | Pashto (Yousafzai)      |
 | vie-Latn    | Vietnamese              |
 | wuu-Latn    | Shanghainese Wu (Wiktionary) |
 | xho-Latn    | Xhosa                   |

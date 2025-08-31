@@ -1,0 +1,30 @@
+% Northern Pashto (Yousafzai) dialect postprocessing rules
+% Handle final schwa deletion in certain contexts
+ə -> 0 / (ɑ|i|u|e|ai)(b|p|t|θ|d͡ʒ|t͡ʃ|ts|dz|h|x|d|ð|ɖ|ɽ|r|z|ʒ|s|ʃ|ʂ|ʐ|sˤ|dˤ|tˤ|ðˤ|ʔ|ɣ|f|q|k|ɡ|l|m|n|ɳ) _ (b|p|t|θ|d͡ʒ|t͡ʃ|ts|dz|h|x|d|ð|ɖ|ɽ|r|z|ʒ|s|ʃ|ʂ|ʐ|sˤ|dˤ|tˤ|ðˤ|ʔ|ɣ|f|q|k|ɡ|l|m|n|ɳ)(ɑ|i|u|e|ai)
+
+% Handle gemination simplification
+ːː -> ː
+
+% Handle final consonant devoicing (optional rule for Northern Pashto)
+b -> p / _ #
+d -> t / _ #
+ɡ -> k / _ #
+d͡ʒ -> t͡ʃ / _ #
+dz -> ts / _ #
+
+
+# Double the preceding consonant for shadda:
+(ː?)([pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj])\u0651,\2\2
+
+# Optional onset glottal stop before word-initial vowel:
+(^|[ ]|[#])([ɑaeiouə]),\1ʔ\2
+
+# Nasal place assimilation:
+n([pbmfv]),m\1
+n([kɡqxɣ]),ŋ\1
+n([ʈɖɽ]),ɳ\1
+
+# Simple context for و disambiguation (very mild, PBU-biased):
+# If و is between consonants and previous char was not ا, prefer o (change u→o):
+([pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj])u([pbtdʈɖkɡqfszʃʒd͡ʒt͡ʃxɣhɽrlmnwj]) , \1o\2
+
