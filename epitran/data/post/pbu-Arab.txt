@@ -19,6 +19,46 @@ u -> o / (::cons::) _ (::cons::)
 i -> j / (::cons::) _ (::vowel::)
 u -> w / (::cons::) _ (::vowel::)
 
+% Insert implicit vowels in consonant clusters (Northern Pashto feature)
+% Insert a between specific consonant pairs
+p -> pa / _ x
+t -> ta / _ x
+k -> ka / _ x
+
+% Insert a between other consonant pairs
+d͡ʒ -> d͡ʒa / _ n
+s -> sa / _ n
+s -> sa / _ ɽ
+
+% Insert a between w and n
+w -> wa / _ n
+
+% Insert u between ɡ and l
+ɡ -> ɡu / _ l
+
+% Insert a between s and ŋ
+s -> sa / _ ŋ
+
+% Insert a between t and ɽ
+t -> ta / _ ɽ
+
+% Convert final u to o (Northern Pashto feature)
+u -> o / _ #
+
+% Convert final h to a (Northern Pashto feature)
+h -> a / _ #
+
+% Handle specific word-initial cases
+ʔa -> ɑ / # _
+ʔu -> w / # _
+
+% Handle specific cases
+% Convert o to wa in d͡ʒond to get d͡ʒwand
+o -> wa / d͡ʒ _ nd
+
+% Convert wna to wana
+w -> wa / _ na
+
 % Final adjustments (optional): map orthographic final 'a' to schwa in some written forms
 % (If you prefer a different convention for final 'ه' vs 'ۀ', adjust these rules.)
 

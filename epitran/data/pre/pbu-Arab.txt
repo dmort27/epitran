@@ -68,4 +68,10 @@
 ؤ -> و / _
 ئ -> ی / _
 
+% ------------------------
+% Handle و as consonant in specific contexts
+% ------------------------
+% Convert و to w when between consonants (like in ژوند)
+و -> w / د͡ʒ _ ن
+
 % End of preprocessor
