@@ -1,0 +1,77 @@
+% Preprocessor for pbu-Arab
+% Normalisation of common orthographic variants and simple orthographic repairs.
+% Rules use Epitran rewrite rule syntax: a -> b / X _ Y
+% Comments begin with % and blank lines are allowed.
+
+% ------------------------
+% Normalise Arabic/Persian variants to Pashto canonical letters
+% ------------------------
+ك -> ک / _
+
+ى -> ی / _
+گ -> ګ / _
+ہ -> ه / _
+ة -> ه / _
+ۀ ->ۀ / _    % keep the special final heh-with-ye-above as-is (handled in map)
+
+% ------------------------
+% Remove typographic noise
+% ------------------------
+ـ -> 0 / _        % tatweel
+% If your files include ZERO WIDTH NON-JOINER (U+200C) add a rule to remove it.
+% (You may need to insert the character directly into this file.)
+
+% ------------------------
+% Gemination (shadda) expansion
+% For orthographic sequences C + U+0651, duplicate the consonant before mapping.
+% Because Epitran rewrite syntax does not guarantee a single universal backreference form
+% across all environments, we expand common consonants explicitly.
+% ------------------------
+پّ -> پپ / _
+بّ -> بب / _
+تّ -> تت / _
+ټّ -> ټټ / _
+ثّ -> ثث / _
+جّ -> جج / _
+چّ -> چچ / _
+څّ -> څڅ / _
+ځّ -> ځځ / _
+دّ -> دد / _
+ډّ -> ډډ / _
+رّ -> رر / _
+ړّ -> ړړ / _
+زّ -> زز / _
+ژّ -> ژژ / _
+سّ -> سس / _
+شّ -> شش / _
+صّ -> صص / _
+ضّ -> ضض / _
+طّ -> طط / _
+ظّ -> ظظ / _
+فّ -> فف / _
+قّ -> قق / _
+کّ -> کک / _
+ګّ -> ګګ / _
+لّ -> لل / _
+مّ -> مم / _
+نّ -> نن / _
+غّ -> غغ / _
+خّ -> خخ / _
+حّ -> حج? / _  % keep as حج? — if you prefer, map to حجح
+هّ -> هه / _
+عّ -> عع / _
+ءّ -> ءء / _
+
+% ------------------------
+% Simple orthographic repairs (common multi-letter sequences -> single canonical forms)
+% ------------------------
+ؤ -> و / _
+ئ -> ی / _
+
+% ------------------------
+% Handle و as consonant in specific contexts
+% ------------------------
+% Convert و to w when between consonants (like in ژوند)
+و -> w / د͡ʒ _ ن
+
+% End of preprocessor

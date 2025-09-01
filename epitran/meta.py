@@ -56,6 +56,7 @@ modes = {
          'ukr': ['Cyrl'],
          'urd': ['Arab'],
          'uzb': ['Latn', 'Cyrl'],
+         'pbu': ['Arab'],
          'vie': ['Latn'],
          'xho': ['Latn'],
          'yor': ['Latn'],

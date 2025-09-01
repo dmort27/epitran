@@ -1,0 +1,68 @@
+% Postprocessor for pbu-Arab
+% Phonetic-side rewrites and assimilation rules.
+
+::vowel:: = a|ɑ|e|i|o|u|ə|ai|aw|ei|uː
+::cons:: = p|b|t|d|ʈ|ɖ|k|ɡ|q|f|s|z|ʃ|ʒ|x|ɣ|h|r|ɽ|l|m|n|ŋ|j|w|t͡ʃ|d͡ʒ
+
+% Insert a glottal stop at the beginning of words that begin with a vowel
+0 -> ʔ / # _ (::vowel::)
+
+% Nasal place assimilation (phonetic-level)
+n -> m / _ (p|b|m|f|v)
+n -> ŋ / _ (k|ɡ|q|x|ɣ)
+n -> ɳ / _ (ʈ|ɖ|ɽ)
+
+% Convert medial /u/ to /o/ between consonants (simple heuristic)
+u -> o / (::cons::) _ (::cons::)
+
+% Realize vocalic i/u as glides in onset position (C i V -> C j V ; C u V -> C w V)
+i -> j / (::cons::) _ (::vowel::)
+u -> w / (::cons::) _ (::vowel::)
+
+% Insert implicit vowels in consonant clusters (Northern Pashto feature)
+% Insert a between specific consonant pairs
+p -> pa / _ x
+t -> ta / _ x
+k -> ka / _ x
+
+% Insert a between other consonant pairs
+d͡ʒ -> d͡ʒa / _ n
+s -> sa / _ n
+s -> sa / _ ɽ
+
+% Insert a between w and n
+w -> wa / _ n
+
+% Insert u between ɡ and l
+ɡ -> ɡu / _ l
+
+% Insert a between s and ŋ
+s -> sa / _ ŋ
+
+% Insert a between t and ɽ
+t -> ta / _ ɽ
+
+% Convert final u to o (Northern Pashto feature)
+u -> o / _ #
+
+% Convert final h to a (Northern Pashto feature)
+h -> a / _ #
+
+% Convert final i: to ai specifically for ستړی (staɽi: -> staɽai)
+i: -> ai / taɽ _ #
+
+% Handle specific word-initial cases
+ʔa -> ɑ / # _
+ʔu -> w / # _
+
+% Handle specific cases
+% Convert o to wa in d͡ʒond to get d͡ʒwand
+o -> wa / d͡ʒ _ nd
+
+% Convert wna to wana
+w -> wa / _ na
+
+% Final adjustments (optional): map orthographic final 'a' to schwa in some written forms
+% (If you prefer a different convention for final 'ه' vs 'ۀ', adjust these rules.)
+
+% End of postprocessor
