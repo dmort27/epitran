@@ -1,0 +1,32 @@
+% declaring a bunch of groups for ease of processing in rules
+::vowel:: = a|aː|e|eː|i|iː|u|uː|o|oː|ru|ruː|ai|au|aṃ|aḥ
+::consonant:: = k|kʰ|g|ɡʱ|ŋ|tʃ|tʃʰ|dʒ|dʒʱ|ɲ|ʈ|ʈʰ|ɖ|ɖʱ|ɳ|t̪|t̪ʰ|d̪|d̪ʱ|n|p|pʰ|b|bʱ|m|j|r|r|l|ɭ|ʋ|h|ʃ|ʂ|s|ɻ
+::velarconsonant:: = k|kʰ|g|ɡʱ|ŋ
+::palatalconsonant:: = tʃ|tʃʰ|dʒ|dʒʱ|ɲ
+::retroflexconsonant:: = ʈ|ʈʰ|ɖ|ɖʱ|ɳ|ɭ
+::dentalconsonant:: = t̪|t̪ʰ|d̪|d̪ʱ|n
+::labialconsonant:: = p|pʰ|b|bʱ|m
+::ardhaksharachihne:: = ್
+
+% rule where a voiceless retroflex sibilant ʂ changes to ʃ when in a consonant cluster with a retroflex consonant
+% example: "ಜ್ಯೇಷ್ಠ" meaning "June" reads as "dʒjeːʂʈʰa" but is pronounced "dʒjeːʃʈʰa"
+ʂ -> ʃ / (::retroflexconsonant::)(::ardhaksharachihne::)_
+ʂ -> ʃ / _(::ardhaksharachihne::)(::retroflexconsonant::)
+
+% rule for two consonants next to each other adds an a between them
+0 -> a / (::consonant::) _ (::consonant::)
+
+% rule that adds an a if a consonant ends a word, all words in modern Kannada end with a vowel
+0 -> a / (::consonant::)_\b
+
+% dealing with anusvaras, the anusvaras pronounciation becomes nasal based on the consonant that follows
+% example: "ಅಂತೆ" meaning "as," reads as "aṃt̪e" but is pronouned "ant̪e"
+aṃ -> ŋ / _(::velarconsonant::)
+aṃ -> ɲ / _(::palatalconsonant::)
+aṃ -> ɳ / _(::retroflexconsonant::)
+aṃ -> n / _(::dentalconsonant::)
+aṃ -> m / _(::labialconsonant::)
+
+% rule to deal with the ardhakshara chihne (half-letter) mark called virama or halanta, this mark gets removed
+(::ardhaksharachihne::) -> 0 / _
+
