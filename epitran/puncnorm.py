@@ -2,14 +2,15 @@
 
 import pkg_resources
 import csv
+from typing import Dict, Iterator
 
 
 class PuncNorm(object):
-    def __init__(self):
+    def __init__(self) -> None:
         """Constructs a punctuation normalization object"""
         self.puncnorm = self._load_punc_norm_map()
 
-    def _load_punc_norm_map(self):
+    def _load_punc_norm_map(self) -> Dict[str, str]:
         """Load the map table for normalizing 'down' punctuation."""
         path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
         with open(path, 'r', encoding='utf-8') as f:
@@ -17,7 +18,7 @@ class PuncNorm(object):
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 
-    def norm(self, text):
+    def norm(self, text: str) -> str:
         """Apply punctuation normalization to a string of text
 
         Args:
@@ -34,8 +35,8 @@ class PuncNorm(object):
                 new_text.append(c)
         return ''.join(new_text)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[str]:
         return iter(self.puncnorm)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> str:
         return self.puncnorm[key]

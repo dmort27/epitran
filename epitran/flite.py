@@ -5,6 +5,7 @@ import os.path
 import string
 import sys
 import unicodedata
+from typing import Dict, List, Tuple, Any, Optional
 
 import regex as re
 
@@ -21,7 +22,7 @@ logger = logging.getLogger('epitran')
 
 class Flite(object):
     """English G2P using the Flite speech synthesis system."""
-    def __init__(self, arpabet='arpabet', ligatures=False, **kwargs):
+    def __init__(self, arpabet: str = 'arpabet', ligatures: bool = False, **kwargs) -> None:
         """Construct a Flite "wrapper"
 
         Args:
@@ -40,7 +41,7 @@ class Flite(object):
         self.num_panphon_fts = len(self.ft.names)
 
 
-    def _read_arpabet(self, arpabet):
+    def _read_arpabet(self, arpabet: str) -> Dict[str, str]:
         arpa_map = {}
         with open(arpabet, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
@@ -48,16 +49,16 @@ class Flite(object):
                 arpa_map[arpa] = ipa
         return arpa_map
 
-    def normalize(self, text):
+    def normalize(self, text: str) -> str:
         text = str(text)
         text = unicodedata.normalize('NFD', text)
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
 
-    def arpa_text_to_list(self, arpa_text):
+    def arpa_text_to_list(self, arpa_text: str) -> List[str]:
         return arpa_text.split(' ')[1:-1]
 
-    def arpa_to_ipa(self, arpa_text, ligatures=False):
+    def arpa_to_ipa(self, arpa_text: str, ligatures: bool = False) -> str:
         arpa_text = arpa_text.strip()
         arpa_list = self.arpa_text_to_list(arpa_text)
         arpa_list = map(lambda d: re.sub(r'\d', '', d), arpa_list)
@@ -65,11 +66,11 @@ class Flite(object):
         text = ''.join(ipa_list)
         return text
 
-    def english_g2p(self, english):
+    def english_g2p(self, english: str) -> str:
         """Stub for English G2P function to be overwritten by subclasses"""
         return ""
 
-    def transliterate(self, text, normpunc=False, ligatures=False):
+    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         """Convert English text to IPA transcription
 
         Args:
@@ -90,10 +91,10 @@ class Flite(object):
         text = ligaturize(text) if (ligatures or self.ligatures) else text
         return text
 
-    def strict_trans(self, text, normpunc=False, ligatures=False):
+    def strict_trans(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         return self.transliterate(text, normpunc, ligatures)
 
-    def word_to_tuples(self, word, normpunc=False):
+    def word_to_tuples(self, word: str, normpunc: bool = False) -> List[Any]:
         """Given a word, returns a list of tuples corresponding to IPA segments.
 
         Args:
@@ -167,7 +168,7 @@ class Flite(object):
 class FliteT2P(Flite):
     """Flite G2P using t2p."""
 
-    def english_g2p(self, text):
+    def english_g2p(self, text: str) -> str:
         text = self.normalize(text)
         try:
             arpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
@@ -184,10 +185,10 @@ class FliteT2P(Flite):
 class FliteLexLookup(Flite):
     """Flite G2P using lex_lookup."""
 
-    def arpa_text_to_list(self, arpa_text):
+    def arpa_text_to_list(self, arpa_text: str) -> List[str]:
         return arpa_text[1:-1].split(' ')
 
-    def english_g2p(self, text):
+    def english_g2p(self, text: str) -> str:
         text = self.normalize(text).lower()
         try:
             arpa_text = subprocess.check_output(['lex_lookup', text])

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os.path
+from typing import List
 
 import pkg_resources
 
@@ -8,7 +9,7 @@ import csv
 
 
 class StripDiacritics(object):
-    def __init__(self, code):
+    def __init__(self, code: str) -> None:
         """Constructs object to strip specified diacritics from text
 
         Args:
@@ -16,7 +17,7 @@ class StripDiacritics(object):
         """
         self.diacritics = self._read_diacritics(code)
 
-    def _read_diacritics(self, code):
+    def _read_diacritics(self, code: str) -> List[str]:
         diacritics = []
         fn = os.path.join('data', 'strip', code + '.csv')
         try:
@@ -30,7 +31,7 @@ class StripDiacritics(object):
                     diacritics.append(diacritic)
         return diacritics
 
-    def process(self, word):
+    def process(self, word: str) -> str:
         """Remove diacritics from an input string
 
         Args:

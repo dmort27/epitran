@@ -5,7 +5,7 @@ import sys
 import csv
 import unicodedata
 from collections import defaultdict
-from typing import DefaultDict, Callable  # pylint: disable=unused-import
+from typing import DefaultDict, Callable, Any, Optional  # pylint: disable=unused-import
 
 import pkg_resources
 import regex
@@ -68,10 +68,10 @@ class SimpleEpitran(object):
         """
         return self.tones
 
-    def __enter__(self):
+    def __enter__(self) -> "SimpleEpitran":
         return self
 
-    def __exit__(self, _type_, _val, _trace_back):
+    def __exit__(self, _type_: Any, _val: Any, _trace_back: Any) -> None:
         for nil, count in self.nils.items():
             sys.stderr.write(
                 f'Unknown character "{nil}" occured {count} times.\n')
@@ -131,7 +131,7 @@ class SimpleEpitran(object):
             raise MappingError(f'Invalid mapping for {code}:\n{message}')
         return g2p
 
-    def _load_punc_norm_map(self):
+    def _load_punc_norm_map(self) -> "dict[str, str]":
         """Load the map table for normalizing 'down' punctuation."""
         path = os.path.join('data', 'puncnorm.csv')
         path = pkg_resources.resource_filename(__name__, path)
@@ -140,7 +140,7 @@ class SimpleEpitran(object):
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 
-    def _construct_regex(self, g2p_keys):
+    def _construct_regex(self, g2p_keys: Any) -> Any:
         """Build a regular expression that will greadily match segments from
            the mapping table.
         """
@@ -148,7 +148,7 @@ class SimpleEpitran(object):
         return regex.compile(f"({r'|'.join(graphemes)})", regex.I)
 
     def general_trans(self, text: str, filter_func: "Callable[[tuple[str, bool]], bool]",
-                      normpunc: bool = False, ligatures: bool = False):
+                      normpunc: bool = False, ligatures: bool = False) -> str:
         """Transliaterates a word into IPA, filtering with filter_func
 
         :param text str: word to transcribe; unicode string
@@ -197,14 +197,14 @@ class SimpleEpitran(object):
         return unicodedata.normalize('NFC', text)
 
     # Korean exception handling in transliterate
-    def is_korean(self, text):
+    def is_korean(self, text: str) -> bool:
         """Check if the text contains any Korean characters."""
         for char in text:
             if '\uAC00' <= char <= '\uD7A3':  # Checking Korean Unicode
                 return True
         return False
 
-    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False):
+    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         """Transliterates/transcribes a word into IPA. Passes unmapped 
         characters through to output unchanged.
 
@@ -225,7 +225,7 @@ class SimpleEpitran(object):
         return self.general_trans(text, lambda x: True,
                                   normpunc, ligatures)
 
-    def general_reverse_trans(self, text: str):
+    def general_reverse_trans(self, text: str) -> str:
         """Reconstructs word from IPA. Does the reverse of transliterate().
         Ignores unmapped characters.
 
