@@ -2,14 +2,14 @@
 
 import epitran.xsampa
 import panphon
-import unicodecsv as csv
+import csv
 
 
 def main(fn):
     ft = panphon.FeatureTable()
     xs = epitran.xsampa.XSampa()
-    with open(fn, 'rb') as f:
-        reader = csv.reader(f, encoding='utf-8')
+    with open(fn, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
         next(reader)
         phones = set()
         for orth, phon in reader:

@@ -2,7 +2,6 @@
 # code base taken from Epitran Bengali test at
 # https://github.com/dmort27/epitran/blob/master/epitran/test/test_bengali.py
 
-from __future__ import unicode_literals
 
 import unittest
 import epitran

@@ -1,5 +1,4 @@
 # -*- utf-8 -*-
-from __future__ import print_function, unicode_literals, division, absolute_import
 
 import os.path
 
@@ -56,10 +55,10 @@ class Epihan(object):
         """Normalize punctutation in a string
 
         Args:
-            text (unicode): an orthographic string
+            text (str): an orthographic string
 
         Return:
-            unicode: an orthographic string with punctation normalized to
+            str: an orthographic string with punctation normalized to
                      Western equivalents
         """
         for a, b in self.punc:

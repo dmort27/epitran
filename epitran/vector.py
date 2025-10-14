@@ -1,5 +1,3 @@
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import logging
 
@@ -30,7 +28,7 @@ class VectorsWithIPASpace(object):
         """Returns feature vectors, etc. for segments and punctuation in a word
 
         Args:
-            word (unicode): Unicode string representing a word in the
+            word (str): Unicode string representing a word in the
                             orthography specified when the class is
                             instantiated
             normpunc (bool): normalize punctuation

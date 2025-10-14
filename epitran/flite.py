@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import logging
 import os.path
@@ -11,22 +9,14 @@ import unicodedata
 import regex as re
 
 import panphon
-import unicodecsv as csv
+import csv
 from epitran.ligaturize import ligaturize
 from epitran.puncnorm import PuncNorm
 
-if os.name == 'posix' and sys.version_info[0] < 3:
-    import subprocess32 as subprocess
-else:
-    import subprocess
+import subprocess
 
 logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger('epitran')
-
-
-if sys.version_info[0] == 3:
-    def unicode(x):
-        return x
 
 
 class Flite(object):
@@ -52,14 +42,14 @@ class Flite(object):
 
     def _read_arpabet(self, arpabet):
         arpa_map = {}
-        with open(arpabet, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(arpabet, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
             for arpa, ipa in reader:
                 arpa_map[arpa] = ipa
         return arpa_map
 
     def normalize(self, text):
-        text = unicode(text)
+        text = str(text)
         text = unicodedata.normalize('NFD', text)
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
@@ -83,7 +73,7 @@ class Flite(object):
         """Convert English text to IPA transcription
 
         Args:
-            text (unicode): English text
+            text (str): English text
             normpunc (bool): if True, normalize punctuation downward
             ligatures (bool): if True, use non-standard ligatures instead of
                               standard IPA
@@ -107,7 +97,7 @@ class Flite(object):
         """Given a word, returns a list of tuples corresponding to IPA segments.
 
         Args:
-            word (unicode): word to transliterate
+            word (str): word to transliterate
             normpunc (bool): If True, normalizes punctuation to ASCII inventory
 
         Returns:
@@ -124,7 +114,7 @@ class Flite(object):
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))
             case = 1 if case == 'u' else 0
-            return unicode(cat), case
+            return cat, case
 
         def recode_ft(ft):
             try:
@@ -145,7 +135,7 @@ class Flite(object):
                 return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
-        word = unicode(word)
+        word = str(word)
         # word = self.strip_diacritics.process(word)
         word = unicodedata.normalize('NFKD', word)
         word = unicodedata.normalize('NFC', word)
@@ -210,5 +200,6 @@ class FliteLexLookup(Flite):
             arpa_text = ''
         # Split on newlines and take the first element (in case lex_lookup
         # returns multiple lines).
-        arpa_text = arpa_text.splitlines()[0]
+        lines = arpa_text.splitlines()
+        arpa_text = lines[0] if lines else ''
         return self.arpa_to_ipa(arpa_text)

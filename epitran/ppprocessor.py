@@ -1,5 +1,3 @@
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import logging
 import os.path
@@ -44,9 +42,9 @@ class PrePostProcessor(object):
         """Apply processor to an input string
 
         Args:
-            word (unicode): input string (orthographic or IPA)
+            word (str): input string (orthographic or IPA)
 
         Returns:
-            unicode: output string with all rules applied in order
+            str: output string with all rules applied in order
         """
         return self.rules.apply(word)

@@ -1,4 +1,3 @@
-from __future__ import print_function, unicode_literals, division, absolute_import
 
 import os.path
 import sys
@@ -7,7 +6,7 @@ from unicodedata import normalize
 import pkg_resources
 
 import epitran
-import unicodecsv as csv
+import csv
 
 
 class ReRomanizer(object):
@@ -32,8 +31,8 @@ class ReRomanizer(object):
         path = pkg_resources.resource_filename(__name__, path)
         if os.path.isfile(path):
             mapping = {}
-            with open(path, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
+            with open(path, 'r', encoding='utf-8') as f:
+                reader = csv.reader(f)
                 next(reader)
                 for ipa, rom in reader:
                     rom = normalize('NFD', rom) if decompose else normalize('NFC', rom)
@@ -56,10 +55,10 @@ class ReRomanizer(object):
         """Convert orthographic text to romanized text
 
         Arg:
-            text (unicode): orthographic text
+            text (str): orthographic text
 
         Returns:
-            unicode: romanized text
+            str: romanized text
         """
         tr_list = self.epi.trans_list(text)
         return ''.join(self.reromanize_ipa(tr_list))

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Unit test for Luganda G2P implementation in Epitran
 
-from __future__ import unicode_literals
 
 import unittest
 import epitran

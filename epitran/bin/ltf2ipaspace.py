@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 
 import argparse
 import glob
 import os.path
 
 from lxml import etree
-import unicodecsv as csv
+import csv
 
 import epitran
 import panphon.featuretable
@@ -34,7 +33,7 @@ def read_input(input_, langscript):
 
 def write_output(output, space):
     with open(output, 'wb') as f:
-        writer = csv.writer(f, encoding='utf-8')
+        writer = csv.writer(f)
         for n, ch in enumerate(sorted(list(space))):
             writer.writerow((n, ch))
 
