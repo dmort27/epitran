@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from typing import Dict, List, Iterator
 
 import pkg_resources
 import csv
@@ -8,7 +9,7 @@ from epitran import Epitran
 
 
 class Space(object):
-    def __init__(self, code, space_names):
+    def __init__(self, code: str, space_names: List[str]) -> None:
         """Construct a Space object
 
         Space objects take strings (corresponding to segments) and return
@@ -26,7 +27,7 @@ class Space(object):
         self.epi = Epitran(code)
         self.dict = self._load_space(space_names)
 
-    def _load_space(self, space_names):
+    def _load_space(self, space_names: List[str]) -> Dict[str, int]:
         segs = set()
         scripts = list(set([nm.split('-')[1] for nm in space_names]))
         punc_fns = ['punc-{}.csv'.format(sc) for sc in scripts]
@@ -48,10 +49,10 @@ class Space(object):
         enum = enumerate(sorted(list(segs)))
         return {seg: num for num, seg in enum}
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[str]:
         return iter(self.dict)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> int:
         """Given a string as a key, return the corresponding integer
 
         Args:

@@ -12,12 +12,12 @@ CC_CANTO_URL='https://cccanto.org/cccanto-170202.zip'
 OPENDICT_JA_URL = 'https://github.com/open-dict-data/ipa-dict/raw/refs/heads/master/data/ja.txt'
 
 
-def base_dir():
+def base_dir() -> str:
     data_dir = os.path.join(os.path.dirname(__file__), 'epitran_data')
     os.makedirs(data_dir, exist_ok=True)
     return data_dir
 
-def cedict():
+def cedict() -> str:
     txtfilename = os.path.join(base_dir(), 'cedict.txt')
 
     if not os.path.exists(txtfilename):
@@ -32,7 +32,7 @@ def cedict():
 
     return txtfilename
 
-def cc_canto():
+def cc_canto() -> str:
     cc_canto_dir = os.path.join(base_dir(), 'cc_canto')
     cc_canto_txt = os.path.join(cc_canto_dir, 'cccanto-webdist.txt')
 
@@ -43,7 +43,7 @@ def cc_canto():
 
     return cc_canto_txt
 
-def opendict_ja():
+def opendict_ja() -> str:
     txtfilename = os.path.join(base_dir(), 'ja.txt')
 
     if not os.path.exists(txtfilename):

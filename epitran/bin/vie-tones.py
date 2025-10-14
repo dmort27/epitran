@@ -16,7 +16,7 @@ tones = {
 }
 
 
-def shuffle_tone(orth, phon):
+def shuffle_tone(orth: str, phon: str) -> str:
     orth = unicodedata.normalize('NFD', orth)
     if re.search('[aeiouơư]', orth):
         for tone in tones:
@@ -27,7 +27,7 @@ def shuffle_tone(orth, phon):
     return phon
 
 
-def main():
+def main() -> None:
     fnin = sys.argv[1]
     fnout = os.path.basename(fnin)
     with open(fnin) as fin, open(fnout, 'w') as fout:

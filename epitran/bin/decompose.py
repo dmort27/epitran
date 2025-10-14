@@ -4,7 +4,7 @@ import unicodedata
 import sys
 
 
-def main(fn):
+def main(fn: str) -> None:
     with open(fn, encoding='utf-8') as f:
         print(unicodedata.normalize('NFD', f.read()))
 

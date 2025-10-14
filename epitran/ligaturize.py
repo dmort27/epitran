@@ -2,7 +2,7 @@
 
 
 
-def ligaturize(text):
+def ligaturize(text: str) -> str:
     """Convert text to employ non-standard ligatures
 
     Args:

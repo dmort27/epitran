@@ -4,6 +4,7 @@ import argparse
 import codecs
 import logging
 from collections import Counter
+from typing import List
 
 import csv
 
@@ -14,8 +15,8 @@ import panphon
 logger = logging.getLogger('epitran')
 
 
-def normpunc(flite, s):
-    def norm(c):
+def normpunc(flite: epitran.flite.Flite, s: str) -> str:
+    def norm(c: str) -> str:
         if c in flite.puncnorm:
             return flite.puncnorm[c]
         else:
@@ -23,7 +24,7 @@ def normpunc(flite, s):
     return ''.join(map(norm, s))
 
 
-def add_record(flite, ft, orth):
+def add_record(flite: epitran.flite.Flite, ft: panphon.FeatureTable, orth: str) -> Counter[str]:
     space = Counter()
     orth = normpunc(flite, orth)
     trans = flite.transliterate(orth)
@@ -41,7 +42,7 @@ def add_record(flite, ft, orth):
     return space
 
 
-def add_file(flite, ft, fn):
+def add_file(flite: epitran.flite.Flite, ft: panphon.FeatureTable, fn: str) -> Counter[str]:
     space = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
@@ -53,7 +54,7 @@ def add_file(flite, ft, fn):
     return space
 
 
-def print_space(output, space):
+def print_space(output: str, space: Counter[str]) -> None:
     pairs = enumerate(sorted(filter(lambda x: x, space.keys())))
     with open(output, 'wb') as f:
         writer = csv.writer(f)
@@ -61,7 +62,7 @@ def print_space(output, space):
             writer.writerow((i, char))
 
 
-def main(infiles, output):
+def main(infiles: List[str], output: str) -> None:
     flite = epitran.flite.Flite()
     ft = panphon.FeatureTable()
     space = Counter()

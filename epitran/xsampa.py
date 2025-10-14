@@ -2,6 +2,7 @@
 
 import os.path
 import unicodedata
+from typing import List
 
 import pkg_resources
 
@@ -13,13 +14,13 @@ import csv
 class XSampa(object):
     ipa2xs_fn = 'ipa-xsampa.csv'
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Construct an IPA-XSampa conversion object
         """
         self.trie = self._read_ipa2xs()
         self.ft = panphon.FeatureTable()
 
-    def _read_ipa2xs(self):
+    def _read_ipa2xs(self) -> marisa_trie.BytesTrie:
         path = os.path.join('data', self.ipa2xs_fn)
         path = pkg_resources.resource_filename(__name__, path)
         pairs = []
@@ -31,17 +32,17 @@ class XSampa(object):
         trie = marisa_trie.BytesTrie(pairs)
         return trie
 
-    def prefixes(self, s):
+    def prefixes(self, s: str) -> List[str]:
         return self.trie.prefixes(s)
 
-    def longest_prefix(self, s):
+    def longest_prefix(self, s: str) -> str:
         prefixes = self.prefixes(s)
         if not prefixes:
             return ''
         else:
             return sorted(prefixes, key=len)[-1]  # sort by length and return last
 
-    def ipa2xs(self, ipa):
+    def ipa2xs(self, ipa: str) -> str:
         """Convert IPA string (unicode) to X-SAMPA string
 
         Args:

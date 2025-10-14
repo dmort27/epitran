@@ -2,6 +2,8 @@
 import logging
 import os.path
 
+from typing import Union
+
 import pkg_resources
 
 from epitran.rules import Rules
@@ -10,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class PrePostProcessor(object):
-    def __init__(self, code, fix, rev):
+    def __init__(self, code: str, fix: str, rev: bool) -> None:
         """Constructs a pre/post-processor for orthographic/IPA strings
 
         This class reads processor files consisting of context-sensitive rules
@@ -25,7 +27,7 @@ class PrePostProcessor(object):
         """
         self.rules = self._read_rules(code, fix, rev)
 
-    def _read_rules(self, code, fix, rev):
+    def _read_rules(self, code: str, fix: str, rev: bool) -> Rules:
         assert fix in ['pre', 'post']
         code += '_rev' if rev else ''
         fn = os.path.join('data', fix, code + '.txt')
@@ -38,7 +40,7 @@ class PrePostProcessor(object):
         else:
             return Rules([])
 
-    def process(self, word):
+    def process(self, word: str) -> str:
         """Apply processor to an input string
 
         Args:
