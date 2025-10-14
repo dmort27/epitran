@@ -4,7 +4,7 @@ import os.path
 
 from typing import Union
 
-import pkg_resources
+from importlib import resources
 
 from epitran.rules import Rules
 
@@ -32,12 +32,12 @@ class PrePostProcessor(object):
         code += '_rev' if rev else ''
         fn = os.path.join('data', fix, code + '.txt')
         try:
-            abs_fn = pkg_resources.resource_filename(__name__, fn)
-        except KeyError:
-            return Rules([])
-        if os.path.isfile(abs_fn):
-            return Rules([abs_fn])
-        else:
+            resource_path = resources.files(__package__).joinpath(fn)
+            if resource_path.is_file():
+                return Rules([resource_path])
+            else:
+                return Rules([])
+        except (KeyError, FileNotFoundError):
             return Rules([])
 
     def process(self, word: str) -> str:

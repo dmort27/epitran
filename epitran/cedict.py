@@ -43,9 +43,9 @@ class CEDictTrie(object):
         pairs = []
         for hz, df in self.hanzi.items():
             py, en = df
-            py = str(''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py))))
+            py = ''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py)))
             pairs.append((hz, (py.encode('utf-8'),)))
-        trie = marisa_trie.RecordTrie(str('@s'), pairs)
+        trie = marisa_trie.RecordTrie('@s', pairs)
         return trie
 
     def has_key(self, key: str) -> bool:
@@ -131,7 +131,7 @@ class CEDictTrieForJapanese(object):
         pairs = []
         for ch, pron in self.character.items():
             pairs.append((ch, (pron.encode('utf-8'),)))
-        trie = marisa_trie.RecordTrie(str('@s'), pairs)
+        trie = marisa_trie.RecordTrie('@s', pairs)
         return trie
 
     def has_key(self, key: str) -> bool:

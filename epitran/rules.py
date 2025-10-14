@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import io
 import logging
 import unicodedata
-from typing import List, Dict, Optional, Callable, Any
+from typing import List, Dict, Optional, Callable, Any, Union
+from pathlib import Path
 
 import regex as re
+from importlib import resources
 
 from epitran.exceptions import DatafileError
 
@@ -21,11 +22,11 @@ class RuleFileError(Exception):
 
 
 class Rules(object):
-    def __init__(self, rule_files: List[str]) -> None:
+    def __init__(self, rule_files: List[Union[str, Path]]) -> None:
         """Construct an object encoding context-sensitive rules
 
         Args:
-            rule_files (list): list of names of rule files
+            rule_files (list): list of names of rule files or Path objects
         """
         self.rules: List[Callable[[str], str]] = []
         self.symbols: Dict[str, str] = {}
@@ -33,15 +34,27 @@ class Rules(object):
             rules = self._read_rule_file(rule_file)
             self.rules = self.rules + rules
 
-    def _read_rule_file(self, rule_file: str) -> List[Callable[[str], str]]:
+    def _read_rule_file(self, rule_file: Union[str, Path]) -> List[Callable[[str], str]]:
         rules = []
-        with io.open(rule_file, 'r', encoding='utf-8') as f:
-            for i, line in enumerate(f):
-                # Normalize the line to decomposed form
-                line = line.strip()
-                line = unicodedata.normalize('NFD', line)
-                if not re.match(r'\s*%', line):
-                    rules.append(self._read_rule(i, line))
+        # Handle both string paths and importlib.resources Path objects
+        if hasattr(rule_file, 'open'):
+            # This is an importlib.resources Path object
+            with rule_file.open('r', encoding='utf-8') as f:
+                for i, line in enumerate(f):
+                    # Normalize the line to decomposed form
+                    line = line.strip()
+                    line = unicodedata.normalize('NFD', line)
+                    if not re.match(r'\s*%', line):
+                        rules.append(self._read_rule(i, line))
+        else:
+            # This is a regular string path
+            with open(rule_file, 'r', encoding='utf-8') as f:
+                for i, line in enumerate(f):
+                    # Normalize the line to decomposed form
+                    line = line.strip()
+                    line = unicodedata.normalize('NFD', line)
+                    if not re.match(r'\s*%', line):
+                        rules.append(self._read_rule(i, line))
         return [rule for rule in rules if rule is not None]
 
     def _sub_symbols(self, line: str) -> str:

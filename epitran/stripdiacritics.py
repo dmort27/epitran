@@ -3,7 +3,7 @@
 import os.path
 from typing import List
 
-import pkg_resources
+from importlib import resources
 
 import csv
 
@@ -21,14 +21,14 @@ class StripDiacritics(object):
         diacritics = []
         fn = os.path.join('data', 'strip', code + '.csv')
         try:
-            abs_fn = pkg_resources.resource_filename(__name__, fn)
-        except KeyError:
-            return []
-        if os.path.isfile(abs_fn):
-            with open(abs_fn, 'r', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                for [diacritic] in reader:
-                    diacritics.append(diacritic)
+            resource_path = resources.files(__package__).joinpath(fn)
+            if resource_path.is_file():
+                with resource_path.open('r', encoding='utf-8') as f:
+                    reader = csv.reader(f)
+                    for [diacritic] in reader:
+                        diacritics.append(diacritic)
+        except (KeyError, FileNotFoundError):
+            pass
         return diacritics
 
     def process(self, word: str) -> str:

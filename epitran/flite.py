@@ -50,7 +50,6 @@ class Flite(object):
         return arpa_map
 
     def normalize(self, text: str) -> str:
-        text = str(text)
         text = unicodedata.normalize('NFD', text)
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
@@ -136,7 +135,6 @@ class Flite(object):
                 return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
-        word = str(word)
         # word = self.strip_diacritics.process(word)
         word = unicodedata.normalize('NFKD', word)
         word = unicodedata.normalize('NFC', word)
