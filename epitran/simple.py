@@ -7,7 +7,7 @@ import unicodedata
 from collections import defaultdict
 from typing import DefaultDict, Callable, Any, Optional  # pylint: disable=unused-import
 
-import pkg_resources
+from importlib import resources
 import regex
 
 import panphon
@@ -98,28 +98,27 @@ class SimpleEpitran(object):
         code += '_rev' if rev else ''
         try:
             path = os.path.join('data', 'map', code + '.csv')
-            path = pkg_resources.resource_filename(__name__, path)
-        except IndexError as malformed_data_file:
+            with resources.files(__package__).joinpath(path).open(encoding='utf-8') as f:
+                reader = csv.reader(f)
+                orth, phon = next(reader)
+                if orth != 'Orth' or phon != 'Phon':
+                    raise DatafileError(
+                        f'Header is ["{orth}", "{phon}"] instead of ["Orth", "Phon"].')
+                for (i, fields) in enumerate(reader):
+                    try:
+                        graph, phon = fields
+                    except ValueError as malformed_data_file:
+                        raise DatafileError(
+                            f'Map file is not well formed at line {i + 2}.') from malformed_data_file
+                    graph = unicodedata.normalize('NFD', graph)
+                    phon = unicodedata.normalize('NFD', phon)
+                    if not self.tones:
+                        phon = regex.sub('[˩˨˧˦˥]', '', phon)
+                    g2p[graph].append(phon)
+                    gr_by_line[graph].append(i)
+        except (FileNotFoundError, IndexError) as malformed_data_file:
             raise DatafileError(
                 'Add an appropriately-named mapping to the data/maps directory.') from malformed_data_file
-        with open(path, encoding='utf-8') as f:
-            reader = csv.reader(f)
-            orth, phon = next(reader)
-            if orth != 'Orth' or phon != 'Phon':
-                raise DatafileError(
-                    f'Header is ["{orth}", "{phon}"] instead of ["Orth", "Phon"].')
-            for (i, fields) in enumerate(reader):
-                try:
-                    graph, phon = fields
-                except ValueError as malformed_data_file:
-                    raise DatafileError(
-                        f'Map file is not well formed at line {i + 2}.') from malformed_data_file
-                graph = unicodedata.normalize('NFD', graph)
-                phon = unicodedata.normalize('NFD', phon)
-                if not self.tones:
-                    phon = regex.sub('[˩˨˧˦˥]', '', phon)
-                g2p[graph].append(phon)
-                gr_by_line[graph].append(i)
         nondeterminisms = self._non_deterministic_mappings(gr_by_line)
         if nondeterminisms:
             message = ""
@@ -134,9 +133,8 @@ class SimpleEpitran(object):
     def _load_punc_norm_map(self) -> "dict[str, str]":
         """Load the map table for normalizing 'down' punctuation."""
         path = os.path.join('data', 'puncnorm.csv')
-        path = pkg_resources.resource_filename(__name__, path)
-        with open(path, encoding='utf-8') as f:
-            reader = csv.reader(f, delimiter=str(','), quotechar=str('"'))
+        with resources.files(__package__).joinpath(path).open(encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=',', quotechar='"')
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 

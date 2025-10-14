@@ -4,7 +4,7 @@ import sys
 from unicodedata import normalize
 from typing import Dict, List, Optional
 
-import pkg_resources
+from importlib import resources
 
 import epitran
 import csv
@@ -29,10 +29,10 @@ class ReRomanizer(object):
 
     def _load_reromanizer(self, table: str, decompose: bool) -> Dict[str, str]:
         path = os.path.join('data', 'reromanize', table + '.csv')
-        path = pkg_resources.resource_filename(__name__, path)
-        if os.path.isfile(path):
+        path = resources.files(__package__).joinpath(path)
+        if path.is_file():
             mapping = {}
-            with open(path, 'r', encoding='utf-8') as f:
+            with path.open('r', encoding='utf-8') as f:
                 reader = csv.reader(f)
                 next(reader)
                 for ipa, rom in reader:

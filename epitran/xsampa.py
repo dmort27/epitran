@@ -4,7 +4,7 @@ import os.path
 import unicodedata
 from typing import List
 
-import pkg_resources
+from importlib import resources
 
 import marisa_trie
 import panphon
@@ -22,9 +22,9 @@ class XSampa(object):
 
     def _read_ipa2xs(self) -> marisa_trie.BytesTrie:
         path = os.path.join('data', self.ipa2xs_fn)
-        path = pkg_resources.resource_filename(__name__, path)
+        path = resources.files(__package__).joinpath(path)
         pairs = []
-        with open(path, 'r', encoding='utf-8') as f:
+        with path.open('r', encoding='utf-8') as f:
             reader = csv.reader(f)
             next(reader)
             for ipa, xs, _ in reader:

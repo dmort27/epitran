@@ -3,7 +3,7 @@
 import os
 from typing import Dict, List, Iterator
 
-import pkg_resources
+from importlib import resources
 import csv
 from epitran import Epitran
 
@@ -33,15 +33,15 @@ class Space(object):
         punc_fns = ['punc-{}.csv'.format(sc) for sc in scripts]
         for punc_fn in punc_fns:
             punc_fn = os.path.join('data', 'space', punc_fn)
-            punc_fn = pkg_resources.resource_filename(__name__, punc_fn)
-            with open(punc_fn, 'r', encoding='utf-8') as f:
+            punc_fn = resources.files(__package__).joinpath(punc_fn)
+            with punc_fn.open('r', encoding='utf-8') as f:
                 reader = csv.reader(f)
                 for (mark,) in reader:
                     segs.add(mark)
         for name in space_names:
             fn = os.path.join('data', 'space', name + '.csv')
-            fn = pkg_resources.resource_filename(__name__, fn)
-            with open(fn, 'r', encoding='utf-8') as f:
+            fn = resources.files(__package__).joinpath(fn)
+            with fn.open('r', encoding='utf-8') as f:
                 reader = csv.reader(f)
                 for _, to_ in reader:
                     for seg in self.epi.ft.ipa_segs(to_):
