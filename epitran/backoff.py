@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import (print_function, absolute_import,
-                        unicode_literals)
 
 import regex as re
 from . import _epitran
@@ -35,7 +33,7 @@ class Backoff(object):
         Args:
             token (unicode): orthographic text
         Returns:
-            unicode: transliteration as Unicode IPA string
+            str: transliteration as Unicode IPA string
         """
         tr_list = []
         while token:

@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import os.path
 
 import pkg_resources
 
-import unicodecsv as csv
+import csv
 
 
 class StripDiacritics(object):
@@ -26,8 +24,8 @@ class StripDiacritics(object):
         except KeyError:
             return []
         if os.path.isfile(abs_fn):
-            with open(abs_fn, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
+            with open(abs_fn, 'r', encoding='utf-8') as f:
+                reader = csv.reader(f)
                 for [diacritic] in reader:
                     diacritics.append(diacritic)
         return diacritics
@@ -36,10 +34,10 @@ class StripDiacritics(object):
         """Remove diacritics from an input string
 
         Args:
-            word (unicode): Unicode IPA string
+            word (str): Unicode IPA string
 
         Returns:
-            unicode: Unicode IPA string with specified diacritics
+            str: Unicode IPA string with specified diacritics
             removed
         """
         # word = unicodedata.normalize('NFD', word)

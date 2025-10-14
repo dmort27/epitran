@@ -1,14 +1,13 @@
 #!/usr/bin/env pythoh
-from __future__ import print_function
 
 import glob
 
-import unicodecsv as csv
+import csv
 
 
 def read_map(fn):
-    with open(fn, 'rb') as f:
-        reader = csv.reader(f, encoding='utf-8')
+    with open(fn, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
         next(reader)
         return [(a, b) for [a, b] in reader]
 

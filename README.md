@@ -38,13 +38,13 @@ It is now possible to use the Epitran class for English, Mandarin Chinese (Simpl
 
 The most useful public method of the Epitran class is `transliterate`:
 
-Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned. `normpunc` enables punctuation normalization and `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below (Python 2):
+Epitran.**transliterate**(text, normpunc=False, ligatures=False). Convert `text` (in Unicode-encoded orthography of the language specified in the constructor) to IPA, which is returned. `normpunc` enables punctuation normalization and `ligatures` enables non-standard IPA ligatures like "ʤ" and "ʨ". Usage is illustrated below:
 
 
 ```python
->>> epi.transliterate(u'Düğün')
-u'dy\u0270yn'
->>> print(epi.transliterate(u'Düğün'))
+>>> epi.transliterate('Düğün')
+'dy\u0270yn'
+>>> print(epi.transliterate('Düğün'))
 dyɰyn
 ```
 
@@ -71,14 +71,14 @@ The codes for `character_category` are from the initial characters of the two ch
 )
 ```
 
-Here is an example of an interaction with ```word_to_tuples``` (Python 2):
+Here is an example of an interaction with ```word_to_tuples```:
 
 
 ```python
 >>> import epitran
 >>> epi = epitran.Epitran('tur-Latn')
->>> epi.word_to_tuples(u'Düğün')
-[(u'L', 1, u'D', u'd', [(u'd', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'g\u0306', u'\u0270', [(u'\u0270', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), (u'L', 0, u'u\u0308', u'y', [(u'y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), (u'L', 0, u'n', u'n', [(u'n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
+>>> epi.word_to_tuples('Düğün')
+[('L', 1, 'D', 'd', [('d', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])]), ('L', 0, 'ü', 'y', [('y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), ('L', 0, 'ğ', 'ɰ', [('ɰ', [-1, 1, -1, 1, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, -1, 1, -1, 0, -1, 1, -1])]), ('L', 0, 'ü', 'y', [('y', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1])]), ('L', 0, 'n', 'n', [('n', [-1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 0, -1])])]
 ```
 
 ### The Backoff class
@@ -87,7 +87,7 @@ Sometimes, when parsing text in more than one script, it is useful to employ a g
 
 Backoff(lang_script_codes, cedict_file=None)
 
-Note that the Backoff class does not currently support parameterized preprocessor and postprocessor application and does not support non-standard ligatures. It also does not support punctuation normalization. `lang_script_codes` is a list of codes like `eng-Latn` or `hin-Deva`. For example, if one was transcribing a Hindi text with many English loanwords and some stray characters of Simplified Chinese, one might use the following code (Python 3):
+Note that the Backoff class does not currently support parameterized preprocessor and postprocessor application and does not support non-standard ligatures. It also does not support punctuation normalization. `lang_script_codes` is a list of codes like `eng-Latn` or `hin-Deva`. For example, if one was transcribing a Hindi text with many English loanwords and some stray characters of Simplified Chinese, one might use the following code:
 
 ```python
 from epitran.backoff import Backoff
@@ -109,7 +109,7 @@ The Backoff class has the following public methods:
 * **xsampa_list**: returns a list of X-SAMPA (ASCII) strings, each of which is
   phoneme
 
-Consider the following example (Python 3):
+Consider the following example:
 
 ```python
 >>> backoff.transliterate('हिन्दी')
@@ -157,13 +157,13 @@ Its principle method is ```word_to_segs```:
 VectorWithIPASpace.**word_to_segs**(word, normpunc=False). `word` is a Unicode string. If the keyword argument *normpunc* is set to True, punctuation discovered in `word` is normalized to ASCII equivalents.
 
 
-A typical interaction with the ```VectorsWithIPASpace``` object via the ```word_to_segs``` method is illustrated here (Python 2):
+A typical interaction with the ```VectorsWithIPASpace``` object via the ```word_to_segs``` method is illustrated here:
 
 ```python
 >>> import epitran.vector
 >>> vwis = epitran.vector.VectorsWithIPASpace('uzb-Latn', ['uzb-Latn'])
->>> vwis.word_to_segs(u'darë')
-[(u'L', 0, u'd', u'd\u032a', u'40', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 0, -1]), (u'L', 0, u'a', u'a', u'37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), (u'L', 0, u'r', u'r', u'54', [-1, 1, 1, 1, 0, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 0, 0, 0, -1, 0, -1]), (u'L', 0, u'e\u0308', u'ja', u'46', [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, 1, -1, -1, -1, 0, -1]), (u'L', 0, u'e\u0308', u'ja', u'37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1])]
+>>> vwis.word_to_segs('darë')
+[('L', 0, 'd', 'd̪', '40', [-1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 0, -1]), ('L', 0, 'a', 'a', '37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1]), ('L', 0, 'r', 'r', '54', [-1, 1, 1, 1, 0, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 0, 0, 0, -1, 0, -1]), ('L', 0, 'ë', 'ja', '46', [-1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, 0, -1, 1, -1, -1, -1, 0, -1]), ('L', 0, 'ë', 'ja', '37', [1, 1, -1, 1, -1, -1, -1, 0, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1])]
 ```
 
 
@@ -379,7 +379,7 @@ Note that major languages, including **French**, are missing from this table due
 
 ## Installation of Flite (for English G2P)
 
-For use with most languages, Epitran requires no special installation steps. It can be installed as an ordinarary python package, either with `pip` or by running `python setup.py install` in the root of the source directory. However, English G2P in Epitran relies on CMU Flite, a speech synthesis package by Alan Black and other speech researchers at Carnegie Mellon University. For the current version of Epitran, you should follow the installation instructions for `lex_lookup`, which is used as the default G2P interface for Epitran.
+For use with most languages, Epitran requires no special installation steps. **Epitran requires Python 3.10 or higher.** It can be installed as an ordinary python package, either with `pip` or by running `python setup.py install` in the root of the source directory. However, English G2P in Epitran relies on CMU Flite, a speech synthesis package by Alan Black and other speech researchers at Carnegie Mellon University. For the current version of Epitran, you should follow the installation instructions for `lex_lookup`, which is used as the default G2P interface for Epitran.
 
 ### `t2p`
 
@@ -523,7 +523,7 @@ c -> s / _ (i|e)
 ```
 
 
-For a complete guide to `regex` regular expressions, see the documentation for [`re`](https://docs.python.org/2/library/re.html) and for [`regex`](https://pypi.python.org/pypi/regex), specifically.
+For a complete guide to `regex` regular expressions, see the documentation for [`re`](https://docs.python.org/3/library/re.html) and for [`regex`](https://pypi.org/project/regex/), specifically.
 
 Fragments of regular expressions can be assigned to symbols and reused throughout a file. For example, symbol for the disjunction of vowels in a language can be used in a rule that changes /u/ into /w/ before vowels:
 

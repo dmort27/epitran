@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import io
 import logging
@@ -102,10 +100,10 @@ class Rules(object):
         """Apply rules to input text
 
         Args:
-            text (unicode): input text (e.g. Pinyin)
+            text (str): input text (e.g. Pinyin)
 
         Returns:
-            unicode: output text (e.g. IPA)
+            str: output text (e.g. IPA)
         """
         for i, rule in enumerate(self.rules):
             text = rule(text)
