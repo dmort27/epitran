@@ -1,38 +1,28 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import logging
 import os.path
 import string
 import sys
 import unicodedata
+from typing import Dict, List, Tuple, Any, Optional
 
-import pkg_resources
 import regex as re
 
 import panphon
-import unicodecsv as csv
+import csv
 from epitran.ligaturize import ligaturize
 from epitran.puncnorm import PuncNorm
 
-if os.name == 'posix' and sys.version_info[0] < 3:
-    import subprocess32 as subprocess
-else:
-    import subprocess
+import subprocess
 
 logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger('epitran')
 
 
-if sys.version_info[0] == 3:
-    def unicode(x):
-        return x
-
-
 class Flite(object):
     """English G2P using the Flite speech synthesis system."""
-    def __init__(self, arpabet='arpabet', ligatures=False, **kwargs):
+    def __init__(self, arpabet: str = 'arpabet', ligatures: bool = False, **kwargs) -> None:
         """Construct a Flite "wrapper"
 
         Args:
@@ -40,7 +30,7 @@ class Flite(object):
             ligatures (bool): if True, use non-standard ligatures instead of
                               standard IPA
         """
-        arpabet = pkg_resources.resource_filename(__name__, os.path.join('data', arpabet + '.csv'))
+        arpabet = os.path.join(os.path.dirname(__file__), os.path.join('data', arpabet + '.csv'))
         self.arpa_map = self._read_arpabet(arpabet)
         self.chunk_re = re.compile(r"([A-Za-z'’]+|[^A-Za-z'’]+)", re.U)
         self.letter_re = re.compile(r"[A-Za-z'’]+")
@@ -51,24 +41,23 @@ class Flite(object):
         self.num_panphon_fts = len(self.ft.names)
 
 
-    def _read_arpabet(self, arpabet):
+    def _read_arpabet(self, arpabet: str) -> Dict[str, str]:
         arpa_map = {}
-        with open(arpabet, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(arpabet, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
             for arpa, ipa in reader:
                 arpa_map[arpa] = ipa
         return arpa_map
 
-    def normalize(self, text):
-        text = unicode(text)
+    def normalize(self, text: str) -> str:
         text = unicodedata.normalize('NFD', text)
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
 
-    def arpa_text_to_list(self, arpa_text):
+    def arpa_text_to_list(self, arpa_text: str) -> List[str]:
         return arpa_text.split(' ')[1:-1]
 
-    def arpa_to_ipa(self, arpa_text, ligatures=False):
+    def arpa_to_ipa(self, arpa_text: str, ligatures: bool = False) -> str:
         arpa_text = arpa_text.strip()
         arpa_list = self.arpa_text_to_list(arpa_text)
         arpa_list = map(lambda d: re.sub(r'\d', '', d), arpa_list)
@@ -76,15 +65,15 @@ class Flite(object):
         text = ''.join(ipa_list)
         return text
 
-    def english_g2p(self, english):
+    def english_g2p(self, english: str) -> str:
         """Stub for English G2P function to be overwritten by subclasses"""
         return ""
 
-    def transliterate(self, text, normpunc=False, ligatures=False):
+    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         """Convert English text to IPA transcription
 
         Args:
-            text (unicode): English text
+            text (str): English text
             normpunc (bool): if True, normalize punctuation downward
             ligatures (bool): if True, use non-standard ligatures instead of
                               standard IPA
@@ -101,14 +90,14 @@ class Flite(object):
         text = ligaturize(text) if (ligatures or self.ligatures) else text
         return text
 
-    def strict_trans(self, text, normpunc=False, ligatures=False):
+    def strict_trans(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         return self.transliterate(text, normpunc, ligatures)
 
-    def word_to_tuples(self, word, normpunc=False):
+    def word_to_tuples(self, word: str, normpunc: bool = False) -> List[Any]:
         """Given a word, returns a list of tuples corresponding to IPA segments.
 
         Args:
-            word (unicode): word to transliterate
+            word (str): word to transliterate
             normpunc (bool): If True, normalizes punctuation to ASCII inventory
 
         Returns:
@@ -125,7 +114,7 @@ class Flite(object):
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))
             case = 1 if case == 'u' else 0
-            return unicode(cat), case
+            return cat, case
 
         def recode_ft(ft):
             try:
@@ -146,7 +135,6 @@ class Flite(object):
                 return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
-        word = unicode(word)
         # word = self.strip_diacritics.process(word)
         word = unicodedata.normalize('NFKD', word)
         word = unicodedata.normalize('NFC', word)
@@ -178,7 +166,7 @@ class Flite(object):
 class FliteT2P(Flite):
     """Flite G2P using t2p."""
 
-    def english_g2p(self, text):
+    def english_g2p(self, text: str) -> str:
         text = self.normalize(text)
         try:
             arpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
@@ -195,10 +183,10 @@ class FliteT2P(Flite):
 class FliteLexLookup(Flite):
     """Flite G2P using lex_lookup."""
 
-    def arpa_text_to_list(self, arpa_text):
+    def arpa_text_to_list(self, arpa_text: str) -> List[str]:
         return arpa_text[1:-1].split(' ')
 
-    def english_g2p(self, text):
+    def english_g2p(self, text: str) -> str:
         text = self.normalize(text).lower()
         try:
             arpa_text = subprocess.check_output(['lex_lookup', text])
@@ -211,5 +199,6 @@ class FliteLexLookup(Flite):
             arpa_text = ''
         # Split on newlines and take the first element (in case lex_lookup
         # returns multiple lines).
-        arpa_text = arpa_text.splitlines()[0]
+        lines = arpa_text.splitlines()
+        arpa_text = lines[0] if lines else ''
         return self.arpa_to_ipa(arpa_text)

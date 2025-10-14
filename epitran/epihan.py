@@ -1,9 +1,8 @@
 # -*- utf-8 -*-
-from __future__ import print_function, unicode_literals, division, absolute_import
 
 import os.path
+from typing import Optional, List, Tuple
 
-import pkg_resources
 import regex as re
 
 from . import cedict
@@ -30,8 +29,8 @@ class Epihan(object):
             (u'\u3011', u']'),
             ]
 
-    def __init__(self, ligatures=False, cedict_file=None,
-                 rules_file='pinyin-to-ipa.txt', tones=False):
+    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None,
+                 rules_file: str = 'pinyin-to-ipa.txt', tones: bool = False) -> None:
         """Construct epitran object for Chinese
 
         Args:
@@ -48,26 +47,26 @@ class Epihan(object):
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
             rules_file = os.path.join('data', 'rules', rules_file)
-        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        rules_file = os.path.join(os.path.dirname(__file__), rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
 
-    def normalize_punc(self, text):
+    def normalize_punc(self, text: str) -> str:
         """Normalize punctutation in a string
 
         Args:
-            text (unicode): an orthographic string
+            text (str): an orthographic string
 
         Return:
-            unicode: an orthographic string with punctation normalized to
+            str: an orthographic string with punctation normalized to
                      Western equivalents
         """
         for a, b in self.punc:
             text = text.replace(a, b)
         return text
 
-    def transliterate(self, text, normpunc=False, ligatures=False):
+    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         """Transliterates/transcribes a word into IPA
 
         Args:
@@ -94,12 +93,12 @@ class Epihan(object):
                 if ligatures else ipa_tokens
         return u''.join(ipa_tokens)
 
-    def strict_trans(self, text, normpunc=False, ligatures=False):
+    def strict_trans(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         return self.transliterate(text, normpunc, ligatures)
 
 
 class EpihanTraditional(Epihan):
-    def __init__(self, ligatures=False, cedict_file=None, tones=False, rules_file='pinyin-to-ipa.txt'):
+    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None, tones: bool = False, rules_file: str = 'pinyin-to-ipa.txt') -> None:
         """Construct epitran object for Traditional Chinese
 
         Args:
@@ -114,13 +113,13 @@ class EpihanTraditional(Epihan):
             rules_file = os.path.join('data', 'rules', 'pinyin-to-ipa-tones.txt')
         else:
             rules_file = os.path.join('data', 'rules', rules_file)
-        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        rules_file = os.path.join(os.path.dirname(__file__), rules_file)
         self.cedict = cedict.CEDictTrie(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
 
 class EpiCanto(Epihan):
-    def __init__(self, ligatures=False, cedict_file=None, tones=False, rules_file='jyutping-to-ipa.txt'):
+    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None, tones: bool = False, rules_file: str = 'jyutping-to-ipa.txt') -> None:
         """Construct epitran object for Cantonese
 
         Args:
@@ -135,13 +134,13 @@ class EpiCanto(Epihan):
             rules_file = os.path.join('data', 'rules', 'jyutping-to-ipa-tones.txt')
         else:
             rules_file = os.path.join('data', 'rules', rules_file)
-        rules_file = pkg_resources.resource_filename(__name__, rules_file)
+        rules_file = os.path.join(os.path.dirname(__file__), rules_file)
         self.cedict = cedict.CEDictTrieForCantonese(cedict_file, traditional=True)
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
 
 class EpiJpan(object):
-    def __init__(self, ligatures=False, cedict_file=None, tones=False):
+    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None, tones: bool = False) -> None:
         """Construct epitran object for Japanese
 
         Args:
@@ -154,7 +153,7 @@ class EpiJpan(object):
         self.regexp = None
         self.tones = tones
 
-    def transliterate(self, text, normpunc=False, ligatures=False):
+    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         tokens = self.cedict.tokenize(text)
         ipa_tokens = []
         for token in tokens:

@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
 
 import argparse
 import codecs
+from typing import List
 
 import epitran.vector
 
 
-def main(code, space, infile):
+def main(code: str, space: List[str], infile: str) -> None:
     vec = epitran.vector.VectorsWithIPASpace(code, space)
     with codecs.open(infile, 'r', 'utf-8') as f:
         for line in f:

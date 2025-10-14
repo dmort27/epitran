@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function, unicode_literals, division, absolute_import
 
 
-def ligaturize(text):
+def ligaturize(text: str) -> str:
     """Convert text to employ non-standard ligatures
 
     Args:
-        text (unicode): IPA text to Convert
+        text (str): IPA text to Convert
 
     Return:
-        unicode: non-standard IPA text with phonetic ligatures for affricates
+        str: non-standard IPA text with phonetic ligatures for affricates
     """
     mapping = [(u't͡s', u'ʦ'),
                (u't͡ʃ', u'ʧ'),

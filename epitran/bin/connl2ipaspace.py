@@ -4,16 +4,17 @@ import argparse
 import codecs
 import logging
 from collections import Counter
+from typing import List
 
 import epitran
 import panphon
-import unicodecsv as csv
+import csv
 
 logger = logging.getLogger('epitran')
 
 
-def normpunc(epi, s):
-    def norm(c):
+def normpunc(epi: epitran.Epitran, s: str) -> str:
+    def norm(c: str) -> str:
         if c in epi.puncnorm:
             return epi.puncnorm[c]
         else:
@@ -21,7 +22,7 @@ def normpunc(epi, s):
     return ''.join(map(norm, s))
 
 
-def add_record_gen(epi, ft, orth):
+def add_record_gen(epi: epitran.Epitran, ft: panphon.FeatureTable, orth: str) -> Counter[str]:
     space = Counter()
     orth = normpunc(epi, orth)
     trans = epi.transliterate(orth)
@@ -36,7 +37,7 @@ def add_record_gen(epi, ft, orth):
     return space
 
 
-def add_file_gen(epi, ft, fn):
+def add_file_gen(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Counter[str]:
     space = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
@@ -48,7 +49,7 @@ def add_file_gen(epi, ft, fn):
     return space
 
 
-def add_file_op(epi, ft, fn):
+def add_file_op(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Counter[str]:
     space = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
@@ -71,15 +72,15 @@ def add_file_op(epi, ft, fn):
     return space
 
 
-def print_space(output, space):
+def print_space(output: str, space: Counter[str]) -> None:
     pairs = enumerate(sorted(filter(lambda x: x, space.keys())))
     with open(output, 'wb') as f:
-        writer = csv.writer(f, encoding='utf-8')
+        writer = csv.writer(f)
         for i, char in pairs:
             writer.writerow((i, char))
 
 
-def main(code, op, infiles, output):
+def main(code: str, op: bool, infiles: List[str], output: str) -> None:
     epi = epitran.Epitran(code)
     ft = panphon.FeatureTable()
     space = Counter()

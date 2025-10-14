@@ -27,7 +27,7 @@ class Epitran(object):
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
-               'jpn-Hira': EpiJpan,
+               'jpn-Jpan': EpiJpan,
                'yue-Hant': EpiCanto,
                }
 
@@ -85,7 +85,7 @@ class Epitran(object):
         """
         return self.ft.segs_safe(self.epi.transliterate(word, normpunc, ligatures))
 
-    def trans_delimiter(self, text: str, delimiter: str=str(' '), normpunc: bool=False, ligatures: bool=False):
+    def trans_delimiter(self, text: str, delimiter: str=str(' '), normpunc: bool=False, ligatures: bool=False) -> str:
         """Return IPA transliteration with a delimiter between segments
 
         :param text str: An orthographic text
@@ -98,7 +98,7 @@ class Epitran(object):
         return delimiter.join(self.trans_list(text, normpunc=normpunc,
                                               ligatures=ligatures))
 
-    def xsampa_list(self, word: str, normpunc: bool=False, ligaturize: bool=False):
+    def xsampa_list(self, word: str, normpunc: bool=False, ligaturize: bool=False) -> "list[str]":
         """Transliterates/transcribes a word as X-SAMPA
 
         :param word str: An orthographic word
@@ -111,7 +111,7 @@ class Epitran(object):
                                                           ligaturize))
         return list(map(self.xsampa.ipa2xs, ipa_segs))
 
-    def word_to_tuples(self, word: str, normpunc: bool=False, _ligaturize: bool=False):
+    def word_to_tuples(self, word: str, normpunc: bool=False, _ligaturize: bool=False) -> "list[tuple[str, str, str, str, list[int]]]":
         """Given a word, returns a list of tuples corresponding to IPA segments. The "feature
         vectors" form a list consisting of (segment, vector) pairs.
         For IPA segments, segment is a substring of phonetic_form such that the

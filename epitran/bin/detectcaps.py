@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 
 import unicodedata
 import fileinput
 
 
-def main():
+def main() -> None:
     for line in fileinput.input():
         line = line.decode('utf-8')
         token = line.strip()

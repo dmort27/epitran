@@ -1,7 +1,6 @@
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import logging
+from typing import List, Tuple, Any, Optional
 
 from epitran import Epitran
 from epitran.space import Space
@@ -10,7 +9,7 @@ logger = logging.getLogger('epitran')
 
 
 class VectorsWithIPASpace(object):
-    def __init__(self, code, space_names):
+    def __init__(self, code: str, space_names: List[str]) -> None:
         """Constructs VectorWithIPASpace object
 
         A VectorWithIPASpace object takes orthographic words, via the
@@ -26,11 +25,11 @@ class VectorsWithIPASpace(object):
         self.epi = Epitran(code)
         self.space = Space(code, space_names)
 
-    def word_to_segs(self, word, normpunc=False):
+    def word_to_segs(self, word: str, normpunc: bool = False) -> List[Tuple[str, int, str, str, int, List[Optional[int]]]]:
         """Returns feature vectors, etc. for segments and punctuation in a word
 
         Args:
-            word (unicode): Unicode string representing a word in the
+            word (str): Unicode string representing a word in the
                             orthography specified when the class is
                             instantiated
             normpunc (bool): normalize punctuation
