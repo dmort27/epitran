@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epitran"
+version = "1.25.1"
+description = "Tools for transcribing languages into IPA."
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "David R. Mortensen", email = "dmortens@cs.cmu.edu"}
+]
+maintainers = [
+    {name = "David R. Mortensen", email = "dmortens@cs.cmu.edu"}
+]
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["linguistics", "phonetics", "IPA", "transliteration", "phonology"]
+dependencies = [
+    "setuptools",
+    "regex",
+    "panphon>=0.20",
+    "marisa-trie",
+    "requests",
+    "jamo",
+]
+
+[project.urls]
+Homepage = "https://github.com/dmort27/epitran"
+Repository = "https://github.com/dmort27/epitran"
+"Bug Tracker" = "https://github.com/dmort27/epitran/issues"
+Documentation = "https://github.com/dmort27/epitran#readme"
+Download = "https://github.com/dmort27/epitran/archive/1.25.1.tar.gz"
+
+# Scripts will be handled via setuptools scripts configuration
+# since they don't follow the standard entry point pattern
+
+[tool.setuptools]
+zip-safe = true
+script-files = [
+    "epitran/bin/epitranscribe.py",
+    "epitran/bin/uigtransliterate.py", 
+    "epitran/bin/detectcaps.py",
+    "epitran/bin/connl2ipaspace.py",
+    "epitran/bin/connl2engipaspace.py",
+    "epitran/bin/migraterules.py",
+    "epitran/bin/decompose.py",
+    "epitran/bin/testvectorgen.py",
+]
+
+[tool.setuptools.packages.find]
+include = ["epitran*"]
+exclude = ["epitran.test*"]
+
+[tool.setuptools.package-data]
+epitran = [
+    "data/*.csv",
+    "data/*.txt", 
+    "data/*.json",
+    "data/map/*.csv",
+    "data/pre/*.txt",
+    "data/post/*.txt",
+    "data/space/*.csv",
+    "data/strip/*.csv",
+    "data/reromanize/*.csv",
+    "data/rules/*.txt",
+    "data/bib/*.bib",
+]
+
+[tool.setuptools.dynamic]
+# If you want to make version dynamic in the future, uncomment:
+# version = {attr = "epitran.__version__"}
+
+# Development dependencies (optional)
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+    "mypy",
+]
+test = [
+    "pytest>=6.0",
+    "pytest-cov",
+]
