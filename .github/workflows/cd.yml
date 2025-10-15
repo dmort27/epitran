@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: cd-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
