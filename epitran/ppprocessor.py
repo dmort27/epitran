@@ -2,7 +2,6 @@
 import logging
 import os.path
 
-from typing import Union
 
 from importlib import resources
 
