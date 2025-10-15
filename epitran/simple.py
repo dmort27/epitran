@@ -34,9 +34,28 @@ class SimpleEpitran(object):
     :param rev_postproc bool, optional: if True, applyy postprocessor when reverse transliterating
     """
 
-    def __init__(self, code: str, preproc: bool = True, postproc: bool = True, ligatures: bool = False,
-                 rev: bool = False, rev_preproc: bool = True, rev_postproc: bool = True, tones: bool = False):
-        """Constructor"""
+    def __init__(self, code: str, **kwargs):
+        """Constructor
+        
+        Args:
+            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
+            **kwargs: Optional parameters:
+                preproc (bool): if True, apply preprocessor (default: True)
+                postproc (bool): if True, apply postprocessors (default: True)
+                ligatures (bool): if True, use phonetic ligatures (default: False)
+                rev (bool): if True, load reverse transliteration (default: False)
+                rev_preproc (bool): if True, apply preprocessor when reverse transliterating (default: True)
+                rev_postproc (bool): if True, apply postprocessor when reverse transliterating (default: True)
+                tones (bool): if True, include tone information (default: False)
+        """
+        # Extract parameters with defaults
+        preproc = kwargs.get('preproc', True)
+        postproc = kwargs.get('postproc', True)
+        ligatures = kwargs.get('ligatures', False)
+        rev = kwargs.get('rev', False)
+        rev_preproc = kwargs.get('rev_preproc', True)
+        rev_postproc = kwargs.get('rev_postproc', True)
+        tones = kwargs.get('tones', False)
         self.rev = rev
         self.tones = tones
         self.g2p = self._load_g2p_map(code, False)
