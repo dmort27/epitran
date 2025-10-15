@@ -31,14 +31,25 @@ class Epitran(object):
                'yue-Hant': EpiCanto,
                }
 
-    def __init__(self, code: str, preproc: bool=True, postproc: bool=True, ligatures: bool=False,
-                cedict_file: Union[bool, None]=None, rev: bool=False, 
-                rev_preproc: bool=True, rev_postproc: bool=True, tones: bool=False):
-        """Constructor method"""
+    def __init__(self, code: str, **kwargs):
+        """Constructor method
+        
+        Args:
+            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
+            **kwargs: Additional parameters passed to the appropriate backend:
+                preproc (bool): if True, apply preprocessor (default: True)
+                postproc (bool): if True, apply postprocessors (default: True)
+                ligatures (bool): if True, use phonetic ligatures (default: False)
+                cedict_file (str): path to dictionary file for Chinese/Japanese (default: None)
+                rev (bool): if True, load reverse transliteration (default: False)
+                rev_preproc (bool): if True, apply preprocessor when reverse transliterating (default: True)
+                rev_postproc (bool): if True, apply postprocessor when reverse transliterating (default: True)
+                tones (bool): if True, include tone information (default: False)
+        """
         if code in self.special:
-            self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file, tones=tones)
+            self.epi = self.special[code](**kwargs)
         else:
-            self.epi = SimpleEpitran(code, preproc, postproc, ligatures, rev, rev_preproc, rev_postproc, tones=tones)
+            self.epi = SimpleEpitran(code, **kwargs)
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()

@@ -29,18 +29,23 @@ class Epihan(object):
             (u'\u3011', u']'),
             ]
 
-    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None,
-                 rules_file: str = 'pinyin-to-ipa.txt', tones: bool = False) -> None:
+    def __init__(self, **kwargs) -> None:
         """Construct epitran object for Chinese
 
         Args:
-            ligatures (bool): if True, use ligatures instead of standard IPA
-            cedict_file (str): path to CC-CEDict dictionary file
-            rules_file (str): name of file with rules for converting pinyin to
-                              IPA
-            tones (bool): if True, output tones as Chao tone numbers; overrides
-                          `rules_file`
+            **kwargs: Optional parameters:
+                ligatures (bool): if True, use ligatures instead of standard IPA (default: False)
+                cedict_file (str): path to CC-CEDict dictionary file (default: None)
+                rules_file (str): name of file with rules for converting pinyin to
+                                  IPA (default: 'pinyin-to-ipa.txt')
+                tones (bool): if True, output tones as Chao tone numbers; overrides
+                              `rules_file` (default: False)
         """
+        # Extract parameters with defaults
+        ligatures = kwargs.get('ligatures', False)
+        cedict_file = kwargs.get('cedict_file', None)
+        rules_file = kwargs.get('rules_file', 'pinyin-to-ipa.txt')
+        tones = kwargs.get('tones', False)
         if not cedict_file:
             cedict_file = download.cedict()
         if tones:
@@ -98,15 +103,22 @@ class Epihan(object):
 
 
 class EpihanTraditional(Epihan):
-    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None, tones: bool = False, rules_file: str = 'pinyin-to-ipa.txt') -> None:
+    def __init__(self, **kwargs) -> None:
         """Construct epitran object for Traditional Chinese
 
         Args:
-            ligatures (bool): if True, use ligatures instead of standard IPA
-            cedict_file (str): path to CC-CEDict dictionary file
-            rules_file (str): name of file with rules for converting pinyin to
-                              IPA
+            **kwargs: Optional parameters:
+                ligatures (bool): if True, use ligatures instead of standard IPA (default: False)
+                cedict_file (str): path to CC-CEDict dictionary file (default: None)
+                tones (bool): if True, include tone information (default: False)
+                rules_file (str): name of file with rules for converting pinyin to
+                                  IPA (default: 'pinyin-to-ipa.txt')
         """
+        # Extract parameters with defaults
+        ligatures = kwargs.get('ligatures', False)
+        cedict_file = kwargs.get('cedict_file', None)
+        tones = kwargs.get('tones', False)
+        rules_file = kwargs.get('rules_file', 'pinyin-to-ipa.txt')
         if not cedict_file:
             cedict_file = download.cedict()
         if tones:
@@ -119,15 +131,22 @@ class EpihanTraditional(Epihan):
         self.regexp = re.compile(r'\p{Han}')
 
 class EpiCanto(Epihan):
-    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None, tones: bool = False, rules_file: str = 'jyutping-to-ipa.txt') -> None:
+    def __init__(self, **kwargs) -> None:
         """Construct epitran object for Cantonese
 
         Args:
-            ligatures (bool): if True, use ligatures instead of standard IPA
-            cc_canto_file (str): path to CC-Canto dictionary file
-            rules_file (str): name of file with rules for converting jyutping to
-                              IPA
+            **kwargs: Optional parameters:
+                ligatures (bool): if True, use ligatures instead of standard IPA (default: False)
+                cedict_file (str): path to CC-Canto dictionary file (default: None)
+                tones (bool): if True, include tone information (default: False)
+                rules_file (str): name of file with rules for converting jyutping to
+                                  IPA (default: 'jyutping-to-ipa.txt')
         """
+        # Extract parameters with defaults
+        ligatures = kwargs.get('ligatures', False)
+        cedict_file = kwargs.get('cedict_file', None)
+        tones = kwargs.get('tones', False)
+        rules_file = kwargs.get('rules_file', 'jyutping-to-ipa.txt')
         if not cedict_file:
             cedict_file = download.cc_canto()
         if tones:
@@ -140,13 +159,19 @@ class EpiCanto(Epihan):
         self.regexp = re.compile(r'\p{Han}')
 
 class EpiJpan(object):
-    def __init__(self, ligatures: bool = False, cedict_file: Optional[str] = None, tones: bool = False) -> None:
+    def __init__(self, **kwargs) -> None:
         """Construct epitran object for Japanese
 
         Args:
-            ligatures (bool): if True, use ligatures instead of standard IPA
-            cedict_file (str): path to src dictionary file
+            **kwargs: Optional parameters:
+                ligatures (bool): if True, use ligatures instead of standard IPA (default: False)
+                cedict_file (str): path to src dictionary file (default: None)
+                tones (bool): if True, include tone information (default: False)
         """
+        # Extract parameters with defaults
+        ligatures = kwargs.get('ligatures', False)
+        cedict_file = kwargs.get('cedict_file', None)
+        tones = kwargs.get('tones', False)
         if not cedict_file:
             cedict_file = download.opendict_ja()
         self.cedict = cedict.CEDictTrieForJapanese(cedict_file)
