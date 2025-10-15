@@ -3,9 +3,8 @@
 import logging
 import os.path
 import string
-import sys
 import unicodedata
-from typing import Dict, List, Tuple, Any, Optional
+from typing import Dict, List, Any
 
 import regex as re
 

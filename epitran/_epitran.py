@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-from typing import Union
 
 import panphon.featuretable
 from epitran.epihan import Epihan, EpihanTraditional, EpiJpan, EpiCanto
