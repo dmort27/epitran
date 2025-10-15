@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "epitran"
-version = "1.25.1"
+version = "1.25.2"
 description = "Tools for transcribing languages into IPA."
 readme = "README.md"
-license = "MIT"
+license = { text = "MIT-Modern-Variant"}
 authors = [
     {name = "David R. Mortensen", email = "dmortens@cs.cmu.edu"}
 ]
