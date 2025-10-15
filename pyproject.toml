@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=64", "wheel"]
+requires = ["setuptools>=69", "setuptools-scm[toml]>=8", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "epitran"
-version = "1.25.2"
+dynamic = ["version"]
 description = "Tools for transcribing languages into IPA."
 readme = "README.md"
 license = { text = "MIT-Modern-Variant"}
@@ -32,7 +32,6 @@ classifiers = [
 ]
 keywords = ["linguistics", "phonetics", "IPA", "transliteration", "phonology"]
 dependencies = [
-    "setuptools",
     "regex",
     "panphon>=0.20",
     "marisa-trie",
@@ -42,10 +41,16 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/dmort27/epitran"
-Repository = "https://github.com/dmort27/epitran"
-"Bug Tracker" = "https://github.com/dmort27/epitran/issues"
 Documentation = "https://github.com/dmort27/epitran#readme"
-Download = "https://github.com/dmort27/epitran/archive/1.25.1.tar.gz"
+Repository = "https://github.com/dmort27/epitran"
+Issues = "https://github.com/dmort27/epitran/issues"
+Changelog = "https://github.com/dmort27/epitran/releases"
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
+
 
 # Scripts will be handled via setuptools scripts configuration
 # since they don't follow the standard entry point pattern
@@ -82,20 +87,15 @@ epitran = [
     "data/bib/*.bib",
 ]
 
-[tool.setuptools.dynamic]
-# If you want to make version dynamic in the future, uncomment:
-# version = {attr = "epitran.__version__"}
-
 # Development dependencies (optional)
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.4.2",
-    "pytest-cov",
-    "black",
-    "flake8",
-    "mypy",
+    "ruff",
 ]
-test = [
-    "pytest>=8.4.2",
-    "pytest-cov",
-]
+
+# Automated semantic versioning and release management
+[tool.semantic_release]
+version_source = "tag"
+tag_format = "v{version}"
+commit_parser = "conventional"
+upload_to_pypi = false
