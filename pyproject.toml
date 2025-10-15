@@ -89,13 +89,13 @@ epitran = [
 # Development dependencies (optional)
 [project.optional-dependencies]
 dev = [
-    "pytest>=6.0",
+    "pytest>=8.4.2",
     "pytest-cov",
     "black",
     "flake8",
     "mypy",
 ]
 test = [
-    "pytest>=6.0",
+    "pytest>=8.4.2",
     "pytest-cov",
 ]
