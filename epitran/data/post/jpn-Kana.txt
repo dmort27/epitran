@@ -18,7 +18,7 @@ oo -> oː / _
 
 %Some special notations for long vowels
 ei -> eː / _
-ou -> oː / _
+oɯ -> oː / _
 
 % allophones of "[ラ-ロ]" & "[リャ-リョ]"
 ɾ -> ɖ / # _
