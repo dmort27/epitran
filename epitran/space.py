@@ -32,16 +32,16 @@ class Space(object):
         scripts = list(set([nm.split('-')[1] for nm in space_names]))
         punc_fns = ['punc-{}.csv'.format(sc) for sc in scripts]
         for punc_fn in punc_fns:
-            punc_fn = os.path.join('data', 'space', punc_fn)
-            punc_fn = resources.files(__package__).joinpath(punc_fn)
-            with punc_fn.open('r', encoding='utf-8') as f:
+            punc_fn_str = os.path.join('data', 'space', punc_fn)
+            punc_fn_path = resources.files(__package__).joinpath(punc_fn_str)
+            with punc_fn_path.open('r', encoding='utf-8') as f:
                 reader = csv.reader(f)
                 for (mark,) in reader:
                     segs.add(mark)
         for name in space_names:
-            fn = os.path.join('data', 'space', name + '.csv')
-            fn = resources.files(__package__).joinpath(fn)
-            with fn.open('r', encoding='utf-8') as f:
+            fn_str = os.path.join('data', 'space', name + '.csv')
+            fn_path = resources.files(__package__).joinpath(fn_str)
+            with fn_path.open('r', encoding='utf-8') as f:
                 reader = csv.reader(f)
                 for _, to_ in reader:
                     for seg in self.epi.ft.ipa_segs(to_):

@@ -88,14 +88,14 @@ class Epihan(object):
         for token in tokens:
             if token in self.cedict.hanzi:
                 (pinyin, _) = self.cedict.hanzi[token]
-                pinyin = u''.join(pinyin).lower()
-                ipa = self.rules.apply(pinyin)
+                pinyin_str = u''.join(pinyin).lower()
+                ipa = self.rules.apply(pinyin_str)
                 ipa_tokens.append(ipa.replace(u',', u''))
             else:
                 if normpunc:
                     token = self.normalize_punc(token)
                 ipa_tokens.append(token)
-        ipa_tokens = map(ligaturize, ipa_tokens)\
+        ipa_tokens = list(map(ligaturize, ipa_tokens))\
                 if ligatures else ipa_tokens
         return u''.join(ipa_tokens)
 
@@ -164,6 +164,19 @@ class EpiCanto(Epihan):
         self.regexp = re.compile(r'\p{Han}')
 
 class EpiJpan(object):
+    punc = [(u'\uff0c', u','),
+            (u'\uff01', u'!'),
+            (u'\uff1f', u'?'),
+            (u'\uff1b', u';'),
+            (u'\uff1a', u':'),
+            (u'\uff08', u'('),
+            (u'\uff09', u')'),
+            (u'\uff3b', u'['),
+            (u'\uff3d', u']'),
+            (u'\u3010', u'['),
+            (u'\u3011', u']'),
+            ]
+
     def __init__(self, **kwargs) -> None:
         """Construct epitran object for Japanese
 
@@ -184,6 +197,20 @@ class EpiJpan(object):
         self.cedict = cedict.CEDictTrieForJapanese(cedict_file)
         self.regexp = None
         self.tones = tones
+
+    def normalize_punc(self, text: str) -> str:
+        """Normalize punctutation in a string
+
+        Args:
+            text (str): an orthographic string
+
+        Return:
+            str: an orthographic string with punctation normalized to
+                     Western equivalents
+        """
+        for a, b in self.punc:
+            text = text.replace(a, b)
+        return text
 
     def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         tokens = self.cedict.tokenize(text)

@@ -10,10 +10,8 @@ import argparse
 def main(code: str) -> None:
     epi = epitran.Epitran(code)
     for line in sys.stdin:  # pointless
-        line = line.decode('utf-8')
         line = unicodedata.normalize('NFD', line.lower())
         line = epi.transliterate(line)
-        line = line.encode('utf-8')
         sys.stdout.write(line)
 
 

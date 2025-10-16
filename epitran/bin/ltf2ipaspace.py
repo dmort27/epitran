@@ -33,7 +33,7 @@ def read_input(input_: List[List[str]], langscript: str) -> Set[str]:
 
 
 def write_output(output: str, space: Set[str]) -> None:
-    with open(output, 'wb') as f:
+    with open(output, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         for n, ch in enumerate(sorted(list(space))):
             writer.writerow((n, ch))

@@ -28,8 +28,8 @@ class ReRomanizer(object):
         self.mapping = self._load_reromanizer(table, decompose)
 
     def _load_reromanizer(self, table: str, decompose: bool) -> Dict[str, str]:
-        path = os.path.join('data', 'reromanize', table + '.csv')
-        path = resources.files(__package__).joinpath(path)
+        path_str = os.path.join('data', 'reromanize', table + '.csv')
+        path = resources.files(__package__).joinpath(path_str)
         if path.is_file():
             mapping = {}
             with path.open('r', encoding='utf-8') as f:

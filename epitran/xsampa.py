@@ -21,8 +21,8 @@ class XSampa(object):
         self.ft = panphon.FeatureTable()
 
     def _read_ipa2xs(self) -> marisa_trie.BytesTrie:
-        path = os.path.join('data', self.ipa2xs_fn)
-        path = resources.files(__package__).joinpath(path)
+        path_str = os.path.join('data', self.ipa2xs_fn)
+        path = resources.files(__package__).joinpath(path_str)
         pairs = []
         with path.open('r', encoding='utf-8') as f:
             reader = csv.reader(f)

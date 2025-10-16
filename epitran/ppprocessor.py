@@ -1,7 +1,7 @@
 
 import logging
 import os.path
-
+from pathlib import Path
 
 from importlib import resources
 
@@ -33,7 +33,7 @@ class PrePostProcessor(object):
         try:
             resource_path = resources.files(__package__).joinpath(fn)
             if resource_path.is_file():
-                return Rules([resource_path])
+                return Rules([Path(str(resource_path))])
             else:
                 return Rules([])
         except (KeyError, FileNotFoundError):

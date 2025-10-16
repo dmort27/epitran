@@ -23,7 +23,7 @@ def normpunc(epi: epitran.Epitran, s: str) -> str:
 
 
 def add_record_gen(epi: epitran.Epitran, ft: panphon.FeatureTable, orth: str) -> Counter[str]:
-    space = Counter()
+    space: Counter[str] = Counter()
     orth = normpunc(epi, orth)
     trans = epi.transliterate(orth)
     while trans:
@@ -38,7 +38,7 @@ def add_record_gen(epi: epitran.Epitran, ft: panphon.FeatureTable, orth: str) ->
 
 
 def add_file_gen(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Counter[str]:
-    space = Counter()
+    space: Counter[str] = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
             fields = line.split(u'\t')
@@ -50,7 +50,7 @@ def add_file_gen(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Cou
 
 
 def add_file_op(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Counter[str]:
-    space = Counter()
+    space: Counter[str] = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
             fields = line.split(u'\t')
@@ -74,7 +74,7 @@ def add_file_op(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Coun
 
 def print_space(output: str, space: Counter[str]) -> None:
     pairs = enumerate(sorted(filter(lambda x: x, space.keys())))
-    with open(output, 'wb') as f:
+    with open(output, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         for i, char in pairs:
             writer.writerow((i, char))
@@ -83,7 +83,7 @@ def print_space(output: str, space: Counter[str]) -> None:
 def main(code: str, op: bool, infiles: List[str], output: str) -> None:
     epi = epitran.Epitran(code)
     ft = panphon.FeatureTable()
-    space = Counter()
+    space: Counter[str] = Counter()
     for fn in infiles:
         logger.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
         add_file = add_file_op if op else add_file_gen

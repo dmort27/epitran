@@ -25,7 +25,7 @@ def normpunc(flite: epitran.flite.Flite, s: str) -> str:
 
 
 def add_record(flite: epitran.flite.Flite, ft: panphon.FeatureTable, orth: str) -> Counter[str]:
-    space = Counter()
+    space: Counter[str] = Counter()
     orth = normpunc(flite, orth)
     trans = flite.transliterate(orth)
     while trans:
@@ -34,7 +34,7 @@ def add_record(flite: epitran.flite.Flite, ft: panphon.FeatureTable, orth: str) 
             space[pref] += 1
             trans = trans[len(pref):]
         else:
-            if trans[0] in flite.puncnorm_vals:
+            if trans[0] in flite.puncnorm.puncnorm:
                 space[trans[0]] += 1
             else:
                 space[trans[0]] += 1
@@ -43,7 +43,7 @@ def add_record(flite: epitran.flite.Flite, ft: panphon.FeatureTable, orth: str) 
 
 
 def add_file(flite: epitran.flite.Flite, ft: panphon.FeatureTable, fn: str) -> Counter[str]:
-    space = Counter()
+    space: Counter[str] = Counter()
     with codecs.open(fn, 'r', 'utf-8') as f:
         for line in f:
             fields = line.split(u'\t')
@@ -56,7 +56,7 @@ def add_file(flite: epitran.flite.Flite, ft: panphon.FeatureTable, fn: str) -> C
 
 def print_space(output: str, space: Counter[str]) -> None:
     pairs = enumerate(sorted(filter(lambda x: x, space.keys())))
-    with open(output, 'wb') as f:
+    with open(output, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         for i, char in pairs:
             writer.writerow((i, char))
@@ -65,7 +65,7 @@ def print_space(output: str, space: Counter[str]) -> None:
 def main(infiles: List[str], output: str) -> None:
     flite = epitran.flite.Flite()
     ft = panphon.FeatureTable()
-    space = Counter()
+    space: Counter[str] = Counter()
     for fn in infiles:
         logger.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
         space.update(add_file(flite, ft, fn))

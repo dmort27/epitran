@@ -77,7 +77,7 @@ class SimpleEpitran(object):
             self.rev_preprocessor = PrePostProcessor(code, 'pre', True)
             self.rev_postprocessor = PrePostProcessor(code, 'post', True)
 
-        self.nils = defaultdict(int)
+        self.nils: defaultdict[str, int] = defaultdict(int)
 
     def get_tones(self) -> bool:
         """Returns True if support for tones is turned on.
@@ -318,8 +318,8 @@ class SimpleEpitran(object):
         and 1 corresponds to '+'.
         """
         def cat_and_cap(category: str) -> "tuple[str, int]":
-            cat, case = tuple(unicodedata.category(category))
-            case = 1 if case == 'u' else 0
+            cat, case_char = tuple(unicodedata.category(category))
+            case = 1 if case_char == 'u' else 0
             return cat, case
 
         def recode_ft(feature: str) -> int:
@@ -354,15 +354,15 @@ class SimpleEpitran(object):
                 phon: str = self.g2p[span.lower()][0]
                 vecs: "list[tuple[str, list[int]]]" = to_vectors(phon)
                 tuples.append(('L', case, span, phon, vecs))
-                word: str = word[len(span):]
+                word = word[len(span):]
             else:
-                span = word[0]
-                span: str = self.puncnorm.norm(span) if normpunc else span
-                cat, case = cat_and_cap(span)
-                cat: str = 'P' if normpunc and cat in self.puncnorm else cat
-                phon: str = ''
-                vecs: "list[tuple[str, list[int]]]" = to_vectors(phon)
-                tuples.append((cat, case, span, phon, vecs))
+                char = word[0]
+                span_norm: str = self.puncnorm.norm(char) if normpunc else char
+                cat_norm, case_norm = cat_and_cap(span_norm)
+                cat_final: str = 'P' if normpunc and cat_norm in self.puncnorm else cat_norm
+                phon_empty: str = ''
+                vecs_empty: "list[tuple[str, list[int]]]" = to_vectors(phon_empty)
+                tuples.append((cat_final, case_norm, span_norm, phon_empty, vecs_empty))
                 word = word[1:]
         return tuples
 
