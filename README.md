@@ -328,6 +328,7 @@ A few notes are in order regarding this data structure:
 | tir-Ethi-red| Tigrinya (reduced)      |
 | tok-Latn    | Toki Pona               |
 | tpi-Latn    | Tok Pisin               |
+| tsn-latn    | Setswana                |
 | tuk-Cyrl    | Turkmen (Cyrillic)      |
 | tuk-Latn    | Turkmen (Latin)         |
 | tur-Latn    | Turkish (Latin)         |
