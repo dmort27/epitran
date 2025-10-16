@@ -4,10 +4,8 @@
 
 import glob
 import re
-import io
 from typing import List, Optional
 
-import csv
 
 
 def build_rule(fields: List[str]) -> Optional[str]:

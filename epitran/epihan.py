@@ -1,7 +1,6 @@
 # -*- utf-8 -*-
 
 import os.path
-from typing import Optional, List, Tuple
 
 import regex as re
 
@@ -46,6 +45,8 @@ class Epihan(object):
         cedict_file = kwargs.get('cedict_file', None)
         rules_file = kwargs.get('rules_file', 'pinyin-to-ipa.txt')
         tones = kwargs.get('tones', False)
+        assert ligatures is False, "Ligatures not supported for cmn-Hans"
+
         if not cedict_file:
             cedict_file = download.cedict()
         if tones:
@@ -119,6 +120,8 @@ class EpihanTraditional(Epihan):
         cedict_file = kwargs.get('cedict_file', None)
         tones = kwargs.get('tones', False)
         rules_file = kwargs.get('rules_file', 'pinyin-to-ipa.txt')
+        assert ligatures is False, "Ligatures not supported for cmn-Hant"
+
         if not cedict_file:
             cedict_file = download.cedict()
         if tones:
@@ -147,6 +150,8 @@ class EpiCanto(Epihan):
         cedict_file = kwargs.get('cedict_file', None)
         tones = kwargs.get('tones', False)
         rules_file = kwargs.get('rules_file', 'jyutping-to-ipa.txt')
+        assert ligatures is False, 'Ligatures not supported for yue-Hant'
+
         if not cedict_file:
             cedict_file = download.cc_canto()
         if tones:
@@ -172,6 +177,8 @@ class EpiJpan(object):
         ligatures = kwargs.get('ligatures', False)
         cedict_file = kwargs.get('cedict_file', None)
         tones = kwargs.get('tones', False)
+        assert ligatures is False, 'Ligatures not supported for jpn-Jpan'
+
         if not cedict_file:
             cedict_file = download.opendict_ja()
         self.cedict = cedict.CEDictTrieForJapanese(cedict_file)

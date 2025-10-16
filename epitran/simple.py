@@ -5,7 +5,7 @@ import sys
 import csv
 import unicodedata
 from collections import defaultdict
-from typing import DefaultDict, Callable, Any, Optional  # pylint: disable=unused-import
+from typing import DefaultDict, Callable, Any
 
 from importlib import resources
 import regex

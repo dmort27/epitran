@@ -1,6 +1,6 @@
 
 import logging
-from typing import List, Tuple, Any, Optional
+from typing import List, Tuple, Optional
 
 from epitran import Epitran
 from epitran.space import Space

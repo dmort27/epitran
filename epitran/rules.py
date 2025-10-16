@@ -6,7 +6,6 @@ from typing import List, Dict, Optional, Callable, Any, Union
 from pathlib import Path
 
 import regex as re
-from importlib import resources
 
 from epitran.exceptions import DatafileError
 
