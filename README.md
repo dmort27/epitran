@@ -232,6 +232,7 @@ A few notes are in order regarding this data structure:
 | fry-Latn    | Frisian                 |
 | ful-Latn    | Fulah                   |
 | gan-Latn    | Gan (Wiktionary)        |
+| gle-Latn    | Irish                   |
 | glg-Latn    | Galician	              |
 | got-Goth    | Gothic                  |
 | got-Latn    | Gothic (Latin)          |
@@ -361,6 +362,7 @@ Some the languages listed above should be approached with caution. It is not pos
 | fas-Arab    | Farsi (Perso-Arabic)    |
 | fra-Latn    | French                  |
 | fra-Latn-np | French†                 |
+| gle-Latn    | Irish                   |
 | mya-Mymr    | Burmese                 |
 | por-Latn    | Portuguese              |
 

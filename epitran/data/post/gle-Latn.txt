@@ -1,0 +1,65 @@
+::broad:: = k|g|ŋ|w|ɣ|x|s|z
+::slender:: = c|ɟ|ɲ|vʲ|j|ç|ʃ|ʒ
+::consonant:: = b|p|m|f|F|v|d|t|n|l|ɾ|h|::broad::|::slender::
+::vowel:: = a|i|u|e|o|ǝ|aː|iː|uː|eː|oː
+
+% Final consonants adopt the preceeding broad/slender rule
+(?P<sw1>[ʲˠ])(?P<sw2>(::consonant::)) -> 0 / _ (::consonant::|#)
+
+% Propagate throughout consonant clusters
+0 -> ʲ / (::consonant::)ʲ(::consonant::) _ (::consonant::|#)
+0 -> ˠ / (::consonant::)ˠ(::consonant::) _ (::consonant::|#)
+0 -> ʲ / #(::consonant::) _ (::consonant::)ʲ
+0 -> ˠ / #(::consonant::) _ (::consonant::)ˠ
+
+% Remove extraneous symbols
+[ʲˠ] -> 0 / (::vowel::) _ (::consonant::)[ʲˠ]
+[ʲˠ] -> 0 / (::vowel::) _ #
+[ʲˠ] -> 0 / # _
+
+% /s/ takes broad pronunciation in some word-initial clusters
+ʲ -> ˠ / s _ [fmpɾ]
+
+% /r/ takes broad pronunciation initially and in certain clusters
+ʲ -> ˠ / ɾ _ [dlnsth]
+ʲ -> ˠ / s.ɾ _
+ʲ -> ˠ / #ɾ _
+% /x/ takes broad pronunciation before /t/
+ʲ -> ˠ / x _ t
+% /h/ doesn't have broad/slender distinction
+[ʲˠ] -> 0 / h _
+
+% in most clusters, /h/ devoices previous consonant and is elided
+b -> p / _ [ʲˠ]?h
+d -> t / _ [ʲˠ]?h
+g -> k / _ [ʲˠ]?h
+v -> f / _ [ʲˠ]?h
+ɣ -> x / _ [ʲˠ]?h
+% /rh/, spelled <rth>, is a legal cluster
+h -> 0 / (?!ɾ)(::consonant::)[ʲˠ]? _
+
+
+k -> c / _ ʲ
+g -> ɟ / _ ʲ
+x -> ç / _ ʲ
+ɣ -> j / _ ʲ
+ŋ -> ɲ / _ ʲ
+s -> ʃ / _ ʲ
+z -> ʒ / _ ʲ
+v -> w / _ ˠ
+ˠ -> 0 / (::broad::) _
+ʲ -> 0 / (::slender::) _
+
+% <ng> is only a pure nasal word-initially
+0 -> g / .ŋ _
+0 -> ɟ / .ɲ _
+
+% /ɣ/ is elided except word-initially
+ɣ -> 0 / [^#] _
+
+% For normalization, we follow the convention of leaving broad consonants unmarked
+ˠ -> 0 / _
+% <fh> is silent, but blocks consonants from being word-initial
+Fʲ? -> 0 / _
+
+0 -> ə / (?<!ː|[əiue][əiu])[lnɾ]ʲ? _ [bvwmfxçgɟ]
