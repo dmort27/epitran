@@ -58,6 +58,7 @@ modes: Dict[str, List[str]] = {
          'ukr': ['Cyrl'],
          'urd': ['Arab'],
          'uzb': ['Latn', 'Cyrl'],
+         'pbu': ['Arab'],
          'vie': ['Latn'],
          'xho': ['Latn'],
          'yor': ['Latn'],
