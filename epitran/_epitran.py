@@ -22,8 +22,9 @@ class Epitran(object):
     :param cedict_filename str: path to file containing the CC-CEDict dictionary
     :param rev boolean: use reverse transliteration
     :param rev_preproc bool: if True, apply preprocessors when reverse transliterating
-    :param rev_postproc bool: if True, apply postprocessors when reverse transliterating 
+    :param rev_postproc bool: if True, apply postprocessors when reverse transliterating
     """
+    @final
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
@@ -33,7 +34,7 @@ class Epitran(object):
 
     def __init__(self, code: str, **kwargs):
         """Constructor method
-        
+
         Args:
             code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
             **kwargs: Additional parameters passed to the appropriate backend:
