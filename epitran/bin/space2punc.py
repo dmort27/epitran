@@ -14,7 +14,7 @@ def main(fns: List[str], fnn: str) -> None:
             for _, s in reader:
                 if len(s) == 1 and unicodedata.category(s)[0] == u'P':
                     punc.add(s)
-    with open(fnn, 'wb') as f:
+    with open(fnn, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         for mark in sorted(list(punc)):
             writer.writerow([mark])

@@ -43,8 +43,8 @@ class CEDictTrie(object):
         pairs = []
         for hz, df in self.hanzi.items():
             py, en = df
-            py = ''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py)))
-            pairs.append((hz, (py.encode('utf-8'),)))
+            py_str = ''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py)))
+            pairs.append((hz, (py_str,)))
         trie = marisa_trie.RecordTrie('@s', pairs)
         return trie
 

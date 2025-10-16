@@ -88,6 +88,7 @@ class Rules(object):
                         return self._fields_to_function(a, b, X, Y)
                 except Exception as e:
                     raise DatafileError('Line {}: "{}" cannot be compiled as regex: ̪{}'.format(i + 1, line, e))
+        return None
 
     def _fields_to_function_metathesis(self, a: str, X: str, Y: str) -> Callable[[str], str]:
         left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)

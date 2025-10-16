@@ -1,6 +1,6 @@
 
 import logging
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, cast
 
 from epitran import Epitran
 from epitran.space import Space
@@ -44,17 +44,18 @@ class VectorsWithIPASpace(object):
                   uppercase and 0 for lowercase.
         """
         segs = self.epi.word_to_tuples(word, normpunc)
-        new_segs = []
+        new_segs: List[Tuple[str, int, str, str, int, List[Optional[int]]]] = []
         for cat, case, orth, phon, id_vec_list in segs:
             if not phon and normpunc:
                 if orth in self.epi.puncnorm:
                     orth = self.epi.puncnorm[orth]
             for s, vector in id_vec_list:
+                vector_typed = cast(List[Optional[int]], vector)
                 if s in self.space:
                     id_ = int(self.space[s])
                 elif orth in self.space:
                     id_ = int(self.space[orth])
                 else:
                     id_ = -1
-                new_segs.append((cat, case, orth, phon, id_, vector))
+                new_segs.append((cat, case, orth, phon, id_, vector_typed))
         return new_segs

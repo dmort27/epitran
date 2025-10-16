@@ -59,7 +59,7 @@ class Flite(object):
     def arpa_to_ipa(self, arpa_text: str, ligatures: bool = False) -> str:
         arpa_text = arpa_text.strip()
         arpa_list = self.arpa_text_to_list(arpa_text)
-        arpa_list = map(lambda d: re.sub(r'\d', '', d), arpa_list)
+        arpa_list = list(map(lambda d: re.sub(r'\d', '', d), arpa_list))
         ipa_list = map(lambda d: self.arpa_map[d], arpa_list)
         text = ''.join(ipa_list)
         return text
@@ -168,8 +168,8 @@ class FliteT2P(Flite):
     def english_g2p(self, text: str) -> str:
         text = self.normalize(text)
         try:
-            arpa_text = subprocess.check_output(['t2p', '"{}"'.format(text)])
-            arpa_text = arpa_text.decode('utf-8')
+            arpa_bytes = subprocess.check_output(['t2p', '"{}"'.format(text)])
+            arpa_text = arpa_bytes.decode('utf-8')
         except OSError:
             logger.warning('t2p (from flite) is not installed.')
             arpa_text = ''
@@ -188,8 +188,8 @@ class FliteLexLookup(Flite):
     def english_g2p(self, text: str) -> str:
         text = self.normalize(text).lower()
         try:
-            arpa_text = subprocess.check_output(['lex_lookup', text])
-            arpa_text = arpa_text.decode('utf-8')
+            arpa_bytes = subprocess.check_output(['lex_lookup', text])
+            arpa_text = arpa_bytes.decode('utf-8')
         except OSError:
             logger.warning('lex_lookup (from flite) is not installed.')
             arpa_text = ''

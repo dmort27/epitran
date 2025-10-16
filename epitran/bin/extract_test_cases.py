@@ -4,11 +4,11 @@ import re
 import glob
 import csv
 
-RE_DERIVATION = re.compile("""self\._?derivation\(u?['"]([^'"]+)['"], u?['"]([^'"]+)['"]\)""", re.M | re.S)
-RE_TR = re.compile("""self\.epi\.transliterate\(['"]([^'"]+)['"]\).+?self\.assertEqual\(tr, ['"]([^'"]+)['"]\)""", re.M | re.S)
-RE_RES = re.compile("""self\.epi\.transliterate\(['"]([^'"]+)['"]\).+?self\.assertEqual\(res, ['"]([^'"]+)['"]\)""", re.M | re.S)
-RE_ASSERT_TRANS = re.compile("""self\._assert_trans\(['"]([^'"]+)['"],\s*['"]([^'"]+)['"]\)""", re.M | re.S)
-RE_TUPLE = re.compile("""\(['"]([^'"]+)['"],\s*['"]([^'"]+)['"]\)""", re.M | re.S)
+RE_DERIVATION = re.compile(r"""self\._?derivation\(u?['"]([^'"]+)['"], u?['"]([^'"]+)['"]\)""", re.M | re.S)
+RE_TR = re.compile(r"""self\.epi\.transliterate\(['"]([^'"]+)['"]\).+?self\.assertEqual\(tr, ['"]([^'"]+)['"]\)""", re.M | re.S)
+RE_RES = re.compile(r"""self\.epi\.transliterate\(['"]([^'"]+)['"]\).+?self\.assertEqual\(res, ['"]([^'"]+)['"]\)""", re.M | re.S)
+RE_ASSERT_TRANS = re.compile(r"""self\._assert_trans\(['"]([^'"]+)['"],\s*['"]([^'"]+)['"]\)""", re.M | re.S)
+RE_TUPLE = re.compile(r"""\(['"]([^'"]+)['"],\s*['"]([^'"]+)['"]\)""", re.M | re.S)
 RE_CODE = re.compile("""["']([a-z]{3}-[A-Z][a-z]{3})["']""")
 
 def extract_code(code: str) -> str:

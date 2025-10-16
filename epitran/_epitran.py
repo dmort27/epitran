@@ -23,7 +23,6 @@ class Epitran(object):
     :param rev_preproc bool: if True, apply preprocessors when reverse transliterating
     :param rev_postproc bool: if True, apply postprocessors when reverse transliterating
     """
-    @final
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
@@ -122,7 +121,7 @@ class Epitran(object):
                                                           ligaturize))
         return list(map(self.xsampa.ipa2xs, ipa_segs))
 
-    def word_to_tuples(self, word: str, normpunc: bool=False, _ligaturize: bool=False) -> "list[tuple[str, str, str, str, list[int]]]":
+    def word_to_tuples(self, word: str, normpunc: bool=False, _ligaturize: bool=False) -> "list[tuple[str, int, str, str, list[tuple[str, list[int]]]]]":
         """Given a word, returns a list of tuples corresponding to IPA segments. The "feature
         vectors" form a list consisting of (segment, vector) pairs.
         For IPA segments, segment is a substring of phonetic_form such that the
