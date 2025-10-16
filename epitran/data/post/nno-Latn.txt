@@ -1,0 +1,44 @@
+% Sources used:
+% - Wiktionary: https://en.wiktionary.org/wiki/Appendix:Norwegian_Nynorsk_pronunciation
+% - Omniglot: https://www.omniglot.com/writing/norwegian.htm
+% - Kristoffersen, Gjert. The Phonology of Norwegian. Oxford University Press, USA, 2000.
+%   (Chapter 12: Orthographic Conventions)
+% - Norwegian Nynorsk IPA Transcriptions: https://iecor.clld.org/languages/norwegiannynorsk
+
+% Symbol definitions (IPA)
+::consonant:: = b|d|f|g|h|j|k|l|m|n|p|r|s|t|v|w|z|ʝ|ç|ʃ|ŋ|ɲ
+::vowel:: = i|ɪ|y|ʏ|ʉ|ʊ|ɛ|æ|ɑ|ø|u|ɞ|o
+::front_vowel:: = i|y|ɛɪ|œʏ
+
+% Open syllable lengthening (applied to IPA)
+i   -> iː  / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+ɪ   -> ɪː  / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+y   -> yː  / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+ʏ   -> ʏː  / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+ʉ   -> ʉː  / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+ʊ   -> ʊː  / _ #|(::consonant::)(::vowel::)|(::consonant::)#
+ɛ   -> ɛː  / _ (::consonant::)(::vowel::)|(::consonant::)#
+æ   -> æː  / _ (::consonant::)(::vowel::)|(::consonant::)#
+ɑ   -> ɑː  / _ (::consonant::)(::vowel::)|(::consonant::)#
+ø   -> øː  / _ (::consonant::)(::vowel::)|(::consonant::)#
+u   -> uː  / _ (::consonant::)(::vowel::)|(::consonant::)#
+ɞ   -> ɞː  / _ (::consonant::)(::vowel::)|(::consonant::)#
+o   -> oː  / _ (::consonant::)(::vowel::)|(::consonant::)#
+
+% Contextual pronunciations
+% These are implemented here instead of in the preprocessor to avoid 
+% conflicts with the open syllable lengthening rules. 
+pp -> p / _
+ll -> l / _
+mm -> m / _
+nn -> n / _
+tt -> t / _
+ff -> f / _
+tt -> t / _
+rr -> r / _
+dd -> dː / _
+
+% Excluded rules and exceptions:
+% - Occasional silent final "d" (e.g., blod /bluː/ vs. spyd /spyːd/) is not handled.
+% - Exceptions to the standard long/short vowel rule are not implemented.
+% - Inconsistencies between normed Nynorsk speech and UEN (a spoken form of Bokmål) variations.
