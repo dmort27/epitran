@@ -2,19 +2,19 @@
 
 import sys
 import unicodedata
-import unicodecsv as csv
+import csv
 
 
 def main(fns, fnn):
     punc = set()
     for fn in fns:
-        with open(fn, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(fn, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
             for _, s in reader:
                 if len(s) == 1 and unicodedata.category(s)[0] == u'P':
                     punc.add(s)
-    with open(fnn, 'wb') as f:
-        writer = csv.writer(f, encoding='utf-8')
+    with open(fnn, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
         for mark in sorted(list(punc)):
             writer.writerow([mark])
 

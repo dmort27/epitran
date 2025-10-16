@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import (print_function, absolute_import,
-                        unicode_literals)
 
 import regex as re
 from . import _epitran

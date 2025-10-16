@@ -1,32 +1,21 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
+import csv
 import logging
 import os.path
 import string
+import subprocess
 import sys
 import unicodedata
 
 import regex as re
 
 import panphon
-import unicodecsv as csv
 from epitran.ligaturize import ligaturize
 from epitran.puncnorm import PuncNorm
 
-if os.name == 'posix' and sys.version_info[0] < 3:
-    import subprocess32 as subprocess
-else:
-    import subprocess
-
 logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger('epitran')
-
-
-if sys.version_info[0] == 3:
-    def unicode(x):
-        return x
 
 
 class Flite(object):
@@ -52,14 +41,13 @@ class Flite(object):
 
     def _read_arpabet(self, arpabet):
         arpa_map = {}
-        with open(arpabet, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(arpabet, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
             for arpa, ipa in reader:
                 arpa_map[arpa] = ipa
         return arpa_map
 
     def normalize(self, text):
-        text = unicode(text)
         text = unicodedata.normalize('NFD', text)
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
@@ -124,7 +112,7 @@ class Flite(object):
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))
             case = 1 if case == 'u' else 0
-            return unicode(cat), case
+            return cat, case
 
         def recode_ft(ft):
             try:
@@ -145,7 +133,6 @@ class Flite(object):
                 return [to_vector(seg) for seg in self.ft.ipa_segs(phon)]
 
         tuples = []
-        word = unicode(word)
         # word = self.strip_diacritics.process(word)
         word = unicodedata.normalize('NFKD', word)
         word = unicodedata.normalize('NFC', word)

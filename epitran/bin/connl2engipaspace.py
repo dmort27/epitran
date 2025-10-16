@@ -2,10 +2,9 @@
 
 import argparse
 import codecs
+import csv
 import logging
 from collections import Counter
-
-import unicodecsv as csv
 
 import epitran
 import epitran.flite
@@ -55,8 +54,8 @@ def add_file(flite, ft, fn):
 
 def print_space(output, space):
     pairs = enumerate(sorted(filter(lambda x: x, space.keys())))
-    with open(output, 'wb') as f:
-        writer = csv.writer(f, encoding='utf-8')
+    with open(output, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
         for i, char in pairs:
             writer.writerow((i, char))
 

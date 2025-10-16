@@ -1,13 +1,12 @@
 #!/usr/bin/env Python
 # -*- coding: utf-8 -*-
 
-from __future__ import (print_function, unicode_literals, absolute_import)
 
 import glob
 import re
 import io
 
-import unicodecsv
+import csv
 
 
 def build_rule(fields):
@@ -23,8 +22,8 @@ def build_rule(fields):
 def main():
     for csv in glob.glob('*.csv'):
         txt = re.match('[A-Za-z-]+', csv).group(0) + '.txt'
-        with open(csv, 'rb') as f, io.open(txt, 'w', encoding='utf-8') as g:
-            reader = unicodecsv.reader(f, encoding='utf-8')
+        with open(csv, 'r', encoding='utf-8') as f, io.open(txt, 'w', encoding='utf-8') as g:
+            reader = csv.reader(f)
             next(reader)
             for fields in reader:
                 if re.match('\s*%', fields[0]):

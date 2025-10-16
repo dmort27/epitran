@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
+import csv
 import os.path
 import unicodedata
 
@@ -9,7 +8,6 @@ import pkg_resources
 
 import marisa_trie
 import panphon
-import unicodecsv as csv
 
 
 class XSampa(object):
@@ -25,8 +23,8 @@ class XSampa(object):
         path = os.path.join('data', self.ipa2xs_fn)
         path = pkg_resources.resource_filename(__name__, path)
         pairs = []
-        with open(path, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8')
+        with open(path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
             next(reader)
             for ipa, xs, _ in reader:
                 pairs.append((ipa, xs.encode('utf-8'),))

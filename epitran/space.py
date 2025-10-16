@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
+import csv
 import os
 
 import pkg_resources
-import unicodecsv as csv
 from epitran import Epitran
 
 
@@ -35,15 +33,15 @@ class Space(object):
         for punc_fn in punc_fns:
             punc_fn = os.path.join('data', 'space', punc_fn)
             punc_fn = pkg_resources.resource_filename(__name__, punc_fn)
-            with open(punc_fn, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
+            with open(punc_fn, 'r', encoding='utf-8') as f:
+                reader = csv.reader(f)
                 for (mark,) in reader:
                     segs.add(mark)
         for name in space_names:
             fn = os.path.join('data', 'space', name + '.csv')
             fn = pkg_resources.resource_filename(__name__, fn)
-            with open(fn, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
+            with open(fn, 'r', encoding='utf-8') as f:
+                reader = csv.reader(f)
                 for _, to_ in reader:
                     for seg in self.epi.ft.ipa_segs(to_):
                         segs.add(seg)

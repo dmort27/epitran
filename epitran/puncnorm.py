@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import csv
 import pkg_resources
-import unicodecsv as csv
 
 
 class PuncNorm(object):
@@ -12,8 +12,8 @@ class PuncNorm(object):
     def _load_punc_norm_map(self):
         """Load the map table for normalizing 'down' punctuation."""
         path = pkg_resources.resource_filename(__name__, 'data/puncnorm.csv')
-        with open(path, 'rb') as f:
-            reader = csv.reader(f, encoding='utf-8', delimiter=str(','), quotechar=str('"'))
+        with open(path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=',', quotechar='"')
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 
