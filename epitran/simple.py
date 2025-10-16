@@ -22,21 +22,53 @@ logger = logging.getLogger('epitran')
 
 
 class SimpleEpitran(object):
-    """The backend object epitran uses for most languages
+    """The backend object epitran uses for most languages.
 
-    :param code str: ISO 639-3 code and ISO 15924 code joined with a hyphen
-    :param preproc bool, optional: if True, apply preprocessor
-    :param postproc bool, optional: if True, apply postprocessors
-    :param ligatures bool, optional: if True, use phonetic ligatures for affricates instead of
-                                     standard IPA
-    :param rev bool, optional: if True, load reverse transliteration
-    :param rev_preproc bool, optional: if True, applyy preprocessor when reverse transliterating
-    :param rev_postproc bool, optional: if True, applyy postprocessor when reverse transliterating
+    Parameters
+    ----------
+    code : str
+        ISO 639-3 code and ISO 15924 code joined with a hyphen.
+    preproc : bool, optional
+        If True, apply preprocessor. Default is True.
+    postproc : bool, optional
+        If True, apply postprocessors. Default is True.
+    ligatures : bool, optional
+        If True, use phonetic ligatures for affricates instead of standard IPA. 
+        Default is False.
+    rev : bool, optional
+        If True, load reverse transliteration. Default is False.
+    rev_preproc : bool, optional
+        If True, apply preprocessor when reverse transliterating. Default is True.
+    rev_postproc : bool, optional
+        If True, apply postprocessor when reverse transliterating. Default is True.
+    tones : bool, optional
+        Handle tone information. Default is False.
     """
 
     def __init__(self, code: str, preproc: bool = True, postproc: bool = True, ligatures: bool = False,
                  rev: bool = False, rev_preproc: bool = True, rev_postproc: bool = True, tones: bool = False):
-        """Constructor"""
+        """Initialize SimpleEpitran transliterator.
+
+        Parameters
+        ----------
+        code : str
+            ISO 639-3 code and ISO 15924 code joined with a hyphen.
+        preproc : bool, optional
+            If True, apply preprocessor. Default is True.
+        postproc : bool, optional
+            If True, apply postprocessors. Default is True.
+        ligatures : bool, optional
+            If True, use phonetic ligatures for affricates instead of standard IPA. 
+            Default is False.
+        rev : bool, optional
+            If True, load reverse transliteration. Default is False.
+        rev_preproc : bool, optional
+            If True, apply preprocessor when reverse transliterating. Default is True.
+        rev_postproc : bool, optional
+            If True, apply postprocessor when reverse transliterating. Default is True.
+        tones : bool, optional
+            Handle tone information. Default is False.
+        """
         self.rev = rev
         self.tones = tones
         self.g2p = self._load_g2p_map(code, False)
@@ -58,7 +90,7 @@ class SimpleEpitran(object):
             self.rev_preprocessor = PrePostProcessor(code, 'pre', True)
             self.rev_postprocessor = PrePostProcessor(code, 'post', True)
 
-        self.nils = defaultdict(int)
+        self.nils: "defaultdict[str, int]" = defaultdict(int)
 
     def get_tones(self) -> bool:
         """Returns True if support for tones is turned on.
@@ -88,10 +120,23 @@ class SimpleEpitran(object):
     def _load_g2p_map(self, code: str, rev: bool) -> "DefaultDict[str, list[str]]":
         """Load the code table for the specified language.
 
-        :param code str: ISO 639-3 code plus "-" plus ISO 15924 code for the language/script to be loaded 
-        :param rev bool: If True, reverse the table (for reverse transliterating)
-        :return: A mapping from graphemes to phonemes
-        :rtype: DefaultDict[str, list[str]]
+        Parameters
+        ----------
+        code : str
+            ISO 639-3 code plus "-" plus ISO 15924 code for the language/script 
+            to be loaded.
+        rev : bool
+            If True, reverse the table (for reverse transliterating).
+
+        Returns
+        -------
+        DefaultDict[str, list[str]]
+            A mapping from graphemes to phonemes.
+
+        Raises
+        ------
+        DatafileError
+            If appropriately-named mapping is not found in data/maps directory.
         """
         g2p = defaultdict(list)
         gr_by_line = defaultdict(list)
@@ -149,15 +194,24 @@ class SimpleEpitran(object):
 
     def general_trans(self, text: str, filter_func: "Callable[[tuple[str, bool]], bool]",
                       normpunc: bool = False, ligatures: bool = False):
-        """Transliaterates a word into IPA, filtering with filter_func
+        """Transliterate a word into IPA, filtering with filter_func.
 
-        :param text str: word to transcribe; unicode string
-        :param filter_func Callable[[tuple[str, bool]], bool]: function for filtering
-        segments; takes a <segment, is_ipa> tuple and returns a boolean.
-        :param normpunct bool: normalize punctuation
-        :param ligatures bool: use precompsed ligatures instead of standard IPA
-        :return: IPA string corresponding to the orthographic input `text`
-        :rtype: str
+        Parameters
+        ----------
+        text : str
+            Word to transcribe.
+        filter_func : Callable[[tuple[str, bool]], bool]
+            Function for filtering segments; takes a <segment, is_ipa> tuple 
+            and returns a boolean.
+        normpunc : bool, optional
+            Normalize punctuation. Default is False.
+        ligatures : bool, optional
+            Use precomposed ligatures instead of standard IPA. Default is False.
+
+        Returns
+        -------
+        str
+            IPA string corresponding to the orthographic input `text`.
         """
         text = unicodedata.normalize('NFD', text.lower())
         logger.debug('(after norm) text=%s', repr(list(text)))
@@ -205,16 +259,25 @@ class SimpleEpitran(object):
         return False
 
     def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False):
-        """Transliterates/transcribes a word into IPA. Passes unmapped 
-        characters through to output unchanged.
+        """Transliterate/transcribe a word into IPA.
+        
+        Passes unmapped characters through to output unchanged.
 
-        :param text str: word to transcribe
-        :param normpunct bool: if True, normalize punctuation
-        :param ligatures bool: if True, use precomposed ligatures instead
-        of standard IPA
-        :return: IPA string corresponding to the orthographic string `text`.
-        All unrecognized characters are included.
-        :rtype: str
+        Parameters
+        ----------
+        text : str
+            Word to transcribe.
+        normpunc : bool, optional
+            If True, normalize punctuation. Default is False.
+        ligatures : bool, optional
+            If True, use precomposed ligatures instead of standard IPA. 
+            Default is False.
+
+        Returns
+        -------
+        str
+            IPA string corresponding to the orthographic string `text`.
+            All unrecognized characters are included.
         """
         try:
             if self.is_korean(text):
@@ -226,12 +289,19 @@ class SimpleEpitran(object):
                                   normpunc, ligatures)
 
     def general_reverse_trans(self, text: str):
-        """Reconstructs word from IPA. Does the reverse of transliterate().
+        """Reconstruct word from IPA. Does the reverse of transliterate().
+        
         Ignores unmapped characters.
 
-        :param text str: Transcription to render in orthography
-        :return: Orthographic string corresponding to `text`
-        :rtype: str
+        Parameters
+        ----------
+        text : str
+            Transcription to render in orthography.
+
+        Returns
+        -------
+        str
+            Orthographic string corresponding to `text`.
         """
         if self.rev_preproc:
             text = self.rev_preprocessor.process(text)
@@ -259,11 +329,23 @@ class SimpleEpitran(object):
         return unicodedata.normalize('NFC', text)
 
     def reverse_transliterate(self, ipa: str) -> str:
-        """Reconstructs word from IPA. Does the reverse of transliterate()
+        """Reconstruct word from IPA. Does the reverse of transliterate().
 
-        :param ipa str: Word transcription in IPA
-        :return: Reconstruct word in orthography
-        :rtype: str
+        Parameters
+        ----------
+        ipa : str
+            Word transcription in IPA.
+
+        Returns
+        -------
+        str
+            Reconstructed word in orthography.
+
+        Raises
+        ------
+        ValueError
+            If this Epitran object was initialized with no reverse 
+            transliteration loaded.
         """
         if not self.rev:
             raise ValueError('This Epitran object was initialized' +
@@ -271,27 +353,28 @@ class SimpleEpitran(object):
         return self.general_reverse_trans(ipa)
 
     def strict_trans(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
-        """Transliterates/transcribes a word into IPA, ignoring 
-        umapped characters.
+        """Transliterate/transcribe a word into IPA, ignoring unmapped characters.
 
-        :param word str: word to transcribe
-        :param normpunc bool: normalize punctuation
-        :param ligatures bool: use precomposed ligatures instead of standard IPA
-        :return: IPA string corresponding to orthographic `word`, ignoring
-        out-of-mapping characters
-        :rtype: str
+        Parameters
+        ----------
+        text : str
+            Word to transcribe.
+        normpunc : bool, optional
+            Normalize punctuation. Default is False.
+        ligatures : bool, optional
+            Use precomposed ligatures instead of standard IPA. Default is False.
+
+        Returns
+        -------
+        str
+            IPA string corresponding to orthographic `text`, ignoring 
+            out-of-mapping characters.
         """
         return self.general_trans(text, lambda x: x[1],
                                   normpunc, ligatures)
 
     def word_to_tuples(self, text: str, normpunc: bool = False) -> "list[tuple[str, int, str, str, list[tuple[str, list[int]]]]]":
-        """Given a word, returns a list of tuples corresponding to IPA segments.
-
-        :param word str: Word to transcribe
-        :param normpunc bool: Normalize punctuation
-        :return: Word represented as (category, lettercase, orthographic_form,
-        phonetic_form, feature_vectors) tuples
-        :rtype: list[tuple[str, int, str, str, list[tuple[str, list[int]]]]]
+        """Convert a word to a list of tuples corresponding to IPA segments.
 
         The "feature vectors" form a list consisting of (segment, vector)
         pairs. For IPA segments, segment is a substring of phonetic_form such
@@ -299,10 +382,23 @@ class SimpleEpitran(object):
         the phonetic_form. The vectors are a sequence of integers drawn from
         the set {-1, 0, 1} where -1 corresponds to '-', 0 corresponds to '0',
         and 1 corresponds to '+'.
+
+        Parameters
+        ----------
+        text : str
+            Word to transcribe.
+        normpunc : bool, optional
+            Normalize punctuation. Default is False.
+
+        Returns
+        -------
+        list of tuple
+            Word represented as (category, lettercase, orthographic_form,
+            phonetic_form, feature_vectors) tuples.
         """
         def cat_and_cap(category: str) -> "tuple[str, int]":
-            cat, case = tuple(unicodedata.category(category))
-            case = 1 if case == 'u' else 0
+            cat, case_char = tuple(unicodedata.category(category))
+            case = 1 if case_char == 'u' else 0
             return cat, case
 
         def recode_ft(feature: str) -> int:
@@ -337,23 +433,29 @@ class SimpleEpitran(object):
                 phon: str = self.g2p[span.lower()][0]
                 vecs: "list[tuple[str, list[int]]]" = to_vectors(phon)
                 tuples.append(('L', case, span, phon, vecs))
-                word: str = word[len(span):]
+                word = word[len(span):]
             else:
                 span = word[0]
-                span: str = self.puncnorm.norm(span) if normpunc else span
+                span = self.puncnorm.norm(span) if normpunc else span
                 cat, case = cat_and_cap(span)
-                cat: str = 'P' if normpunc and cat in self.puncnorm else cat
-                phon: str = ''
-                vecs: "list[tuple[str, list[int]]]" = to_vectors(phon)
+                cat = 'P' if normpunc and cat in self.puncnorm else cat
+                phon = ''
+                vecs = to_vectors(phon)
                 tuples.append((cat, case, span, phon, vecs))
                 word = word[1:]
         return tuples
 
     def ipa_segs(self, ipa: str) -> "list[str]":
-        """Given an IPA string, decompose it into a list of segments
+        """Decompose an IPA string into a list of segments.
 
-        :param ipa str: A phonetic representation in IPA
-        :return: A list of words corresponding to the segments in `ipa`
-        :rtype: list[str]
+        Parameters
+        ----------
+        ipa : str
+            A phonetic representation in IPA.
+
+        Returns
+        -------
+        list of str
+            A list of words corresponding to the segments in `ipa`.
         """
         return self.ft.ipa_segs(ipa)

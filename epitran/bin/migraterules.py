@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 
+import csv
 import glob
 import re
 import io
 
-import csv
 
 
 def build_rule(fields):
@@ -20,13 +20,13 @@ def build_rule(fields):
 
 
 def main():
-    for csv in glob.glob('*.csv'):
-        txt = re.match('[A-Za-z-]+', csv).group(0) + '.txt'
-        with open(csv, 'r', encoding='utf-8') as f, io.open(txt, 'w', encoding='utf-8') as g:
+    for csv_file in glob.glob('*.csv'):
+        txt = re.match('[A-Za-z-]+', csv_file).group(0) + '.txt'
+        with open(csv_file, 'r', encoding='utf-8') as f, io.open(txt, 'w', encoding='utf-8') as g:
             reader = csv.reader(f)
             next(reader)
             for fields in reader:
-                if re.match('\s*%', fields[0]):
+                if re.match(r'\s*%', fields[0]):
                     print(','.join([x for x in fields if x]), file=g)
                 else:
                     rule = build_rule(fields)

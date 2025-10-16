@@ -14,8 +14,7 @@ class XSampa(object):
     ipa2xs_fn = 'ipa-xsampa.csv'
 
     def __init__(self):
-        """Construct an IPA-XSampa conversion object
-        """
+        """Construct an IPA-XSampa conversion object."""
         self.trie = self._read_ipa2xs()
         self.ft = panphon.FeatureTable()
 
@@ -42,14 +41,17 @@ class XSampa(object):
             return sorted(prefixes, key=len)[-1]  # sort by length and return last
 
     def ipa2xs(self, ipa):
-        """Convert IPA string (unicode) to X-SAMPA string
+        """Convert IPA string to X-SAMPA string.
 
-        Args:
-            ipa (unicode): An IPA string as unicode
+        Parameters
+        ----------
+        ipa : str
+            An IPA string.
 
-        Returns:
-            list: a list of strings corresponding to X-SAMPA segments
-
+        Returns
+        -------
+        str
+            A string corresponding to X-SAMPA segments.
             Non-IPA segments are skipped.
         """
         xsampa = []

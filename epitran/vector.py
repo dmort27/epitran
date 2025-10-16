@@ -9,38 +9,45 @@ logger = logging.getLogger('epitran')
 
 class VectorsWithIPASpace(object):
     def __init__(self, code, space_names):
-        """Constructs VectorWithIPASpace object
+        """Construct VectorWithIPASpace object.
 
         A VectorWithIPASpace object takes orthographic words, via the
         word_to_segs method, and returns a list of tuples consisting of category
-        (letter or punctuation), lettercaase, orthographic form, phonetic form,
+        (letter or punctuation), lettercase, orthographic form, phonetic form,
         id within an IPA space, and articulatory feature vector.
 
-        Args:
-            code (str): ISO 639-3 code joined to ISO 15924 code with "-"
-            space_names (list): list of space names consisting of ISO 639-3
-                                codes joined to ISO 15924 codes with "-"
+        Parameters
+        ----------
+        code : str
+            ISO 639-3 code joined to ISO 15924 code with "-".
+        space_names : list
+            List of space names consisting of ISO 639-3 codes joined to 
+            ISO 15924 codes with "-".
         """
         self.epi = Epitran(code)
         self.space = Space(code, space_names)
 
     def word_to_segs(self, word, normpunc=False):
-        """Returns feature vectors, etc. for segments and punctuation in a word
+        """Return feature vectors, etc. for segments and punctuation in a word.
 
-        Args:
-            word (unicode): Unicode string representing a word in the
-                            orthography specified when the class is
-                            instantiated
-            normpunc (bool): normalize punctuation
+        Parameters
+        ----------
+        word : str
+            Unicode string representing a word in the orthography specified 
+            when the class is instantiated.
+        normpunc : bool, optional
+            Normalize punctuation. Default is False.
 
-        Returns:
-            list: a list of tuples, each representing an IPA segment or a
-                  punctuation character. Tuples consist of <category, lettercase,
-                  orthographic_form, phonetic_form, id, feature_vector>.
+        Returns
+        -------
+        list
+            A list of tuples, each representing an IPA segment or a punctuation 
+            character. Tuples consist of <category, lettercase, orthographic_form, 
+            phonetic_form, id, feature_vector>.
 
-                  Category consists of the standard Unicode classes (e.g. 'L'
-                  for letter and 'P' for punctuation). Case is binary: 1 for
-                  uppercase and 0 for lowercase.
+            Category consists of the standard Unicode classes (e.g. 'L' for 
+            letter and 'P' for punctuation). Case is binary: 1 for uppercase 
+            and 0 for lowercase.
         """
         segs = self.epi.word_to_tuples(word, normpunc)
         new_segs = []

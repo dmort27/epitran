@@ -5,7 +5,6 @@ import logging
 import os.path
 import string
 import subprocess
-import sys
 import unicodedata
 
 import regex as re
@@ -21,12 +20,17 @@ logger = logging.getLogger('epitran')
 class Flite(object):
     """English G2P using the Flite speech synthesis system."""
     def __init__(self, arpabet='arpabet', ligatures=False, **kwargs):
-        """Construct a Flite "wrapper"
+        """Construct a Flite wrapper.
 
-        Args:
-            arpabet (str): file containing ARPAbet to IPA mapping
-            ligatures (bool): if True, use non-standard ligatures instead of
-                              standard IPA
+        Parameters
+        ----------
+        arpabet : str, optional
+            File containing ARPAbet to IPA mapping. Default is 'arpabet'.
+        ligatures : bool, optional
+            If True, use non-standard ligatures instead of standard IPA. 
+            Default is False.
+        **kwargs
+            Additional keyword arguments.
         """
         arpabet = os.path.join(os.path.dirname(__file__), os.path.join('data', arpabet + '.csv'))
         self.arpa_map = self._read_arpabet(arpabet)
@@ -68,13 +72,22 @@ class Flite(object):
         return ""
 
     def transliterate(self, text, normpunc=False, ligatures=False):
-        """Convert English text to IPA transcription
+        """Convert English text to IPA transcription.
 
-        Args:
-            text (unicode): English text
-            normpunc (bool): if True, normalize punctuation downward
-            ligatures (bool): if True, use non-standard ligatures instead of
-                              standard IPA
+        Parameters
+        ----------
+        text : str
+            English text.
+        normpunc : bool, optional
+            If True, normalize punctuation downward. Default is False.
+        ligatures : bool, optional
+            If True, use non-standard ligatures instead of standard IPA. 
+            Default is False.
+
+        Returns
+        -------
+        str
+            IPA transcription of the input text.
         """
         text = unicodedata.normalize('NFC', text)
         acc = []
@@ -92,15 +105,7 @@ class Flite(object):
         return self.transliterate(text, normpunc, ligatures)
 
     def word_to_tuples(self, word, normpunc=False):
-        """Given a word, returns a list of tuples corresponding to IPA segments.
-
-        Args:
-            word (unicode): word to transliterate
-            normpunc (bool): If True, normalizes punctuation to ASCII inventory
-
-        Returns:
-            list: A list of (category, lettercase, orthographic_form,
-                  phonetic_form, feature_vectors) tuples.
+        """Convert a word to a list of tuples corresponding to IPA segments.
 
         The "feature vectors" form a list consisting of (segment, vector) pairs.
         For IPA segments, segment is a substring of phonetic_form such that the
@@ -108,6 +113,19 @@ class Flite(object):
         The vectors are a sequence of integers drawn from the set {-1, 0, 1}
         where -1 corresponds to '-', 0 corresponds to '0', and 1 corresponds to
         '+'.
+
+        Parameters
+        ----------
+        word : str
+            Word to transliterate.
+        normpunc : bool, optional
+            If True, normalizes punctuation to ASCII inventory. Default is False.
+
+        Returns
+        -------
+        list
+            A list of (category, lettercase, orthographic_form,
+            phonetic_form, feature_vectors) tuples.
         """
         def cat_and_cap(c):
             cat, case = tuple(unicodedata.category(c))

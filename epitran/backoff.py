@@ -14,11 +14,14 @@ class Backoff(object):
     def __init__(self, lang_script_codes, cedict_file=None):
         """Construct a Backoff object.
 
-        Args:
-            lang_script_codes (list): codes for languages to try, starting
-            with the highest priority languages
-            cedict_file (str): path to the CC-CEdict dictionary file
-            (necessary only when cmn-Hans or cmn-Hant are used)
+        Parameters
+        ----------
+        lang_script_codes : list
+            Codes for languages to try, starting with the highest priority 
+            languages.
+        cedict_file : str, optional
+            Path to the CC-CEdict dictionary file (necessary only when 
+            cmn-Hans or cmn-Hant are used). Default is None.
         """
         self.langs = [_epitran.Epitran(c, cedict_file=cedict_file)
                       for c in lang_script_codes]
@@ -30,10 +33,16 @@ class Backoff(object):
 
     def transliterate(self, token):
         """Return IPA transliteration given by first acceptable mode.
-        Args:
-            token (unicode): orthographic text
-        Returns:
-            unicode: transliteration as Unicode IPA string
+
+        Parameters
+        ----------
+        token : str
+            Orthographic text.
+
+        Returns
+        -------
+        str
+            Transliteration as Unicode IPA string.
         """
         tr_list = []
         while token:
@@ -63,22 +72,30 @@ class Backoff(object):
     def trans_list(self, token):
         """Transliterate/transcribe a word into list of IPA phonemes.
 
-        Args:
-            token (unicode): word to transcribe; unicode string
+        Parameters
+        ----------
+        token : str
+            Word to transcribe.
 
-        Returns:
-            list: list of IPA unicode strings, each corresponding to a segment
+        Returns
+        -------
+        list
+            List of IPA unicode strings, each corresponding to a segment.
         """
         return self.ft.segs_safe(self.transliterate(token))
 
     def xsampa_list(self, token):
         """Transcribe a word into a list of X-SAMPA phonemes.
 
-        Args:
-            token (unicode): word to transcribe; unicode strings
+        Parameters
+        ----------
+        token : str
+            Word to transcribe.
 
-        Returns:
-            list: list of X-SAMPA strings, each corresponding to a segment
+        Returns
+        -------
+        list
+            List of X-SAMPA strings, each corresponding to a segment.
         """
         if re.match(r'^\p{Number}+$', token):
             return ''
