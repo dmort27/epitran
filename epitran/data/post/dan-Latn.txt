@@ -1,0 +1,55 @@
+::vowel:: = a|e|i|o|u|y|æ|ø|å|ɑ|ɛ|ɪ|ɔ|ʊ|ʏ|œ|ɒ|aɪ|aʊ|ɔɪ|eɪ|oʊ|uː|oː|ɑː|ɛː|ɪː|ɔː|ʊː|ʏː|œː|ɒː|ɐ|ø|ɛɐ̯|iɐ̯|ɔɐ̯|ʊɐ̯|œɐ̯|yɐ̯
+::consonant:: = b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|z|ð|ʁ|ɕ
+::diphthong:: = aw|aj|ɔj
+
+% Glottal Stop (stød) - simplified
+% Add stød after long vowels in certain contexts
+% This is very basic, real stød placement is complex
+(aː|eɪ|iː|oʊ|uː|œː|oː|uː|yː|ɔː) -> \1ˈ / _(n|d|g|l|r|v)#
+
+
+% Clean up diphthongs
+aw -> aʊ / _
+aj -> aɪ / _
+ɔj -> ɔɪ / _
+
+% The Danish schwa sound, often represented by 'e' at the end of words,
+% is frequently realized as a near-open central vowel.
+% This rule approximates that sound.
+ə -> ɐ / _
+
+
+% Simplify vowel symbols
+a -> ɑ / _
+ɛ -> ɛ / _
+ɪ -> ɪ / _
+ɔ -> ɔ / _
+ʊ -> ʊ / _
+ʏ -> ʏ / _
+œ -> œ / _
+ɒ -> ɒ / _
+aɪ -> aɪ / _
+aʊ -> aʊ / _
+ɔɪ -> ɔɪ / _
+eɪ -> eɪ / _
+oʊ -> oʊ / _
+uː -> uː / _
+oː -> oː / _
+ɑ -> ɑ / _
+ɛː -> ɛː / _
+ɪː -> ɪː / _
+ɔː -> ɔː / _
+ʊː -> ʊː / _
+ʏ -> ʏ / _
+œː -> œː / _
+ɒ -> ɒ / _
+ð -> ð / _
+ʁ -> ʁ / _
+ɕ -> ɕ / _
+ɐ -> ɐ / _
+ɛɐ̯ -> ɛɐ̯ / _
+iɐ̯ -> iɐ̯ / _
+ɔɐ̯ -> ɔɐ̯ / _
+ʊɐ̯ -> ʊɐ̯ / _
+œɐ̯ -> œɐ̯ / _
+yɐ̯ -> yɐ̯ / _
