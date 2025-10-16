@@ -1,5 +1,6 @@
 
 import logging
+from typing import List, Tuple, Optional
 
 from epitran import Epitran
 from epitran.space import Space
@@ -8,8 +9,8 @@ logger = logging.getLogger('epitran')
 
 
 class VectorsWithIPASpace(object):
-    def __init__(self, code, space_names):
-        """Construct VectorWithIPASpace object.
+    def __init__(self, code: str, space_names: List[str]) -> None:
+        """Constructs VectorWithIPASpace object
 
         A VectorWithIPASpace object takes orthographic words, via the
         word_to_segs method, and returns a list of tuples consisting of category

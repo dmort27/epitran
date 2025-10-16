@@ -1,0 +1,16 @@
+# Include the license and readme files
+include LICENSE.txt
+include README.md
+include index.rst
+
+# Include all data files (already handled by package_data but good to be explicit)
+recursive-include epitran/data *.csv *.txt *.json *.bib
+
+# Include the scripts
+recursive-include epitran/bin *.py
+
+# Exclude test files and cache
+recursive-exclude epitran/test *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * .DS_Store

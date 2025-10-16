@@ -1,0 +1,91 @@
+name: CD
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: cd-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    environment:
+      name: pypi
+      url: https://pypi.org/project/epitran/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install build tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build "setuptools>=69" "setuptools-scm[toml]>=8" wheel
+
+      - name: Find merged PR
+        id: pr
+        uses: actions-ecosystem/action-get-merged-pull-request@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print PR info
+        run: |
+          echo "Merged PR number: ${{ steps.pr.outputs.number }}"
+          echo "Merged PR title : ${{ steps.pr.outputs.title }}"
+
+      - name: Decide bump from labels
+        id: bump
+        run: |
+          lbls="${{ steps.pr.outputs.labels }}"
+          bump=""
+          shopt -s nocasematch
+          if [[ "$lbls" == *"release:major"* ]]; then bump=major;
+          elif [[ "$lbls" == *"release:minor"* ]]; then bump=minor;
+          elif [[ "$lbls" == *"release:patch"* ]]; then bump=patch;
+          fi
+          echo "force=$bump" >> "$GITHUB_OUTPUT"
+
+      - name: Python Semantic Release
+        id: release
+        uses: python-semantic-release/python-semantic-release@v10
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: ${{ steps.bump.outputs.force }}
+          git_committer_name: "github-actions"
+          git_committer_email: "actions@users.noreply.github.com"
+
+      - name: Build artifacts
+        if: steps.release.outputs.released == 'true'
+        run: python -m build --sdist --wheel
+
+      - name: Publish | Upload to GitHub Release Assets
+        uses: python-semantic-release/publish-action@v10.4.1
+        if: steps.release.outputs.released == 'true'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.release.outputs.tag }}
+
+      - name: Upload | Distribution Artifacts
+        if: steps.release.outputs.released == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: distribution-artifacts
+          path: dist
+          if-no-files-found: error
+
+      - name: Publish to PyPI via OIDC
+        if: steps.release.outputs.released == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1

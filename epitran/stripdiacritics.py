@@ -2,12 +2,13 @@
 
 import csv
 import os.path
+from typing import List
 
-import pkg_resources
+from importlib import resources
 
 
 class StripDiacritics(object):
-    def __init__(self, code):
+    def __init__(self, code: str) -> None:
         """Constructs object to strip specified diacritics from text
 
         Args:
@@ -15,28 +16,28 @@ class StripDiacritics(object):
         """
         self.diacritics = self._read_diacritics(code)
 
-    def _read_diacritics(self, code):
+    def _read_diacritics(self, code: str) -> List[str]:
         diacritics = []
         fn = os.path.join('data', 'strip', code + '.csv')
         try:
-            abs_fn = pkg_resources.resource_filename(__name__, fn)
-        except KeyError:
-            return []
-        if os.path.isfile(abs_fn):
-            with open(abs_fn, 'r', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                for [diacritic] in reader:
-                    diacritics.append(diacritic)
+            resource_path = resources.files(__package__).joinpath(fn)
+            if resource_path.is_file():
+                with resource_path.open('r', encoding='utf-8') as f:
+                    reader = csv.reader(f)
+                    for [diacritic] in reader:
+                        diacritics.append(diacritic)
+        except (KeyError, FileNotFoundError):
+            pass
         return diacritics
 
-    def process(self, word):
+    def process(self, word: str) -> str:
         """Remove diacritics from an input string
 
         Args:
-            word (unicode): Unicode IPA string
+            word (str): Unicode IPA string
 
         Returns:
-            unicode: Unicode IPA string with specified diacritics
+            str: Unicode IPA string with specified diacritics
             removed
         """
         # word = unicodedata.normalize('NFD', word)

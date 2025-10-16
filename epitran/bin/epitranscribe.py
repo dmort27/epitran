@@ -7,7 +7,7 @@ import epitran
 import argparse
 
 
-def main(code):
+def main(code: str) -> None:
     epi = epitran.Epitran(code)
     for line in sys.stdin:  # pointless
         line = line.decode('utf-8')

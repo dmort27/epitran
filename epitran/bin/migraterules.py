@@ -5,11 +5,11 @@
 import csv
 import glob
 import re
-import io
+from typing import List, Optional
 
 
 
-def build_rule(fields):
+def build_rule(fields: List[str]) -> Optional[str]:
     try:
         a, b, X, Y = fields
         b = "0" if not b else b
@@ -17,12 +17,13 @@ def build_rule(fields):
         return '{} -> {} / {} _ {}'.format(a, b, X, Y)
     except ValueError:
         print('Malformed rule: {}'.format(','.join(fields)))
+        return None
 
 
-def main():
-    for csv_file in glob.glob('*.csv'):
-        txt = re.match('[A-Za-z-]+', csv_file).group(0) + '.txt'
-        with open(csv_file, 'r', encoding='utf-8') as f, io.open(txt, 'w', encoding='utf-8') as g:
+def main() -> None:
+    for csv in glob.glob('*.csv'):
+        txt = re.match('[A-Za-z-]+', csv).group(0) + '.txt'
+        with open(csv, 'r', encoding='utf-8') as f, open(txt, 'w', encoding='utf-8') as g:
             reader = csv.reader(f)
             next(reader)
             for fields in reader:

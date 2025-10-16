@@ -5,7 +5,7 @@ import unicodedata
 import fileinput
 
 
-def main():
+def main() -> None:
     for line in fileinput.input():
         line = line.decode('utf-8')
         token = line.strip()

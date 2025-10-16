@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-from typing import Union
 
 import panphon.featuretable
 from epitran.epihan import Epihan, EpihanTraditional, EpiJpan, EpiCanto
@@ -37,6 +36,7 @@ class Epitran(object):
     tones : bool, optional
         Handle tone information. Default is False.
     """
+    @final
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
@@ -71,9 +71,9 @@ class Epitran(object):
             Handle tone information. Default is False.
         """
         if code in self.special:
-            self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file, tones=tones)
+            self.epi = self.special[code](**kwargs)
         else:
-            self.epi = SimpleEpitran(code, preproc, postproc, ligatures, rev, rev_preproc, rev_postproc, tones=tones)
+            self.epi = SimpleEpitran(code, **kwargs)
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()

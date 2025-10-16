@@ -1,3 +1,4 @@
+from typing import Dict
 import epitran
 
 class DictFirst:
@@ -8,16 +9,16 @@ class DictFirst:
         code2 (str): language-script code for fall-back language
         dict_fn (str): file path to text file containing dictionary, one word per line
     """
-    def __init__(self, code1, code2, dict_fn):
+    def __init__(self, code1: str, code2: str, dict_fn: str) -> None:
         self.epi1 = epitran.Epitran(code1)
         self.epi2 = epitran.Epitran(code2)
         self.dictionary = self._read_dictionary(dict_fn)
 
-    def _read_dictionary(self, dict_fn):
+    def _read_dictionary(self, dict_fn: str) -> Dict[str, str]:
         with open(dict_fn, encoding='utf-8') as f:
             return {x.strip(): self.epi1.transliterate(x.strip()) for x in f}
 
-    def transliterate(self, token):
+    def transliterate(self, token: str) -> str:
         """Convert token to IPA, falling back on second language
 
         Args:
