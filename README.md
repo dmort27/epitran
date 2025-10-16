@@ -217,6 +217,7 @@ A few notes are in order regarding this data structure:
 | cmn-Hant    | Mandarin (Traditional)\*|
 | cmn-Latn    | Mandarin (Pinyin)\*     |
 | csb-Latn    | Kashubian               |
+| dan-Latn    | Danish               |
 | cym-Latn    | Welsh (northern)        |
 | deu-Latn    | German                  |
 | deu-Latn-np | German†                 |
