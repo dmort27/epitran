@@ -284,6 +284,7 @@ A few notes are in order regarding this data structure:
 | mya-Mymr    | Burmese                 |
 | nan-Latn    | Hokkien (pe̍h-oē-jī)     |
 | nan-Latn-tl | Hokkien (Tâi-lô)        |
+| nhi-Latn    | West Sierra Puebla Nahuatl        |
 | nld-Latn    | Dutch                   |
 | nya-Latn    | Chichewa                |
 | ood-Latn-alv| Tohono O'odham (Alvarez–Hale) |
