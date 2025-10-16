@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=69", "setuptools-scm[toml]>=8", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epitran"
+dynamic = ["version"]
+description = "Tools for transcribing languages into IPA."
+readme = "README.md"
+license = { text = "MIT-Modern-Variant"}
+authors = [
+    {name = "David R. Mortensen", email = "dmortens@cs.cmu.edu"}
+]
+maintainers = [
+    {name = "David R. Mortensen", email = "dmortens@cs.cmu.edu"}
+]
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["linguistics", "phonetics", "IPA", "transliteration", "phonology"]
+dependencies = [
+    "regex",
+    "panphon>=0.20",
+    "marisa-trie",
+    "requests",
+    "jamo",
+]
+
+[project.urls]
+Homepage = "https://github.com/dmort27/epitran"
+Documentation = "https://github.com/dmort27/epitran#readme"
+Repository = "https://github.com/dmort27/epitran"
+Issues = "https://github.com/dmort27/epitran/issues"
+Changelog = "https://github.com/dmort27/epitran/releases"
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
+
+
+# Scripts will be handled via setuptools scripts configuration
+# since they don't follow the standard entry point pattern
+
+[tool.setuptools]
+zip-safe = true
+script-files = [
+    "epitran/bin/epitranscribe.py",
+    "epitran/bin/uigtransliterate.py", 
+    "epitran/bin/detectcaps.py",
+    "epitran/bin/connl2ipaspace.py",
+    "epitran/bin/connl2engipaspace.py",
+    "epitran/bin/migraterules.py",
+    "epitran/bin/decompose.py",
+    "epitran/bin/testvectorgen.py",
+]
+
+[tool.setuptools.packages.find]
+include = ["epitran*"]
+exclude = ["epitran.test*"]
+
+[tool.setuptools.package-data]
+epitran = [
+    "data/*.csv",
+    "data/*.txt", 
+    "data/*.json",
+    "data/map/*.csv",
+    "data/pre/*.txt",
+    "data/post/*.txt",
+    "data/space/*.csv",
+    "data/strip/*.csv",
+    "data/reromanize/*.csv",
+    "data/rules/*.txt",
+    "data/bib/*.bib",
+]
+
+# Development dependencies (optional)
+[project.optional-dependencies]
+dev = [
+    "ruff",
+]
+
+# Automated semantic versioning and release management
+[tool.semantic_release]
+version_source = "tag"
+tag_format = "v{version}"
+commit_parser = "conventional"
+upload_to_pypi = false

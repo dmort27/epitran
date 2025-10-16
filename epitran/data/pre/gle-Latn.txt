@@ -1,0 +1,159 @@
+%% Note: most of these rules are based on the Ulster pronunciation.
+%% For Connacht and Munster pronunciations, ymmv
+
+::front_vowel:: = i|e|í|é
+::back_vowel:: = a|o|u|á|ó|ú
+::vowel:: = a|i|e|o|u|á|ó|ú|í|é
+::long_vowel:: = á|ó|ú|í|é
+::short_vowel:: = a|o|u|i|e
+::diphthong:: = au|ai|ei|ua|ia
+::consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr|b|c|d|f|g|h|l|m|n|p|r|s|t|v|z
+::digraph_consonant:: = bh|ch|dh|fh|gh|mh|ng|ph|sh|th|ll|nn|rr
+
+%% Data normalization, preprocessing
+
+% Alternate spelling
+ḃ -> bh / _
+ċ -> ch / _
+ḋ -> dh / _
+ḟ -> fh / _
+ġ -> gh / _
+ṁ -> mh / _
+ṗ -> ph / _
+ṡ -> sh / _
+ṫ -> th / _
+’ -> ' / _
+
+% Exceptional forms
+% short pronunciation of <eo>
+0 -> ! / # _ (anseo|deoch|eochair|seo)#
+
+% forms of "bí"
+0 -> B! / # _ (bheadh|mbeadh|bheas|bead|beadh)#
+ea -> eъ / #B!.* _
+B! -> 0 / _
+
+% regular verb conjugations
+% specifically, those containing <f>
+0 -> V! / (?<!V[!].*) _ (fa?idh|fe?ad|fa?ir|fa?imid|fa?id|fe?adh|fa?inn|fe?á|fa?imis|fa?idís)#
+f -> th / V! _
+% and several containing <ó(i)> or <eo(i)>
+% TODO: stress-test non-verbs and see if any remaining expressions overzealously match
+0 -> V! / (?<!V[!].*) _ ((ó|eo)idh|(ó|eo)imid|(ó|eo)far|(ó|eo)dh|(ó|eo)inn|(ó|eo)fá|(ó|eo)imis|(ó|eo)idís|(ó|eo)faí)#
+(eo|ó) -> óchъəъ / V!.* _
+ъi -> ь / V!.*ə _
+% <dh> becomes /w/ after a broad vowel in verb endings
+% There is an exception when followed by certain pronouns, but context-sensitive replacement is out-of-scope
+dh -> v / V!.*(?<!(::front_vowel::)) _
+% <aim#> has a nonstandard pronunciation, but its implementation causes others to break
+%i -> ьəъ / V!a? _ m#
+%aь -> ъ / V! _ əъm
+V! -> 0 / _
+
+% rules for common irregular pronunciations
+raibh -> ro / # _ #
+abha -> ó / #(d?t|th) _ i?r
+abha -> ó / #(n?g|gh) _ i?l
+abha -> ó / #(n-|h)? _ i?nn#
+d -> 0 / #(g?c|ch)o _ la[dt]
+f -> 0 / #d'fhia _ raigh#
+g -> 0 / (d?t|th)arrain _ #
+gheobhaidh -> ghьó / # _ #
+sh -> 0 / # _ roich#
+d' -> 0 / # _ fhreagair#
+a -> ъ / #(g?c|ch)r _ inn#
+a -> ъ / #(m?b|bh) _ in
+0 -> idh / #crua _ #
+
+%% Eclipsis (urú) Rules
+mb -> m / # _
+gc -> g / # _
+nd -> n / # _
+bhf -> bh / # _
+bp -> b / # _
+dt -> d / # _
+ts -> t / # _
+% <dt> is realized as /t/ outside of eclipsis
+dt -> t / _
+
+%% Broad-slender vowel rules
+% generally: [ei] with slender consonants, [aou] with broad consonants
+
+% Note that accented characters may be classified as sequences
+
+% <ae> is pronounced /e:/, generally between broad consonants
+aei -> ъé / (::consonant::) _
+ae -> ъéъ / (::consonant::) _
+
+% <ao> is pronounced /i:/, generally between broad consonants
+aoi -> ъí / (::consonant::) _ (::consonant::|#)
+ao -> ъíъ / (::consonant::) _ (::consonant::|#)
+
+% <eo> is /o:/ except in four words
+i -> ь / eo _
+eo -> ьó / _
+ó -> o / #!.* _
+
+% <ei> is usually /e/, but sometimes /i/ or /e:/
+ei -> i / _ [mn]
+i -> ь / (e|é) _ (?![dg]h)(::consonant::)
+i -> ь / é _ [dg]h
+0 -> ь / ei[dg]h _ (::consonant::)
+e -> é / _ ь?r[dln]
+
+% <oi> represents many possible sounds
+oi -> ъi / (n|m|mh) _
+oi -> ъi / _ (n|m|mh)
+oi -> oь / _ (cht|rs|rt|rth|s)
+oi -> óь / _ r[dln]
+oi -> ъi / _ ll(#|::consonant::)
+oi -> ъe / _ (?![dg]h)
+
+% Rules for <u>
+u -> ú / _ (ó|á)
+u -> ъ / _ (i|í)
+u -> ú / _ r[dln]
+
+% Rules for <a>
+a -> ъ / é _
+a -> ъ / _ í
+i -> ь / (a|á) _ (?![gd]h)(::consonant::)
+a -> á / _ ь?r[dlnr]
+
+% Rules for <i>
+i -> í / _ (ó|á)
+i -> ь / (::consonant::) _ (u|ú)
+i -> ь / (á|ú|ó) _
+
+% Rules for <o>
+o -> ъ / (i|í) _ (::consonant::)
+o -> ó / _ r[dln]
+
+% Rules for <e>
+e -> ь / (::consonant::|#) _ (::back_vowel::)
+
+% Rules for <bh>, <dh>, <gh>, <mh> after short vowels
+% ensure broad/slender rules are applied before deleting vowel symbols
+0 -> ь / (::short_vowel::)[bdgm]h(::short_vowel::)?(::front_vowel::) _ (::consonant::)
+0 -> ъ / (::short_vowel::)[bdgm]h(::short_vowel::)?(::back_vowel::) _ (::consonant::)
+ai? -> 0 / [aou][bdgm]h _
+([eь]a|i) -> 0 / [eo]i[dg]h_
+[eь]a -> 0 / aigh _
+e -> 0 / ai[dg]h _
+
+0 -> : / [aou][bm]h _
+0 -> : / [aoi][dg]h _
+
+% general insertion rules
+0 -> ь / (::consonant::) _ (::front_vowel::)
+0 -> ь / (::front_vowel::) _ (::consonant::)
+0 -> ъ / (::consonant::) _ (::back_vowel::)
+0 -> ъ / (::back_vowel::) _ (::consonant::)
+% Revert overzealous replacement
+[ьъ] -> 0 / (::short_vowel::) _ [bdgm]h:
+
+% <n> realized as /r/ in certain initial clusters
+n -> r / #[^s]h? _
+
+% <th> deleted finally after long vowels and diphthongs
+th -> 0 / (::long_vowel::|::diphthong::)[ьъ] _ #

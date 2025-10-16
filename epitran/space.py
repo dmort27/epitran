@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import os
+from typing import Dict, List, Iterator
 
-import pkg_resources
-import unicodecsv as csv
+from importlib import resources
+import csv
 from epitran import Epitran
 
 
 class Space(object):
-    def __init__(self, code, space_names):
+    def __init__(self, code: str, space_names: List[str]) -> None:
         """Construct a Space object
 
         Space objects take strings (corresponding to segments) and return
@@ -28,32 +27,32 @@ class Space(object):
         self.epi = Epitran(code)
         self.dict = self._load_space(space_names)
 
-    def _load_space(self, space_names):
+    def _load_space(self, space_names: List[str]) -> Dict[str, int]:
         segs = set()
         scripts = list(set([nm.split('-')[1] for nm in space_names]))
         punc_fns = ['punc-{}.csv'.format(sc) for sc in scripts]
         for punc_fn in punc_fns:
             punc_fn = os.path.join('data', 'space', punc_fn)
-            punc_fn = pkg_resources.resource_filename(__name__, punc_fn)
-            with open(punc_fn, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
+            punc_fn = resources.files(__package__).joinpath(punc_fn)
+            with punc_fn.open('r', encoding='utf-8') as f:
+                reader = csv.reader(f)
                 for (mark,) in reader:
                     segs.add(mark)
         for name in space_names:
             fn = os.path.join('data', 'space', name + '.csv')
-            fn = pkg_resources.resource_filename(__name__, fn)
-            with open(fn, 'rb') as f:
-                reader = csv.reader(f, encoding='utf-8')
+            fn = resources.files(__package__).joinpath(fn)
+            with fn.open('r', encoding='utf-8') as f:
+                reader = csv.reader(f)
                 for _, to_ in reader:
                     for seg in self.epi.ft.ipa_segs(to_):
                         segs.add(seg)
         enum = enumerate(sorted(list(segs)))
         return {seg: num for num, seg in enum}
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[str]:
         return iter(self.dict)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> int:
         """Given a string as a key, return the corresponding integer
 
         Args:

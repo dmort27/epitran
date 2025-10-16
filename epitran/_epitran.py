@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
-from typing import Union
 
 import panphon.featuretable
-from epitran.epihan import Epihan, EpihanTraditional, EpiJpan
+from epitran.epihan import Epihan, EpihanTraditional, EpiJpan, EpiCanto
 from epitran.flite import FliteLexLookup
 from epitran.puncnorm import PuncNorm
 from epitran.simple import SimpleEpitran
@@ -22,21 +21,35 @@ class Epitran(object):
     :param cedict_filename str: path to file containing the CC-CEDict dictionary
     :param rev boolean: use reverse transliteration
     :param rev_preproc bool: if True, apply preprocessors when reverse transliterating
-    :param rev_postproc bool: if True, apply postprocessors when reverse transliterating 
+    :param rev_postproc bool: if True, apply postprocessors when reverse transliterating
     """
+    @final
     special = {'eng-Latn': FliteLexLookup,
                'cmn-Hans': Epihan,
                'cmn-Hant': EpihanTraditional,
-               'jpn-Jpan': EpiJpan,}
+               'jpn-Jpan': EpiJpan,
+               'yue-Hant': EpiCanto,
+               }
 
-    def __init__(self, code: str, preproc: bool=True, postproc: bool=True, ligatures: bool=False,
-                cedict_file: Union[bool, None]=None, rev: bool=False, 
-                rev_preproc: bool=True, rev_postproc: bool=True, tones: bool=False):
-        """Constructor method"""
+    def __init__(self, code: str, **kwargs):
+        """Constructor method
+
+        Args:
+            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
+            **kwargs: Additional parameters passed to the appropriate backend:
+                preproc (bool): if True, apply preprocessor (default: True)
+                postproc (bool): if True, apply postprocessors (default: True)
+                ligatures (bool): if True, use phonetic ligatures (default: False)
+                cedict_file (str): path to dictionary file for Chinese/Japanese (default: None)
+                rev (bool): if True, load reverse transliteration (default: False)
+                rev_preproc (bool): if True, apply preprocessor when reverse transliterating (default: True)
+                rev_postproc (bool): if True, apply postprocessor when reverse transliterating (default: True)
+                tones (bool): if True, include tone information (default: False)
+        """
         if code in self.special:
-            self.epi = self.special[code](ligatures=ligatures, cedict_file=cedict_file, tones=tones)
+            self.epi = self.special[code](**kwargs)
         else:
-            self.epi = SimpleEpitran(code, preproc, postproc, ligatures, rev, rev_preproc, rev_postproc, tones=tones)
+            self.epi = SimpleEpitran(code, **kwargs)
         self.ft = panphon.featuretable.FeatureTable()
         self.xsampa = XSampa()
         self.puncnorm = PuncNorm()
@@ -83,7 +96,7 @@ class Epitran(object):
         """
         return self.ft.segs_safe(self.epi.transliterate(word, normpunc, ligatures))
 
-    def trans_delimiter(self, text: str, delimiter: str=str(' '), normpunc: bool=False, ligatures: bool=False):
+    def trans_delimiter(self, text: str, delimiter: str=str(' '), normpunc: bool=False, ligatures: bool=False) -> str:
         """Return IPA transliteration with a delimiter between segments
 
         :param text str: An orthographic text
@@ -96,7 +109,7 @@ class Epitran(object):
         return delimiter.join(self.trans_list(text, normpunc=normpunc,
                                               ligatures=ligatures))
 
-    def xsampa_list(self, word: str, normpunc: bool=False, ligaturize: bool=False):
+    def xsampa_list(self, word: str, normpunc: bool=False, ligaturize: bool=False) -> "list[str]":
         """Transliterates/transcribes a word as X-SAMPA
 
         :param word str: An orthographic word
@@ -109,7 +122,7 @@ class Epitran(object):
                                                           ligaturize))
         return list(map(self.xsampa.ipa2xs, ipa_segs))
 
-    def word_to_tuples(self, word: str, normpunc: bool=False, _ligaturize: bool=False):
+    def word_to_tuples(self, word: str, normpunc: bool=False, _ligaturize: bool=False) -> "list[tuple[str, str, str, str, list[int]]]":
         """Given a word, returns a list of tuples corresponding to IPA segments. The "feature
         vectors" form a list consisting of (segment, vector) pairs.
         For IPA segments, segment is a substring of phonetic_form such that the

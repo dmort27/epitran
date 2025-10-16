@@ -6,6 +6,9 @@
 ::nasals:: = m|n|ɲ|ŋ
 ::stops:: = p|b|t|d|k|g
 
+% Handle borrowed words with 'omp' sequence (to avoid o-lengthening)
+oːᵐp -> omp / _
+
 % Adjust nasal place of articulation (if any escaped preprocessing)
 n -> m / _ [pbfv]
 n -> ɲ / _ [j]
@@ -17,6 +20,9 @@ e -> eː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
 i -> iː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
 o -> oː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
 u -> uː / _ (ᵐb|ᵐp|ᵐf|ᵐv|ⁿd|ⁿt|ⁿdʒ|ⁿtʃ|ᵑk|ᵑg)
+
+% Handle nnyumba special case
+nɲuːᵐba -> ɲːuːᵐba / _
 
 % Simplify any sequences that might have escaped
 mm -> mː / _

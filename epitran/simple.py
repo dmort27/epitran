@@ -5,9 +5,9 @@ import sys
 import csv
 import unicodedata
 from collections import defaultdict
-from typing import DefaultDict, Callable  # pylint: disable=unused-import
+from typing import DefaultDict, Callable, Any
 
-import pkg_resources
+from importlib import resources
 import regex
 
 import panphon
@@ -34,9 +34,28 @@ class SimpleEpitran(object):
     :param rev_postproc bool, optional: if True, applyy postprocessor when reverse transliterating
     """
 
-    def __init__(self, code: str, preproc: bool = True, postproc: bool = True, ligatures: bool = False,
-                 rev: bool = False, rev_preproc: bool = True, rev_postproc: bool = True, tones: bool = False):
-        """Constructor"""
+    def __init__(self, code: str, **kwargs):
+        """Constructor
+        
+        Args:
+            code (str): ISO 639-3 code and ISO 15924 code joined with a hyphen
+            **kwargs: Optional parameters:
+                preproc (bool): if True, apply preprocessor (default: True)
+                postproc (bool): if True, apply postprocessors (default: True)
+                ligatures (bool): if True, use phonetic ligatures (default: False)
+                rev (bool): if True, load reverse transliteration (default: False)
+                rev_preproc (bool): if True, apply preprocessor when reverse transliterating (default: True)
+                rev_postproc (bool): if True, apply postprocessor when reverse transliterating (default: True)
+                tones (bool): if True, include tone information (default: False)
+        """
+        # Extract parameters with defaults
+        preproc = kwargs.get('preproc', True)
+        postproc = kwargs.get('postproc', True)
+        ligatures = kwargs.get('ligatures', False)
+        rev = kwargs.get('rev', False)
+        rev_preproc = kwargs.get('rev_preproc', True)
+        rev_postproc = kwargs.get('rev_postproc', True)
+        tones = kwargs.get('tones', False)
         self.rev = rev
         self.tones = tones
         self.g2p = self._load_g2p_map(code, False)
@@ -68,10 +87,10 @@ class SimpleEpitran(object):
         """
         return self.tones
 
-    def __enter__(self):
+    def __enter__(self) -> "SimpleEpitran":
         return self
 
-    def __exit__(self, _type_, _val, _trace_back):
+    def __exit__(self, _type_: Any, _val: Any, _trace_back: Any) -> None:
         for nil, count in self.nils.items():
             sys.stderr.write(
                 f'Unknown character "{nil}" occured {count} times.\n')
@@ -98,28 +117,27 @@ class SimpleEpitran(object):
         code += '_rev' if rev else ''
         try:
             path = os.path.join('data', 'map', code + '.csv')
-            path = pkg_resources.resource_filename(__name__, path)
-        except IndexError as malformed_data_file:
+            with resources.files(__package__).joinpath(path).open(encoding='utf-8') as f:
+                reader = csv.reader(f)
+                orth, phon = next(reader)
+                if orth != 'Orth' or phon != 'Phon':
+                    raise DatafileError(
+                        f'Header is ["{orth}", "{phon}"] instead of ["Orth", "Phon"].')
+                for (i, fields) in enumerate(reader):
+                    try:
+                        graph, phon = fields
+                    except ValueError as malformed_data_file:
+                        raise DatafileError(
+                            f'Map file is not well formed at line {i + 2}.') from malformed_data_file
+                    graph = unicodedata.normalize('NFD', graph)
+                    phon = unicodedata.normalize('NFD', phon)
+                    if not self.tones:
+                        phon = regex.sub('[˩˨˧˦˥]', '', phon)
+                    g2p[graph].append(phon)
+                    gr_by_line[graph].append(i)
+        except (FileNotFoundError, IndexError) as malformed_data_file:
             raise DatafileError(
                 'Add an appropriately-named mapping to the data/maps directory.') from malformed_data_file
-        with open(path, encoding='utf-8') as f:
-            reader = csv.reader(f)
-            orth, phon = next(reader)
-            if orth != 'Orth' or phon != 'Phon':
-                raise DatafileError(
-                    f'Header is ["{orth}", "{phon}"] instead of ["Orth", "Phon"].')
-            for (i, fields) in enumerate(reader):
-                try:
-                    graph, phon = fields
-                except ValueError as malformed_data_file:
-                    raise DatafileError(
-                        f'Map file is not well formed at line {i + 2}.') from malformed_data_file
-                graph = unicodedata.normalize('NFD', graph)
-                phon = unicodedata.normalize('NFD', phon)
-                if not self.tones:
-                    phon = regex.sub('[˩˨˧˦˥]', '', phon)
-                g2p[graph].append(phon)
-                gr_by_line[graph].append(i)
         nondeterminisms = self._non_deterministic_mappings(gr_by_line)
         if nondeterminisms:
             message = ""
@@ -131,16 +149,15 @@ class SimpleEpitran(object):
             raise MappingError(f'Invalid mapping for {code}:\n{message}')
         return g2p
 
-    def _load_punc_norm_map(self):
+    def _load_punc_norm_map(self) -> "dict[str, str]":
         """Load the map table for normalizing 'down' punctuation."""
         path = os.path.join('data', 'puncnorm.csv')
-        path = pkg_resources.resource_filename(__name__, path)
-        with open(path, encoding='utf-8') as f:
-            reader = csv.reader(f, delimiter=str(','), quotechar=str('"'))
+        with resources.files(__package__).joinpath(path).open(encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=',', quotechar='"')
             next(reader)
             return {punc: norm for (punc, norm) in reader}
 
-    def _construct_regex(self, g2p_keys):
+    def _construct_regex(self, g2p_keys: Any) -> Any:
         """Build a regular expression that will greadily match segments from
            the mapping table.
         """
@@ -148,7 +165,7 @@ class SimpleEpitran(object):
         return regex.compile(f"({r'|'.join(graphemes)})", regex.I)
 
     def general_trans(self, text: str, filter_func: "Callable[[tuple[str, bool]], bool]",
-                      normpunc: bool = False, ligatures: bool = False):
+                      normpunc: bool = False, ligatures: bool = False) -> str:
         """Transliaterates a word into IPA, filtering with filter_func
 
         :param text str: word to transcribe; unicode string
@@ -197,14 +214,14 @@ class SimpleEpitran(object):
         return unicodedata.normalize('NFC', text)
 
     # Korean exception handling in transliterate
-    def is_korean(self, text):
+    def is_korean(self, text: str) -> bool:
         """Check if the text contains any Korean characters."""
         for char in text:
             if '\uAC00' <= char <= '\uD7A3':  # Checking Korean Unicode
                 return True
         return False
 
-    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False):
+    def transliterate(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         """Transliterates/transcribes a word into IPA. Passes unmapped 
         characters through to output unchanged.
 
@@ -225,7 +242,7 @@ class SimpleEpitran(object):
         return self.general_trans(text, lambda x: True,
                                   normpunc, ligatures)
 
-    def general_reverse_trans(self, text: str):
+    def general_reverse_trans(self, text: str) -> str:
         """Reconstructs word from IPA. Does the reverse of transliterate().
         Ignores unmapped characters.
 

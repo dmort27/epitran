@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Examples from the Handbook of the International Phonetic Association (Slovene)
 
-from __future__ import unicode_literals
 
 import unittest
 

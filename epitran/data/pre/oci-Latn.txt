@@ -1,0 +1,8 @@
+::consonant:: = b|bt|c|ç|cc|ch|d|f|g|gd|gu|h|j|k|l|lh|m|n|nd|nt|nh|gn|p|q|r|rr|rm|rn|s|ss|sh|t|tg|tj|tl|tm|tn|tz|v|w|x|y|z
+::vowel:: = a|e|è|i|ò|o|u|ai|ei|èi|òi|òu|au|eu|èu|ia|ie|iè|uò|io|iu|oi|üa|üe|oè|uè|oá|oí|üi|uau|oeo|ièi|ieu|ièu|uòu|uèi
+
+
+ts -> s / _ (::consonant::)
+x -> s / _ (::consonant::)
+
+m -> n / _ (#|::consonant::) 
