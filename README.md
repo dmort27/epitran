@@ -244,6 +244,7 @@ A few notes are in order regarding this data structure:
 | hrv-Latn    | Croatian                |
 | hsn-Latn    | Xiang (Wiktionary)      |
 | hun-Latn    | Hungarian               |
+|ile-Latn     | Interlingua             |
 | ilo-Latn    | Ilocano                 |
 | ind-Latn    | Indonesian              |
 | ita-Latn    | Italian                 |
