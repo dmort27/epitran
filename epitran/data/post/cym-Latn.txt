@@ -1,0 +1,31 @@
+::vowel:: = a|aː|ɛ|eː|ə|ɪ|ɨ|iː|ɨː|ɔ|oː|ʊ|uː|ai|aɨ|aːɨ|aːi|au|ɛu|ɛi|eɨ|əu|ɪu|ɨu|ɔi|ɔɨ|ʊɨ
+::consonant:: = b|d|dʒ|ð|f|ɡ|h|j|k|l|ɬ|m|m̥|n|n̥|ŋ|ŋ̊|p|r|r̥|s|ʃ|t|tʃ|θ|v|w|χ
+
+
+% The vowel /ə/ does not occur in the final syllable of words. It is always pronounced short
+ə -> ɨ̯ / _ #
+
+% ni -> nj if ni is before a vowel
+ni -> nj / _ (::vowel::)
+
+% ɨ̯ if after a vowel, ɨ̞ if after a consonant
+ɨ̞ -> ɨ̯ / (::vowel::) _ #
+ɨ̯ -> ɨ̞ / (::consonant::) _ #
+
+% iː -> i
+iː -> i / _ (::vowel::)
+iː -> i / (::vowel::)(::consonant::)* _
+
+% for i and ɪ
+i -> ɪ / (::consonant::) _ ((::consonant::)|#)
+
+% for i and j
+i -> j / # _(::vowel::)
+i -> j / (::vowel::)(::consonant::)* _ (::vowel::)
+
+
+% for w and ʊ, the following consonant is pronounced as a vowel
+w -> ʊ / (::consonant::) _ ((::consonant::)|#)
+
+% t -> d, if follow a vowel and at the end
+t -> d / (::vowel::) _ #
