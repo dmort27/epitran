@@ -1,0 +1,43 @@
+% — Hausa Postprocessor Additional Rules
+::vowel:: = a|e|i|o|u
+::long_vowel:: = aː|eː|iː|oː|uː
+::tone_high:: = ´
+::tone_low:: = `
+::tone_fall:: = ^
+
+% — Insert vowel length marker from placeholder dot
+a·a -> aː
+e·e -> eː
+i·i -> iː
+o·o -> oː
+u·u -> uː
+· -> 0
+
+% — Tone marking heuristics
+% At word end, mark vowel low tone
+::vowel:: -> ::vowel::::tone_low::  / _ #
+
+% After glottal stop, assume high tone
+ʼ(::vowel::) -> ʼ\1::::tone_high::
+
+% Falling tone insertion for vowel-vowel sequences in open syllables
+::long_vowel:: -> \1::::tone_fall::  / _ (::vowel::)
+
+% Remove double spaces
+\s{2,} -> ' '
+
+% Final cleanup: remove unwanted apostrophe placeholders
+ʼ -> ʔ    % convert orthographic apostrophe to glottal stop symbol
+
+% Normalize high tone default (unmarked) – remove explicit mark if present
+(::vowel::::tone_high::) -> \1    / #  % optional
+
+% Insert epenthetic vowel “ə” between two consonants where no vowel
+::consonant:: = b|ɓ|d|ɗ|f|ɸ|g|k|ƙ|l|m|n|s|ʃ|t|ts’|r|ɽ|w|j|ʔ
+0 -> ə / (::consonant::)_(::consonant::)
+
+% Delete vowel /ə/ if followed by syllable-final consonant cluster
+ə -> 0 / _ (::consonant::){2,}#
+
+% Move tone marker to end of word if preceding final consonant
+(?P<sw1>[`^´]+)(?P<sw2>.+?) -> 0 / _\b
