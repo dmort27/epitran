@@ -1,0 +1,31 @@
+% — Hausa Preprocessor Additional Rules
+::VOWELS:: = a|e|i|o|u
+::LONG_ORTH:: = aa|ee|ii|oo|uu
+::APOSTROPHE:: = ’|‘|ʼ|`|'
+
+% Normalize ordinal apostrophe for glottal stop
+::APOSTROPHE:: -> ʼ
+
+% Normalize double-vowel orthography to explicit marker
+::LONG_ORTH:: -> \\0·\\0     % e.g., aa -> a·a
+
+% Normalize uppercase to lowercase
+[A-Z] -> [a-z]
+
+% Standardize common Arabic loanword forms
+bismillahi(r)? -> bismillahir
+rahmanir -> rahmanir
+rahim → rahim
+
+% Remove leading/trailing spaces
+^\s+ → 0
+\s+$ → 0
+
+% Collapse multiple spaces to single
+\s{2,} → ' '
+
+% Mark syllable-initial vowel with glottal stop explicitly
+^(::VOWELS::) -> ʼ\1
+
+% Convert orthographic “’y” variant to single character
+’y -> ƴ
