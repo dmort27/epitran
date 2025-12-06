@@ -262,6 +262,7 @@ A few notes are in order regarding this data structure:
 | kaz-Cyrl-bab| Kazakh (Cyrillic—Babel) |
 | kaz-Latn    | Kazakh (Latin)          |
 | kbd-Cyrl    | Kabardian               |
+| kab-Latn    | Kabyle                  |
 | khm-Khmr    | Khmer                   |
 | kin-Latn    | Kinyarwanda             |
 | kir-Arab    | Kyrgyz (Perso-Arabic)   |
