@@ -66,3 +66,7 @@ class TestPolish(unittest.TestCase):
     def test_gienek(self):
         tr = self.epi.transliterate('Gienek')
         self.assertEqual(tr, 'ɡʲɛnɛk')
+
+    def test_akcjonariusz(self):
+        tr = self.epi.transliterate('akcjonariusz')
+        self.assertEqual(tr, 'akt͡sjɔnarjuʂ')
