@@ -1,4 +1,6 @@
 ::vlesscons:: = t͡ɕ|t͡ʂ|ʂ|ɕ|f|x|k|p|s|t
+::vowel:: = a|ɔ̃|ɛ|ɛ̃|i|ɔ|u
+::consonant:: = b|t͡s|t͡ɕ|t͡ʂ|d|d͡z|d͡ʑ|d͡ʐ|f|ɡ|h|x|j|k|l|w|m|n|ɲ|p|r|s|ɕ|ʂ|t|w|z|ʑ|ʐ
 
 % Devoicing
 b -> p / _ (#|::vlesscons::)
@@ -12,3 +14,8 @@ d͡ʐ -> t͡ʂ / _ (#|::vlesscons::)
 ʐ -> ʂ / _ (#|::vlesscons::)
 
 v -> f / (::vlesscons::) _
+
+% Glide formation
+i -> j / _ (::vowel::)
+i -> j / (::vowel::) _ (::consonant::)
+u -> w / (::vowel::) _

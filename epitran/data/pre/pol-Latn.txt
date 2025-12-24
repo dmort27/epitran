@@ -1,8 +1,8 @@
 ::nasal_vowel:: = ą|ę
 ::vowel:: = a|ą|e|ę|i|o|ó|u|y
 ::vow_not_i:: = a|ą|e|ę|o|ó|u|y
-::consonant:: = b|c|ć|cz|d|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|r|s|ś|sz|t|w|z|ź|ż|rz
-::cons_not_csr:: = b|ć|cz|d|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|ś|sz|t|w|z|ź|ż|rz
+::consonant:: = b|c|ć|cz|d|dz|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|r|s|ś|sz|t|w|z|ź|ż|rz
+::cons_not_csr:: = b|ć|cz|d|dz|dź|dż|f|g|h|ch|j|k|l|ł|m|n|ń|p|ś|sz|t|w|z|ź|ż|rz
 ::voiceless:: = c|ć|h|ch|k|p|sz|ś|s|t
 
 % After nasalized vowels
@@ -40,10 +40,6 @@ rz -> ʂ / (::voiceless::) _
 % Simplification: sześćset -> szejset (etc.)
 ść -> j / sze _ s
 
-% Glide formation
-u -> w / (::vowel::) _
-i -> j / (::vowel::) _ (::consonant::)
-i -> j / _ (::vowel::)
 % Mostly surnames
 y -> j / (::vowel::) _ #
 y -> j / (::vowel::) _ (::consonant::)
