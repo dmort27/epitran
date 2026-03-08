@@ -1,3 +1,39 @@
+::voiceless:: = п|т|к|ф|с|ш
+% NB <v> doesn't trigger voicing
+::voiced:: = б|д|г|з|ж
+::hushers:: = [шжц]
+
+%% Lexical and regular sound changes
+% g -> v in <-ogo> <-ego>
+г -> в / [ое] _ о#
+% lexical exception
+сегодня -> сиводня / _
+
+% g -> x before <k>
+г -> х / _ [кч]
+% lexical exception
+бог -> бох / _
+
+% final de-voicing
+б -> п / _ ь?(#|::voiceless::)
+д -> т / _ ь?(#|::voiceless::)
+г -> к / _ ь?(#|::voiceless::)
+в -> ф / _ ь?(#|::voiceless::)
+з -> с / _ ь?(#|::voiceless::)
+ж -> ш / _ ь?(#|::voiceless::)
+
+% Voicing in clusters
+п -> б / _ ь?(::voiced::)
+т -> д / _ ь?(::voiced::)
+к -> г / _ ь?(::voiced::)
+ф -> в / _ ь?(::voiced::)
+с -> з / _ ь?(::voiced::)
+ш -> ж / _ ь?(::voiced::)
+
+% i -> y after sibilants
+и -> ы / (::hushers::) _
+
+%% j-normalization
 ьйэ -> ъе / _
 ьйа -> ъя / _
 
@@ -20,4 +56,4 @@
 0 -> й / # _ (е|ё|ю|я)
 
 % Palatalization
-0 -> ь / (б|в|д|з|к|л|м|п|р|с|т|ф|х) _ (j|е|ё|и|ю|я)
+0 -> ь / (б|в|д|з|л|м|н|п|р|с|т|ф) _ (j|е|ё|и|ю|я)
