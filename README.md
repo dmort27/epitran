@@ -399,35 +399,40 @@ For use with most languages, Epitran requires no special installation steps. **E
 
 ### `lex_lookup`
 
-**Recommended**
+`t2p` does not behave as expected on letter sequences that are highly infrequent in English. For better performance, we recommend using `lex_lookup`, a binary included in recent versions of Flite.
 
-`t2p` does not behave as expected on letter sequences that are highly infrequent in English. In such cases, `t2p` gives the pronunciation of the English letters of the name, rather than an attempt at the pronunciation of the name. There is a different binary included in the most recent (pre-release) versions of Flite that behaves better in this regard, but takes some extra effort to install. To install, you need to obtain at least version [2.0.5](http://tts.speech.cs.cmu.edu/awb/flite-2.0.5-current.tar.bz2) of Flite. We recommend that you obtain the source from GitHub (https://github.com/festvox/flite). Untar and compile the source, following the steps below, adjusting where appropriate for your system:
-
-
-```bash
-$ tar xjf flite-2.0.5-current.tar.bz2
-$ cd flite-2.0.5-current
-```
-
-or
+**1. Obtain the Source**
+We recommend obtaining the latest source from GitHub:
 
 ```bash
-$ git clone git@github.com:festvox/flite.git
-$ cd flite/
+git clone https://github.com/festvox/flite.git
+cd flite
+
 ```
 
-then
+**2. Configure and Build**
+Choose the installation method that matches your permissions:
 
+* **Option A: System-wide (requires `sudo`)**
 ```bash
-$ ./configure && make
-$ sudo make install
-$ cd testsuite
-$ make lex_lookup
-$ sudo cp lex_lookup /usr/local/bin
+./configure && make
+sudo make install
+cd testsuite && make lex_lookup
+sudo cp lex_lookup /usr/local/bin
+
 ```
 
+* **Option B: Local/Conda (no `sudo` required)**
+If you are using a Conda environment or lack root access, install directly to your environment prefix:
+```bash
+./configure --prefix=$CONDA_PREFIX
+make && make install
+cd testsuite && make lex_lookup
+cp lex_lookup $CONDA_PREFIX/bin/
 
-When installing on MacOS and other systems that use a BSD version of `cp`, some modification to a Makefile must be made in order to install flite-2.0.5 (between steps 3 and 4). Edit `main/Makefile` and change both instances of `cp -pd` to `cp -pR`. Then resume the steps above at step 4.
+```
+
+> **Note for MacOS/BSD:** If `make install` fails on `cp` commands, edit `main/Makefile` and change instances of `cp -pd` to `cp -pR`.
 
 ### Usage
 
