@@ -5,8 +5,8 @@ import unittest
 import epitran
 
 class TestOccitan(unittest.TestCase):
-  def setUp(self):
-    self.epi = epitran.Epitran("oci-Latn")
+    def setUp(self):
+      self.epi = epitran.Epitran("oci-Latn")
 
     def test_abadia(self):
       # test intervocalic g, word-final r
