@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.35.0 (2026-04-24)
+
+### Documentation
+
+- Fix typo in language support table ([#236](https://github.com/dmort27/epitran/pull/236),
+  [`3bdf0fd`](https://github.com/dmort27/epitran/commit/3bdf0fdf78ce6d0c2c5d055894fb1ce11811b06f))
+
+
 ## v1.34.0 (2025-10-16)
 
 
