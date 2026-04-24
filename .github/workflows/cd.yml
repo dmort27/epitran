@@ -15,6 +15,7 @@ concurrency:
 
 jobs:
   release:
+    if: github.event.repository.fork == false
     environment:
       name: pypi
       url: https://pypi.org/project/epitran/
