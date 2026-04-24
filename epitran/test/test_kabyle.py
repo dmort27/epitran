@@ -9,7 +9,7 @@ class TestKabyle(unittest.TestCase):
         for i, o in [
             ("taqcict", "taqʃiʃt"),
             ("axxam", "aχːam"),
-            ("Nniɣ", "nniɣ"),
+            ("Nniɣ", "nːiɣ"),
             ("abrid", "abrid"),
             ("tuwiḍ", "tuwidˤ"),
         ]:
