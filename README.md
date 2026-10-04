@@ -291,6 +291,7 @@ A few notes are in order regarding this data structure:
 | nhi-Latn    | Western Sierra Puebla Nahuatl        |
 | nld-Latn    | Dutch                   |
 | nno-Latn    | Norwegian (Nynorsk)     |
+| npi-Deva    | Nepali                  |
 | nya-Latn    | Chichewa                |
 | ood-Latn-alv| Tohono O'odham (Alvarez–Hale) |
 | ood-Latn-sax| Tohono O'odham (Saxton) |

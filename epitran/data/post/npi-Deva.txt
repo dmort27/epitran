@@ -1,0 +1,42 @@
+::vowel:: = ʌ|a|i|u|e|o
+::consonant:: = k|kʰ|ɡ|ɡʱ|ŋ|t͡s|t͡sʰ|d͡z|d͡zʱ|ʈ|ʈʰ|ɖ|ɖʱ|ɳ|t|tʰ|d|dʱ|n|p|pʰ|b|bʱ|m|j|ɾ|l|w|s|ɦ|z|f|ɽ|ɽʱ
+
+% Delete null onset symbol inserted by map
+<ons> -> 0 / _
+
+% Viraama (halanta): cancels the inherent vowel
+ʌ् -> 0 / _
+
+% Inherent vowel is overridden by a following vowel sign
+ʌ -> 0 / _ (::vowel::)
+
+% Final schwa: deleted after a simple (vowel + single consonant) ending.
+% Consonant clusters block the rule, which correctly protects verb forms
+% (गर्छ gʌɾt͡sʰʌ, जान्छ d͡zant͡sʰʌ) and भित्र bʰitɾʌ.
+% KNOWN LIMITATION: retention is grammatically conditioned in Nepali.
+% Simple postpositions (तिर, बाट, सँग), the adverb अब, and a few nouns
+% (दुख, सुख) retain it and come out wrong. Not expressible here --
+% Epitran has no part-of-speech information.
+ʌ -> 0 / (::vowel::)(::consonant::) _ #
+
+% Hindi/Marathi also delete the MEDIAL schwa. Nepali retains it, so omitted:
+%   ʌ -> 0 / (::vowel::)N?(::consonant::) _ (?=(::consonant::)(::vowel::))
+
+% Homorganic nasal
+N -> m / _ (p|pʰ|b|bʱ|m)
+N -> ŋ / _ (k|kʰ|ɡ|ɡʱ|ŋ)
+N -> n / _
+
+% Protected schwa (A) from lexical exceptions in the map: postpositions,
+% अब, and the nouns दुख/सुख, which retain the final schwa. Restored here,
+% after the deletion rule, so it survives. Must still behave normally
+% when the word is suffixed or carries a virama.
+A् -> 0 / _
+A -> 0 / _ (::vowel::)
+A -> ʌ / _
+
+% व is [b] word-initially in Sanskrit-derived vocabulary (वर्ष bʌɾsʌ,
+% विद्यालय, वन) but [w] between vowels (बुवा buwa, सवारी, दिवस).
+% Perso-Arabic loans keep [w] initially (वकिल wʌkil) -- not visible in
+% the orthography, so those need lexical entries in the map.
+w -> b / # _
