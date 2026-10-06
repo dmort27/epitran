@@ -194,7 +194,7 @@ A few notes are in order regarding this data structure:
 | Code        | Language (Script)       |
 |-------------|-------------------------|
 | aar-Latn    | Afar                    |
-| afr-Latn    | Afrikanns               |
+| afr-Latn    | Afrikaans               |
 | aii-Syrc    | Assyrian Neo-Aramaic    |
 | amh-Ethi    | Amharic                 |
 | amh-Ethi-pp | Amharic (more phonetic) |
