@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 
-import epitran.reromanize
 import argparse
 import sys
+
+import epitran.reromanize
+
 
 def main(code, table):
     rr = epitran.reromanize.ReRomanizer(code, table)

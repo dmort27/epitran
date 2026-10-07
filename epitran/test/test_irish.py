@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
 
 import unittest
 
 import epitran
+
 
 class TestIrish(unittest.TestCase):
     def setUp(self):
@@ -442,7 +441,6 @@ class TestIrish(unittest.TestCase):
         for orth,phon in pairs:
             pred = self.epi.transliterate(orth)
             self.assertEqual(pred,phon)
-        ...
 
     # Test exceptional cases
     def test_verb_conjugations(self):

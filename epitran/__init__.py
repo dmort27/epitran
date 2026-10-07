@@ -1,8 +1,7 @@
-from importlib.metadata import version, PackageNotFoundError
+from importlib.metadata import PackageNotFoundError, version
 
 from epitran._epitran import Epitran
 from epitran.reromanize import ReRomanizer
-
 
 try:
     __version__ = version("epitran")

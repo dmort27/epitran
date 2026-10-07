@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 import csv
+import os.path
 import re
 import sys
-import os.path
 import unicodedata
-
 
 tones = {
     '\u00b4': '˧˥', # acute = sac

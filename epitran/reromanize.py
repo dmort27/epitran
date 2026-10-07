@@ -1,19 +1,17 @@
 
+import csv
 import os.path
 import sys
-from unicodedata import normalize
-from typing import Dict, List, Optional
-
 from importlib import resources
+from unicodedata import normalize
 
 import epitran
-import csv
 
 
-class ReRomanizer(object):
+class ReRomanizer:
     """Converts IPA representations to a readable roman form."""
 
-    def __init__(self, code: str, table: str, decompose: bool = True, cedict_file: Optional[str] = None) -> None:
+    def __init__(self, code: str, table: str, decompose: bool = True, cedict_file: str | None = None) -> None:
         """Construct object for re-romanizing Epitran output.
 
         This class converts orthographic input, via Epitran, to a more
@@ -27,7 +25,7 @@ class ReRomanizer(object):
         self.epi = epitran.Epitran(code, cedict_file=cedict_file)
         self.mapping = self._load_reromanizer(table, decompose)
 
-    def _load_reromanizer(self, table: str, decompose: bool) -> Dict[str, str]:
+    def _load_reromanizer(self, table: str, decompose: bool) -> dict[str, str]:
         path_str = os.path.join('data', 'reromanize', table + '.csv')
         path = resources.files(__package__).joinpath(path_str)
         if path.is_file():
@@ -40,10 +38,10 @@ class ReRomanizer(object):
                     mapping[ipa] = rom
             return mapping
         else:
-            print('File {} does not exist.'.format(path), file=sys.stderr)
+            print(f'File {path} does not exist.', file=sys.stderr)
             return {}
 
-    def reromanize_ipa(self, tr_list: List[str]) -> List[str]:
+    def reromanize_ipa(self, tr_list: list[str]) -> list[str]:
         re_rom_list = []
         for seg in tr_list:
             if seg in self.mapping:

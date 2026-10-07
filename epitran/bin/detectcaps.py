@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
-import unicodedata
 import fileinput
+import unicodedata
 
 
 def main() -> None:
@@ -14,7 +13,7 @@ def main() -> None:
             is_cap = 1
         else:
             is_cap = 0
-        line = '{}\t{}'.format(is_cap, token)
+        line = f'{is_cap}\t{token}'
         print(line)
 
 

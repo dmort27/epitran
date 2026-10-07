@@ -2,13 +2,13 @@
 
 import argparse
 import codecs
+import csv
 import logging
 from collections import Counter
-from typing import List
+
+import panphon
 
 import epitran
-import panphon
-import csv
 
 logger = logging.getLogger('epitran')
 
@@ -45,7 +45,7 @@ def add_file_gen(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Cou
             if len(fields) > 0:
                 orth = fields[0]
                 space.update(add_record_gen(epi, ft, orth))
-    logger.debug(u'Length of counter:\t{}'.format(len(space)))
+    logger.debug(f'Length of counter:\t{len(space)}')
     return space
 
 
@@ -68,7 +68,7 @@ def add_file_op(epi: epitran.Epitran, ft: panphon.FeatureTable, fn: str) -> Coun
                         else:
                             space[trans[0]] += 1
                         trans = trans[1:]
-    logger.debug(u'Length of counter:\t{}'.format(len(space)))
+    logger.debug(f'Length of counter:\t{len(space)}')
     return space
 
 
@@ -80,12 +80,12 @@ def print_space(output: str, space: Counter[str]) -> None:
             writer.writerow((i, char))
 
 
-def main(code: str, op: bool, infiles: List[str], output: str) -> None:
+def main(code: str, op: bool, infiles: list[str], output: str) -> None:
     epi = epitran.Epitran(code)
     ft = panphon.FeatureTable()
     space: Counter[str] = Counter()
     for fn in infiles:
-        logger.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
+        logger.debug(f'Scanning:\t{fn}'.encode())
         add_file = add_file_op if op else add_file_gen
         space.update(add_file(epi, ft, fn))
     print_space(output, space)

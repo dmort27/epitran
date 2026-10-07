@@ -1,20 +1,17 @@
 #!/usr/bin/env Python
-# -*- coding: utf-8 -*-
 
 
 import csv
 import glob
 import re
-from typing import List, Optional
 
 
-
-def build_rule(fields: List[str]) -> Optional[str]:
+def build_rule(fields: list[str]) -> str | None:
     try:
         a, b, X, Y = fields
         b = "0" if not b else b
         a = "0" if not a else a
-        return '{} -> {} / {} _ {}'.format(a, b, X, Y)
+        return f'{a} -> {b} / {X} _ {Y}'
     except ValueError:
         print('Malformed rule: {}'.format(','.join(fields)))
         return None

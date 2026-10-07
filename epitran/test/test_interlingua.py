@@ -1,7 +1,8 @@
-from __future__ import unicode_literals
 
 import unittest
+
 import epitran
+
 
 class TestInterlingua(unittest.TestCase):
     def setUp(self):

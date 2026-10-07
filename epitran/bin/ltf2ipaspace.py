@@ -1,25 +1,23 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import argparse
+import csv
 import glob
 import os.path
-from typing import List, Set
 
+import panphon.featuretable
 from lxml import etree
-import csv
 
 import epitran
-import panphon.featuretable
 
 
-def read_tokens(fn: str) -> List[str]:
+def read_tokens(fn: str) -> list[str]:
     tree = etree.parse(fn)
     root = tree.getroot()
     return [tok.text for tok in root.findall('.//TOKEN')]
 
 
-def read_input(input_: List[List[str]], langscript: str) -> Set[str]:
+def read_input(input_: list[list[str]], langscript: str) -> set[str]:
     space = set()
     epi = epitran.Epitran(langscript)
     ft = panphon.featuretable.FeatureTable()
@@ -32,14 +30,14 @@ def read_input(input_: List[List[str]], langscript: str) -> Set[str]:
     return space
 
 
-def write_output(output: str, space: Set[str]) -> None:
+def write_output(output: str, space: set[str]) -> None:
     with open(output, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         for n, ch in enumerate(sorted(list(space))):
             writer.writerow((n, ch))
 
 
-def main(langscript: str, input_: List[List[str]], output: str) -> None:
+def main(langscript: str, input_: list[list[str]], output: str) -> None:
     space = read_input(input_, langscript)
     write_output(output, space)
 

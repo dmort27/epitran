@@ -1,14 +1,10 @@
-# -*- coding: utf-8 -*-
-
-import os.path
-from typing import List
-
-from importlib import resources
 
 import csv
+import os.path
+from importlib import resources
 
 
-class StripDiacritics(object):
+class StripDiacritics:
     def __init__(self, code: str) -> None:
         """Constructs object to strip specified diacritics from text
 
@@ -17,7 +13,7 @@ class StripDiacritics(object):
         """
         self.diacritics = self._read_diacritics(code)
 
-    def _read_diacritics(self, code: str) -> List[str]:
+    def _read_diacritics(self, code: str) -> list[str]:
         diacritics = []
         fn = os.path.join('data', 'strip', code + '.csv')
         try:

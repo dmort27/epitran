@@ -93,6 +93,11 @@ dev = [
     "ruff",
 ]
 
+[tool.ruff.lint]
+ignore = [
+    "UP025", # Remove unicode literals from strings
+]
+
 # Automated semantic versioning and release management
 [tool.semantic_release]
 version_source = "tag"

@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*-
 
 import unittest
+
 import epitran
+
 
 class TestAfrikaans(unittest.TestCase):
   def setUp(self):

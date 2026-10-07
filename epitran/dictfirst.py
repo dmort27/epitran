@@ -1,5 +1,6 @@
-from typing import Dict
+
 import epitran
+
 
 class DictFirst:
     """If words are in a dictionary, use one model; if words are not, use another fallback.
@@ -14,7 +15,7 @@ class DictFirst:
         self.epi2 = epitran.Epitran(code2)
         self.dictionary = self._read_dictionary(dict_fn)
 
-    def _read_dictionary(self, dict_fn: str) -> Dict[str, str]:
+    def _read_dictionary(self, dict_fn: str) -> dict[str, str]:
         with open(dict_fn, encoding='utf-8') as f:
             return {x.strip(): self.epi1.transliterate(x.strip()) for x in f}
 

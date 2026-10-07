@@ -1,6 +1,5 @@
-from typing import Dict, List, Optional
 
-modes: Dict[str, List[str]] = {
+modes: dict[str, list[str]] = {
          'aar': ['Latn'],
          'amh': ['Ethi-pp', 'Ethi-red', 'Ethi'],
          'ara': ['Arab'],
@@ -71,7 +70,7 @@ def supported_lang(iso639: str) -> bool:
     return iso639 in modes
 
 
-def get_default_mode(iso639: str) -> Optional[str]:
+def get_default_mode(iso639: str) -> str | None:
     try:
         return '-'.join([iso639, modes[iso639][0]])
     except KeyError:

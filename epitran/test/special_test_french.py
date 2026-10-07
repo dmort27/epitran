@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import logging
 import unittest
@@ -24,7 +23,7 @@ class TestFrench(unittest.TestCase):
     def _derivation(self, orth, correct):
         logger.debug(orth.encode('utf-8'))
         attempt = self.epi.transliterate(orth)
-        logger.debug('{} ?= {}'.format(attempt, correct).encode('utf-8'))
+        logger.debug(f'{attempt} ?= {correct}'.encode())
         self.assertEqual(attempt, correct)
 
     def test_suggerer(self):

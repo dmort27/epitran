@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 
 import codecs
-from typing import Dict, List, Tuple, Any
+from typing import Any
 
 import marisa_trie
 import regex as re
@@ -9,7 +8,7 @@ import regex as re
 ASCII_CHARS = ''.join([chr(i) for i in range(128)])
 
 
-class CEDictTrie(object):
+class CEDictTrie:
     def __init__(self, cedict_file: str, traditional: bool = False) -> None:
         """Construct a trie over CC-CEDict
 
@@ -20,7 +19,7 @@ class CEDictTrie(object):
         self.hanzi = self._read_cedict(cedict_file, traditional=traditional)
         self.trie = self._construct_trie(self.hanzi)
 
-    def _read_cedict(self, cedict_file: str, traditional: bool = False) -> Dict[str, Tuple[List[str], List[str]]]:
+    def _read_cedict(self, cedict_file: str, traditional: bool = False) -> dict[str, tuple[list[str], list[str]]]:
         comment_re = re.compile(r'\s*#')
         lemma_re = re.compile(r'(?P<hanzi>[^]]+) \[(?P<pinyin>[^]]+)\] /(?P<english>.+)/')
         cedict = {}
@@ -39,7 +38,7 @@ class CEDictTrie(object):
                         cedict[hanzi[1]] = (pinyin, english)  # simplified characters only.
         return cedict
 
-    def _construct_trie(self, hanzi: Dict[str, Tuple[List[str], List[str]]]) -> Any:
+    def _construct_trie(self, hanzi: dict[str, tuple[list[str], list[str]]]) -> Any:
         pairs = []
         for hz, df in self.hanzi.items():
             py, en = df
@@ -51,7 +50,7 @@ class CEDictTrie(object):
     def has_key(self, key: str) -> bool:
         return key in self.hanzi
 
-    def prefixes(self, s: str) -> List[str]:
+    def prefixes(self, s: str) -> list[str]:
         return self.trie.prefixes(s)
 
     def longest_prefix(self, s: str) -> str:
@@ -61,7 +60,7 @@ class CEDictTrie(object):
         else:
             return sorted(prefixes, key=len)[-1]  # Sort by length and return last.
 
-    def tokenize(self, s: str) -> List[str]:
+    def tokenize(self, s: str) -> list[str]:
         tokens = []
         while s:
             token = self.longest_prefix(s)
@@ -75,7 +74,7 @@ class CEDictTrie(object):
 
 
 class CEDictTrieForCantonese(CEDictTrie):
-    def _read_cedict(self, cedict_file: str, traditional: bool = False) -> Dict[str, Tuple[List[str], List[str]]]:
+    def _read_cedict(self, cedict_file: str, traditional: bool = False) -> dict[str, tuple[list[str], list[str]]]:
         comment_re = re.compile(r'\s*#')
         lemma_re = re.compile(r'(?P<hanzi>[^[]+) \[(?P<pinyin>[^]]+)\] \{(?P<jyutping>[^}]+)\} /(?P<english>.+)/')
         cedict = {}
@@ -104,7 +103,7 @@ class CEDictTrieForCantonese(CEDictTrie):
         return cedict
 
 
-class CEDictTrieForJapanese(object):
+class CEDictTrieForJapanese:
     def __init__(self, cedict_file: str) -> None:
         """Construct a trie over src
 
@@ -114,7 +113,7 @@ class CEDictTrieForJapanese(object):
         self.character = self._read_cedict(cedict_file)
         self.trie = self._construct_trie(self.character)
 
-    def _read_cedict(self, cedict_file: str) -> Dict[str, str]:
+    def _read_cedict(self, cedict_file: str) -> dict[str, str]:
         cedict = {}
         with codecs.open(cedict_file, 'r', 'utf-8') as f:
             for line in f:
@@ -127,7 +126,7 @@ class CEDictTrieForJapanese(object):
                     cedict[character] = ''
         return cedict
 
-    def _construct_trie(self, character: Dict[str, str]) -> Any:
+    def _construct_trie(self, character: dict[str, str]) -> Any:
         pairs = []
         for ch, pron in self.character.items():
             pairs.append((ch, (pron.encode('utf-8'),)))
@@ -137,7 +136,7 @@ class CEDictTrieForJapanese(object):
     def has_key(self, key: str) -> bool:
         return key in self.character
 
-    def prefixes(self, s: str) -> List[str]:
+    def prefixes(self, s: str) -> list[str]:
         return self.trie.prefixes(s)
 
     def longest_prefix(self, s: str) -> str:
@@ -147,7 +146,7 @@ class CEDictTrieForJapanese(object):
         else:
             return sorted(prefixes, key=len)[-1]
 
-    def tokenize(self, s: str) -> List[str]:
+    def tokenize(self, s: str) -> list[str]:
         tokens = []
         while s:
             token = self.longest_prefix(s)

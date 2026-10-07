@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
 
-import os
-from typing import Dict, List, Iterator
-
-from importlib import resources
 import csv
+import os
+from collections.abc import Iterator
+from importlib import resources
+
 from epitran import Epitran
 
 
-class Space(object):
-    def __init__(self, code: str, space_names: List[str]) -> None:
+class Space:
+    def __init__(self, code: str, space_names: list[str]) -> None:
         """Construct a Space object
 
         Space objects take strings (corresponding to segments) and return
@@ -27,10 +26,10 @@ class Space(object):
         self.epi = Epitran(code)
         self.dict = self._load_space(space_names)
 
-    def _load_space(self, space_names: List[str]) -> Dict[str, int]:
+    def _load_space(self, space_names: list[str]) -> dict[str, int]:
         segs = set()
         scripts = list(set([nm.split('-')[1] for nm in space_names]))
-        punc_fns = ['punc-{}.csv'.format(sc) for sc in scripts]
+        punc_fns = [f'punc-{sc}.csv' for sc in scripts]
         for punc_fn in punc_fns:
             punc_fn_str = os.path.join('data', 'space', punc_fn)
             punc_fn_path = resources.files(__package__).joinpath(punc_fn_str)

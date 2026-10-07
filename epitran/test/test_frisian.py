@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 # Sources include Wiktionary and Frysk Hânwurdboek
 
-from __future__ import print_function, unicode_literals
 
 import unittest
 

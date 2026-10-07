@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
+import argparse
 import sys
 import unicodedata
+
 import epitran
-import argparse
 
 
 def main(code: str) -> None:

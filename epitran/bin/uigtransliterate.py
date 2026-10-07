@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import fileinput
+
 import epitran
 
 epi = epitran.Epitran('uig-Arab')

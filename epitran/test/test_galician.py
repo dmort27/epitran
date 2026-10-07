@@ -4,6 +4,7 @@ import unittest
 
 import epitran
 
+
 class TestGalician(unittest.TestCase):
     def setUp(self):
         self.epi = epitran.Epitran('glg-Latn')

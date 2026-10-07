@@ -1,8 +1,10 @@
 #!/usr/bin/env
 
-import epitran.xsampa
-import panphon
 import csv
+
+import panphon
+
+import epitran.xsampa
 
 
 def main(fn):
