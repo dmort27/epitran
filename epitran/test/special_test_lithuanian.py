@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 
 
 import unittest
 
 import epitran
+
 
 class TestLithuanianAeDisambiguation(unittest.TestCase):
     def setUp(self):

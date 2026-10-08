@@ -1,16 +1,15 @@
 
 import logging
 import os.path
-from pathlib import Path
-
 from importlib import resources
+from pathlib import Path
 
 from epitran.rules import Rules
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-class PrePostProcessor(object):
+class PrePostProcessor:
     def __init__(self, code: str, fix: str, rev: bool) -> None:
         """Constructs a pre/post-processor for orthographic/IPA strings
 

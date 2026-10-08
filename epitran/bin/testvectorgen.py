@@ -3,27 +3,26 @@
 
 import argparse
 import codecs
-from typing import List
 
 import epitran.vector
 
 
-def main(code: str, space: List[str], infile: str) -> None:
+def main(code: str, space: list[str], infile: str) -> None:
     vec = epitran.vector.VectorsWithIPASpace(code, space)
     with codecs.open(infile, 'r', 'utf-8') as f:
         for line in f:
             fields = line.split('\t')
             if len(fields) > 1:
                 word = fields[0]
-                print(u"WORD: {}".format(word).encode('utf-8'))
+                print(f"WORD: {word}".encode())
                 segs = vec.word_to_segs(word)
                 for record in segs:
-                    cat, case, orth, phon, id_, vector = record
-                    print(u"Category: {}".format(cat).encode('utf-8'))
-                    print(u"Case: {}".format(case).encode('utf-8'))
-                    print(u"Orthographic: {}".format(orth).encode('utf-8'))
-                    print(u"Phonetic: {}".format(phon).encode('utf-8'))
-                    print(u"Vector: {}".format(vector).encode('utf-8'))
+                    cat, case, orth, phon, _id, vector = record
+                    print(f"Category: {cat}".encode())
+                    print(f"Case: {case}".encode())
+                    print(f"Orthographic: {orth}".encode())
+                    print(f"Phonetic: {phon}".encode())
+                    print(f"Vector: {vector}".encode())
 
 
 if __name__ == '__main__':

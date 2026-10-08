@@ -1,9 +1,10 @@
-import os
-import logging
 import gzip
+import logging
+import os
 import zipfile
-import requests
 from io import BytesIO
+
+import requests
 
 logger = logging.getLogger('epitran')
 

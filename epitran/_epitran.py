@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 import logging
 
 import panphon.featuretable
-from epitran.epihan import Epihan, EpihanTraditional, EpiJpan, EpiCanto
+
+from epitran.epihan import EpiCanto, Epihan, EpihanTraditional, EpiJpan
 from epitran.flite import FliteLexLookup
 from epitran.puncnorm import PuncNorm
 from epitran.simple import SimpleEpitran
@@ -22,7 +22,7 @@ SPECIAL_LANGUAGE_BACKENDS = {
 }
 
 
-class Epitran(object):
+class Epitran:
     """Unified interface for IPA transliteration/transcription
 
     :param code str: ISO 639-3 plus "-" plus ISO 15924 code of the language/script pair that should be loaded
@@ -103,7 +103,7 @@ class Epitran(object):
         """
         return self.ft.segs_safe(self.epi.transliterate(word, normpunc, ligatures))
 
-    def trans_delimiter(self, text: str, delimiter: str=str(' '), normpunc: bool=False, ligatures: bool=False) -> str:
+    def trans_delimiter(self, text: str, delimiter: str=' ', normpunc: bool=False, ligatures: bool=False) -> str:
         """Return IPA transliteration with a delimiter between segments
 
         :param text str: An orthographic text

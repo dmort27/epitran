@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
 # code base taken from Epitran Bengali test at
 # https://github.com/dmort27/epitran/blob/master/epitran/test/test_bengali.py
 
 
 import unittest
+
 import epitran
+
 
 class TestLatvian(unittest.TestCase):
     def setUp(self):

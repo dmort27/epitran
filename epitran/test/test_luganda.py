@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*-
 # Expanded unit test for Luganda G2P implementation in Epitran
 
 
 import unittest
+
 import epitran
+
 
 class TestLuganda(unittest.TestCase):
     def setUp(self):

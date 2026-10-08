@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import unicodedata
 import sys
+import unicodedata
 
 
 def main(fn: str) -> None:

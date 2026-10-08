@@ -1,18 +1,19 @@
-# -*- coding: utf-8 -*-
 
-from typing import List, Optional, Union
-import regex as re
-from . import _epitran
+
 import panphon.featuretable
+import regex as re
+
 from epitran.puncnorm import PuncNorm
-from epitran.xsampa import XSampa
 from epitran.stripdiacritics import StripDiacritics
+from epitran.xsampa import XSampa
+
+from . import _epitran
 
 
-class Backoff(object):
+class Backoff:
     """Implements rudimentary language ID and backoff."""
 
-    def __init__(self, lang_script_codes: List[str], cedict_file: Optional[str] = None) -> None:
+    def __init__(self, lang_script_codes: list[str], cedict_file: str | None = None) -> None:
         """Construct a Backoff object.
 
         Args:
@@ -61,7 +62,7 @@ class Backoff(object):
                     token = token[1:]
         return ''.join(tr_list)
 
-    def trans_list(self, token: str) -> List[str]:
+    def trans_list(self, token: str) -> list[str]:
         """Transliterate/transcribe a word into list of IPA phonemes.
 
         Args:
@@ -72,7 +73,7 @@ class Backoff(object):
         """
         return self.ft.segs_safe(self.transliterate(token))
 
-    def xsampa_list(self, token: str) -> Union[str, List[str]]:
+    def xsampa_list(self, token: str) -> str | list[str]:
         """Transcribe a word into a list of X-SAMPA phonemes.
 
         Args:

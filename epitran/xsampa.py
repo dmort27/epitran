@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
 
+import csv
 import os.path
 import unicodedata
-from typing import List
-
 from importlib import resources
 
 import marisa_trie
 import panphon
-import csv
 
 
-class XSampa(object):
+class XSampa:
     ipa2xs_fn = 'ipa-xsampa.csv'
 
     def __init__(self) -> None:
@@ -32,7 +29,7 @@ class XSampa(object):
         trie = marisa_trie.BytesTrie(pairs)
         return trie
 
-    def prefixes(self, s: str) -> List[str]:
+    def prefixes(self, s: str) -> list[str]:
         return self.trie.prefixes(s)
 
     def longest_prefix(self, s: str) -> str:
@@ -40,7 +37,7 @@ class XSampa(object):
         if not prefixes:
             return ''
         else:
-            return sorted(prefixes, key=len)[-1]  # sort by length and return last
+            return max(prefixes, key=len)
 
     def ipa2xs(self, ipa: str) -> str:
         """Convert IPA string (unicode) to X-SAMPA string

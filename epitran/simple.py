@@ -1,27 +1,32 @@
 """Basic Epitran class for G2P in most languages."""
+import csv
 import logging
 import os.path
 import sys
-import csv
 import unicodedata
 from collections import defaultdict
-from typing import DefaultDict, Callable, Any
-
+from collections.abc import Callable
 from importlib import resources
-import regex
+from types import TracebackType
+from typing import TYPE_CHECKING, Any
 
 import panphon
+import regex
 from jamo import h2j, j2hcj
-from epitran.exceptions import DatafileError, MappingError, FeatureValueError
+
+from epitran.exceptions import DatafileError, FeatureValueError, MappingError
 from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor
 from epitran.puncnorm import PuncNorm
 from epitran.stripdiacritics import StripDiacritics
 
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
 logger = logging.getLogger('epitran')
 
 
-class SimpleEpitran(object):
+class SimpleEpitran:
     """The backend object epitran uses for most languages
 
     :param code str: ISO 639-3 code and ISO 15924 code joined with a hyphen
@@ -87,10 +92,10 @@ class SimpleEpitran(object):
         """
         return self.tones
 
-    def __enter__(self) -> "SimpleEpitran":
+    def __enter__(self) -> "Self":
         return self
 
-    def __exit__(self, _type_: Any, _val: Any, _trace_back: Any) -> None:
+    def __exit__(self, _type_: type[BaseException] | None, _val: BaseException | None, _trace_back: TracebackType | None) -> None:
         for nil, count in self.nils.items():
             sys.stderr.write(
                 f'Unknown character "{nil}" occured {count} times.\n')
@@ -105,7 +110,7 @@ class SimpleEpitran(object):
         """Find graphemes that map to multiple phonemes (one-to-many mappings)."""
         return [(g, ls) for (g, ls) in gr_by_line.items() if len(ls) > 1]
 
-    def _load_grapheme_to_phoneme_map(self, code: str, rev: bool) -> "DefaultDict[str, list[str]]":
+    def _load_grapheme_to_phoneme_map(self, code: str, rev: bool) -> "defaultdict[str, list[str]]":
         """Load the grapheme-to-phoneme mapping table for the specified language.
 
         :param code str: ISO 639-3 code plus "-" plus ISO 15924 code for the language/script to be loaded
@@ -245,7 +250,7 @@ class SimpleEpitran(object):
         try:
             if self.contains_korean_syllables(text):
                 text = j2hcj(h2j(text))
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 -- best-effort; fall back to untouched text
             print(f"Error during Korean transliteration: {e}")
 
         return self.general_trans(text, lambda x: True,
@@ -359,9 +364,9 @@ class SimpleEpitran(object):
             match = self.regexp.match(word)
             if match:
                 span: str = match.group(1)
-                cat, case = cat_and_cap(span[0])
+                _cat, case = cat_and_cap(span[0])
                 phon: str = self.g2p[span.lower()][0]
-                vecs: "list[tuple[str, list[int]]]" = to_vectors(phon)
+                vecs: list[tuple[str, list[int]]] = to_vectors(phon)
                 tuples.append(('L', case, span, phon, vecs))
                 word = word[len(span):]
             else:
@@ -370,7 +375,7 @@ class SimpleEpitran(object):
                 cat_norm, case_norm = cat_and_cap(span_norm)
                 cat_final: str = 'P' if normpunc and cat_norm in self.puncnorm else cat_norm
                 phon_empty: str = ''
-                vecs_empty: "list[tuple[str, list[int]]]" = to_vectors(phon_empty)
+                vecs_empty: list[tuple[str, list[int]]] = to_vectors(phon_empty)
                 tuples.append((cat_final, case_norm, span_norm, phon_empty, vecs_empty))
                 word = word[1:]
         return tuples

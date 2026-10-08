@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 # Mapping from decomposed affricate sequences to precomposed ligature characters.
 # Each tuple maps an IPA affricate (e.g., t͡s) to its precomposed form (e.g., ʦ).

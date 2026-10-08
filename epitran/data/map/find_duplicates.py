@@ -4,6 +4,7 @@ import csv
 import sys
 from collections import defaultdict
 
+
 def main(fn):
     mappings = defaultdict(list)
     with open(fn, encoding='utf-8') as f:

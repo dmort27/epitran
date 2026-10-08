@@ -1,6 +1,6 @@
 
 import logging
-from typing import List, Tuple, Optional, cast
+from typing import cast
 
 from epitran import Epitran
 from epitran.space import Space
@@ -8,8 +8,8 @@ from epitran.space import Space
 logger = logging.getLogger('epitran')
 
 
-class VectorsWithIPASpace(object):
-    def __init__(self, code: str, space_names: List[str]) -> None:
+class VectorsWithIPASpace:
+    def __init__(self, code: str, space_names: list[str]) -> None:
         """Constructs VectorWithIPASpace object
 
         A VectorWithIPASpace object takes orthographic words, via the
@@ -25,7 +25,7 @@ class VectorsWithIPASpace(object):
         self.epi = Epitran(code)
         self.space = Space(code, space_names)
 
-    def word_to_segs(self, word: str, normpunc: bool = False) -> List[Tuple[str, int, str, str, int, List[Optional[int]]]]:
+    def word_to_segs(self, word: str, normpunc: bool = False) -> list[tuple[str, int, str, str, int, list[int | None]]]:
         """Returns feature vectors, etc. for segments and punctuation in a word
 
         Args:
@@ -44,13 +44,12 @@ class VectorsWithIPASpace(object):
                   uppercase and 0 for lowercase.
         """
         segs = self.epi.word_to_tuples(word, normpunc)
-        new_segs: List[Tuple[str, int, str, str, int, List[Optional[int]]]] = []
+        new_segs: list[tuple[str, int, str, str, int, list[int | None]]] = []
         for cat, case, orth, phon, id_vec_list in segs:
-            if not phon and normpunc:
-                if orth in self.epi.puncnorm:
-                    orth = self.epi.puncnorm[orth]
+            if not phon and normpunc and orth in self.epi.puncnorm:
+                orth = self.epi.puncnorm[orth]
             for s, vector in id_vec_list:
-                vector_typed = cast(List[Optional[int]], vector)
+                vector_typed = cast(list[int | None], vector)
                 if s in self.space:
                     id_ = int(self.space[s])
                 elif orth in self.space:

@@ -1,10 +1,11 @@
-# * coding: utf8 *
 # Examples from Korean pronunciation rulebook, released by the National Institute of Korean Language.
 # https://korean.go.kr/kornorms/regltn/regltnView.do?regltn_code=0002&regltn_no=346#a346
 
 
 import unittest
+
 import epitran
+
 
 class TestKorean(unittest.TestCase):
     def setUp(self):

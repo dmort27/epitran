@@ -1,5 +1,7 @@
-import epitran
 import unittest
+
+import epitran
+
 
 class TestPashto(unittest.TestCase):
     def setUp(self):

@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 
 import logging
 import unicodedata
-from typing import List, Dict, Optional, Callable, Any, Union
+from collections.abc import Callable
 from pathlib import Path
+from typing import Any
 
 import regex as re
 
@@ -12,7 +12,7 @@ from epitran.exceptions import DatafileError
 logger = logging.getLogger('epitran')
 
 
-def none2str(x: Optional[str]) -> str:
+def none2str(x: str | None) -> str:
     return x if x else ''
 
 
@@ -20,20 +20,20 @@ class RuleFileError(Exception):
     pass
 
 
-class Rules(object):
-    def __init__(self, rule_files: List[Union[str, Path]]) -> None:
+class Rules:
+    def __init__(self, rule_files: list[str | Path]) -> None:
         """Construct an object encoding context-sensitive rules
 
         Args:
             rule_files (list): list of names of rule files or Path objects
         """
-        self.rules: List[Callable[[str], str]] = []
-        self.symbols: Dict[str, str] = {}
+        self.rules: list[Callable[[str], str]] = []
+        self.symbols: dict[str, str] = {}
         for rule_file in rule_files:
             rules = self._read_rule_file(rule_file)
             self.rules = self.rules + rules
 
-    def _read_rule_file(self, rule_file: Union[str, Path]) -> List[Callable[[str], str]]:
+    def _read_rule_file(self, rule_file: str | Path) -> list[Callable[[str], str]]:
         rules = []
         # Handle both string paths and importlib.resources Path objects
         if hasattr(rule_file, 'open'):
@@ -63,10 +63,10 @@ class Rules(object):
             if s in self.symbols:
                 line = line.replace(s, self.symbols[s])
             else:
-                raise RuleFileError('Undefined symbol: {}'.format(s))
+                raise RuleFileError(f'Undefined symbol: {s}')
         return line
 
-    def _read_rule(self, i: int, line: str) -> Optional[Callable[[str], str]]:
+    def _read_rule(self, i: int, line: str) -> Callable[[str], str] | None:
         line = line.strip()
         if line:
             line = unicodedata.normalize('NFD', line)
@@ -79,7 +79,7 @@ class Rules(object):
                 try:
                     a, b, X, Y = r.groups()
                 except AttributeError:
-                    raise DatafileError('Line {}: "{}" cannot be parsed.'.format(i + 1, line))
+                    raise DatafileError(f'Line {i + 1}: "{line}" cannot be parsed.')
                 X, Y = X.replace('#', '^'), Y.replace('#', '$')
                 a, b = a.replace('0', ''), b.replace('0', '')
                 try:
@@ -87,13 +87,13 @@ class Rules(object):
                         return self._compile_metathesis_rule(a, X, Y)
                     else:
                         return self._compile_replacement_rule(a, b, X, Y)
-                except Exception as e:
-                    raise DatafileError('Line {}: "{}" cannot be compiled as regex: ̪{}'.format(i + 1, line, e))
+                except re.error as e:
+                    raise DatafileError(f'Line {i + 1}: "{line}" cannot be compiled as regex: ̪{e}')
         return None
 
     def _compile_metathesis_rule(self, a: str, X: str, Y: str) -> Callable[[str], str]:
         """Compile a metathesis (swap) rule: swap two captured groups within context."""
-        left = r'(?P<X>{}){}(?P<Y>{})'.format(X, a, Y)
+        left = rf'(?P<X>{X}){a}(?P<Y>{Y})'
         regexp = re.compile(left)
 
         def rewrite(m: Any) -> str:
@@ -104,7 +104,7 @@ class Rules(object):
 
     def _compile_replacement_rule(self, a: str, b: str, X: str, Y: str) -> Callable[[str], str]:
         """Compile a context-sensitive replacement rule into a regex substitution."""
-        left = r'(?P<X>{})(?P<a>{})(?P<Y>{})'.format(X, a, Y)
+        left = rf'(?P<X>{X})(?P<a>{a})(?P<Y>{Y})'
         regexp = re.compile(left)
 
         def rewrite(m: Any) -> str:

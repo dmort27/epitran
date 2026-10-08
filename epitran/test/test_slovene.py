@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Examples from the Handbook of the International Phonetic Association (Slovene)
 
 

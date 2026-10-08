@@ -1,16 +1,15 @@
-# -*- coding: utf-8 -*-
 
 import csv
+from collections.abc import Iterator
 from importlib import resources
-from typing import Dict, Iterator
 
 
-class PuncNorm(object):
+class PuncNorm:
     def __init__(self) -> None:
         """Constructs a punctuation normalization object"""
         self.puncnorm = self._load_punc_norm_map()
 
-    def _load_punc_norm_map(self) -> Dict[str, str]:
+    def _load_punc_norm_map(self) -> dict[str, str]:
         """Load the map table for normalizing 'down' punctuation."""
         with resources.files(__package__).joinpath('data/puncnorm.csv').open('r', encoding='utf-8') as f:
             reader = csv.reader(f, delimiter=',', quotechar='"')

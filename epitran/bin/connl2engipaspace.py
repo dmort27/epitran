@@ -2,15 +2,14 @@
 
 import argparse
 import codecs
+import csv
 import logging
 from collections import Counter
-from typing import List
 
-import csv
+import panphon
 
 import epitran
 import epitran.flite
-import panphon
 
 logger = logging.getLogger('epitran')
 
@@ -50,7 +49,7 @@ def add_file(flite: epitran.flite.Flite, ft: panphon.FeatureTable, fn: str) -> C
             if len(fields) > 0:
                 orth = fields[0]
                 space.update(add_record(flite, ft, orth))
-    logger.debug(u'Length of counter:\t{}'.format(len(space)))
+    logger.debug(f'Length of counter:\t{len(space)}')
     return space
 
 
@@ -62,12 +61,12 @@ def print_space(output: str, space: Counter[str]) -> None:
             writer.writerow((i, char))
 
 
-def main(infiles: List[str], output: str) -> None:
+def main(infiles: list[str], output: str) -> None:
     flite = epitran.flite.Flite()
     ft = panphon.FeatureTable()
     space: Counter[str] = Counter()
     for fn in infiles:
-        logger.debug(u'Scanning:\t{}'.format(fn).encode('utf-8'))
+        logger.debug(f'Scanning:\t{fn}'.encode())
         space.update(add_file(flite, ft, fn))
     print_space(output, space)
 

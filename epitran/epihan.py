@@ -1,21 +1,21 @@
 # -*- utf-8 -*-
 
 import os.path
+from typing import ClassVar
 
 import regex as re
 
-from . import cedict
-from . import rules
-from . import download
 from epitran.ligaturize import ligaturize
+
+from . import cedict, download, rules
 
 
 class MissingData(Exception):
     pass
 
 
-class Epihan(object):
-    punc = [(u'\uff0c', u','),
+class Epihan:
+    punc: ClassVar[list[tuple[str, str]]] = [(u'\uff0c', u','),
             (u'\uff01', u'!'),
             (u'\uff1f', u'?'),
             (u'\uff1b', u';'),
@@ -163,8 +163,8 @@ class EpiCanto(Epihan):
         self.rules = rules.Rules([rules_file])
         self.regexp = re.compile(r'\p{Han}')
 
-class EpiJpan(object):
-    punc = [(u'\uff0c', u','),
+class EpiJpan:
+    punc: ClassVar[list[tuple[str, str]]] = [(u'\uff0c', u','),
             (u'\uff01', u'!'),
             (u'\uff1f', u'?'),
             (u'\uff1b', u';'),

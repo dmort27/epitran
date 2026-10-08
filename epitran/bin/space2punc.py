@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
+import csv
 import sys
 import unicodedata
-from typing import List
-import csv
 
 
-def main(fns: List[str], fnn: str) -> None:
+def main(fns: list[str], fnn: str) -> None:
     punc = set()
     for fn in fns:
         with open(fn, 'r', encoding='utf-8') as f:
@@ -16,7 +15,7 @@ def main(fns: List[str], fnn: str) -> None:
                     punc.add(s)
     with open(fnn, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        for mark in sorted(list(punc)):
+        for mark in sorted(punc):
             writer.writerow([mark])
 
 

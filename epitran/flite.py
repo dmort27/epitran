@@ -1,25 +1,23 @@
-# -*- coding: utf-8 -*-
 
+import csv
 import logging
 import os.path
 import string
+import subprocess
 import unicodedata
-from typing import Dict, List, Any
-
-import regex as re
+from typing import Any
 
 import panphon
-import csv
+import regex as re
+
 from epitran.ligaturize import ligaturize
 from epitran.puncnorm import PuncNorm
-
-import subprocess
 
 logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger('epitran')
 
 
-class Flite(object):
+class Flite:
     """English G2P using the Flite speech synthesis system."""
     def __init__(self, arpabet: str = 'arpabet', ligatures: bool = False, **kwargs) -> None:
         """Construct a Flite "wrapper"
@@ -40,7 +38,7 @@ class Flite(object):
         self.num_panphon_fts = len(self.ft.names)
 
 
-    def _read_arpabet(self, arpabet: str) -> Dict[str, str]:
+    def _read_arpabet(self, arpabet: str) -> dict[str, str]:
         arpa_map = {}
         with open(arpabet, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
@@ -53,14 +51,14 @@ class Flite(object):
         text = ''.join(filter(lambda x: x in string.printable, text))
         return text
 
-    def arpa_text_to_list(self, arpa_text: str) -> List[str]:
+    def arpa_text_to_list(self, arpa_text: str) -> list[str]:
         return arpa_text.split(' ')[1:-1]
 
     def arpa_to_ipa(self, arpa_text: str, ligatures: bool = False) -> str:
         arpa_text = arpa_text.strip()
         arpa_list = self.arpa_text_to_list(arpa_text)
-        arpa_list = list(map(lambda d: re.sub(r'\d', '', d), arpa_list))
-        ipa_list = map(lambda d: self.arpa_map[d], arpa_list)
+        arpa_list = [re.sub(r'\d', '', d) for d in arpa_list]
+        ipa_list = (self.arpa_map[d] for d in arpa_list)
         text = ''.join(ipa_list)
         return text
 
@@ -92,7 +90,7 @@ class Flite(object):
     def strict_trans(self, text: str, normpunc: bool = False, ligatures: bool = False) -> str:
         return self.transliterate(text, normpunc, ligatures)
 
-    def word_to_tuples(self, word: str, normpunc: bool = False) -> List[Any]:
+    def word_to_tuples(self, word: str, normpunc: bool = False) -> list[Any]:
         """Given a word, returns a list of tuples corresponding to IPA segments.
 
         Args:
@@ -168,7 +166,7 @@ class FliteT2P(Flite):
     def english_g2p(self, text: str) -> str:
         text = self.normalize(text)
         try:
-            arpa_bytes = subprocess.check_output(['t2p', '"{}"'.format(text)])
+            arpa_bytes = subprocess.check_output(['t2p', f'"{text}"'])
             arpa_text = arpa_bytes.decode('utf-8')
         except OSError:
             logger.warning('t2p (from flite) is not installed.')
@@ -182,7 +180,7 @@ class FliteT2P(Flite):
 class FliteLexLookup(Flite):
     """Flite G2P using lex_lookup."""
 
-    def arpa_text_to_list(self, arpa_text: str) -> List[str]:
+    def arpa_text_to_list(self, arpa_text: str) -> list[str]:
         return arpa_text[1:-1].split(' ')
 
     def english_g2p(self, text: str) -> str:
