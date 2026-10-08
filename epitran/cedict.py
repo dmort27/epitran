@@ -41,7 +41,7 @@ class CEDictTrie:
     def _construct_trie(self, hanzi: dict[str, tuple[list[str], list[str]]]) -> Any:
         pairs = []
         for hz, df in self.hanzi.items():
-            py, en = df
+            py, _en = df
             py_str = ''.join(filter(lambda x: x in ASCII_CHARS, ' '.join(py)))
             pairs.append((hz, (py_str.encode('utf-8'),)))
         trie = marisa_trie.RecordTrie('@s', pairs)
@@ -58,7 +58,7 @@ class CEDictTrie:
         if not prefixes:
             return ''
         else:
-            return sorted(prefixes, key=len)[-1]  # Sort by length and return last.
+            return max(prefixes, key=len)
 
     def tokenize(self, s: str) -> list[str]:
         tokens = []
@@ -144,7 +144,7 @@ class CEDictTrieForJapanese:
         if not prefixes:
             return ''
         else:
-            return sorted(prefixes, key=len)[-1]
+            return max(prefixes, key=len)
 
     def tokenize(self, s: str) -> list[str]:
         tokens = []

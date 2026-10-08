@@ -7,7 +7,8 @@ import unicodedata
 from collections import defaultdict
 from collections.abc import Callable
 from importlib import resources
-from typing import Any
+from types import TracebackType
+from typing import TYPE_CHECKING, Any
 
 import panphon
 import regex
@@ -18,6 +19,9 @@ from epitran.ligaturize import ligaturize
 from epitran.ppprocessor import PrePostProcessor
 from epitran.puncnorm import PuncNorm
 from epitran.stripdiacritics import StripDiacritics
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
 
 logger = logging.getLogger('epitran')
 
@@ -88,10 +92,10 @@ class SimpleEpitran:
         """
         return self.tones
 
-    def __enter__(self) -> "SimpleEpitran":
+    def __enter__(self) -> "Self":
         return self
 
-    def __exit__(self, _type_: Any, _val: Any, _trace_back: Any) -> None:
+    def __exit__(self, _type_: type[BaseException] | None, _val: BaseException | None, _trace_back: TracebackType | None) -> None:
         for nil, count in self.nils.items():
             sys.stderr.write(
                 f'Unknown character "{nil}" occured {count} times.\n')
@@ -246,7 +250,7 @@ class SimpleEpitran:
         try:
             if self.contains_korean_syllables(text):
                 text = j2hcj(h2j(text))
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 -- best-effort; fall back to untouched text
             print(f"Error during Korean transliteration: {e}")
 
         return self.general_trans(text, lambda x: True,
@@ -360,7 +364,7 @@ class SimpleEpitran:
             match = self.regexp.match(word)
             if match:
                 span: str = match.group(1)
-                cat, case = cat_and_cap(span[0])
+                _cat, case = cat_and_cap(span[0])
                 phon: str = self.g2p[span.lower()][0]
                 vecs: list[tuple[str, list[int]]] = to_vectors(phon)
                 tuples.append(('L', case, span, phon, vecs))

@@ -18,9 +18,9 @@ tones = {
 def shuffle_tone(orth: str, phon: str) -> str:
     orth = unicodedata.normalize('NFD', orth)
     if re.search('[aeiouơư]', orth):
-        for tone in tones:
+        for tone, mark in tones.items():
             if tone in orth:
-                phon += tones[tone]
+                phon += mark
         if not re.search('[˩˨˧˦˥]', phon):
             phon += '˧'
     return phon

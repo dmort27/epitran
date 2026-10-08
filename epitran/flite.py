@@ -57,8 +57,8 @@ class Flite:
     def arpa_to_ipa(self, arpa_text: str, ligatures: bool = False) -> str:
         arpa_text = arpa_text.strip()
         arpa_list = self.arpa_text_to_list(arpa_text)
-        arpa_list = list(map(lambda d: re.sub(r'\d', '', d), arpa_list))
-        ipa_list = map(lambda d: self.arpa_map[d], arpa_list)
+        arpa_list = [re.sub(r'\d', '', d) for d in arpa_list]
+        ipa_list = (self.arpa_map[d] for d in arpa_list)
         text = ''.join(ipa_list)
         return text
 

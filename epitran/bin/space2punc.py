@@ -15,7 +15,7 @@ def main(fns: list[str], fnn: str) -> None:
                     punc.add(s)
     with open(fnn, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        for mark in sorted(list(punc)):
+        for mark in sorted(punc):
             writer.writerow([mark])
 
 

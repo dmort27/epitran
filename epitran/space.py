@@ -28,7 +28,7 @@ class Space:
 
     def _load_space(self, space_names: list[str]) -> dict[str, int]:
         segs = set()
-        scripts = list(set([nm.split('-')[1] for nm in space_names]))
+        scripts = list({nm.split('-')[1] for nm in space_names})
         punc_fns = [f'punc-{sc}.csv' for sc in scripts]
         for punc_fn in punc_fns:
             punc_fn_str = os.path.join('data', 'space', punc_fn)
@@ -45,7 +45,7 @@ class Space:
                 for _, to_ in reader:
                     for seg in self.epi.ft.ipa_segs(to_):
                         segs.add(seg)
-        enum = enumerate(sorted(list(segs)))
+        enum = enumerate(sorted(segs))
         return {seg: num for num, seg in enum}
 
     def __iter__(self) -> Iterator[str]:

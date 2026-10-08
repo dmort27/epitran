@@ -37,7 +37,7 @@ class XSampa:
         if not prefixes:
             return ''
         else:
-            return sorted(prefixes, key=len)[-1]  # sort by length and return last
+            return max(prefixes, key=len)
 
     def ipa2xs(self, ipa: str) -> str:
         """Convert IPA string (unicode) to X-SAMPA string

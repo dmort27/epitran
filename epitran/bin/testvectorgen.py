@@ -17,7 +17,7 @@ def main(code: str, space: list[str], infile: str) -> None:
                 print(f"WORD: {word}".encode())
                 segs = vec.word_to_segs(word)
                 for record in segs:
-                    cat, case, orth, phon, id_, vector = record
+                    cat, case, orth, phon, _id, vector = record
                     print(f"Category: {cat}".encode())
                     print(f"Case: {case}".encode())
                     print(f"Orthographic: {orth}".encode())

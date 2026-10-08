@@ -1,6 +1,7 @@
 # -*- utf-8 -*-
 
 import os.path
+from typing import ClassVar
 
 import regex as re
 
@@ -14,7 +15,7 @@ class MissingData(Exception):
 
 
 class Epihan:
-    punc = [(u'\uff0c', u','),
+    punc: ClassVar[list[tuple[str, str]]] = [(u'\uff0c', u','),
             (u'\uff01', u'!'),
             (u'\uff1f', u'?'),
             (u'\uff1b', u';'),
@@ -163,7 +164,7 @@ class EpiCanto(Epihan):
         self.regexp = re.compile(r'\p{Han}')
 
 class EpiJpan:
-    punc = [(u'\uff0c', u','),
+    punc: ClassVar[list[tuple[str, str]]] = [(u'\uff0c', u','),
             (u'\uff01', u'!'),
             (u'\uff1f', u'?'),
             (u'\uff1b', u';'),

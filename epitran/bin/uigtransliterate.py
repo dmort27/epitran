@@ -5,6 +5,7 @@ import fileinput
 import epitran
 
 epi = epitran.Epitran('uig-Arab')
-for line in fileinput.input():
-    s = epi.transliterate(line.strip())
-    print(s)
+with fileinput.input() as f:
+    for line in f:
+        s = epi.transliterate(line.strip())
+        print(s)

@@ -87,7 +87,7 @@ class Rules:
                         return self._compile_metathesis_rule(a, X, Y)
                     else:
                         return self._compile_replacement_rule(a, b, X, Y)
-                except Exception as e:
+                except re.error as e:
                     raise DatafileError(f'Line {i + 1}: "{line}" cannot be compiled as regex: ̪{e}')
         return None
 

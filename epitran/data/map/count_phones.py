@@ -17,7 +17,7 @@ def main(fn):
         for orth, phon in reader:
             phones = phones.union(set(ft.segs_safe(phon)))
     print(len(phones))
-    print(sorted(list(map(xs.ipa2xs, phones))))
+    print(sorted(map(xs.ipa2xs, phones)))
 
 if __name__ == '__main__':
     main('tir-Ethi-red.csv')
