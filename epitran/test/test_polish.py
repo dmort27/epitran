@@ -68,3 +68,15 @@ class TestPolish(unittest.TestCase):
     def test_akcjonariusz(self):
         tr = self.epi.transliterate('akcjonariusz')
         self.assertEqual(tr, 'akt͡sjɔnarjuʂ')
+
+    def test_rz_after_decomposed_zh(self):
+        for word, expected in [
+            ('skarżyć', 'skarʐɨt͡ɕ'),
+            ('drży', 'drʐɨ'),
+            ('zmarźnięta', 'zmarʑɲɛnta'),
+            ('skarz\u0307yć', 'skarʐɨt͡ɕ'),
+        ]:
+            with self.subTest(word=word):
+                self.assertEqual(self.epi.transliterate(word), expected)
+        self.assertEqual(self.epi.transliterate('rzeka'), 'ʐɛka')
+        self.assertEqual(self.epi.transliterate('żaba'), 'ʐaba')
