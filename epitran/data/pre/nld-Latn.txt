@@ -2,23 +2,23 @@
 ::vowel:: = a|e|i|o|u
 
 % Realization of coda <g>/<gh>
-g -> ch / _ #|(::consonant::)
-gh -> ch / _ #|(::consonant::)
+g -> ch / (::vowel::) _ #|(::consonant::)
+gh -> ch / (::vowel::) _ #|(::consonant::)
 
 % Final stop devoicing
-b -> p / _ #|(::consonant::)
-d -> t / _ #|(::consonant::)
+b -> p / (::vowel::)(?:(::consonant::))? _ #|(::consonant::)
+d -> t / (::vowel::)(?:(::consonant::))? _ #|(::consonant::)
 
 % Contextual pronunciation of <sch>
-sch -> s / _ #|(::consonant::)
+sch -> s / _ #|((?!r)(::consonant::))
 
 % Realization of <c>
 c -> k / _ #
 c -> s / _ [eiy]
 
 % Open syllable lengthening
-a -> aa / _ #|(::consonant::)(::vowel::)
-e -> ee / _ #|(::consonant::)(::vowel::)
-i -> ii / _ #|(::consonant::)(::vowel::)
-o -> oo / _ #|(::consonant::)(::vowel::)
-u -> uu / _ #|(::consonant::)(::vowel::)
+a -> aa / (?<![aeiou]) _ #|(::consonant::)(::vowel::)
+e -> ee / (?<![aeiou]) _ #|(::consonant::)(::vowel::)
+i -> ii / (?<![aeiou]) _ (?!j)(#|(::consonant::)(::vowel::))
+o -> oo / (?<![aeiou]) _ #|(::consonant::)(::vowel::)
+u -> uu / (?<![aeiou]) _ #|(::consonant::)(::vowel::)

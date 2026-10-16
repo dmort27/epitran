@@ -27,3 +27,19 @@ class TestDutch(unittest.TestCase):
 
     def test_random(self):
         self._derivation('ertogenbosch', 'ɛrtoːɣɛnbɔs')
+
+    def test_reported_sch_ng_and_ij_contexts(self):
+        self._derivation('schreef', 'sxreːf')
+        self._derivation('ring', 'rɪŋ')
+        self._derivation('bijeenkomst', 'bɛjeːnkɔmst')
+
+    def test_reported_accents_and_trema(self):
+        for word, expected in [
+            ('oké', 'oːkɛ'),
+            ('één', 'ɛɛn'),
+            ('vóór', 'voːr'),
+            ('reünie', 'reːyniː'),
+            ('ideeën', 'iːdeːən'),
+        ]:
+            with self.subTest(word=word):
+                self._derivation(word, expected)
