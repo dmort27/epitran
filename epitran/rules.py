@@ -100,7 +100,7 @@ class Rules:
             d = {k: none2str(v) for k, v in m.groupdict().items()}
             return '{}{}{}{}'.format(d['X'], d['sw2'], d['sw1'], d['Y'])
 
-        return lambda w: regexp.sub(rewrite, w, re.U)
+        return lambda w: regexp.sub(rewrite, w)
 
     def _compile_replacement_rule(self, a: str, b: str, X: str, Y: str) -> Callable[[str], str]:
         """Compile a context-sensitive replacement rule into a regex substitution."""
@@ -111,7 +111,7 @@ class Rules:
             d = {k: none2str(v) for k, v in m.groupdict().items()}
             return '{}{}{}'.format(d['X'], b, d['Y'])
 
-        return lambda w: regexp.sub(rewrite, w, re.U)
+        return lambda w: regexp.sub(rewrite, w)
 
     def apply(self, text: str) -> str:
         """Apply rules to input text
