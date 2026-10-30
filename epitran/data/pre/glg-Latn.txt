@@ -4,12 +4,14 @@
 gu -> g / _ (i|e)
 gu -> gü / _ (a|o|u)
 
-c -> k / # _
+% Keep c before e/i for /θ/, and preserve ch for the digraph mapping.
+c -> k / _ (?![eih])
 
-% End of word e,o,a are realized as ɪ, ʊ, ɐ
-e -> ɪ / _ #
-o -> ʊ / _ #
-a -> ɐ / _ #
+% Preserve the existing final-vowel approximation at each word boundary.
+% Unicode word boundaries keep NFD combining accents attached to their vowels.
+e -> ɪ / _ \b
+o -> ʊ / _ \b
+a -> ɐ / _ \b
 
-% Initial r is realized as /r/
-r -> rr / # _
+% Word-initial r is realized as /r/, including after spaces and punctuation.
+r -> rr / \b _
